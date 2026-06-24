@@ -1,0 +1,10 @@
+filename,folder,title,source,line_count,byte_count,file_path,extraction_date
+FSB-CI_cleaned.md,course_and_admission,**Projet**,,475,35551,.\course_and_admission\clean\FSB-CI_cleaned.md,2026-06-23T18:07:04.517197
+Prog_Info_Integré_cleaned.md,course_and_admission,Programme d’Enseignement pour le Cycle Préparatoire Intégré Informatique,,622,28875,.\course_and_admission\clean\Prog_Info_Integré_cleaned.md,2026-06-23T18:07:04.519268
+guide2025_cleaned.md,orientation,**. إجراءات التوجيه الجامعي**,,833,72276,.\orientation\clean\guide2025_cleaned.md,2026-06-23T18:07:04.521194
+dep_info_cleaned.md,professors,dep_info_cleaned,,87,3452,.\professors\clean\dep_info_cleaned.md,2026-06-23T18:07:04.523194
+dep_math_cleaned.md,professors,dep_math_cleaned,,56,1733,.\professors\clean\dep_math_cleaned.md,2026-06-23T18:07:04.524197
+dep_phys_cleaned.md,professors,dep_phys_cleaned,,322,3061,.\professors\clean\dep_phys_cleaned.md,2026-06-23T18:07:04.525236
+dep_sc_cleaned.md,professors,dep_sc_cleaned,,82,2945,.\professors\clean\dep_sc_cleaned.md,2026-06-23T18:07:04.525236
+dep_st_cleaned.md,professors,dep_st_cleaned,,48,1356,.\professors\clean\dep_st_cleaned.md,2026-06-23T18:07:04.526194
+dep_sv_cleaned.md,professors,dep_sv_cleaned,,88,2718,.\professors\clean\dep_sv_cleaned.md,2026-06-23T18:07:04.527195
