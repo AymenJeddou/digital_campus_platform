@@ -4,12 +4,17 @@ Handles Gemini client initialization (API key loaded from the environment via
 ``python-dotenv``) and the common ``run`` flow. Each concrete agent only needs
 to declare its ``agent_type``.
 
+The Gemini client is validated and built eagerly in ``__init__`` so that a
+misconfigured key fails fast and clearly, rather than at the first request.
+
 Citation parsing / formatting is intentionally NOT done here — that is added on
 Day 4 in ``rag/citation_formatter.py``. For now ``run`` returns the raw answer.
 """
 
 import os
+from pathlib import Path
 
+import google.generativeai as genai
 from dotenv import load_dotenv
 
 from ai.prompts.system_prompts import get_prompt
@@ -17,26 +22,11 @@ from ai.prompts.system_prompts import get_prompt
 # Model used for generation (per the work plan).
 GENERATION_MODEL = "gemini-2.0-flash"
 
+# Path to ai/.env so the key loads regardless of the current working directory.
+_ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
+
 # Placeholder value shipped in .env.example — a real key must replace it.
 _PLACEHOLDER_KEY = "your_gemini_api_key_here"
-
-
-def _format_chunks(chunks: list) -> str:
-    """Render retrieved chunks into a readable context block for the prompt.
-
-    Each chunk is expected to follow the handoff format from the Knowledge Base
-    role (Issue #3): ``{chunk_id, text, source, page, category, score}``.
-    """
-    if not chunks:
-        return ""
-
-    parts = []
-    for chunk in chunks:
-        source = chunk.get("source", "Document inconnu")
-        page = chunk.get("page", "?")
-        text = chunk.get("text", "")
-        parts.append(f"[{source}, p.{page}]\n{text}")
-    return "\n\n".join(parts)
 
 
 class BaseAgent:
@@ -46,24 +36,34 @@ class BaseAgent:
     agent_type: str = ""
 
     def __init__(self):
-        # Load variables from a local .env file if present.
-        load_dotenv()
-        self._api_key = os.getenv("GEMINI_API_KEY")
-        # The Gemini client is created lazily in ``run`` so that importing an
-        # agent (e.g. for prompt tests) never requires a configured key.
-        self._model = None
+        # Load variables from ai/.env if present (falls back to real env vars).
+        load_dotenv(_ENV_PATH)
+        api_key = os.getenv("GEMINI_API_KEY")
+        if not api_key or api_key == _PLACEHOLDER_KEY:
+            raise ValueError(
+                "GEMINI_API_KEY is not configured. Copy .env.example to .env "
+                "and add your real key."
+            )
 
-    def _ensure_client(self):
-        """Configure the Gemini client, validating the API key first."""
-        if not self._api_key or self._api_key == _PLACEHOLDER_KEY:
-            raise ValueError("GEMINI_API_KEY is not configured.")
+        genai.configure(api_key=api_key)
+        self._model = genai.GenerativeModel(GENERATION_MODEL)
 
-        if self._model is None:
-            # Imported here so prompt-only usage doesn't require the package.
-            import google.generativeai as genai
+    @staticmethod
+    def _format_chunks(chunks: list) -> str:
+        """Render retrieved chunks into a readable context block for the prompt.
 
-            genai.configure(api_key=self._api_key)
-            self._model = genai.GenerativeModel(GENERATION_MODEL)
+        Each chunk follows the Knowledge Base handoff format (Issue #3):
+        ``{chunk_id, text, source, page, category, score}``.
+        """
+        if not chunks:
+            return "Aucun contexte disponible."
+        formatted = []
+        for chunk in chunks:
+            formatted.append(
+                f"[{chunk.get('source', 'Source inconnue')}, "
+                f"p.{chunk.get('page', '?')}]\n{chunk.get('text', '')}"
+            )
+        return "\n\n---\n\n".join(formatted)
 
     def run(
         self,
@@ -75,15 +75,10 @@ class BaseAgent:
         """Generate an answer from the retrieved chunks.
 
         Returns:
-            ``{"answer": str, "raw_response": str}``. Citation formatting will be
-            layered on top of this on Day 4.
-
-        Raises:
-            ValueError: If the Gemini API key is not configured.
+            ``{"answer", "agent", "chunks_used", "raw_response"}``. Citation
+            formatting will be layered on top of this on Day 4.
         """
-        self._ensure_client()
-
-        context = _format_chunks(chunks)
+        context = self._format_chunks(chunks)
         prompt = get_prompt(
             agent_type=self.agent_type,
             student_status=student_status,
@@ -93,6 +88,10 @@ class BaseAgent:
         )
 
         response = self._model.generate_content(prompt)
-        answer = getattr(response, "text", "") or ""
 
-        return {"answer": answer, "raw_response": str(response)}
+        return {
+            "answer": response.text,
+            "agent": self.agent_type,
+            "chunks_used": len(chunks),
+            "raw_response": response.text,
+        }

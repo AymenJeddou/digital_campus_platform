@@ -58,11 +58,32 @@ class RAGGenerator:
         chunks: list,
         student_status: str = "prospective",
         student_academic_year: str = None,
+        student_profile: dict = None,
     ) -> dict:
-        """Generate an answer for ``question`` from the given ``chunks``."""
-        return self.agent.run(
-            question=question,
-            chunks=chunks,
-            student_status=student_status,
-            student_academic_year=student_academic_year,
-        )
+        """Generate an answer for ``question`` from the given ``chunks``.
+
+        If ``student_profile`` is provided it overrides ``student_status`` and
+        ``student_academic_year`` (convenient single-dict contract for the
+        backend ``/chat`` endpoint).
+        """
+        if student_profile:
+            student_status = student_profile.get("student_status", "prospective")
+            student_academic_year = student_profile.get("academic_year", None)
+
+        try:
+            return self.agent.run(
+                question=question,
+                chunks=chunks,
+                student_status=student_status,
+                student_academic_year=student_academic_year,
+            )
+        except ValueError:
+            # Configuration errors (e.g. missing API key) must surface clearly.
+            raise
+        except Exception as e:  # noqa: BLE001 — return a safe, structured error
+            return {
+                "answer": "Une erreur est survenue lors de la génération de la réponse.",
+                "agent": self.agent_type,
+                "chunks_used": 0,
+                "error": str(e),
+            }

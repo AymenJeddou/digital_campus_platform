@@ -43,6 +43,29 @@ pip install -r requirements.txt
 `GEMINI_API_KEY` is read from the environment (via `python-dotenv`). The key is
 **never** hardcoded, and `.env` is git-ignored — only `.env.example` is tracked.
 
+## Pipeline
+
+The RAG pipeline is the main entry point for generation:
+
+```python
+from ai.rag.pipeline import RAGPipeline
+
+pipeline = RAGPipeline(agent_type="orientation")
+result = pipeline.run(
+    question="Quelles licences sont disponibles à la FSB?",
+    chunks=[...],  # list of chunk dicts from the retriever
+    student_profile={"student_status": "prospective", "academic_year": None}
+)
+print(result["answer"])
+print(result["citations"])  # available after Day 4
+```
+
+Current pipeline steps:
+- [x] Day 2: Generation (Gemini 2.0 Flash)
+- [ ] Day 4: Citation formatting
+- [ ] Day 5: Retrieval grader
+- [ ] Day 6: Groundedness grader
+
 ## Running the tests
 
 From the repository root:
