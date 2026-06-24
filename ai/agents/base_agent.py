@@ -19,8 +19,9 @@ from dotenv import load_dotenv
 
 from ai.prompts.system_prompts import get_prompt
 
-# Model used for generation (per the work plan).
-GENERATION_MODEL = "gemini-2.0-flash"
+# Default generation model. A current free-tier Flash model (gemini-2.0-flash
+# was shut down 2026-06-01). Override per-environment with GEMINI_MODEL in .env.
+DEFAULT_MODEL = "gemini-2.5-flash"
 
 # Path to ai/.env so the key loads regardless of the current working directory.
 _ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
@@ -45,8 +46,9 @@ class BaseAgent:
                 "and add your real key."
             )
 
+        model_name = os.getenv("GEMINI_MODEL", DEFAULT_MODEL)
         genai.configure(api_key=api_key)
-        self._model = genai.GenerativeModel(GENERATION_MODEL)
+        self._model = genai.GenerativeModel(model_name)
 
     @staticmethod
     def _format_chunks(chunks: list) -> str:
