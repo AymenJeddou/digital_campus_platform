@@ -6,7 +6,6 @@
 
 ---
 
--   Chef de département
 -   Formations assurées par le département
 -   Liste des enseignants
 

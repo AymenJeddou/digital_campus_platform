@@ -34,8 +34,6 @@ Dans ce qui suit, nous proposons les modules en commun pour toutes les première
 ||**ECUE152:**2CN|||22.5||22.5|2||1|||X|
 ||**Total**|**0**|**0**|**112.5**|**322.5**|**435**|**30**|**30**|**15**|**15**|||
 
-
-
 - **: Matière contenant un Mini-Projet (10 heures)** 
 
 2 
@@ -62,8 +60,6 @@ _**Commission Sectorielle de l’Ingénierie Informatique**_ **Cycle Préparatoi
 |**UE 25  Unité**<br>**Transversale 2**|**ECUE251:**Anglais 2||||22.5|22.5|2|**4**|1|**2**||X|
 ||<br>**ECUE252:**Techniques de<br>communication 1||||22.5|22.5|2||1|||X|
 ||**Total**|**0**|**0**|**60**|**390**|**450**|**30**|**30**|**15**|**15**|||
-
-
 
 *** : Matière contenant un Mini-Projet (10 heures)** 
 
@@ -93,8 +89,6 @@ _**Commission Sectorielle de l’Ingénierie Informatique**_ **Cycle Préparatoi
 ||ECUE352: Techniques de<br>communication 2||||22.5|22.<br>5|2||1|||X|
 ||**Total**|**0**|**0**|**90**|**345**|**435**|**30**|**30**|**15**|**15**|||
 
-
-
 ## *** Matière contenant un Mini-Projet (10 heures)** 
 
 **Note : Au cas où un établissement souhaite changer des matières, il devra avoir l'accord au préalable de la commission sectorielle.** 
@@ -123,8 +117,6 @@ _**Commission Sectorielle de l’Ingénierie Informatique**_ **Cycle Préparatoi
 ||ECUE451: TOEIC2||||22.5|22.5|2|**4**|1|**2**||X|
 |**UE 45   Unité**<br>**Transversale 4**|ECUE452: 2CN Avancé<br>(préparation aux<br>certifications)|||22.5||22.5|2||1|||X|
 ||**Total**|**0**|**0**|**127.5**|**322.5**|**450**|**30**|**30**|**15**|**15**|||
-
-
 
 ## *** Matière contenant un Mini-Projet (10 heures) Note : Au cas où un établissement souhaite changer des matières, il devra avoir l'accord au préalable de la commission sectorielle.** 
 
@@ -563,8 +555,6 @@ _**Commission Sectorielle de l’Ingénierie Informatique**_ **Cycle Préparatoi
 |Students should have the basic level of sentence structure in terms of LSRW (Listening,<br>Speaking,Reading,Writing)||
 |**Mots clés**||
 |Reading, writing, speaking, listening||
-
-
 
 16 
 
@@ -2126,5 +2116,4 @@ Chaque établissement peut choisir ces propres programmes de développement de c
 
 ## **Mots clés** 
 
-58 
-
+58

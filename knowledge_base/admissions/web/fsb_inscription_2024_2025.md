@@ -7,7 +7,6 @@
 
 ---
 
-
 ## Inscription des étudiants de la Faculté des Sciences de Bizerte 2024-2025
 L'administration de la Faculté des Sciences de Bizerte a annoncé le lancement du processus d'inscription universitaire pour l'année universitaire 2024-2025.
 Les étudiants intéressés doivent s'inscrire via le site web commun www.inscription.tn dans les délais suivants :

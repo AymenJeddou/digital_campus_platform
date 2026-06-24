@@ -49,8 +49,6 @@
 |**E.**|SEMESTRE5 **(GLSI)**............................................................................................................................................................. 62|
 |F.|SEMESTRE5 **(GLID)**............................................................................................................................................................ 73|
 
-
-
 2 
 
 ## I. Contact 
@@ -141,7 +139,6 @@ Les étudiants n’ayant pas été admis au cycle d’ingénieurs peuvent s'insc
 
 **----- Start of picture text -----**<br>
 Baccalauréat Mathématiques,<br>Technique, Sciences<br>Expérimentales, Sciences<br>Informatiques<br>Baccalauréat<br>Mathématiques, Technique, Sciences<br>Expérimentales, Sciences Informatiques<br>J}<br>1 [ère]  Année Tronc Commun<br>1<br>Cycle<br>Mathématiques Physique Informatique (MPI)<br>préparatoire<br>Intégrée  2 [ème]  Année<br>2<br>Mathématiques Informatique (MI)<br>rr<br>Concours sur dossier<br>—<br>J} I<br>Diplôme de Licence<br>1 [ère]  Année Ingénieur  3 [ème] Année Licence<br>1 [ère] Année Mastère 2 [ème]  Année Ingénieur  Diplôme de Licence<br>3 [ème]  Année Ingénieur<br>Diplôme National d’Ingénieur<br>=<br>Concours sur dossier<br>**----- End of picture text -----**<br>
-
 
 5 
 
@@ -348,8 +345,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 |||3152|Gestion PME/PMI|22,5||||22,5|2||1||x||
 |**Total**||||**450**|**45**|**0**|**75**|**330**|**30**|**30**|**15**|**15**|||
 
-
-
 ## B. Semestre 2 **(Tronc commun)** 
 
 |||**CI**|**CI**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|||||
@@ -371,8 +366,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 |||3262|Droit de l'entreprise|22,5||||22,5|2||1||x||
 |**Total**||||**450**|**142,5**|**0**|**128**|**180**|**30**|**30**|**15**|**15**|||
 
-
-
 |||**CI**|**CI**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|**1-Semestre 2 (Tronc Commun)**|||||
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 ||||**Elements Constitutifs d'EU**|**Volume Horaire Semestriel**|||||**Credits**||**Coef**||**Régime d’examen**||
@@ -391,8 +384,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 |**326**|**Unite**<br>**transversale**|3261|Anglais-TOEIC4|22,5||||22,5|2|4|1|2|x||
 |||3262|Droit de l'entreprise|22,5||||22,5|2||1||x||
 |**Total**||||**450**|**142,5**|**0**|**128**|**180**|**30**|**30**|**15**|**15**|||
-
-
 
 ## C. Semestre 3 **(Tronc commun)** 
 
@@ -415,8 +406,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 |||4152|Gestion finacière|22,5||||22,5|2||1||x||
 |||**Total**||**435**|**172,5**|**0**|**112,5**|**150**|**30**|**30**|**15**|**15**|||
 
-
-
 |||||**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|||||
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 ||||**Elements Constitutifs d'EU**|<br>**Volume Horaire Semestriel**|||||**Credits**||**Coef**||**Régime d’examen**||
@@ -435,8 +424,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 |**416**|**Unité transversale**|4151|TOEIC 5|22,5||||22,5|2|4|1|2|x||
 |||4152|Gestion finacière|22,5||||22,5|2||1||x||
 |||**Total**||**435**|**172,5**|**0**|**112,5**|**150**|**30**|**30**|**15**|**15**|||
-
-
 
 ## D. Semestre 4 (Tronc commun) 
 
@@ -457,8 +444,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 |**426**|**Unité transversale**|4251|TOEIC 6|22,5||||22,5|2|4|1|2|x||
 |||4252|Introduction à la comptabilité|22,5||||22,5|2||1||x||
 |||**Total**||**442,5**|**67,5**|**0**|**112,5**|**262,5**|**30**|**30**|**15**|**15**|||
-
-
 
 11 
 
@@ -485,8 +470,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 |||5152|Developpement durable|22,5||||22,5|2||1||x||
 |||**To**|**tal**|**450**|**60**|**0**|**112,5**|**277,5**|**30**|**30**|**15**|**15**|||
 
-
-
 ## F. Semestre 6 **(GLSI)** 
 
 |**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|**CI3-GLSI-Semestre 6**|
@@ -494,8 +477,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 ||||**Elements Constitutifs d'EU**|**Volume Horaire Semestriel**|||||**Credits**||**Coef**||**Régime d’examen**||
 |**UE**|**Unite**<br>**d'enseignement**|**UC**|**Module**|**TOT**|**C**|**TD**|**TP**|**CI**|**ECUE**|**UE**|**ECUE**|**UE**|**Contrôle**<br>**continu**|**Régime**<br>**mixte**|
 |**521**|**Projet de Fin**<br>**d'etudes**|5211|PFE|||||||30||15|soutenance||
-
-
 
 ## **Génie Logiciel & Ingénierie de Données (GLID)** 
 
@@ -519,8 +500,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 |||5152|Developpement durable|22,5||||22,5|2||1||x||
 |||**Total**||**442,5**|**150**|**0**|**202,5**|**90**|**30**|**30**|**15**|**15**|||
 
-
-
 ## H. Semestre 6 **(GLID)** 
 
 |**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|**CI3-GLID-Semestre 6**|
@@ -528,8 +507,6 @@ Les élèves ingénieurs, n’ayant pas validé leurs stages ou soutenu avec suc
 ||||**Elements Constitutifs d'EU**|**Volume Horaire Semestriel**|||||**Credits**||**Coef**||**Régime d’examen**||
 |**UE**|**Unite**<br>**d'enseignement**|**UC**|**Module**|**TOT**|**C**|**TD**|**TP**|**CI**|**ECUE**|**UE**|**ECUE**|**UE**|**Contrôle**<br>**continu**|**Régime**<br>**mixte**|
 |**521**|**Projet de Fin**<br>**d'etudes**|5211|PFE|||||||30||15|soutenance||
-
-
 
 12 
 
@@ -644,8 +621,6 @@ La matrice de compétence suivante montre en détails la corrélation entre les 
 |Présentationet communication||||||||||X|X|||||||||||X|X||
 |Versatilité|||||||||||||||||||||||||
 
-
-
 14 
 
 |**Référentiel Compétence \ Référentiel Formation**|Analyse 1|Algèbre 1|Programmation 1|Algorithmiques et Structures de Données 1|Système d’exploitation 1|Circuits électriques|Mécanique générale|Initiation multimédia|Logique Informatique|Anglais 1|Français 1|Droit de l'homme 1|Analyse 2|Algèbre 2|Base de données 1|Programmation 2|Algorithmes et Structures de Données 2|Ondes et Propagation|Optique Géométrique|Architecture des ordinateurs|Circuits logiques|Anglais 2|Français 2|Droit de l'homme 2|
@@ -708,8 +683,6 @@ La matrice de compétence suivante montre en détails la corrélation entre les 
 |Négociation|||||||||||||||||||||||||
 |Présentationet communication||||||||||X|X|||||||||||X|X||
 |Versatilité|||||||||||||||||||||||||
-
-
 
 15 
 
@@ -775,8 +748,6 @@ La matrice de compétence suivante montre en détails la corrélation entre les 
 |Présentation et communication|||||||||||X|||X|||||||||X|X|||
 |Versatilité|||||||||||||X||||||||||||||
 
-
-
 16 
 
 |**Référentiel Compétence \ Référentiel Formation**|Base de données NoSQL|Atelier Statistique (R,…)|Entrepôts de données|Statistique avancée|Fouille de données|Cloud computing|Apprentisssage automatique 1|Anglais (TOIC 5)|Techniques de communication 2|PIDev|Droit administratif|Initiation au Big Data|Business Intelligence|Apprentissage automatique 2|Méthodes heuristiques et métaheuristiques|Calcul à Hautes performances|Visualisation des données massives|Projet fédéré cloud computing|Anglais (TOIC 6)|Mangament des Ressources humaines|Droit des Affaires|Developpememt Durable|
@@ -840,8 +811,6 @@ La matrice de compétence suivante montre en détails la corrélation entre les 
 |Présentation et communication||||||||X|X|||||||||X|X||||
 |Versatilité||||||||||||||||||||X|||
 
-
-
 17 
 
 |**Référentiel Compétence \ Référentiel Formation**|Cyber-sécurité et privacy|Framework Sciences de Donnees (Keras, Tensor Flow)|Les patrons de conceptions|Apprentissage profond|Traitement & Frameworks Big Data|Internet des Objets|Conduite de projets Sciences de donnees|
@@ -904,8 +873,6 @@ La matrice de compétence suivante montre en détails la corrélation entre les 
 |Négociation|||||||X|
 |Présentation et communication|||||||X|
 |Versatilité||||||||
-
-
 
 18 
 
@@ -976,8 +943,6 @@ La répartition des modules d’enseignement du cycle ingénieur est représent�
 |**316**|**Unité stransversale**|3151|Anglais-TOEIC3|||||
 |||3152|Gestion PME/PMI|||||
 
-
-
 19 
 
 |||**CI1-Semestre 2 (Tronc Commun)**|**CI1-Semestre 2 (Tronc Commun)**|**CI1-Semestre 2 (Tronc Commun)**|**CI1-Semestre 2 (Tronc Commun)**|**CI1-Semestre 2 (Tronc Commun)**|**CI1-Semestre 2 (Tronc Commun)**|
@@ -997,8 +962,6 @@ La répartition des modules d’enseignement du cycle ingénieur est représent�
 |**326**|**Unite transversale**|3261|Anglais-TOEIC4|||||
 |||3262|Droit de l'entreprise|||||
 
-
-
 |**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|**CI2-Semestre 3 (Tronc Commun)**|
 |---|---|---|---|---|---|---|---|
 |**UE**|**Unite d'enseignement**|<br>**UC**|**Module**|**Enseignant**|**Grade**|**appartenance**|**Responsable Unité**|
@@ -1016,8 +979,6 @@ La répartition des modules d’enseignement du cycle ingénieur est représent�
 |**416**|**Unité transversale**|4151|TOEIC 5|||||
 |||4152|Gestion finacière|||||
 
-
-
 |**CI2-Semestre 4 (Tronc Commun)**|**CI2-Semestre 4 (Tronc Commun)**|**CI2-Semestre 4 (Tronc Commun)**|**CI2-Semestre 4 (Tronc Commun)**|**CI2-Semestre 4 (Tronc Commun)**|**CI2-Semestre 4 (Tronc Commun)**|**CI2-Semestre 4 (Tronc Commun)**|**CI2-Semestre 4 (Tronc Commun)**|
 |---|---|---|---|---|---|---|---|
 |**UE**|**Unite d'enseignement**|<br>**UC**|**Module**|**Enseignant**|**Grade**|**appartenance**|**Responsable Unité**|
@@ -1033,8 +994,6 @@ La répartition des modules d’enseignement du cycle ingénieur est représent�
 |||4252|Fouille de données|Rim Mahouachi|MA|FSB||
 |**426**|**Unité transversale**|4251|TOEIC 6|||||
 |||4252|Introduction à la comptabilité|||||
-
-
 
 20 
 
@@ -1055,8 +1014,6 @@ La répartition des modules d’enseignement du cycle ingénieur est représent�
 |**516**|**Unité transversale**|5151|TOEIC 7|||||
 |||5152|Developpement durable|||||
 
-
-
 |**CI3-GLID-Semestre 1**|**CI3-GLID-Semestre 1**|**CI3-GLID-Semestre 1**|**CI3-GLID-Semestre 1**|**CI3-GLID-Semestre 1**|**CI3-GLID-Semestre 1**|**CI3-GLID-Semestre 1**|**CI3-GLID-Semestre 1**|
 |---|---|---|---|---|---|---|---|
 |**UE**|**Unite d'enseignement**|<br>**UC**|**Module**|**Enseignant**|**Grade**|**appartenance**|**Responsable Unité**|
@@ -1072,8 +1029,6 @@ La répartition des modules d’enseignement du cycle ingénieur est représent�
 |||5152|Framework ML & DS & DE|Rim Mahouachi|MA|FSB||
 |**516**|**Unité transversale**|5151|TOEIC 7|||||
 |||5152|Developpement durable|||||
-
-
 
 21 
 
@@ -1123,8 +1078,6 @@ Avoir les connaissance de base pour le traitement multimédia : son, image et vi
 ||Chapitre 4|Restauration d’images|•<br>Filtrage spatial linéaire<br> Filtre moyenneur<br> Filtre gaussien<br>•<br>Filtrage non linéaire<br> Filtres d’ordre<br> Filtre médian||
 ||Chapitre 5|Compression d’images|•<br>Définitions<br>•<br>Algorithmes sans perte (lossless)<br>•<br>Algorithmes avec perte (lossy)<br>•<br>Exemples d’algorithmes :<br> RLE<br> Huffman<br> JPEG||
 ||Chapitre 6|Traitement de la vidéo|•<br>Définition d’une vidéo numérique||
-
-
 
 23 
 
@@ -1406,8 +1359,6 @@ Volume horaire semestriel – (15 semaines) : 45h de CI
 |-|Problème de sélection|||
 |-|Recherche de la médiane|||
 
-
-
 28 
 
 9. Transformer pour régner - Simplification de l’instance 
@@ -1609,8 +1560,6 @@ Intergiciels de Grilles **Pré-requis** Architectures réparties **Mots clés** 
 |Recherche opérationnelle, Optimisation||
 |**Mots clés**||
 
-
-
 39 
 
 Problèmes de recherche, heuristiques, systèmes experts 
@@ -1751,8 +1700,6 @@ Volume horaire semestriel – (15 semaines) : 22.5h de TP ; 22.5h de cours
 ||-|Modélisation des données en graphes|
 ||-|Principales caractéristiques (transaction, haute disponibilité, volumétrie)|
 ||-|Expression de requête avec Cypher:|
-
-
 
 44 
 
@@ -1987,7 +1934,6 @@ Ce cours vise à utiliser les nouvelles technologies web **Plan de cours**
 **----- Start of picture text -----**<br>
 Volume horaire semestriel – (15 semaines) : 45h de CI<br>Objectifs<br>L'objectif est de :<br>−<br>Expliquer comment sécuriser les terminaux Windows. Et linux.<br>−<br>Analyser le fonctionnement des protocoles et des services réseau.<br>−<br>Expliquer le fonctionnement de l'infrastructure de réseau.<br>−<br>Classer les divers types d'attaques du réseau.<br>−<br>Utiliser des outils de surveillance du réseau pour identifier les attaques contre les services et les<br>protocoles réseau.<br>−<br>Utiliser diverses méthodes pour empêcher les accès malveillants aux données, aux hôtes et aux réseaux<br>informatiques.<br>−<br>Expliquer comment enquêter sur les attaques et les vulnérabilités des terminaux.<br>− Évaluer les alertes de sécurité du réseau.<br>−<br>Analyser les données liées aux intrusions réseau afin d'identifier les hôtes compromis et les<br>vulnérabilités.<br>−<br>Appliquer des modèles de gestion des incidents liés à la sécurité du réseau<br>Plan de cours<br>Chapitre 1 : Les systèmes d’exploitation<br>1. Système d’exploitation Windows<br>2. Système d’exploitation Linux<br>Chapitre 2 : Infrastructure de réseau<br>1. Périphériques de communication réseau<br>2. L'infrastructure de sécurité du réseau<br>3. Surveillance du réseau<br>Chapitre 3 : Les attaques réseau<br>1. Observation du fonctionnement du réseau<br>2. Attaques ciblant les fondements du réseau<br>3. Attaques ciblant les activités<br>Chapitre 4 : Protection du réseau<br>1. Les mécanismes de défense<br>2. Le contrôle d'accès<br>3. Pare-feu du réseau et prévention des intrusions<br>4. Filtrage du contenu<br>5. Threat Intelligence<br>Chapitre 5 : Analyse et sécurité des terminaux<br>1. Protection des terminaux<br>2. Évaluation des vulnérabilités des terminaux<br>Chapitre 6. Surveillance de la sécurité<br>1. Les technologies et les protocoles<br>2. Les fichiers journaux<br>Chapitre 7. Analyse des données relatives aux intrusions<br>1. Collecte de données<br>2. Préparation des données<br>3. Analyse des données<br>Chapitre 8 : Gestion des incidents<br>1. Modèles de gestion des incidents<br>2. Équipes CSIRT et NIST 800-61r2<br>Pré-requis<br>**----- End of picture text -----**<br>
 
-
 50 
 
 Introduction à la sécurité, introduction à la cybersécurité 
@@ -2065,7 +2011,6 @@ Spécification à base de modèles. Techniques de vérification :
 **----- Start of picture text -----**<br>
 Fiche descriptive de l'UE 415 : Formelles & IoT<br>UC4152 : IoT 2                                    Nombre des crédits : 2<br>Volume horaire semestriel – (15 semaines) : 22.5h de cours<br>Objectifs<br>Ce cours introduit les concepts de sécurité à travers les vulnérabilités des systèmes IoT : les objets connectés, les<br>systèmes d’exploitation, les réseaux, les applications et les données. Il aura pour but la maîtrise des concepts de<br>base et notions fondamentales de la sécurité informatique. Le focus sera porté sur l’IoT. Ainsi, l’étudiant pourra<br>appréhender le mode opératoire des attaques informatiques ciblant l’écosystème IoT   maîtriser et comprendre<br>les rôles et  le fonctionnement des différents composants et outils de sécurisation de cet écosystème. Ce module<br>permettra aussi de fournir la maîtrise et les compétences nécessaires pour développer un crypto système pour<br>l’IoT.<br>Au terme de ce module, l’étudiant(e) sera en mesure de :<br>• Identifier les risques et menaces qui pèsent sur les applications/systèmes IoT et qui nécessitent des outils<br>cryptographiques.<br>• Maîtriser les concepts de base et notions fondamentales de la cryptographie<br>• Maîtriser les systèmes d’authentification<br>• Maîtriser et appréhender les aspects de sécurisation des objets connectés<br>• Maîtriser et appréhender les aspects de sécurisation des réseaux .<br>• Développer de nouvelles approches et solutions de sécurisation pour systèmes IoT.<br>• Prendre en considération la protection de la vie privée.<br>Plan de cours<br>Chapitre 1 Concepts de base de la sécurité informatique<br>      1. Terminologie<br>      2. Concepts de base<br>      3. Transactions IoT & sécurité<br>Chapitre 2 Fonctions et mécanismes cryptographiques<br>      1. Eléments théoriques de la cryptographie<br>      2. Algorithmes de chiffrement symétriques & asymétriques & variantes.<br>      3. Fonctions de hachage, Signature numérique, scellement<br>      4. Performances des fonctions cryptographiques vs contraintes des objets connectés<br>      5. Hiérarchie des clés & échange des clés<br>      6. Certificats et PKIs<br>Chapitre 3 Authentification & gestion d’identités<br>      1. IDMS<br>      2. Authentification<br>      3. Protocoles d’authentification<br>      4. Protocoles zero-knowledge<br>Chapitre 4 Les protocoles de sécurité<br>      1. Protocoles de la couche2<br>      2. Le protocole IPsec<br>      3. Le protocole TLS/DTLS<br>      4. Développement des protocoles cryptographiques<br>Prérequis<br>IoT 1<br>Mots clés<br>**----- End of picture text -----**<br>
 
-
 53 
 
 D. Semestre 4 **(Tronc commun)** 
@@ -2122,7 +2067,6 @@ L’objectif est de comprendre les concepts de la virtualisation, découvrir les
 
 **----- Start of picture text -----**<br>
 Fiche descriptive de l'UE 422 : Conception & Vérification<br>UC4221 : Vérification & Validation                          Nombre des crédits : 2<br>Volume horaire semestriel – (15 semaines) : 30h de CI<br>Objectifs<br>Connaissance approfondie en vérification & validation logiciel<br>Plan de cours<br>Le test logiciel<br>1-Définition du test logiciel<br>2-Principe de base du test logiciel<br>3-Les différentes étapes de test<br>4-Les plans de test<br>5-Etude de cas : Test de triangle<br>Différents types de test<br>1-Vocabulaire, processus & exécution d’un test<br>2-Test de boîte noire & boîte blanche<br>3-Test unitaire & Intégration & Système<br>4-Test de conformité & robustesse & Sécurité<br>5-Test de non régression<br>Etude de cas : les techniques de test fonctionnel<br>1-Analyse partitionnelle<br>2-Test aux limites<br>3-Test combinatoire<br>**----- End of picture text -----**<br>
-
 
 55 
 
@@ -2534,13 +2478,10 @@ IDM, MDE, MDA, WorkFlow, ERP
 |**Mots clés**|
 |UP, RUP, Agile, prototype, Génie Logiciel|
 
-
-
 **==> picture [487 x 435] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
 Fiche descriptive de l'UE 513 : Projet informatique<br>UC5132 : UX                                                                   Nombre des crédits : 2<br>Volume horaire semestriel – (15 semaines) : 30h de CI<br>Objectifs<br>Ce cours intitulé UX/UI Design : User Experience Design et User Interface Design, permettra à l’étudiant de :<br>- Identifier les éléments incontournables de l'expérience utilisateur (persona, usabilité, affordance…),<br>- Connaître les spécificités de l'expérience utilisateur liées aux différents supports web et mobile,<br>- Mobiliser les bonnes pratiques de prototypage en s'adaptant aux changements de la société,<br>- S’initier à la création d’un storytelling (un accrochage narrative),<br>- Utiliser les outils de zoning, de maquettage et d'interaction les plus adéquats,<br>- Concevoir des interfaces centrer autour de l’utilisateur et optimiser,<br>- Maîtriser le vocabulaire et les bonnes pratiques en matière de design,<br>- Communiquer et travailler avec des designers,<br>- Développer la capacité créatrice et d’innovation.<br>Plan de cours<br>Chapitre I : Introduction à l’UX et l’UI design<br>Introduction : Définition de l'UX et de l’UI design,<br>Section I. La différence entre UX et UI design,<br>Section II : La notion d'usabilité,<br>Section III : Le taux de rétention,<br>Section V: Le Hook Canvas.<br>Chapitre II : Le design orienté utilisateur<br>Introduction : Concentrons-nous sur l'utilisateur,<br>Section I : La perception de l’utilisateur,<br>Section III : La création pour l’utilisateur,<br>Section V: La définition d’un persona/ d’une carte,<br>Section VI : Le principe d'affordance.<br>Chapitre III : Volet pratique de l’UX design<br>Introduction : L’approche "Design Thinking" (rechercher, prototyper et tester),<br>Section I: La recherché utilisateur,<br>Section II : Les pratiques du prototypage,<br>Section III : Les situations typiques d'une séance de test,<br>**----- End of picture text -----**<br>
-
 
 65 
 
@@ -2597,15 +2538,11 @@ Ce cours donne une vision d'ensemble permettant d'appréhender et maîtriser les
 ||2|Gouvernance des SI|1. Introduction<br>2. Évolution des systèmes d’information au cours des 60<br>dernières années<br>3. Automatisation continue de l’entreprise<br>4. L'entreprise dans un environnement de plus en plus large<br>5. Une complexité croissante, génératrice de risques<br>6. Définition de la gouvernance des systèmes d’information<br>7. Objectifs de la gouvernance<br>8. Alignement stratégique<br>9. Valeur ajoutée de la gouvernance<br>10. Maîtrise des risques<br>11. Gestion des ressources<br>12. Mesure de la performance<br>13. Préoccupations du management<br>14. Méthodes générales<br>15. Exemples de méthodes générales<br>16. Conclusion||
 ||3|Urbanisation des SI|1. Introduction<br>2. Constat menant à l’Urbanisation<br>3. Urbanisation des SI : Résumé<br>4. La métaphore de la ville<br>5. Notions d’urbanisme et d’urbanisation<br>6. Application de ces notions aux SI<br>7. Réutilisation du vocabulaire de la gestion de projets urbains<br>8. Similarité des problématiques<br>9. Similarité des solutions<br>10. Démarche d’urbanisation<br>11. Les objectifs de l'urbanisation<br>12. Les 5 composantes du processus d’urbanisation<br>13. La cartographie urbanisée du SI<br>14. Un SI non optimisé : l’effet de spaghetti<br>15. EAI, une solution plus cohérente||
 
-
-
 67 
 
 ||||16. PGI, une solution plus cohérente<br>17. Le marché des EAI<br>18. Le marché des PGI<br>19. Le choix d’une solution<br>20. Conclusion||
 |---|---|---|---|---|
 ||4|Les architectures des SI|1. Stratégie d’évolution des organisations<br>2. Enjeux stratégiques des directions informatiques<br>3. Objectifs<br>techniques<br>et<br>financiers<br>des<br>directions<br>informatiques<br>4. Les générations d’architecture support de Systèmes<br>d’Informations<br>5. Le client-serveur<br>a. Origines et Historique<br>b. Le modèle Multi-Utilisateur centralisé<br>c. Le modèle réseau local traditionnel<br>d. Le modèle Client-serveur<br>e. Pourquoi le Client-serveur ?<br>f.<br>Client/serveur : définition<br>g. Les 4 principes de base du C/S<br>6. Niveaux d’abstraction d’une application<br>7. « Où » découper l’application ?<br>8. Architecture Un Tiers<br>9. Architecture Deux Tiers<br>10. Le Middleware<br>11. Architecture Trois Tiers<br>12. Architectures 4/3 et N Tiers<br>13. Les architectures orientées services<br>a. SOA<br>i. Introduction<br>ii. Urbanisation : Modèle de référence<br>iii. Urbanisation : Phénomène horizontal<br>iv. Outillage<br>v. SOA Concrétise le modèle d’urbanisation<br>b. Intégration et interopérabilité<br>i. Relever les défis du SI …<br>ii. La quête de l’Interopérabilité<br>iii. EAI : Enterprise Application Integration||
-
-
 
 68 
 
@@ -2616,8 +2553,6 @@ Ce cours donne une vision d'ensemble permettant d'appréhender et maîtriser les
 ||Le cours ne requière par des pré requis spécifiques.||||
 ||**Mots clés**||||
 ||Apprentissage, réseaux multi-couches, réseaux convolutifs, RNN||||
-
-
 
 69 
 
@@ -2855,8 +2790,6 @@ Ce cours introduit les bases de MLOps et de workflows qui permettent de caracté
 |**Mots clés**||
 |MLOps, Workflow||
 
-
-
 **Fiche descriptive de l'UE 514 : EAD & Visualisation UC5141 : Visualisation des données massives       Nombre des crédits : 2** Volume horaire semestriel – (15 semaines) : 15h de C ; 30h de TP **Objectifs** - Présenter les fondements de la visualisation d’information, ainsi qu’un panorama des techniques de l’état de l’art applicables à différents types de jeux de données - Donner les clés pour la conception de nouvelles techniques de visualisation interactives adaptées à des données et des tâches spécifiques. **Plan de cours** 1. La perception visuelle humaine 2. Les fondements de la visualisation interactive d’information 3. Les graphes et les arbres 4. Les données tabulaires 5. L’évaluation des techniques de visualisation 6. Les outils pour la visualisation 7. Indication de mise en oeuvre langages et/ou outils 8. Javascript/html (d3.js) **Pré-requis** IHM, Théorie des graphes, Algorithmes et structures de données **Mots clés** Nuage d’information, techniques de disposition 
 
 77 
@@ -2948,7 +2881,4 @@ Statistiques, probabilité, ML **Mots clés** ARMA, ARIMA,
 |**Mots clés**||
 |Tensorflow, Keras, APIs, apprentissage, ….||
 
-
-
-79 
-
+79

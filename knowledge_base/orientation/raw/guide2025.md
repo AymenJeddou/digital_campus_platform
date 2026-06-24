@@ -112,8 +112,6 @@ L2oladl de>93Il a> dxibs!l drodc 3! ala
 ||**في الإنسانيات بسبيطلة**||||||
 |**الجامعة**<br>**التاريخ**<br>**المكان**<br>**صفاقس**<br>**16**<br>**و17**<br>**جويلية2025**<br>**معرض صفاقس الدولي**<br>**قابس**<br>**14**<br>**و15**<br>**جويلية**<br>**2025**<br>**كلية العلوم بقابس**<br>**قفصة**<br>**15**<br>**جويلية2025**<br>**المركب الشبابي والرياضي بقفصة**<br>**16**<br>**جويلية2025**<br>**المعهد الثانوي أبو القاسم الشابي**<br>**بتوزر**<br>~~=~~||||||**الجنوب**|
 
-
-
 ## **الوسط** 
 
 **الفهرس** 
@@ -151,14 +149,12 @@ L2oladl de>93Il a> dxibs!l drodc 3! ala
 **----- Start of picture text -----**<br>
 الناجحون في دورة المراقبة<br>– –<br>2025 07 15<br>OO ————‘ 5<br>0<br>الرقم85000  توجيه إلى  قصيرة  رسالة<br> ثم رقم ثم  فراغ  كلمةpwd   تتضمن<br>البكالوريا.<br> استخدام رقم الهاتف المصرح به أثناءن يتعي<br> .التسجيل في امتحان البكالوريا<br>**----- End of picture text -----**<br>
 
-
 ## **طريقة الحصول على كلمة العبور** 
 
 **==> picture [327 x 154] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
 أو<br>0<br> الدخول إلى الموقع<br>https://login.orientation.tn<br>**----- End of picture text -----**<br>
-
 
 **الفهرس** 
 
@@ -181,7 +177,6 @@ L2oladl de>93Il a> dxibs!l drodc 3! ala
 **----- Start of picture text -----**<br>
 A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  المعدل النهائي<br> واألرض  ا  للبكالوري<br>PH  فلسفة  Ang  إنقليزية  Ec  اقتصاد  SP  علوم فيزيائية<br>HG  تاريخ وجغرافيا  F  فرنسية  Ge  تصرف  M  رياضيات<br>STI  أنظمة وتكنولوجيات المعلوماتية SB  العلوم Algo  الخوارزميات والبرمجة  Sp-sport  اختصاص<br> البيولوجية   رياضي<br>IT  إيطالية  All  ألمانية  Info إعالمية  EP  تربية بدنية<br>ESP  اسبانية<br>OO<br>**----- End of picture text -----**<br>
 
-
 **الفهرس** 
 
 ## **. 2025 جويلية 16 )والترتيب بداية من يوم الاربعاء FG على الصيغة الاجمالية (الاطلاع  يمكن** 
@@ -191,7 +186,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 **----- Start of picture text -----**<br>
  )والترتيب FGالاطلاع على الصيغة الاجمالية (<br>– –<br>2025 07 16<br>**----- End of picture text -----**<br>
 
-
 **)والترتيب FGالاطلاع على الصيغة الاجمالية ( مراحل عبر موقع التوجيه الجامعي** 
 
 **==> picture [326 x 15] intentionally omitted <==**
@@ -199,24 +193,20 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 **----- Start of picture text -----**<br>
 04  03  02<br>**----- End of picture text -----**<br>
 
-
 **==> picture [29 x 15] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
 01<br>**----- End of picture text -----**<br>
-
 
 **==> picture [101 x 50] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
  الاطلاع على الصيغة<br>الاجمالية (FG)<br> والترتيب<br>**----- End of picture text -----**<br>
 
-
 **==> picture [111 x 79] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
 إدراج المعطيات التالية:<br>رقم البكالوريا  ▪<br>•<br> رقم بطاقة التعريف<br>الوطنية<br>•كلمة العبور الشخصية<br>**----- End of picture text -----**<br>
-
 
 **النقر على الرابط على الصيغة"الاطلاع "الإجمالية والترتيب** 
 
@@ -235,7 +225,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 **----- Start of picture text -----**<br>
  ّمعد ل الاعداد  الصيغة<br>مجموع<br>)( النقاطT  المسندة في )FGالاجمالية (<br> المواد<br>الخصوصية<br>شعبة ل كل<br>**----- End of picture text -----**<br>
 
-
 **من مجموع النقاط إلى كل مترشح يرغب في الحصول على شعبة موجودة % يسند تنفيل يقدر به7** • **في ولايته (يُعتمد المعهد الأصلي للمترشح أو مركز الامتحانات لتحديد مركز الولاية) وفي حال ولايته.  عدم وجود الشعبة في ولايته يمكنه أن يتمتع بالتنفيل في أقرب مؤسسة تعليم عال لمركز** 
 
 • **يمكن الاطلاع على قائمة الشعب التي يتمتع من يطلبها بالتنفيل الجغرافي وقائمة الشعب التي : شعب التنفيل الجغرافي  لا يسند لمن يطلبها التنفيل الجغرافي عبر الرابط التالي** • **في  الجغرافي شعب الطب والمراحل التحضيرية للدراسات الهندسية والاجازة  تُستثنى من التنفيل في  كامل  تراب  في  مؤسسة  جامعية  واحدة   التي  تدرس   والشعب  الجامعية  التربية  والتعليم في نفس الجهة . في عدّة مؤسسات تتركز  التي تدرس الجمهورية أو** 
@@ -244,7 +233,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 
 **----- Start of picture text -----**<br>
 الفهرس<br>hs<br> الاختيارات بطاقة  تعمير 4<br>i<br> من www.orientation.tn  يمكن للمترشحين النفاذ لبطاقة الاختيارات عبر موقع التوجيه الجامعي<br>" لإدراج اختياراته. تعمير بطاقة الاختيارات" خلال الرابط<br>01<br>2025<br> بطاقة  الختيارات<br>السم واللقب    رمخلل   ب مشللة أدخللا رمز لل<br> :المعهد   :رقم البكالوريا    رممكلللللل ص رممخ لللللل فلللللل<br> :الرتبة حسب المعدل في البكالوريا   :رقم بطاقة التعريف     وسللهر ز رسللش رمشللة   ب لل<br> :الصيغة  الجمالية   :الجنس<br>  آمه<br> :الرتبة حسب الصيغة  الجمالية  :تاريخ الوالدة<br>:نوع البكالوريا<br>الشعبة الرمز الختيار<br>XXXXX 1<br>2<br>3<br>—— _—<br>4<br>5<br>=<br>6<br>7<br>—— _—<br>=a 8  ©<br>9<br>10<br>—<br>02<br> رمضغط على زر رمتسجها<br> ورمتلأكد  ن ظ ور وصا<br> رالخته ررتتسجها<br> التسجيل<br>_<br>**----- End of picture text -----**<br>
-
 
 **تُرتّب الاختيارات ترتيبا تفاضليا أي أن الاختيار الأهم بالنسبة للمترشح يجب أن يدرج في أول** 
 
@@ -265,18 +253,15 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 **----- Start of picture text -----**<br>
 04  03  02<br>~W<br>إدخال الاختيارات ثم  إدراج المعطيات التالية:  النقر على الرابط<br>رقم البكالوريا  ▪<br>التسجيل وظهور وصل  "<br>• تعمير بطاقة<br> رقم بطاقة التعريف<br>التسجيل<br>الوطنية  الاختيارات "<br>•كلمة العبور الشخصية<br>**----- End of picture text -----**<br>
 
-
 **==> picture [29 x 16] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
 01<br>**----- End of picture text -----**<br>
 
-
 **==> picture [107 x 27] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
 الدخول إلى الموقع<br>www.orientation.tn<br>**----- End of picture text -----**<br>
-
 
 • **إلىحتى لا يتم تأجيله ال دور ة الرئيسية احترام آجال تعمير بطاقة الاختيارات في الدورة .النهائية** 
 
@@ -305,8 +290,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 |**1**|**99217**|اإلجازة في اآلداب الحديثة بجامعة السوربون**(**<br>**2) **<br>5MG+3F+2PH+2Ang|**اآلداب**|**فرنسا**|
 |**1**|**99218**|اإلجازة في علم**ا**لجتماع بجامعة السوربون**(**<br>**2 )**<br>5MG+3F+2PH+2Ang|||
 
-
-
 **الفهرس عدد رمز نوع مكان الشعبة وصيغة احتساب مجموع النقاط حسب نوع البكالوريا البقاع الشعبة البكالوريا الدراسة 99201 6 ور ذك ) 1[(]** مرحلة تحضيرية للدراسات الهندسية :رياضيات فيزياء علوم الهندسة **99214** 5MG+2M+2SP+1F+1PH+Max( Ang − 12 ; 0) **6** 3 **ن ثإ الرياضيات 99202 2 ) 1 ور ذك[(]** مرحلة تحضيرية للدراسات الهندسية :  فيزياء كيمياء علوم الهندسة **99215** 5MG+2M+2SP+1F+1PH+Max( Ang − 12 ; 0) **2** 3 **ن ثإ 99310 4 ز فوه ن** مسار هندسيBachelor-Master:Génie **[ )][2][(] 99311** 5MG+2M+2SP+1F+1PH+ Max( Ang − 12 ; 0) **الرياضيات 4** 3 **زغ دميه 99310 2 زفوه ن** مسار هندسي Bachelor-Master:Génie **[)][2][(] العلوم 99311** 5MG+2M+1SP+1SVT+1F+1PH+Max( Ang − 12 ; 0) **التجريبية 1** 3 **زغدميه** Bachelor-Master **[)][2][( ] 1 ه يدم زغ99311** 5MG+2Ec+2Ge+2M+1PH+1HG+1F+Max( Ang3 − 12 ; 0) **القتصاد والتصرف ألمانيا 99310 2 زفوه ن** مسار هندسيBachelor-Master:Génie **[ )][2][(] العلوم 99311** 5MG+2M+1SP+1TE+1F+1PH+Max( Ang − 12 ; 0) **التقنية 2** 3 **زغدميه** مسار هندسي Bachelor-Master:Génie **[)][2][(] 99310** 5MG+2M+1SP+1.5Algo+0.5STI+0.5(F+PH)+Max( **علوم 1 ه نوفز** Ang − 12 **اإلعالمية** ; 0) 3 **من عدد البقاع المفتوحة لفائدة المترشحين المحرزين على شهادة أجنبية % حُدِّّدَ سقف بههه10 )1(** • **معادلة لشهادة البكالوريا الأفضل ترتيبا حسب مجموع النقاط من بين كافة المترشحين للالتحاق بالمرحلة  التحضيرية  للدراسات  الهندسية  بفرنسا  وبالمرحلة  التحضيرية  للدراسات  الهندسية بالمعهد التحضيري للدر اسات العلمية والتقنية بتونس، مع التأكيد على إجبارية المواد المشار .إليها في صيغة احتساب مجموع النقاط للترشح لهذه الدورة على البكالوريا التونسية . مفتوحة للمحرزين  هذه العروض )2[(]** • ~~Bl~~ 
 
 **الفهرس** 
@@ -315,7 +298,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 
 **----- Start of picture text -----**<br>
 تأكيد التعيين<br>تعمير بطاقة الاختيارات على موقع<br>(حضوريا خلال الاجتماعات الاخبارية)   www.orientation.tn<br>  جويله2025 10 رمخمهس •<br>2025 جويله  05 إمى 03  ن<br>  ملموج هن إمى فزنس<br>  جويله2025 11 رمجمة  •<br> ملموج هن إمى أمم نه<br> ي جو  له202514رالثنهن  • الاعلان عن النتائج على موقع<br> ملموج هن إمى رممة د www.orientation.tn<br>  رمتحضهزي ملدررس ت رمةلمه<br>ورمتقنه  بتونس<br>2025  جويلية  08 رمثالث ء<br>**----- End of picture text -----**<br>
-
 
 **والألمانية  على تخصهصهات ومقاييس الترشهح للدراسهة بالجامعات الفرنسهية للتعرف** ▪ **) يتعين على IPESTوالمعههد التحضهههههيري للهدراسههههههات العلميهة والتقنيهة بتونس ( في  المؤرخ 2025 لسهنة 39المنشهور عدد  الاطلاع على المترشهحين لدورة المتفوقين . www.orientation.tn الجامعي على موقع التوجيه 2025 أفريل 22** 
 
@@ -436,7 +418,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 **----- Start of picture text -----**<br>
 تعمير بطاقة الاختيارات على موقع<br> موقعالاعلان عن النتائج على  www.orientation.tn<br>www.orientation.tn<br>2025 أوت 15 إمى 11  ن<br> أوت2025 30 رمس ت<br>إرسال الملفات المدعمة للحالة<br>الصحية أو الاجتماعية أو أصحاب<br>المواهب<br>2025 أوت 18 إمى 11  ن<br>**----- End of picture text -----**<br>
 
-
 ## **:لأسباب اجتماعية وصحية  من إعادة التوجيه الجامعي  تستثنى الشعب التالية** 
 
 • **شعب الطب والصيدلة وطب الاسنان** • **الشعب شبة الطبيّة** • **الشعب والاجازات التي تتطلب اختبارات** • **المراحل التحضيرية آداب ولغات وعلوم إنسانية** • **الشعب التي تدرس في مؤسسة جامعية واحدة** 
@@ -476,7 +457,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 **----- Start of picture text -----**<br>
 الاطلاع على النتائج    على الاطلاع<br> تعمير الاختيارات<br> أوت 30السبت يوم   مجموع نقاط أخر<br> التي يفوق فيها<br> على موقع 2025  موجه لسنة2025<br>  نقاط مجموع<br>.<br>التوجيه الجامعي  على موقع التوجيه<br> المترشح مجموع<br>.الجامعي<br> نقاط آخر موجه<br>.  لسنة2025<br>**----- End of picture text -----**<br>
 
-
 **.لا حاجة لإرسال مطلب كتابي بالنسبة إلى إعادة التوجيه لأسباب عادية** 
 
 • 
@@ -499,7 +479,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 
 **----- Start of picture text -----**<br>
  حصريا الواب موقع  عبر  ه  مطلب اجتماعية  تعمير  لأسباب  التوجيه  لإعادة  المترشح   يتعين على<br> وإرسال هذا المطلب مع الوثائق   أوت2025  و15 بين11 في الفترة المتراوحة www.orientation.tn<br> أوت 18الاثنين  يومفي أجل أقصاه  للحالة الاجتماعية إلى وزارة التعليم العالي والبحث العلمية مدعمال<br> .بدخول الغاية وتتم دراسة المطالب من قبل لجنة اجتماعية مختصة ومستقلة  2025<br>الاطلاع على النتائج  تقديم الوثائق التي  تعمير المطلب على<br> أوت 30السبت يوم  تثبت الحالة  موقع التوجيه الجامعي<br> على موقع 2025 الاجتماعية مع  www.orientation.tn<br>. التوجيه الجامعي المطلب في أجل<br> أوت 18أقصاه<br>2025<br>5,<br> يتضمن الملف المصاحب لمطلب إعادة التوجيه لأسباب<br>:وجوبا اجتماعية<br>=<———<br>المهدعمهة  الوثهائق  نسههههخة من بطاقة  نسهههههخة من  مطلب إعادة التوجيه<br>لل.حالة الاجتماعية   التعريف الوطنيههة  بهههههطهههههاقهههههة  لأسهههههباب اجتماعية<br> .للوالدين   الههتههعههريههف  عن بعد (يسهحب من<br> الههوطههنههيههة  مههوقههع الههتههوجهههيهههه<br>.للمترشح  الجامعي بعد تعمير<br> الهاختيهارات في دورة<br>.<br>)إعادة التوجيه<br> إعادة التوجيه أصناف  منا مطلبا واحد يتعيّن على كل مترشح لدورة إعادة التوجيه تقديم<br>**----- End of picture text -----**<br>
-
 
 **الفهرس** 
 
@@ -526,12 +505,10 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 **----- Start of picture text -----**<br>
 تقديم الوثائق التي<br>الاطلاع على النتائج<br>تعمير المطلب على<br> أوت 30السبت يوم  تثبت الحالة<br>موقع التوجيه الجامعي<br> على موقع 2025 الصحية مع  www.orientation.tn<br>. المطلب في أجل<br>التوجيه الجامعي<br> أوت 18أقصاه<br>2025<br>صحية  يتضمن الملف المصاحب لمطلب إعادة التوجيه لأسباب يتضمن الملف المصاحب لمطلب إعادة التوجيه لأسباب<br> :وجوباوجوبا<br>a<br>**----- End of picture text -----**<br>
 
-
 **==> picture [497 x 212] intentionally omitted <==**
 
 **----- Start of picture text -----**<br>
 صحية  يتضمن الملف المصاحب لمطلب إعادة التوجيه لأسباب يتضمن الملف المصاحب لمطلب إعادة التوجيه لأسباب<br> :وجوباوجوبا<br>المههدعمههة  الوثههائق نسخة من الملف   نسهههههههخههة مههن  مطلب إعادة التوجيه<br>الصحية. لل حالة الصحي المدرسي   بطاقة التعريف  عنصهههحية  لأسهههباب<br>للمترشح .  الههههوطههههنههههيههههة  بعههد (يسهههههحههب من<br>.للمترشح  مههوقههع الههتههوجهههيهههه<br> الجامعي بعد تعمير<br> الهاختيهارات في دورة<br>.<br>)إعادة التوجيه<br>**----- End of picture text -----**<br>
-
 
 **إعادة التوجيه أصناف  منا مطلبا واحد يتعيّن على كل مترشح لدورة إعادة التوجيه تقديم** 
 
@@ -562,7 +539,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 **----- Start of picture text -----**<br>
 02   الموسيقى والعلوم  في  [الإجازة ] 01<br> العرض  وفنون  في المسرح الإجازة<br> الموسيقية<br> التشكيلية  في الفنون الإجازة   الإجازة في السينما والسمعي 03<br>04<br> البصري<br>**----- End of picture text -----**<br>
 
-
 • **صلب  تضمين  رقم  الهاتف  الشخصي  والعنوان  والبريد  الالكترونيالمترشح    يتعيّن  على المطلب حتى يتسنى الاتصال به ودعوته لاجتياز الاختبار بالنسبة للشعب التي تتطلب .اختبارات** 
 
 • **عبر ظرف مغلق وذلك وجوبا في لأصحاب المواهب  ترسل مطالب إعادة التوجيه الجامعي .  أوت2025 18 في أجل أقصاه عبر البريد السريع أو مضمون الوصولالبريد** 
@@ -589,7 +565,6 @@ A عربية  SVT  علوم الحياة TE  التكنولوجيا  MG  الم�
 
 **----- Start of picture text -----**<br>
 a [a]<br>**----- End of picture text -----**<br>
-
 
 Mice . 
 
@@ -631,8 +606,6 @@ Mice .
 |78,853<br>~~a~~<br>~~>~~|FG+A<br>~~ee eee~~<br>~~>~~|إقتصاد وتصرف<br>~~eee~~<br>~~>~~|~~eee~~<br>||~~eee~~<br>~~|~~<br>|<br>||~~|~~<br>~~|~~<br>|<br>||~~|~~|
 |134,280<br>~~>~~|FG+A<br>~~>~~|علوم اإلعالمية<br>~~>~~||||<br>|||<br>|||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 |Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|
@@ -668,8 +641,6 @@ Mice .
 |151,817<br>~~Pf~~|FG+Ang<br>~~Pf~~|علومتجريبية<br>~~Pf~~|||||
 |107,594<br>~~Pf~~|FG+Ang<br>~~Pf~~|إقتصاد وتصرف<br>~~Pf~~|||||
 |122,966<br>~~a ee~~|FG+Ang<br>~~ee~~|العلومالتقنية<br>~~ee~~|||||
-
-
 
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
@@ -707,8 +678,6 @@ Mice .
 |136,356<br>~~a ~~|FG+Ang<br> ~~a~~|علوماإلعالمية|ee|ee<br>|||<br>||||
 |157,490<br>~~Poof~~|FG+Ang<br>~~Poof~~|رياضة<br>~~Poof~~|||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 |AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|
@@ -745,8 +714,6 @@ Mice .
 |77,864<br>~~Tor~~|FG+Ang<br>~~Tor~~|آداب<br>~~Tor~~|54102|اللغة واآلداب والحضارة<br>54102|المعهد العالي للعلوم اإلنسانية بمدنين<br>(جامعة<br>قابس)||
 |-<br>~~a ee~~|FG+Ang<br>~~ee~~|رياضيات<br>~~ee~~|||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 ||<br>sl dspao! Jolsblg oLeWs GIVI<br>|||<br>sl dspao! Jolsblg oLeWs GIVI<br>|||<br>sl dspao! Jolsblg oLeWs GIVI<br>|||<br>sl dspao! Jolsblg oLeWs GIVI<br>|||<br>sl dspao! Jolsblg oLeWs GIVI<br>|||<br>sl dspao! Jolsblg oLeWs GIVI<br>|||<br>sl dspao! Jolsblg oLeWs GIVI<br>||
@@ -781,8 +748,6 @@ Mice .
 |85,165<br>~~P|~~|FG+Ang<br>~~P|~~<br>~~|~~|آداب<br>~~P|~~<br>~~|~~|80102|اللغة واآلداب والحضارة<br>80102|المعهد العالي للعلوم اإلنسانية بجندوبة<br>(جامعة جندوبة)||
 |114,422<br>~~ee~~|FG+Ang<br>~~|~~<br>~~ee~~|رياضيات<br>~~|~~<br>~~ee~~<br>~~ee~~|~~ee~~||||
 |126,217<br>~~ee~~|FG+Ang<br>~~ee~~|علومتجريبية<br>~~ee~~<br>~~ee~~|||||
-
-
 
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
@@ -820,8 +785,6 @@ Mice .
 |81,497<br>~~|~~|FG+F<br>~~|~~|إقتصاد وتصرف<br>~~|~~|||||
 |101,060<br>~~|~~|FG+F<br>~~|~~|العلوم التقنية<br>~~|~~|||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 |AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|
@@ -858,8 +821,6 @@ Mice .
 |96,805<br>~~a~~<br>~~Ty~~|FG+F<br>~~ee eee~~<br>~~Ty~~|علوماإلعالمية<br>~~eee~~<br>~~Ty~~|~~eee~~<br>||~~eee~~<br>~~|~~<br>|<br>||~~|~~<br>~~|~~<br>|<br>||~~|~~<br>||
 |108,505<br>~~Ty~~|FG+F<br>~~Ty~~|رياضة<br>~~Ty~~||||<br>|||<br>||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 |AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|
@@ -893,8 +854,6 @@ Mice .
 |107.742|FG+F|العلوم التقنية|||||
 |-<br>~~po}~~|FG+F<br>~~po}~~|علوم اإلعالمية<br>~~po}~~|||||<br>||||
 |-|FG+F|رياضة|||||
-
-
 
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
@@ -933,8 +892,6 @@ Mice .
 |-|FG+F|رياضيات|||||
 |121,129<br>~~a~~|FG+F<br>~~a~~|علومتجريبية<br>~~a~~|||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 |doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|
@@ -971,8 +928,6 @@ Mice .
 |90,987<br>~~FPof~~|FG+ESP<br>~~of~~|إقتصاد وتصرف<br>~~of~~<br>~~eee~~|||||
 |121,129<br>~~FP~~<br>~~a~~|FG+ESP<br><br>~~a~~|العلومالتقنية<br><br>~~a~~<br>~~eee~~|||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 ||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>||
@@ -1008,8 +963,6 @@ Mice .
 |101,860<br>~~a~~|FG+IT<br>~~ee~~|العلوم التقنية|||||
 |127,715<br>~~a~~<br>~~a~~|FG+IT<br>~~ee~~<br>~~ee~~|علوماإلعالمية|||||
 |-<br>~~a ~~<br>~~a~~|FG+IT<br> ~~ee~~<br>~~ee~~|رياضة|||||
-
-
 
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
@@ -1049,8 +1002,6 @@ Mice .
 |125,800<br>~~a eee~~|FG+IT<br>~~eee~~|علومتجريبية<br>~~eee~~|||||
 |104,619<br>~~i~~|FG+IT<br>~~i~~|إقتصاد وتصرف<br>~~i~~|||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 |doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|
@@ -1087,8 +1038,6 @@ Mice .
 |112,925|FG+ALL|العلوم التقنية|||||
 |-|FG+ALL<br>~~ee~~|علوماإلعالمية|||||
 |-<br>~~a~~|FG+ALL<br>~~a~~<br>~~ee~~|رياضة<br>~~a~~|~~a~~|~~a~~|~~a~~|~~a~~|
-
-
 
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
@@ -1129,8 +1078,6 @@ Mice .
 |84,490<br>~~Pf~~|FG+(A+F)/2<br>~~Pf~~|إقتصاد وتصرف<br>~~Pf~~|||||
 |113,110<br>~~i~~|FG+(A+F)/2<br>~~i~~|العلومالتقنية<br>~~i~~|||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 ||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>||
@@ -1164,8 +1111,6 @@ Mice .
 |130,053|FG+(2A+Ang+F)/<br>4|علوم تجريبية|||||
 |104,248|FG+(2A+Ang+F)/<br>4|إقتصاد وتصرف|||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 ||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>||
@@ -1189,8 +1134,6 @@ Mice .
 |-|FG+(A+Ang+2F)/<br>4|علوم اإلعالمية|||||
 |114,440|FG+(A+Ang+2F)/<br>4|رياضة|||||
 |75,501|FG+(A+Ang+2F)/<br>4|آداب|11191|فرنسية<br>11191|كلية اآلداب والفنون واإلنسانيات بمنوبة<br>(جامعة<br>منوبة)||
-
-
 
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
@@ -1218,8 +1161,6 @@ Mice .
 |113,446|FG+(A+2Ang+F)/<br>4|علوم اإلعالمية|||||
 |106,035|FG+(A+2Ang+F)/<br>4|رياضة|||||
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 ||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>|||<br>Wl dypaodll Jolbly SLVIg GIS!<br>||
@@ -1242,8 +1183,6 @@ Mice .
 |93,415|FG+(A+F+HG+PH)/<br>4|آداب|10195|فلسفة<br>10195|المعهد التحضيري للدراسات األدبية والعلوم<br>اإلنسانية<br>بتونس<br>(جامعة<br>تونس)|المرحلة التحضيرية للعلوم<br>اإلنسانية: فلسف ة<br>سنتان|
 |-|FG+(A+Ang+F+PH)/<br>4|رياضيات||||**ال سن**<br>**القصوى**<br>**أقل من20**<br>**سنة**<br>**في غرة سبتمبر**|
 
-
-
 **الآداب واللغات والمراحل التحضيرية الأدبية** 
 
 ||<br>Ao) dsypdoed! JolblyGW GIST<br>|||<br>Ao) dsypdoed! JolblyGW GIST<br>|||<br>Ao) dsypdoed! JolblyGW GIST<br>|||<br>Ao) dsypdoed! JolblyGW GIST<br>|||<br>Ao) dsypdoed! JolblyGW GIST<br>|||<br>Ao) dsypdoed! JolblyGW GIST<br>|||<br>Ao) dsypdoed! JolblyGW GIST<br>||
@@ -1254,8 +1193,6 @@ Mice .
 |100,022<br>~~|~~|FG+(A+Ang+F+PH)/<br>4<br>~~|~~<br>~~fe~~<br>~~|~~|العلوم التقنية<br>~~|~~<br>~~fe~~<br>~~|~~|||||
 |-<br>~~||~~|FG+(A+Ang+F+PH)/<br>4<br>~~||~~<br>~~|~~<br>~~|~~|علوم اإلعالمية<br>~~||~~<br>~~|~~<br>~~|~~|||||
 |-<br>~~||~~|FG+(A+Ang+F+PH)/<br>4<br>~~|~~<br>~~||~~<br>~~|~~|رياضة<br>~~|~~<br>~~||~~<br>~~|~~|||||
-
-
 
 **بدار المعلمين العليا كيفية الالتحاق** 
 
@@ -1308,8 +1245,6 @@ Mice .
 |121,720<br>~~a~~<br>~~>~~|FG+PH<br>~~ee eee~~<br>~~>~~|العلومالتقنية<br>~~eee~~<br>~~>~~|||||
 |113,538<br>~~>~~|FG+PH<br>~~>~~|علوم اإلعالمية<br>~~>~~|||||
 
-
-
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
 ||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>||
@@ -1343,8 +1278,6 @@ Mice .
 |128,390|FG+PH<br>~~ee ~~|آداب<br> ~~ee~~|11121<br>~~ee~~|علم النفس|المعهد العالي للعلوم اإلنسانية بتونس<br>(جامعة تونس المنار)||
 |157,945<br>~~— |~~|FG+PH<br>~~|~~|رياضيات<br>~~|~~|||||
 |124,290<br>~~ff~~|FG+PH<br>~~ff~~|علومتجريبية<br>~~ff~~|||||
-
-
 
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
@@ -1383,8 +1316,6 @@ Mice .
 |-<br>~~Feof~~<br>~~a~~|FG+PH<br>~~of~~<br>~~ee~~|العلومالتقنية<br>~~of~~<br>~~ee~~<br>~~ee~~|~~|~~<br>~~|~~|~~|~~<br>~~|~~<br>~~|~~<br>~~|~~|~~|~~<br>~~|~~<br>~~|~~<br>~~|~~|~~|~~<br>~~|~~|
 |83,557<br>~~a~~<br>~~a ee~~|FG+PH<br>~~ee~~<br>~~ee~~|علوماإلعالمية<br>~~ee~~<br>~~ee~~<br>~~ee~~|~~|~~|~~|~~<br>~~|~~|~~|~~<br>~~|~~|~~|~~|
 
-
-
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
 |dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|
@@ -1420,8 +1351,6 @@ Mice .
 |-<br>~~a~~<br>~~TL~~|FG+F<br>~~ee ~~<br>~~TL~~|علوماإلعالمية<br> ~~eee~~<br>~~TL~~|~~|~~<br>~~TL~~|~~|~~<br>~~|~~<br>~~TL~~|~~|~~<br>~~|~~|~~|~~|
 |-<br>~~TL~~|FG+F<br>~~TL~~|رياضة<br>~~TL~~|~~TL~~|~~TL~~|||
 
-
-
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
 ||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>||
@@ -1456,8 +1385,6 @@ Mice .
 |-<br>~~a~~|FG+F<br>~~ft~~<br>~~ee~~|رياضيات<br>~~ft~~<br>~~eee~~|~~eee~~||~~|~~<br>~~|~~|~~|~~|
 |105,998<br>~~a~~|FG+F<br>~~ee~~|علومتجريبية<br>~~eee~~|~~eee~~|~~eee~~<br>~~|~~|~~|~~<br>~~|~~|~~|~~|
 |80,332<br>~~a~~<br>~~ff~~|FG+(F+HG)/2<br>~~ee ~~<br>~~ff~~|إقتصاد وتصرف<br> ~~eee~~<br>~~ff~~|~~eee~~|~~eee~~<br>~~|~~|~~|~~<br>~~|~~|~~|~~|
-
-
 
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
@@ -1495,8 +1422,6 @@ Mice .
 |-|FG+F|رياضيات<br>~~ee~~|~~ee~~|||3<br>سنوات<br>)(امد|
 |-<br>~~ee~~|FG+F<br>~~ee~~|علومتجريبية<br>~~ee~~<br>~~ee~~|~~ee~~||||
 
-
-
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
 ||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>||
@@ -1533,8 +1458,6 @@ Mice .
 |-|FG+F|رياضيات<br>~~ee~~|~~ee~~|||3<br>)سنوات(امد|
 |91,227<br>~~ee~~|FG+F<br>~~ee~~|علومتجريبية<br>~~ee~~<br>~~ee~~|~~ee~~||||
 
-
-
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
 ||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>||
@@ -1567,8 +1490,6 @@ Mice .
 |90,457<br>~~a~~<br>~~a~~|FG+(A+Ang+F)/3<br>~~ee ~~<br>~~ee~~<br>~~ee~~|العلومالتقنية<br> ~~eee~~<br>~~eee~~<br>~~eee~~|~~eee~~<br>~~eee~~<br>~~eee~~||||
 |74,787<br>~~a~~|FG+(A+Ang+F)/3<br>~~ee ~~<br>~~ee~~|علوماإلعالمية<br> ~~eee~~<br>~~eee~~|~~eee~~<br>~~eee~~||||
 |96,497|FG+(A+Ang+F)/3<br>~~ee ~~|آداب<br> ~~eee~~|10363<br>~~eee~~|-<br>التصرف في األرشيف|المعهد العالي للتوثيق بتونس (جامعة<br>منوبة)|اإلجازة في التوثيق وعلوم المكتبات<br>واألرشيف|
-
-
 
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
@@ -1604,8 +1525,6 @@ Mice .
 |135,880<br>~~a~~<br>~~a~~|FG+(A+F)/2<br>~~ee~~<br>~~ee~~|رياضيات<br>~~eee~~<br>~~eee~~|~~eee~~<br>~~eee~~||||
 |151,955<br>~~a~~<br>~~a~~|FG+(A+F)/2<br>~~ee ~~<br>~~ee~~|علومتجريبية<br> ~~eee~~<br>~~eee~~|~~eee~~<br>~~eee~~||||
 
-
-
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
 ||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>|||<br>dn lg daisWig AeelyzeVlg dilus¥l pglsll<br>||
@@ -1640,8 +1559,6 @@ Mice .
 |121,905|FG+(A+F)/2|علوماإلعالمية|||||
 |114,500<br>~~|]~~|FG+(A+F)/2<br>~~|]~~|آداب<br>~~|]~~|63477|التربية والتعليم|المعهد العالي للدراسات التطبيقية في<br>اإلنسانيات بتوزر<br>(جامعة<br>قفصة)||
 |96,188<br>~~ff~~|FG+(A+F)/2<br>~~ff~~|رياضيات<br>~~ff~~|||||
-
-
 
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
@@ -1679,8 +1596,6 @@ Mice .
 |116,300<br>~~ee~~|FG+(A+Ang+F+PH)/4<br>~~ee~~|العلومالتقنية<br>~~ee~~<br>~~ee~~|~~ee~~||||
 |111,285<br>~~a ee~~|FG+(A+Ang+F+PH)/4<br>~~ee~~|علوماإلعالمية<br>~~ee~~<br>~~ee~~|~~ee~~||||
 
-
-
 **العلوم الإنسانية والاجتماعية والدينية والتربية** 
 
 |dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|
@@ -1694,8 +1609,6 @@ Mice .
 |105,799<br>~~eee~~|FG+(A+Ang+F+PH)/4<br>~~eee~~|العلومالتقنية<br>~~eee~~|||||
 |97,198<br>~~|~~|FG+(A+Ang+F+PH)/4<br>~~|~~|علوماإلعالمية<br>~~|~~|||||
 |121,308<br>~~|~~|FG+(A+Ang+F+PH)/4<br>~~|~~<br>~~ft~~|رياضة<br>~~|~~<br>~~ft~~|||||
-
-
 
 ## **03** 
 
@@ -1739,8 +1652,6 @@ Mice .
 |-<br>~~i~~|FG+PH<br>~~i~~|علوماإلعالمية<br>~~i~~|||||
 |-|FG+PH|رياضة|||||
 
-
-
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
 |SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|
@@ -1776,8 +1687,6 @@ Mice .
 |-<br>~~ee~~<br>~~>~~<br>~~tet~~|FG+PH<br>~~ee~~<br>~~>~~<br>~~tet~~|رياضة<br>~~eee~~<br>~~>~~<br>~~tettT}~~|||||
 |84,601<br>~~>~~<br>~~tet~~|FG+PH<br>~~>~~<br>~~tet~~|آداب<br>~~>~~<br>~~tettT}~~|60201<br>~~tT}~~|-<br>الموسيقى و العلوم الموسيقية<br>~~tT}~~|المعهد<br>العالي<br>للفنون والحرف<br>بقفصة<br>)(جامعة قفصة||
 |-<br>~~tet~~|FG+PH<br>~~tet~~|رياضيات<br>~~tettT}~~|||||
-
-
 
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
@@ -1815,8 +1724,6 @@ Mice .
 |115,675<br>~~fo~~<br>~~ee~~|FG+PH<br>~~fo~~<br>~~ee~~|علومتجريبية<br>~~fo~~<br>~~ee~~|~~ee~~||||
 |76,767<br>~~ee~~|FG+PH<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~|~~ee~~||||
 
-
-
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
 |SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|
@@ -1853,8 +1760,6 @@ Mice .
 |72,698<br>~~a~~<br>~~a~~|FG+PH<br>~~ee eee~~<br>~~ee~~|العلومالتقنية<br>~~eee~~<br>~~eee~~|||||
 |78,198<br>~~a~~<br>~~a~~|FG+PH<br>~~ee eee~~<br>~~ee~~|علوماإلعالمية<br>~~eee~~<br>~~eee~~|||||
 
-
-
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
 |ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|
@@ -1890,8 +1795,6 @@ Mice .
 |109,085<br>~~ee~~|FG+PH<br>~~ee~~|علوماإلعالمية<br>~~ee~~|||||
 |183,548|FG+PH|رياضة|||||
 
-
-
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
 |ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|
@@ -1925,8 +1828,6 @@ Mice .
 |116,764<br>~~i ee~~<br>~~a~~|FG+PH<br>~~ee~~<br>~~ee~~|العلومالتقنية<br>~~ee~~|~~ee~~|~~ee~~<br>|<br>|||<br>|<br>|<br>|||<br>||
 |106,963<br>~~a~~|FG+PH<br>~~ee~~|علوماإلعالمية|||||<br>||||
 |142,655<br>~~a~~<br>~~ff~~|FG+PH<br>~~ee~~<br>~~ff~~|رياضة<br>~~ff~~|||||<br>||||
-
-
 
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
@@ -1962,8 +1863,6 @@ Mice .
 |79,519<br>~~a~~|FG+PH<br>~~a~~|علوماإلعالمية<br>~~a~~|~~a~~|~~a~~<br>||~~a~~<br>|<br>||~~a~~<br>||
 |117,380<br>~~ee~~|FG+PH<br>~~ee~~|رياضة<br>~~ee~~|||||
 
-
-
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
 ||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>||
@@ -1997,8 +1896,6 @@ Mice .
 |92,420<br>~~—|~~<br>~~—|~~|FG+PH<br>~~|~~<br>~~|~~|العلومالتقنية||~~|~~<br>~~|~~|~~|~~<br>~~|~~<br>~~|~~<br>~~|~~|~~|~~<br>~~|~~|
 |75,718<br>~~— |~~<br>~~—|~~|FG+PH<br>~~|~~<br>~~|~~|علوماإلعالمية||~~|~~<br>~~|~~|~~|~~<br>~~|~~<br>~~|~~<br>~~|~~|~~|~~<br>~~|~~|
 |137,735<br>~~— |~~|FG+PH<br>~~|~~|رياضة||~~|~~|~~|~~<br>~~|~~|~~|~~|
-
-
 
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
@@ -2035,8 +1932,6 @@ Mice .
 |126,080<br>~~—~~<br>~~tot~~|FG+PH<br><br>~~tot~~|رياضة<br><br>~~tot~~|||||
 |119,805<br>~~tot~~|FG+PH<br>~~tot~~|آداب<br>~~totEL~~|34208<br>~~EL~~|-<br>التصميم على**ا**لقمشة<br>~~EL~~|المعهد العالي للموضة بالمنستير (جامعة<br>المنستير)<br>~~EL~~||
 
-
-
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
 ||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>||
@@ -2069,8 +1964,6 @@ Mice .
 |-|FG+PH|العلوم التقنية|||||
 |-|FG+PH|علوم اإلعالمية|||||
 |-|FG+PH|رياضة|||||
-
-
 
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
@@ -2109,8 +2002,6 @@ Mice .
 |118,898<br>~~ee~~|FG+PH<br>~~ee~~|رياضيات<br>~~ee~~|||||
 |123,580<br>~~a~~|FG+PH|علومتجريبية|||||
 
-
-
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
 ||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>||
@@ -2145,8 +2036,6 @@ Mice .
 |111,557<br>~~— ff~~|FG+PH<br>~~|~~<br>~~ff~~|رياضيات<br>~~|~~<br>~~ff~~|~~ff~~|~~ff~~<br>|||<br>||||
 |116,016<br>~~|~~|FG+PH<br>~~|~~|علومتجريبية<br>~~|~~|~~|~~|~~|~~<br>|||<br>||||
 |88,837<br>~~ee~~|FG+PH<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~|||||
-
-
 
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
@@ -2184,8 +2073,6 @@ Mice .
 |86,435<br>~~—~~|FG+PH<br>~~>~~|العلومالتقنية<br>~~>~~||||<br>|||<br>||||
 |80,908<br>~~— ~~|FG+PH<br> ~~>~~|علوم اإلعالمية<br>~~>~~||||<br>|||<br>||||
 
-
-
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
 ||<br>yodle Qgidlls ULiesd! jgidlle JdLan!<br>|||<br>yodle Qgidlls ULiesd! jgidlle JdLan!<br>|||<br>yodle Qgidlls ULiesd! jgidlle JdLan!<br>|||<br>yodle Qgidlls ULiesd! jgidlle JdLan!<br>|||<br>yodle Qgidlls ULiesd! jgidlle JdLan!<br>|||<br>yodle Qgidlls ULiesd! jgidlle JdLan!<br>|||<br>yodle Qgidlls ULiesd! jgidlle JdLan!<br>||
@@ -2221,8 +2108,6 @@ Mice .
 |107,375<br>~~ee~~|FG+PH<br>~~ee~~|العلومالتقنية<br>~~ee~~|||||
 |99,887<br>~~ee~~|FG+PH<br>~~ee~~|علوماإلعالمية<br>~~ee~~|||||
 
-
-
 **الثقافة والفنون الجميلة والفنون والحرف** 
 
 ||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>|||<br>Byoly Sgiilly Upeodl Gguilly d5tau)!<br>||
@@ -2252,8 +2137,6 @@ Mice .
 |84,570<br>~~—|~~|FG+Info<br>~~|~~|إقتصاد وتصرف|||||
 |74,892<br>~~—|~~|FG+Info<br>~~|~~|العلومالتقنية||~~|~~|~~|~~<br>~~|~~|~~|~~|
 |83,660<br>~~— |~~<br>~~ff~~|FG+STI<br>~~|~~<br>~~ff~~|علوماإلعالمية<br>~~ff~~||~~|~~|~~|~~<br>~~|~~|~~|~~|
-
-
 
 ## **والسينما بقمرت  المدرسة العليا للسمعي البصري** 
 
@@ -2306,8 +2189,6 @@ Mice .
 |76,572|FG+SB|رياضة|||||
 |144,263|FG+EP|آداب|60450|-<br>التربية والحركية<br>60450|المعهد العالي للرياضة<br>والتربية البدنية<br>بقفصة(جامعة قفصة)||
 
-
-
 **السياحة والتنشيط والرياضة والتربية البدنية** 
 
 ||<br>diel) dyfly Aol;lyLaitydoll<br>|||<br>diel) dyfly Aol;lyLaitydoll<br>|||<br>diel) dyfly Aol;lyLaitydoll<br>|||<br>diel) dyfly Aol;lyLaitydoll<br>|||<br>diel) dyfly Aol;lyLaitydoll<br>|||<br>diel) dyfly Aol;lyLaitydoll<br>|||<br>diel) dyfly Aol;lyLaitydoll<br>||
@@ -2340,8 +2221,6 @@ Mice .
 |100,875<br>~~of~~|FG+(F+Ang)/2<br>~~of~~|العلومالتقنية<br>~~of~~|||||
 |90,955<br>~~ff~~|FG+(F+Ang)/2<br>~~ff~~|علوماإلعالمية<br>~~ff~~|||||
 |119,655<br>~~ff~~|FG+(F+Ang)/2<br>~~ff~~|رياضة<br>~~ff~~|||||
-
-
 
 **الشروط التالية:  الى الإجازة في علوم وتقنيات الأنشطة البدنية والرياضية إلى تخضع عملية التوجيه** في مادة التربية البدنية كشرط أساسي من ضمن الشروط الخاصة بعملية **من20 معدل16** اعتماد 1. .التوجيه الجامعي إجراء  اختبارات  طبية  معمقة  للتأكد  من  الأهلية  الصحية  للمترشحين  تتم  برمجتها  لاحقا  بالمركز 2. **وفترة تدارك )(موعد أول فترة رئيسية** وذلك في الوطني والمراكز الجهوية للطب وعلوم الرياضة ***.)(موعد ثاني** - لا تعتبر عملية التوجيه الجامعي نهائية الا بعد استظهار المترشح بشهادة طبية تأهيلية مسلمة من المركز الوطني للطب وعلوم الرياضة الراجع بالنظر لوزارة الشباب والرياضة وذلك للالتحاق بأحد المعاهد العليا للرياضة والتربية البدنية. مع العلم ان معاليم هذه الاختبارات ت قدر بأربعة وعشرون .د) تدفع من طرف المترشح لوكيل المقابيض المركز المسدي للخدمة ( دينار24 **:الملاحظات** 
 
@@ -2410,8 +2289,6 @@ Mice .
 |90,660|FG+(A+F)/2|رياضيات|||||
 |120,385|FG+(A+F)/2|علومتجريبية|||||
 
-
-
 **العلوم القانونية والعلوم السياسية** 
 
 |duleudl aglells Aigilil! poll<br>||duleudl aglells Aigilil! poll<br>||duleudl aglells Aigilil! poll<br>||duleudl aglells Aigilil! poll<br>||duleudl aglells Aigilil! poll<br>||duleudl aglells Aigilil! poll<br>||duleudl aglells Aigilil! poll<br>||
@@ -2437,8 +2314,6 @@ Mice .
 |-<br>~~es~~<br>~~a ee~~|FG+(A+F)/2<br><br>~~ee~~|رياضة<br>~~ee~~<br><br>~~ee~~<br>~~ee~~<br>~~ee~~|~~ee~~<br>~~ee~~||||
 |112,655|FG+(A+F)/2|آداب<br>~~ee~~<br>~~ee~~|10346|القانون**ا**لجتماعي<br>10346|المعهد الوطني للشغل والدراسات<br> **ا**لجتماعية<br>بتونس(جامعة قرطاج)|اإلجازة في القانون<br> **ا**لجتماعي|
 |99,070<br>~~ee~~|FG+(A+F)/2<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~<br>~~ee~~||||3<br>سنوات<br>)(امد|
-
-
 
 ## **06 وعلوم العلوم الاقتصادية التصرف** 
 
@@ -2474,8 +2349,6 @@ Mice .
 |90,090<br>~~ee~~|FG+M<br>~~fT~~<br>~~ee~~|علومتجريبية<br>~~fT~~<br>~~ee~~<br>~~ee~~|**e**|**e**<br>|||<br>||||
 |127,121<br>~~ee~~|FG+(M+Ec)/2<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~<br>~~ee~~|**e**|**e**<br>|||<br>||||
 
-
-
 **العلوم الاقتصادية وعلوم التصرف** 
 |
 |---|---|---|---|---|---|---|
@@ -2509,8 +2382,6 @@ Mice .
 |120,824<br>~~a~~|FG+M|علومتجريبية<br>~~ee~~|||||||
 |85,138<br>~~ee~~|FG+(M+Ec)/2<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~<br>~~ee~~|||||
 
-
-
 **العلوم الاقتصادية وعلوم التصرف** 
 |
 |---|---|---|---|---|---|---|
@@ -2541,8 +2412,6 @@ Mice .
 |153,155<br>~~ee~~|FG+(M+Ge)/2<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~|||||
 |156,241|FG+M|العلومالتقنية|||||
 |136,741<br>~~pf~~|FG+M<br>~~pf~~|علوم اإلعالمية<br>~~pf~~|||||
-
-
 
 **العلوم الاقتصادية وعلوم التصرف** 
 |
@@ -2577,8 +2446,6 @@ Mice .
 |120,808|FG+M<br>~~fT~~|علومتجريبية<br>~~fT~~<br>~~ee~~|||||
 |131,630<br>~~ee~~|FG+(M+Ge)/2<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~<br>~~ee~~|||||
 
-
-
 **العلوم الاقتصادية وعلوم التصرف** 
 |
 |---|---|---|---|---|---|---|
@@ -2612,8 +2479,6 @@ Mice .
 |108,845<br>~~ee~~<br>~~ee~~|FG+M<br>~~ee~~<br>~~ee~~|علوماإلعالمية<br>~~ee~~<br>~~eee~~|||~~|~~|~~|~~|
 |104,580|FG+M|رياضيات<br>~~eee~~<br>~~ee~~|34318|التسويق|المعهد العالي للموضة بالمنستير (جامعة<br>المنستير)||
 |121,310<br>~~ee~~|FG+M<br>~~ee~~|علومتجريبية<br>~~ee~~<br>~~ee~~|||||
-
-
 
 **العلوم الاقتصادية وعلوم التصرف** 
 
@@ -2650,8 +2515,6 @@ Mice .
 |147,635<br>~~ee~~|FG+M<br>~~ee~~<br>~~ee~~|العلومالتقنية<br>~~ee~~<br>~~ee~~|||~~|~~<br>~~|~~|~~|~~<br>~~|~~|
 |97,521<br>~~ee~~<br>~~Pf~~|FG+M<br>~~ee~~<br>~~Pf~~|علوماإلعالمية<br>~~ee~~<br>~~Pf~~|||~~|~~|~~|~~|
 
-
-
 **العلوم الاقتصادية وعلوم التصرف** 
 
 ||<br>Grail agles dolaii¥l aglall<br>|||<br>Grail agles dolaii¥l aglall<br>|||<br>Grail agles dolaii¥l aglall<br>|||<br>Grail agles dolaii¥l aglall<br>|||<br>Grail agles dolaii¥l aglall<br>|||<br>Grail agles dolaii¥l aglall<br>|||<br>Grail agles dolaii¥l aglall<br>||
@@ -2685,8 +2548,6 @@ Mice .
 |91,700<br>~~a~~|FG+PH<br>~~ee~~|العلومالتقنية<br>~~ee~~|||||
 |107,920<br>~~a~~|FG+PH<br>~~ee~~|علوم اإلعالمية<br>~~ee~~|||||
 
-
-
 **العلوم الاقتصادية وعلوم التصرف** 
 |
 |---|---|---|---|---|---|---|
@@ -2712,8 +2573,6 @@ Mice .
 |118,101<br>~~ee~~<br>~~ee~~|FG+(M+Ge)/2<br>~~ee ~~<br>~~ee~~|إقتصاد وتصرف<br> ~~eee~~<br>~~ee~~<br>~~ee~~|ee<br>**e**|ee<br>|<br>**e**<br>|||<br>|<br>|<br>|<br>|||<br>|<br>||
 |136,900<br>~~ee~~|FG+M<br>~~ee~~|العلومالتقنية<br>~~ee~~<br>~~ee~~|**e**|**e**<br>|||<br>||||
 |145,493<br>~~ee~~|FG+M<br>~~ee~~|علوماإلعالمية<br>~~ee~~<br>~~ee~~|**e**|**e**<br>|||<br>||||
-
-
 
 **العلوم الاقتصادية وعلوم التصرف** 
 |
@@ -2742,8 +2601,6 @@ Mice .
 |123,831<br>~~At~~|FG+M<br>~~At~~|رياضيات<br>~~At |~~|40391<br>~~|~~|-التصرف الصناعي<br>-<br>النقل والخدمات اللوجستية<br>-<br>التصرف في الجودة، الصحة، السالمة<br>والمحيط<br>~~|~~|المعهد العالي للدراسات التكنولوجية<br>بصفاقس (<br>اإلدارة العامة للدّراسات<br>التّكنولوجيّة)||
 |121,980<br>~~At~~|FG+M<br>~~At~~|علومتجريبية<br>~~At |~~|~~|~~||||
 |107,765<br>~~At~~|FG+(M+Ge)/2<br>~~At~~|إقتصاد وتصرف<br>~~At |~~|~~|~~||||
-
-
 
 **العلوم الاقتصادية وعلوم التصرف** 
 
@@ -2777,8 +2634,6 @@ Mice .
 |96,660<br>~~a~~<br>~~a~~|FG+(M+Ge)/2<br>~~ee~~<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~<br>~~ee~~|~~|~~<br>~~|~~|~~|~~<br>~~|~~<br>~~|~~<br>~~|~~|~~|~~<br>~~|~~<br>~~|~~<br>~~|~~|~~|~~<br>~~|~~|
 |116,115<br>~~a~~<br>~~Pf~~|FG+M<br>~~ee~~<br>~~Pf~~|العلومالتقنية<br>~~ee~~<br>~~Pf~~|~~|~~|~~|~~<br>~~|~~|~~|~~<br>~~|~~|~~|~~|
 
-
-
 **العلوم الاقتصادية وعلوم التصرف** 
 |
 |---|---|---|---|---|---|---|
@@ -2808,8 +2663,6 @@ Mice .
 |128,796<br>~~aa~~|FG+M<br>~~aa~~|علومتجريبية<br>~~aa~~|||||
 |120,081<br>~~a~~|FG+(M+Ge)/2<br>~~a~~|إقتصاد وتصرف<br>~~ee~~|||||
 |125,930<br>~~ee~~|FG+M<br>~~ee~~|العلومالتقنية<br>~~ee~~<br>~~ee~~|||||
-
-
 
 **العلوم الاقتصادية وعلوم التصرف** 
 |
@@ -2842,8 +2695,6 @@ Mice .
 |128,170<br>~~ee~~|FG+M<br>~~ee~~|العلومالتقنية<br>~~ee~~<br>~~ee~~<br>~~ee~~|**e**<br>**e**|**e**<br>|<br>**e**<br>|||<br>|<br>|<br>|||<br>||
 |102,825<br>~~ee~~|FG+M<br>~~ee~~|علوماإلعالمية<br>~~ee~~<br>~~ee~~|**e**|**e**<br>|||<br>||||
 
-
-
 **العلوم الاقتصادية وعلوم التصرف** 
 |
 |---|---|---|---|---|---|---|
@@ -2873,8 +2724,6 @@ Mice .
 |100,582<br>~~i~~<br>~~ee~~|FG+(M+Ge)/2<br>~~ee~~<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~<br>~~ee~~|**e**||<br>**e**<br>|||<br>|<br>|<br>|||<br>||
 |99,305<br>~~ee~~<br>~~ee~~|FG+M<br>~~ee~~<br>~~ee~~|العلومالتقنية<br>~~ee~~<br>~~ee~~<br>~~eee~~|**e**|**e**<br>|<br>|||<br>|<br>|<br>|||<br>||
 |108,390<br>~~ee~~|FG+M<br>~~ee~~|علوماإلعالمية<br>~~eee~~|||||
-
-
 
 **العلوم الاقتصادية وعلوم التصرف** 
 |
@@ -2906,8 +2755,6 @@ Mice .
 |147,681<br>~~ee~~<br>~~ee~~|FG+M<br>~~ee~~<br>~~ee~~|العلومالتقنية<br>~~ee~~<br>~~e~~~~**e**~~<br>~~ee~~|||||
 |123,815<br>~~ee~~|FG+M<br>~~ee~~|علوماإلعالمية<br>~~e~~~~**e**~~<br>~~ee~~|||||
 
-
-
 **العلوم الاقتصادية وعلوم التصرف** 
 |
 |---|---|---|---|---|---|---|
@@ -2938,8 +2785,6 @@ Mice .
 |123,355<br>~~ee~~<br>~~ee~~|FG+M<br>~~ee~~<br>~~ee~~<br>~~ee~~|العلومالتقنية<br>~~ee~~<br>~~ee~~<br>~~eee~~|**e**||<br>~~|~~||<br>|<br>~~|~~<br>~~|~~||<br>~~|~~|
 |105,839<br>~~ee~~|FG+M<br>~~ee~~|علوماإلعالمية<br>~~ee~~<br>~~eee~~|**e**|~~|~~|~~|~~<br>~~|~~|~~|~~|
 
-
-
 **العلوم الاقتصادية وعلوم التصرف** 
 
 |8pa eles dy sLaxsy) eolsll|8pa eles dy sLaxsy) eolsll|8pa eles dy sLaxsy) eolsll|8pa eles dy sLaxsy) eolsll|8pa eles dy sLaxsy) eolsll|8pa eles dy sLaxsy) eolsll|8pa eles dy sLaxsy) eolsll|
@@ -2960,8 +2805,6 @@ Mice .
 |94,140<br>~~es~~<br>~~es~~<br>~~es~~|FG+(M+Ge)/2<br>~~ee~~<br>~~ee~~<br>~~ee~~|إقتصاد وتصرف<br>~~ee ~~<br>~~ee~~<br>~~ee~~|~~ee~~<br>~~ee~~<br>~~ee~~||<br>|<br>|||<br>|<br>|<br>|<br>|<br>|||<br>|<br>||
 |120,140<br>~~es~~<br>~~es~~<br>~~es~~|FG+M<br>~~ee~~<br>~~ee~~<br>~~ee~~|العلومالتقنية<br>~~ee ~~<br>~~ee~~|~~ee~~<br>~~ee~~||<br>|||<br>|<br>|<br>|||<br>||
 |96,232<br>~~es~~<br>~~es~~|FG+M<br>~~ee~~<br>~~ee~~|علوماإلعالمية<br>~~ee ~~|~~ee~~||||<br>||||
-
-
 
 **07** © J <*s NK ne **الصحيحة العلوم** YA **والتكنولوجيا** fi Alix 
 
@@ -2999,8 +2842,6 @@ Mice .
 |175,031|FG+(M+Info)/2|العلومالتقنية|||||
 |153,635|FG+(M+Algo)/2|علوماإلعالمية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3033,8 +2874,6 @@ Mice .
 |123,955|FG+(M+Algo)/2|علوماإلعالمية|||||
 |141,535|FG+(M+Info)/2|رياضيات|37311|-<br>ذكاء األعمال<br>37311<br>-<br>الخدمات اإللكترونية فياألعمال|المعهد العالي لإلعالمية بالمهدية<br>(جامعة<br>المنستير(||
 |136,085|FG+(M+Info)/2|علومتجريبية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3070,8 +2909,6 @@ Mice .
 |147,703|FG+(M+Info)/2|العلومالتقنية|||||
 |98,179|FG+(M+Algo)/2|علوماإلعالمية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3103,8 +2940,6 @@ Mice .
 |92,140|FG+(M+SP)/2|رياضيات|11501|كيمياء البيئة<br>11501|المعهد العالي لعلوم<br>وتكنولوجيات<br>البيئة ببرج<br>السدرية(<br>جامعة قرطاج(||
 |83,804|FG+(M+SP)/2|علومتجريبية|||||
 |112,885|FG+(M+SP)/2|العلوم التقنية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3142,8 +2977,6 @@ Mice .
 |74,713|FG+(M+SP)/2|علومتجريبية|||||
 |97,142|FG+(M+SP)/2|العلوم التقنية|||||
 
-
-
 |~~EuTT~~|~~EuTT~~|~~EuTT~~|~~EuTT~~|~~EuTT~~|~~EuTT~~|~~EuTT~~|
 |---|---|---|---|---|---|---|
 |**مجموع**<br>**نقاط**<br>**اخر**<br>**موجه**<br>**2024**<br>~~Eu~~|**صيغة احتساب**<br>**مجموع النقاط**<br>~~Eu~~|**نوع البكالوريا**<br>~~Eu~~|**الرمز**<br>~~Eu~~|**التخصصات**<br>~~EuTT~~|**المؤسسة وال جامعة**<br>~~TT~~|**/ اإلجازة**<br>**الشعبة**<br>~~TT~~|
@@ -3177,8 +3010,6 @@ Mice .
 |113,244|FG+(M+SP)/2|رياضيات|10504|الفيزياء والطاقة<br>10504|كلية العلومبتونس(جامعة<br>تونس المنار(|اإلجازة فيالفيزياء و الطاقة|
 |100,625|FG+(M+SP)/2|علومتجريبية||||3<br>)سنوات(امد|
 |109,330|FG+(M+SP)/2|العلوم التقنية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3216,8 +3047,6 @@ Mice .
 |107,762|FG+M|علومتجريبية|||||
 |117,810|FG+M|العلومالتقنية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3253,8 +3082,6 @@ Mice .
 |90,692|FG+M|رياضيات|34507|الرياضيات<br>34507|كلية العلومبالمنستير(جامعة<br>المنستير(||
 |102,592|FG+M|علومتجريبية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3289,8 +3116,6 @@ Mice .
 |-|FG+SVT|رياضيات|60509|-<br>البيولوجيا الجزيئية والخلوية<br>60509<br>-<br>بيولوجيا المجموعات واألنظمة|كلية العلومبقفصة<br>(جامعة قفصة(||
 |79,028|FG+SVT|علومتجريبية|||||
 
-
-
 |~~i~~|~~i~~|~~i~~|~~i~~|~~i~~|~~i~~|~~i~~|
 |---|---|---|---|---|---|---|
 |**مجموع**<br>**نقاط**<br>**اخر**<br>**موجه**<br>**2024**<br>~~i~~|**صيغة احتساب**<br>**مجموع النقاط**<br>~~i~~|**نوع البكالوريا**<br>~~i~~|**الرمز**<br>~~i~~|**التخصصات**<br>~~i~~|**المؤسسة وال جامعة**<br>~~i~~|**/ اإلجازة**<br>**الشعبة**<br>~~i~~|
@@ -3322,8 +3147,6 @@ Mice .
 |102,656<br>~~i~~|FG+SVT<br>~~i~~|رياضيات<br>~~i~~|10512<br>~~i~~|التصرف وتثمين الموارد البيولوجية<br>10512<br>~~i~~|اإلجازة في علوم األحياء والمحيط كلية العلوم بتونس (جامعة<br>تونس المنار (<br>~~i~~|اإلجازة في علوم األحياء والمحيط كلية العلوم بتونس (جامعة<br>~~i~~|
 |82,972<br>~~i~~|FG+SVT<br>~~i~~|علومتجريبية<br>~~i~~|~~i~~|~~i~~|~~i~~|3<br>سنوات<br>)(امد<br>~~i~~|
 
-
-
 |~~To.~~|~~To.~~|~~To.~~|~~To.~~|~~To.~~|~~To.~~|~~To.~~|
 |---|---|---|---|---|---|---|
 |**مجموع**<br>**نقاط**<br>**اخر**<br>**موجه**<br>**2024**<br>~~To.~~|**صيغة احتساب**<br>**مجموع النقاط**<br>~~To.~~|**نوع البكالوريا**<br>~~To.~~|**الرمز**<br>~~To.~~|**التخصصات**<br>~~To.~~|**المؤسسة وال جامعة**<br>~~To.~~|**/ اإلجازة**<br>**الشعبة**<br>~~To.~~|
@@ -3350,8 +3173,6 @@ Mice .
 |112,042|FG+SVT|علومتجريبية|||||
 |-|FG+SVT|رياضيات|50513|علوم الحياة واألرض<br>50513|كلية العلوم بقابس<br>(جامعة قابس (||
 |96,474|FG+SVT|علوم تجريبية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3387,8 +3208,6 @@ Mice .
 |131,420|FG+(M+Info)/2|علومتجريبية|||||
 |155,830|FG+(M+Info)/2|العلومالتقنية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3422,8 +3241,6 @@ Mice .
 |142,990|FG+(M+Info)/2|رياضيات|40523|هندسة البرمجيات ونظمالمعلومات<br>40523|كلية العلومبصفاقس(جامعة<br>صفاقس(||
 |130,759|FG+(M+Info)/2|علومتجريبية|||||
 |161,495|FG+(M+Info)/2|العلومالتقنية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3460,8 +3277,6 @@ Mice .
 |150,105|FG+(M+Info)/2|العلومالتقنية|||||
 |113,458|FG+(M+Algo)/2|علوماإلعالمية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3495,8 +3310,6 @@ Mice .
 |148,671|FG+(M+Info)/2|علومتجريبية|||||
 |171,821|FG+(M+Info)/2|العلومالتقنية|||||
 |168,509|FG+(M+Algo)/2|علوماإلعالمية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3532,8 +3345,6 @@ Mice .
 |140,200|FG+(M+Info)/2|العلومالتقنية|||||
 |104,640|FG+(M+Algo)/2|علوماإلعالمية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3564,8 +3375,6 @@ Mice .
 |118,115|FG+(M+Info)/2|العلومالتقنية|||||
 |77,053|FG+(M+Algo)/2|علوماإلعالمية|||||
 |112,490|FG+(M+Info)/2|رياضيات|82524|هندسة الشبكات والنظم<br>82524|المعهد العالي لإلعالمية بالكاف<br>(جامعة<br>جندوبة(||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3601,8 +3410,6 @@ Mice .
 |129,160|FG+(M+Info)/2|علومتجريبية|||||
 |129,505|FG+(M+Info)/2|إقتصاد وتصرف|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3636,8 +3443,6 @@ Mice .
 |151,710|FG+(M+Info)/2|العلومالتقنية|||||
 |140,555|FG+(M+Algo)/2|علوماإلعالمية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3670,8 +3475,6 @@ Mice .
 |79,653|FG+(M+Algo)/2|علوماإلعالمية|||||
 |95,927|FG+(M+Info)/2|رياضيات|60566|-<br>الشبكات والخدمات اإلعالمية<br>60566<br>-<br>الملتيميديا وتطوير الواب|المعهد العالي للدراسات التكنولوجية بقفصة<br> (<br>اإلدارة العامة للدّراسات التّكنولوجيّة)||
 |101,560|FG+(M+Info)/2|علومتجريبية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3707,8 +3510,6 @@ Mice .
 |123,560|FG+(M+Info)/2|العلومالتقنية|||||
 |115,540|FG+(M+Algo)/2|علوماإلعالمية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3742,8 +3543,6 @@ Mice .
 |119,344|FG+(M+SP+Info)/3|علومتجريبية|||~~=E~~|~~=E~~|
 |113,952|FG+(M+SP+TE)/3|العلومالتقنية|||~~=E~~|~~=E~~|
 
-
-
 ||||||||
 |---|---|---|---|---|---|---|
 |**مجموع**<br>**نقاط**<br>**اخر**<br>**موجه**<br>**2024**<br>~~=~~|**صيغة احتساب**<br>**مجموع النقاط**<br>~~=~~|**نوع البكالوريا**<br>~~=~~|**الرمز**<br>~~=~~|**التخصصات**<br>~~=~~|**المؤسسة وال جامعة**<br>~~=~~|**/ اإلجازة**<br>**الشعبة**<br>~~=~~|
@@ -3773,8 +3572,6 @@ Mice .
 |77,316|FG+(M+SP+TE)/3|العلومالتقنية|||||
 |109,553|FG+(M+SP+Algo)/3|علوماإلعالمية|||||
 |112,862|FG+(M+SP+Info)/3|رياضيات|86568|-<br>البناء<br>86568|المعهد العالى للدراسات التكنولوجية بسليانة<br> (<br>اإلدارة العامة للدّراسات التّكنولوجيّة)||
-
-
 
 |~~Eu~~|~~Eu~~|~~Eu~~|~~Eu~~|~~Eu~~|~~Eu~~|~~Eu~~|
 |---|---|---|---|---|---|---|
@@ -3807,8 +3604,6 @@ Mice .
 |131,430|FG+(M+SP)/2|رياضيات|31570|-<br>التصميم والتصنيع الميكانيكي<br>31570<br>-<br>الصيانة الصناعية|المعهد العالي للدراسات التكنولوجية بسوسة<br> (<br>اإلدارة العامة للدّراسات التّكنولوجيّة)||
 |116,614|FG+(M+SP)/2|علومتجريبية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3840,8 +3635,6 @@ Mice .
 |92,540|FG+(M+SP)/2|علومتجريبية|||||
 |84,779|FG+(M+SP+TE)/3|العلومالتقنية|||||
 |112,355|FG+(M+SP)/2|علوماإلعالمية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3877,8 +3670,6 @@ Mice .
 |79,468|FG+(M+SP+TE)/3|العلومالتقنية|||||
 |103,480|FG+(M+SP)/2|علوماإلعالمية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3910,8 +3701,6 @@ Mice .
 |113,930|FG+(M+SP)/2|علوماإلعالمية|||||
 |99,180|FG+(M+SP)/2|رياضيات|74570|-<br>التصميم والتصنيع الميكانيكي<br>74570<br>-<br>الصيانة الصناعية|المعهد العالي للدراسات التكنولوجية بالقصرين<br> (<br>اإلدارة العامة للدّراسات التّكنولوجيّة)||
 |105,319|FG+(M+SP)/2|علومتجريبية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -3945,8 +3734,6 @@ Mice .
 |140,950|FG+(SP+TE)/2|العلومالتقنية|||||
 |129,780|FG+SP|علوماإلعالمية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -3978,8 +3765,6 @@ Mice .
 |101,930|FG+SP|علوماإلعالمية|||||
 |-|FG+SP|رياضيات|56571|-<br>الكهرباء الصناعية<br>56571<br>-<br>اآللية واإلعالمية الصناعية|المعهد العالى للدراسات التكنولوجية بقبلي<br> (<br>اإلدارة العامة للدّراسات التّكنولوجيّة)||
 |76,780|FG+SP|علومتجريبية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -4013,8 +3798,6 @@ Mice .
 |106,010|FG+(SP+TE)/2|العلومالتقنية|||||
 |106,090|FG+SP|علوماإلعالمية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -4043,8 +3826,6 @@ Mice .
 |152,402|FG+(M+SP+Info)/3|رياضيات|10573|معالجة اإلشارة والملتيميديا<br>10573|كلية العلوم بتونس (جامعة<br>تونس المنار(|اإلجازة في تكنولوجيات المعلومات<br>و**ا**لتص**ا**لت<br>3<br>)سنوات(امد|
 |132,882|FG+(M+SP+Info)/3|علومتجريبية|||||
 |150,603|FG+(M+SP+Info)/3|العلومالتقنية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -4077,8 +3858,6 @@ Mice .
 |145,727|FG+(M+SP+Info)/3|العلومالتقنية|||||
 |121,977|FG+(M+SP+Algo)/3|علوماإلعالمية|||||
 |172,773|FG+(M+SP+Info)/3|رياضيات|40573|-<br>اإلتص**ا**لت<br>40573|المدرسة الوطنية لإللكترونيك واإلتص**ا**لت<br>بصفاقس<br>(جامعة صفاقس(||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -4113,8 +3892,6 @@ Mice .
 |81,620|FG+(M+Info)/2||||||
 |81,153|FG+(M+TE)/2|العلومالتقنية|||||
 
-
-
 |~~PE TT~~|~~PE TT~~|~~PE TT~~|~~PE TT~~|~~PE TT~~|~~PE TT~~|~~PE TT~~|
 |---|---|---|---|---|---|---|
 |**مجموع**<br>**نقاط**<br>**اخر**<br>**موجه**<br>**2024**<br>~~PE~~|**صيغة احتساب**<br>**مجموع النقاط**<br>~~PE~~|**نوع البكالوريا**<br>~~PE~~|**الرمز**<br>~~PE~~|**التخصصات**<br>~~PE TT~~|**المؤسسة وال جامعة**<br>~~TT~~|**/ اإلجازة**<br>**الشعبة**<br>~~TT~~|
@@ -4142,8 +3919,6 @@ Mice .
 |102,465<br>~~eat~~|FG+(M+SP)/2<br>~~eat~~|رياضيات<br>~~eat~~|21597<br>~~eat~~|-<br>األساليب الغذائية<br>21597<br>-<br>األساليب الكيميائية<br>~~eat~~|المعهد العالي للدراسات التكنولوجية ببنزرت<br> (<br>اإلدارة العامة للدّراسات التّكنولوجيّة)<br>~~eat~~|اإلجازة في هندسة األساليب<br>~~eat~~|
 |102,669<br>~~eat~~|FG+(M+SP)/2<br>~~eat~~|علومتجريبية<br>~~eat~~|~~eat~~||~~eat~~|3<br>)سنوات(امد<br>~~eat~~|
 |127,656<br>~~eat~~|FG+(M+SP)/2<br>~~eat~~|العلومالتقنية<br>~~eat~~|~~eat~~|~~eat~~|~~eat~~|~~eat~~|
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -4175,8 +3950,6 @@ Mice .
 |98,549|FG+(M+SP+Info)/3|علومتجريبية|||||
 |112,008|FG+(M+SP+Info)/3|العلومالتقنية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -4207,8 +3980,6 @@ Mice .
 |189,385|FG+(M+SP)/2|علوم اإلعالمية|||||
 |141,722|FG+(M+SP)/2|رياضيات|12629|اآللية واإلعالمية الصناعية<br>12629|المعهد العالي لتكنولوجيا المعلومات واإلتصال<br>ببرجالسدرية<br>(جامعة  قرطاج(||
 |114,501|FG+(M+SP)/2|علومتجريبية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -4243,8 +4014,6 @@ Mice .
 |116,080|FG+(M+SP)/2|علوماإلعالمية|||||
 |107,959|FG+(M+SP)/2|رياضيات|36629|اآللية واإلعالمية الصناعية<br>36629|المعهد العالي للعلوم التطبيقية و التكنولوجيا<br>بالمهدية(جامعة المنستير(||
 |110,955|FG+(M+SP)/2|علومتجريبية|||||
-
-
 
 **العلوم الصحيحة والتكنولوجيا** 
 
@@ -4281,8 +4050,6 @@ Mice .
 |83,760|FG+(M+SP)/2|علومتجريبية|||||
 |85,414|FG+(M+SP+TE)/3|العلومالتقنية|||||
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||||||||
@@ -4315,8 +4082,6 @@ Mice .
 |107,439<br>~~FSS}~~|FG+M<br>~~FSS}~~|العلومالتقنية<br>~~FSS}~~|~~FSS}~~|~~FSS}~~<br>~~|~~|~~FSS}~~<br>~~||~~|~~FSS}~~<br>~~|~~|
 |81,148<br>~~FSS}~~|FG+M<br>~~FSS}~~|علوماإلعالمية<br>~~FSS}~~|~~FSS}~~|~~FSS}~~<br>~~|~~|~~FSS}~~<br>~~||~~|~~FSS}~~<br>~~|~~|
 
-
-
 **العلوم الصحيحة والتكنولوجيا** 
 
 ||<br>LegloiSillg dousuallpole<br>|||<br>LegloiSillg dousuallpole<br>|||<br>LegloiSillg dousuallpole<br>|||<br>LegloiSillg dousuallpole<br>|||<br>LegloiSillg dousuallpole<br>|||<br>LegloiSillg dousuallpole<br>|||<br>LegloiSillg dousuallpole<br>||
@@ -4327,8 +4092,6 @@ Mice .
 |105,962<br>~~a~~<br>~~a~~<br>~~a~~|FG+M<br>~~ee eee~~<br>~~ee~~|إقتصاد وتصرف<br>~~ee~~<br>~~eee~~<br>~~ee~~|||||
 |101,479<br>~~a~~<br>~~a~~|FG+M<br>~~ee eee~~<br>~~ee~~<br>~~ee~~|العلومالتقنية<br>~~eee~~<br>~~ee~~<br>~~ee~~|||||
 |77,908<br>~~a~~|FG+M<br>~~ee~~<br>~~ee~~|علوماإلعالمية<br>~~ee~~<br>~~ee~~|||||
-
-
 
 ## f 
 
@@ -4369,8 +4132,6 @@ L ~~idice:~~
 |145,563|FG+(M+SP+SVT)/3|علومتجريبية||||+ سنتان3<br>سنوات|
 |151,080<br>~~a~~|FG+(M+SP)/2|العلومالتقنية|||||
 
-
-
 **الهندسة المعمارية والمراحل التحضيرية العلمية** 
 
 |duolsdl| dypcaot! Jolblo dsslosh! durigl!<br>||duolsdl| dypcaot! Jolblo dsslosh! durigl!<br>||duolsdl| dypcaot! Jolblo dsslosh! durigl!<br>||duolsdl| dypcaot! Jolblo dsslosh! durigl!<br>||duolsdl| dypcaot! Jolblo dsslosh! durigl!<br>||duolsdl| dypcaot! Jolblo dsslosh! durigl!<br>||duolsdl| dypcaot! Jolblo dsslosh! durigl!<br>||
@@ -4404,8 +4165,6 @@ L ~~idice:~~
 |168,922<br>~~a~~|FG+(M+SP+Info)/3<br>~~a~~<br>~~a~~|العلومالتقنية<br>~~a~~<br>~~a~~|~~a~~<br>~~a~~|~~a~~<br>~~a~~<br>~~|~~|~~a~~<br>~~a~~<br>~~|~~<br>~~|~~|~~a~~<br>~~a~~<br>~~|~~<br>~~|~~|
 |175,263<br>~~i~~|FG+(M+SP+Algo)/3<br>~~i~~|علوماإلعالمية<br>~~i~~|~~i~~|~~i~~|~~i~~|~~i~~|
 
-
-
 **الهندسة المعمارية والمراحل التحضيرية العلمية** 
 
 |duolsdl| dypcaot! Jol blo dsslosh! durigl!<br>||duolsdl| dypcaot! Jol blo dsslosh! durigl!<br>||duolsdl| dypcaot! Jol blo dsslosh! durigl!<br>||duolsdl| dypcaot! Jol blo dsslosh! durigl!<br>||duolsdl| dypcaot! Jol blo dsslosh! durigl!<br>||duolsdl| dypcaot! Jol blo dsslosh! durigl!<br>||duolsdl| dypcaot! Jol blo dsslosh! durigl!<br>||
@@ -4437,8 +4196,6 @@ L ~~idice:~~
 |160,605<br>~~P|~~|FG+(M+SP)/2<br>~~P|~~<br>~~ft~~|رياضيات<br>~~P|~~<br>~~ft~~|22522|رياضيات فيزياء/فيزياء كيمياء<br>22522|المعهد التحضيري للدراسات<br>الهندسية بنابل<br>(جامعة قرطاج)||
 |147,545<br>~~a~~|FG+(M+SP)/2<br>~~ft~~<br>~~a~~|علومتجريبية<br>~~ft~~<br>~~a~~|||||
 
-
-
 **الهندسة المعمارية والمراحل التحضيرية العلمية** 
 
 |doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||
@@ -4469,8 +4226,6 @@ L ~~idice:~~
 |136,325|FG+(M+SP)/2|رياضيات|70522|رياضيات فيزياء/فيزياء كيمياء<br>70522|المعهد التحضيري للدراسات<br>الهندسية بالقيروان(جامعة<br>القيروان)||
 |110,660<br>~~a ~~|FG+(M+SP)/2<br> ~~a~~|علومتجريبية|||||
 
-
-
 **الهندسة المعمارية والمراحل التحضيرية العلمية** 
 
 |doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||doled! dypcroll Jolsblo dsjloseb! duriglt<br>||
@@ -4495,8 +4250,6 @@ L ~~idice:~~
 |150,128<br>~~ee~~|FG+(M+SP+SVT)/3<br>~~ee~~|رياضيات<br>~~ee~~|10832|بيولوجيا-<br>جيولوجيا<br>10832<br>~~ee~~|كلية العلوم بتونس (جامعة<br>تونس<br>المنار)<br>~~ee~~|مرحلة<br>تحضيرية: بيولوجيا<br>-<br>جيولوجيا<br>~~eee~~|
 |120,780<br>~~ee~~|FG+(M+SP+SVT)/3<br>~~ee~~|علومتجريبية<br>~~ee~~||~~ee~~|~~ee~~|سنتان<br>~~eee~~|
 
-
-
 **الهندسة المعمارية والمراحل التحضيرية العلمية** 
 
 ||<br>doled! dypao! Lolblo 4jlosebl dutigl!<br>|||<br>doled! dypao! Lolblo 4jlosebl dutigl!<br>|||<br>doled! dypao! Lolblo 4jlosebl dutigl!<br>|||<br>doled! dypao! Lolblo 4jlosebl dutigl!<br>|||<br>doled! dypao! Lolblo 4jlosebl dutigl!<br>|||<br>doled! dypao! Lolblo 4jlosebl dutigl!<br>|||<br>doled! dypao! Lolblo 4jlosebl dutigl!<br>||
@@ -4514,8 +4267,6 @@ L ~~idice:~~
 |106,478<br>~~a~~|FG+(M+SP+SVT)/3<br>~~|~~<br>|علومتجريبية<br>~~|~~|||||
 |108,418<br>~~pt~~<br>~~a~~|FG+(M+SP+SVT)/3<br>~~pt~~<br>~~|~~<br>|رياضيات<br>~~pt~~<br>~~|~~|50832|بيولوجيا-<br>جيولوجيا<br>50832|المعهد التحضيري للدراسات<br>الهندسية بقابس<br>(جامعة<br>قابس)||
 |87,517<br>~~a ~~|FG+(M+SP+SVT)/3<br>~~|~~<br> ~~a~~|علومتجريبية<br>~~|~~|||||
-
-
 
 ## **الدراسات الهندسية** 
 
@@ -4558,8 +4309,6 @@ L ~~idice:~~
 |المعهد الوطني للعلوم الفلاحية بتونس|المعهد الوطني للعلوم الفلاحية بتونس<br>22|22||
 |كلية العلوم بتونس|كلية العلوم بتونس<br>23|23||
 
-
-
 |**المؤسسة**|**ع/ر**|
 |---|---|
 |المعهد التحضيري للدراسات العلمية والتقنية|المعهد التحضيري للدراسات العلمية والتقنية<br>1|
@@ -4580,8 +4329,6 @@ L ~~idice:~~
 |كلية العلوم بصفاقس|كلية العلوم بصفاقس<br>16|
 |كلية العلوم بتونس|كلية العلوم بتونس<br>17|
 
-
-
 **الشهادة الوطنية لمهندس في العلوم التطبيقية والتكنولوجيا -2** ضبطت التطبيقية العلوم في لمهندس الوطنية الشهادة على للحصول الدراسة مدة بخمس سنوات في المؤسسات ذات المراحل التحضيرية المندمجة وبستة سنواتوالتكنولوجيا . مرحلة تكوين هندسي مدتها ثلاث سنوات+في المؤسسات التي تؤمن إجازة **المؤسسات ذات المراحل التحضيرية المندمجة 1 2  –** التكوين:  تؤمن المؤسسات المؤهلة لهذا الغرض مرحلتين من مرحلة تحضيرية مندمجة تدوم سنتين: يتم القبول بهذه المرحلة طبقا لنظام ▪ التوجيه الجامعي للمتحصلين على شهادة.البكالوريا مرحلة تكوين هندسي تدوم ثلاث سنوات. ▪ :يتم القبول بشعبة من شعب تكوين المهندسين عن طريق مناظرة بالملفات للطلبة الناجحيـن بالسنـة الثانيـة مـن المرحلة التحضيرية المندمجة بالمؤسسة ▪ من الناجحين في السنة الثانية. % المؤمنة لهذه المرحلة في حدود80 بالسنـة الثالثـة إجازة في الاختصاصات العلمية والتقنية في للطلبة المتفوقين ▪ إطار نظام الإجازة والماجستير والدكتوراه والذين لم يرسبوا خلال دراستهم الجامعية في البقاع المفتوحة.  من عدد% حدود20 **قائمة المؤسسات ذات المراحل التحضيرية المندمجة المسسة ؤ ع/ر** المدة وبمنب ينندسهة للميطنوسة الر 1 المعيرالمنستبات ياضريالوة يعلامإ لليد العاله 2 المعبسقابا يديميالملتوة يعلامإ لليد العاله 3 المعسصفاقبا يديميالملتوة يعلامإ لليد العاله 4 المعسنوتبة بيات الطوجيلو للتكنيد العاله 5 المعالكاف ب ومالعلوا وجيلو للتكنيطنود اله 6 المعا وجيلوالتكنوة يقبي التطوم للعليطنود اله 7 كلت زرنبب ومة العلي 8 كلسنوتب ومة العلي 9 سصفاقب ومة العليكل 10 المعسة وسبا وجيلوالتكنوة يقبي التطوم للعليد العاله 11 ~~|~~ المعسنوتبة يقمرندسة اله لليد العاله 12 ~~-~~ 
 
 **)   زحل  تكوين هندس+رممؤسس ت رمت  تؤ ن (إج زة - 2.2** 
@@ -4598,8 +4345,6 @@ L ~~idice:~~
 |المعهد العاليللإعلاميةوالملتيميديابصفاقس|4|
 |المعهد العاليللإعلاميةوتقنيات الاتصال بحمامسوسة|سة<br>5|
 |المعهد العالي للعلوم التطبيقية والتكنولوجيا بسوسة|المعهد العالي للعلوم التطبيقية والتكنولوجيا بسوسة<br>6|
-
-
 
 ## **09** 
 
@@ -4642,8 +4387,6 @@ L ~~idice:~~
 |177,315<br>~~TT~~|FG+SVT<br>~~TT~~|علومتجريبية<br>~~TT~~|||**لمجموعة من الطلبة.**|**)*(علوم الحياة واألرض إجبارية**|
 |190,015<br>~~TT~~|FG+SB<br>~~TT~~|رياضة<br>~~TT~~|||**لمجموعة من الطلبة.**||
 
-
-
 **علوم الصحة والطب وطب الأسنان والصيدلة** 
 
 |ViralGuu!bs Ully douall agle<br>||ViralGuu!bs Ully douall agle<br>||ViralGuu!bs Ully douall agle<br>||ViralGuu!bs Ully douall agle<br>||ViralGuu!bs Ully douall agle<br>||ViralGuu!bs Ully douall agle<br>||ViralGuu!bs Ully douall agle<br>||
@@ -4672,8 +4415,6 @@ L ~~idice:~~
 |107,685<br>~~—~~~~**|**~~<br>~~—~~~~**|**~~|FG+SVT<br>~~**|**~~<br>~~**|**~~|رياضيات||||3<br>)سنوات(امد|
 |120,115<br>~~— ~~~~**|**~~<br>~~—~~~~**|**~~|FG+SVT<br>~~**|**~~<br>~~**|**~~|علومتجريبية||||**)*(علوم الحياة واألرض إجبارية**|
 |170,645<br>~~— ~~~~**|**~~<br>~~ff~~|FG+SB<br>~~**|**~~<br>~~ff~~|رياضة<br>~~ff~~|||||
-
-
 
 **علوم الصحة والطب وطب الأسنان والصيدلة** 
 
@@ -4705,8 +4446,6 @@ L ~~idice:~~
 |148,810|FG+SVT|رياضيات||||3<br>)سنوات(امد|
 |141,995<br>~~|~~|FG+SVT<br>~~|~~|علومتجريبية<br>~~|~~||||**)*(علوم الحياة واألرض إجبارية**|
 
-
-
 **علوم الصحة والطب وطب الأسنان والصيدلة** 
 
 |ViwatleGlu!bsUbi douall egle<br>||ViwatleGlu!bsUbi douall egle<br>||ViwatleGlu!bsUbi douall egle<br>||ViwatleGlu!bsUbi douall egle<br>||ViwatleGlu!bsUbi douall egle<br>||ViwatleGlu!bsUbi douall egle<br>||ViwatleGlu!bsUbi douall egle<br>||
@@ -4735,8 +4474,6 @@ L ~~idice:~~
 |133,119<br>~~of~~|FG+SVT<br>~~of~~|رياضيات<br>~~of~~||||3<br>)سنوات(امد|
 |143,407|FG+SVT|علومتجريبية||||**)*(علوم الحياة واألرض إجبارية**|
 |180,242<br>~~ff]~~|FG+SB<br>~~ff]~~|رياضة<br>~~ff]~~|||||
-
-
 
 **علوم الصحة والطب وطب الأسنان والصيدلة** 
 
@@ -4767,8 +4504,6 @@ L ~~idice:~~
 |158,751|FG+SVT|رياضيات|||||
 |160,540|FG+SVT|علومتجريبية|||||
 |190,744<br>~~ee~~|FG+SB<br>~~ee~~|رياضة<br>~~ee~~||||**تربية بدنية إجبارية**|
-
-
 
 **علوم الصحة والطب وطب الأسنان والصيدلة** 
 
@@ -4804,8 +4539,6 @@ L ~~idice:~~
 |127,913<br>~~ee~~<br>~~ee~~|FG+SVT<br>~~ee~~<br>~~ee~~|علومتجريبية<br>~~ee~~<br>~~ee~~<br>~~eee~~|||||
 |181,804<br>~~ee~~|FG+SB<br>~~ee~~|رياضة<br>~~ee~~<br>~~eee~~|||||
 
-
-
 **علوم الصحة والطب وطب الأسنان والصيدلة** 
 
 ||||||||
@@ -4831,8 +4564,6 @@ L ~~idice:~~
 |146,702<br>~~ee~~|FG+SVT<br>~~ee~~|رياضيات<br>~~ee~~|||||
 |143,787<br>~~of~~|FG+SVT<br>~~of~~|علومتجريبية<br>~~of~~|||||
 |197,511<br>~~a~~|FG+SB|رياضة|||||
-
-
 
 ## **10** 
 
@@ -4879,8 +4610,6 @@ as
 |95,341|FG+SVT|علومتجريبية|||||
 |112,625|FG+TE|العلوم التقنية|||||
 
-
-
 |-|FG+(SP+SVT)/2|رياضيات<br>FG+(SP+SVT)/2|20846|-<br>الصيد البحري وتربية الكائنات المائية<br>-<br>التبريد<br>وتثمين<br>المنتوجات المائية|اإلجازة في علوم البحار ا<br>لمعهد<br>العالي<br>لعلوم البحار<br>ببنزرت (جامعة<br>قرطاج)|اإلجازة في علوم البحار ا|
 |---|---|---|---|---|---|---|
 |85,410|FG+(SP+SVT)/2|علومتجريبيةFG+(SP+SVT)/2|**اناث**|||3<br>سنوات<br>)(امد|
@@ -4888,8 +4617,6 @@ as
 |151,780|FG+(SP+SVT)/2|رياضيات<br>FG+(SP+SVT)/2|21846||||
 |96,494|FG+(SP+SVT)/2|علومتجريبيةFG+(SP+SVT)/2|**ذكور**||||
 |82,498|FG+SP|العلومالتقنية|||||
-
-
 
 **كيفية الالتحاق بالمدرسة الوطنية للطب البيطري** 
 
@@ -4945,5 +4672,3 @@ as
 |مادة التربية<br>البدنية إجبارية /مادة علوم الحياة والأرض<br>إجبارية للباكالوريا آداب|رياضيات/علوم<br>تجريبية/آداب/رياضة|الإجازة في العلاج الطبيعي|
 |لا شيء|رياضيات/علوم<br>تجريبية|الإجازة في التبنيج والإنعاش|
 |مادة علوم الحياة والأرض إجبارية للباكالوريا آداب|آداب/رياضيات/علوم<br>تجريبية|الإجازة في تقويم النطق والكلام|
-
-

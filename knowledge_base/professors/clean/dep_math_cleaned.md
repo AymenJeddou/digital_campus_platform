@@ -1,5 +1,4 @@
-- KHELIFI ABDESSATAR 
- - Bureau : Départment Mathematiques
+- Bureau : Départment Mathematiques
  - Poste de Tél : 227
  - email : [abdessatar.khelifi@fsb.ucar.tn](mailto:abdessatar.khelifi@fsb.ucar.tn)
 - Secrétariat : Monia BOUKMIS

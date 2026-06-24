@@ -7,7 +7,6 @@
 
 ---
 
-
 ## Candidature aux masters de la Faculté des Sciences de Bizerte 2025-2026
 L'administration de la Faculté des Sciences de Bizerte a annoncé le lancement du processus d'acceptation des candidatures aux divers masters de l'établissement pour l'année universitaire 2025-2026.
 Vous trouverez plus de détails sur les critères de sélection, les documents à fournir et les procédures à suivre dans le document et le lien ci-joint.
