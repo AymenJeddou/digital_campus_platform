@@ -71,8 +71,8 @@ def test_pipeline_run_mocked(_mock_getenv, mock_genai):
     pipeline = RAGPipeline("orientation")
     result = pipeline.run(
         "Quelles sont les licences disponibles?",
-        FAKE_CHUNKS,
-        {"student_status": "prospective", "academic_year": None},
+        student_profile={"student_status": "prospective", "academic_year": None},
+        chunks=FAKE_CHUNKS,
     )
 
     for key in ("answer", "agent", "chunks_used", "raw_response"):

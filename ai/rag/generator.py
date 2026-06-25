@@ -11,13 +11,15 @@ from ai.agents.learning_agent import LearningAgent
 from ai.agents.orientation_agent import OrientationAgent
 from ai.prompts.system_prompts import AGENT_TYPES
 
-# Fake chunks used for local testing before the retriever is connected (Day 2).
-# Shape matches the Knowledge Base handoff format (Issue #3).
+# Fake chunks for local testing before the real retriever is connected.
+# Shape matches the FSBridge V2 schema (Iheb's handoff): chunk_id, text, title,
+# source, page, category, score.
 FAKE_CHUNKS = [
     {
         "chunk_id": "test_001",
         "text": "Les étudiants de L2 doivent s'inscrire avant le 15 octobre.",
-        "source": "Guide Académique FSB",
+        "title": "Guide Académique FSB",
+        "source": "guide_academique_fsb.md",
         "page": 12,
         "category": "course",
         "score": 0.95,
@@ -25,7 +27,8 @@ FAKE_CHUNKS = [
     {
         "chunk_id": "test_002",
         "text": "La faculté propose trois licences: Informatique, Mathématiques et Physique.",
-        "source": "Guide d'Orientation FSB",
+        "title": "Guide d'Orientation FSB",
+        "source": "guide_orientation_fsb.md",
         "page": 3,
         "category": "orientation",
         "score": 0.88,

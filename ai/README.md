@@ -51,17 +51,29 @@ The RAG pipeline is the main entry point for generation:
 from ai.rag.pipeline import RAGPipeline
 
 pipeline = RAGPipeline(agent_type="orientation")
+
+# Day 3+: the pipeline retrieves chunks itself via the semantic search layer.
 result = pipeline.run(
     question="Quelles licences sont disponibles à la FSB?",
-    chunks=[...],  # list of chunk dicts from the retriever
-    student_profile={"student_status": "prospective", "academic_year": None}
+    student_profile={"student_status": "prospective", "academic_year": None},
+    top_k=5,
+    category_filter=["orientation"],   # optional; opaque, passed straight through
 )
+
+# Or pass chunks explicitly to bypass retrieval (e.g. from the backend):
+result = pipeline.run(question="...", chunks=[...])
+
 print(result["answer"])
-print(result["citations"])  # available after Day 4
 ```
+
+Retrieval is provided by Iheb's semantic search layer
+(`from src.search.retriever import retrieve`, FSBridge V2). Chunk schema:
+`chunk_id, text, title, source, page, category, score`. `page` is a 0-based
+section index (not a printed page); `score` is cosine similarity in [0, 1].
 
 Current pipeline steps:
 - [x] Day 2: Generation (Gemini 2.0 Flash)
+- [x] Day 3: Retrieval wiring (semantic search layer)
 - [ ] Day 4: Citation formatting
 - [ ] Day 5: Retrieval grader
 - [ ] Day 6: Groundedness grader

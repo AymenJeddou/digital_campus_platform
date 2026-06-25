@@ -1,15 +1,16 @@
 """Full RAG pipeline — the main entry point for generation.
 
-Today (Day 2) the pipeline simply formats chunks and calls the LLM via
-``RAGGenerator``. The grader and citation stages are wired in on later days; the
-``run`` method documents exactly where each one will slot in.
+Day 3 connects the pipeline to Iheb's semantic search layer
+(``src.search.retriever.retrieve``). ``run`` now retrieves chunks for a question
+and feeds them to the generator. The backend may also pass ``chunks`` explicitly
+to bypass retrieval (e.g. when it has already retrieved, or for tests).
 """
 
 from ai.rag.generator import RAGGenerator
 
 
 class RAGPipeline:
-    """Full RAG pipeline: question + chunks -> LLM -> structured response.
+    """Full RAG pipeline: question -> retrieve -> LLM -> structured response.
 
     Retrieval grader and groundedness grader will be added on Days 5 and 6.
     Citation formatting will be added on Day 4.
@@ -23,16 +24,29 @@ class RAGPipeline:
     def run(
         self,
         question: str,
-        chunks: list,
         student_profile: dict = None,
+        chunks: list = None,
+        top_k: int = 5,
+        category_filter: list = None,
     ) -> dict:
         """Run the pipeline for a single question.
 
-        Today (Day 2): passes chunks directly to the generator.
+        Args:
+            question: The student's question.
+            student_profile: ``{"student_status", "academic_year"}`` (injected).
+            chunks: If provided, used directly and retrieval is skipped. Otherwise
+                chunks are fetched via the semantic search layer.
+            top_k: Number of chunks to retrieve (ignored when ``chunks`` given).
+            category_filter: Optional list of categories to restrict retrieval to.
+                Passed straight through to the retriever — the pipeline does NOT
+                derive it from ``agent_type`` (per Iheb's handoff, category values
+                are opaque and will change with the new schema).
         """
-        # TODO Day 5: retrieval grader — filter irrelevant chunks before generation.
+        if chunks is None:
+            chunks = self._retrieve(question, top_k, category_filter)
 
-        # Step: generate the answer.
+        # TODO Day 5: retrieval grader — filter chunks by score before generation.
+
         result = self.generator.generate(
             question, chunks, student_profile=student_profile
         )
@@ -41,3 +55,20 @@ class RAGPipeline:
         # TODO Day 6: groundedness grader — validate the answer against the chunks.
 
         return result
+
+    @staticmethod
+    def _retrieve(question: str, top_k: int, category_filter: list) -> list:
+        """Fetch chunks from the semantic search layer (Iheb's FSBridge V2).
+
+        Imported lazily so the rest of the pipeline (and prompt-only tests) does
+        not depend on the search module being importable.
+        """
+        try:
+            from src.search.retriever import retrieve
+        except ImportError as e:  # pragma: no cover - clear message if missing
+            raise ImportError(
+                "Semantic search layer not found (src/search/retriever.py). "
+                "Pass `chunks=` explicitly, or ensure the retriever module is on "
+                "the path."
+            ) from e
+        return retrieve(question, top_k=top_k, category_filter=category_filter)

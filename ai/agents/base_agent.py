@@ -61,9 +61,11 @@ class BaseAgent:
             return "Aucun contexte disponible."
         formatted = []
         for chunk in chunks:
+            # Cite by the human-readable title when available (FSBridge V2 schema),
+            # falling back to the source filename.
+            label = chunk.get("title") or chunk.get("source", "Source inconnue")
             formatted.append(
-                f"[{chunk.get('source', 'Source inconnue')}, "
-                f"p.{chunk.get('page', '?')}]\n{chunk.get('text', '')}"
+                f"[{label}, p.{chunk.get('page', '?')}]\n{chunk.get('text', '')}"
             )
         return "\n\n---\n\n".join(formatted)
 
