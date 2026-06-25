@@ -6,6 +6,7 @@ and feeds them to the generator. The backend may also pass ``chunks`` explicitly
 to bypass retrieval (e.g. when it has already retrieved, or for tests).
 """
 
+from ai.rag.citation_formatter import format_citations
 from ai.rag.generator import RAGGenerator
 
 
@@ -51,7 +52,11 @@ class RAGPipeline:
             question, chunks, student_profile=student_profile
         )
 
-        # TODO Day 4: citation formatting — parse [Source, p.X] into structured citations.
+        # Day 4: parse [document, p.X] markers into a structured citations list.
+        if "answer" in result and "error" not in result:
+            formatted = format_citations(result["answer"], chunks)
+            result["citations"] = formatted["citations"]
+
         # TODO Day 6: groundedness grader — validate the answer against the chunks.
 
         return result

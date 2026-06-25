@@ -64,6 +64,7 @@ result = pipeline.run(
 result = pipeline.run(question="...", chunks=[...])
 
 print(result["answer"])
+print(result["citations"])   # [{"document": "...", "page": 3}, ...] (Day 4)
 ```
 
 Retrieval is provided by Iheb's semantic search layer
@@ -74,7 +75,7 @@ section index (not a printed page); `score` is cosine similarity in [0, 1].
 Current pipeline steps:
 - [x] Day 2: Generation (Gemini 2.0 Flash)
 - [x] Day 3: Retrieval wiring (semantic search layer)
-- [ ] Day 4: Citation formatting
+- [x] Day 4: Citation formatting
 - [ ] Day 5: Retrieval grader
 - [ ] Day 6: Groundedness grader
 
