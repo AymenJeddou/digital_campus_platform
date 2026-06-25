@@ -4,6 +4,7 @@ from app.db.database import get_db
 from app.core.dependencies import get_current_user
 from app.models.models import Student, ChatSession, ChatMessage
 from app.schemas.chat import ChatRequest, ChatResponse
+from app.services.rag import generate_chat_response
 import uuid
 
 router = APIRouter(prefix="/chat", tags=["Chat"])
@@ -23,7 +24,7 @@ def send_message(request: ChatRequest, db: Session = Depends(get_db), current_us
     user_message = ChatMessage(session_id=session.id, role="user", content=request.message)
     db.add(user_message)
 
-    bot_reply = f"I received your message: '{request.message}'. RAG pipeline will be connected soon."
+    bot_reply = generate_chat_response(message=request.message, session_id=session.id, student=current_user)
     bot_message = ChatMessage(session_id=session.id, role="assistant", content=bot_reply)
     db.add(bot_message)
     db.commit()
