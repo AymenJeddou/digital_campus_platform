@@ -20,7 +20,13 @@ def update_profile(
     if updates.full_name is not None:
         current_user.full_name = updates.full_name
     if updates.student_status is not None:
+        if updates.student_status in {"admin", "enrolled"}:
+            raise HTTPException(status_code=400, detail="student_status cannot be set through profile updates")
         current_user.student_status = updates.student_status
+    if updates.interests is not None:
+        current_user.interests = updates.interests
+    if updates.goals is not None:
+        current_user.goals = updates.goals
     db.commit()
     db.refresh(current_user)
     return current_user

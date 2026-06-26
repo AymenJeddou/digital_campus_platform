@@ -19,6 +19,10 @@ router = APIRouter(prefix="/auth", tags=["Authentication"])
 def _create_verification_token(email: str) -> str:
     return create_access_token(data={"sub": email, "purpose": "email_verification"})
 
+
+def _create_login_token(email: str) -> str:
+    return create_access_token(data={"sub": email, "purpose": "login"})
+
 @router.post("/register", response_model=RegisterResponse, status_code=status.HTTP_201_CREATED)
 def register(request: RegisterRequest, db: Session = Depends(get_db)):
     existing = db.query(Student).filter(Student.email == request.email).first()
@@ -34,12 +38,10 @@ def register(request: RegisterRequest, db: Session = Depends(get_db)):
     db.add(student)
     db.commit()
     db.refresh(student)
-    verification_token = _create_verification_token(student.email)
-    send_verification_email(student.email, verification_token)
+    send_verification_email(student.email, _create_verification_token(student.email))
     return {
         "message": "Account created successfully",
         "email": student.email,
-        "verification_token": verification_token,
     }
 
 
@@ -66,5 +68,5 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     if not student.is_verified:
         raise HTTPException(status_code=403, detail="Email not verified")
     
-    token = create_access_token(data={"sub": student.email})
+    token = _create_login_token(student.email)
     return {"access_token": token, "token_type": "bearer"}

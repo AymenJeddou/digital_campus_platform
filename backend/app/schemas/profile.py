@@ -6,7 +6,9 @@ class ProfileResponse(BaseModel):
     email: str
     full_name: Optional[str]
     student_status: Optional[str]
-    academic_year: Optional[int]
+    academic_year: Optional[str]
+    interests: Optional[list[str]] = None
+    goals: Optional[list[str]] = None
     enrollment_date: Optional[datetime]
     onboarding_completed: bool
 
@@ -16,6 +18,8 @@ class ProfileResponse(BaseModel):
 class ProfileUpdate(BaseModel):
     full_name: Optional[str] = None
     student_status: Optional[str] = None
+    interests: Optional[list[str]] = None
+    goals: Optional[list[str]] = None
 
 class AcademicYearUpdate(BaseModel):
-    academic_year: int
+    academic_year: str

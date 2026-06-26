@@ -1,9 +1,14 @@
-from sqlalchemy import Column, String, Integer, Boolean, DateTime, Text, ForeignKey, Float
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, Text, ForeignKey, Float, JSON
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.db.database import Base
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
+
+try:
+    from pgvector.sqlalchemy import Vector
+except ImportError:  # pragma: no cover - optional dependency for PostgreSQL deployments
+    Vector = None
 
 class Student(Base):
     __tablename__ = "students"
@@ -11,9 +16,12 @@ class Student(Base):
     email = Column(String, unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     full_name = Column(String)
-    student_status = Column(String, default="active")
-    academic_year = Column(Integer)
-    enrollment_date = Column(DateTime, default=datetime.utcnow)
+    role = Column(String, default="student")
+    student_status = Column(String, default="prospective")
+    academic_year = Column(String)
+    interests = Column(JSON, default=list)
+    goals = Column(JSON, default=list)
+    enrollment_date = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     onboarding_completed = Column(Boolean, default=False)
     is_verified = Column(Boolean, default=False)
 
@@ -39,13 +47,18 @@ class Document(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String)
     content = Column(Text)
-    uploaded_at = Column(DateTime, default=datetime.utcnow)
+    uploaded_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 class DocumentChunk(Base):
     __tablename__ = "document_chunks"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    chunk_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     document_id = Column(UUID(as_uuid=True), ForeignKey("documents.id"))
-    chunk_text = Column(Text)
+    text = Column(Text)
+    title = Column(String)
+    source = Column(String)
+    page = Column(Integer)
+    category = Column(String)
+    embedding = Column(Vector(768) if Vector else JSON)
 
 class AdmissionScore(Base):
     __tablename__ = "admission_scores"
@@ -63,7 +76,7 @@ class ChatSession(Base):
     __tablename__ = "chat_sessions"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     messages = relationship("ChatMessage", back_populates="session")
 
 class ChatMessage(Base):
@@ -72,7 +85,7 @@ class ChatMessage(Base):
     session_id = Column(UUID(as_uuid=True), ForeignKey("chat_sessions.id"))
     role = Column(String)
     content = Column(Text)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     session = relationship("ChatSession", back_populates="messages")
 
 class AuditLog(Base):
@@ -80,4 +93,4 @@ class AuditLog(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
     action = Column(String)
-    timestamp = Column(DateTime, default=datetime.utcnow)
+    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))

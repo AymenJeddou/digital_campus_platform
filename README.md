@@ -21,12 +21,11 @@ Response:
 ```json
 {
 	"message": "Account created successfully",
-	"email": "student@example.com",
-	"verification_token": "<token>"
+	"email": "student@example.com"
 }
 ```
 
-If SMTP settings are configured, the backend sends a verification email during registration; otherwise it still returns the token for local development and tests.
+The verification token is sent by email when SMTP settings are configured. It is not returned by the API response.
 
 `POST /auth/verify`
 
@@ -77,7 +76,8 @@ Response:
 ```json
 {
 	"session_id": "<uuid>",
-	"response": "RAG response..."
+	"answer": "RAG response...",
+	"citations": []
 }
 ```
 
@@ -85,7 +85,7 @@ Response:
 
 `GET /chat/sessions/{session_id}/messages`
 
-Chat replies are routed through the configured `RAG_PIPELINE_HANDLER` when present, with a fallback response otherwise.
+Chat replies are routed through the configured `RAG_PIPELINE_HANDLER` when present, with a fallback response otherwise. The handler can return `{ "answer": "...", "citations": [...] }`.
 
 ### Documents
 
@@ -107,4 +107,4 @@ Example upload:
 
 The backend defines the 11 tables from the blueprint: students, programs, departments, courses, documents, document_chunks, admission_scores, recommendations, chat_sessions, chat_messages, and audit_logs.
 
-The student model includes the onboarding fields `student_status`, `academic_year`, `enrollment_date`, and `onboarding_completed`.
+The student model includes the onboarding fields `student_status`, `academic_year`, `interests`, `goals`, `enrollment_date`, and `onboarding_completed`.

@@ -15,7 +15,7 @@ class DocumentCreate(BaseModel):
 
 
 def require_admin_user(current_user: Student = Depends(get_current_user)) -> Student:
-    if current_user.student_status != "admin":
+    if current_user.role != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     return current_user
 

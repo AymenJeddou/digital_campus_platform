@@ -17,7 +17,6 @@ class LoginRequest(BaseModel):
 class RegisterResponse(BaseModel):
     message: str
     email: EmailStr
-    verification_token: str
 
 class TokenResponse(BaseModel):
     access_token: str

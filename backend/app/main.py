@@ -1,13 +1,23 @@
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from app.db.database import Base, engine
+from app.db.database import Base, engine, ensure_schema
 from app.models import models
 from app.api.routes import auth, profile, chat, documents
 from app.core.dependencies import get_current_user
 
 Base.metadata.create_all(bind=engine)
+ensure_schema()
 
 app = FastAPI(title="Digital Campus API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.middleware("http")

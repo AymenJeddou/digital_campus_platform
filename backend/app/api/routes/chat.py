@@ -25,11 +25,11 @@ def send_message(request: ChatRequest, db: Session = Depends(get_db), current_us
     db.add(user_message)
 
     bot_reply = generate_chat_response(message=request.message, session_id=session.id, student=current_user)
-    bot_message = ChatMessage(session_id=session.id, role="assistant", content=bot_reply)
+    bot_message = ChatMessage(session_id=session.id, role="assistant", content=bot_reply["answer"])
     db.add(bot_message)
     db.commit()
 
-    return {"session_id": session.id, "response": bot_reply}
+    return {"session_id": session.id, "answer": bot_reply["answer"], "citations": bot_reply["citations"]}
 
 @router.get("/sessions")
 def get_sessions(db: Session = Depends(get_db), current_user: Student = Depends(get_current_user)):
