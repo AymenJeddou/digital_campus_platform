@@ -29,8 +29,9 @@ def test_retriever_returns_schema():
 
 # --- 2. Pipeline retrieves when no chunks are passed -----------------------
 
+@patch("ai.rag.pipeline.grade_groundedness", return_value=True)
 @patch("ai.agents.base_agent.get_llm")
-def test_pipeline_retrieves_and_generates(mock_get_llm):
+def test_pipeline_retrieves_and_generates(mock_get_llm, _mock_grounded):
     mock_get_llm.return_value = _mock_llm("Réponse simulée.")
     fake_chunks = [{
         "chunk_id": "c1", "text": "Trois licences sont proposées.",
@@ -59,8 +60,9 @@ def test_pipeline_retrieves_and_generates(mock_get_llm):
 
 # --- 3. Explicit chunks bypass retrieval -----------------------------------
 
+@patch("ai.rag.pipeline.grade_groundedness", return_value=True)
 @patch("ai.agents.base_agent.get_llm")
-def test_pipeline_explicit_chunks_skip_retrieval(mock_get_llm):
+def test_pipeline_explicit_chunks_skip_retrieval(mock_get_llm, _mock_grounded):
     mock_get_llm.return_value = _mock_llm("OK")
     from ai.rag.pipeline import RAGPipeline
 

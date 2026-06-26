@@ -46,8 +46,9 @@ def test_format_chunks_multiple_has_separator():
 
 # --- 2. Full pipeline with a mocked LLM ------------------------------------
 
+@patch("ai.rag.pipeline.grade_groundedness", return_value=True)
 @patch("ai.agents.base_agent.get_llm")
-def test_pipeline_run_mocked(mock_get_llm):
+def test_pipeline_run_mocked(mock_get_llm, _mock_grounded):
     mock_get_llm.return_value = _mock_llm("Réponse simulée.")
 
     pipeline = RAGPipeline("orientation")

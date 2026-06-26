@@ -63,8 +63,9 @@ def test_pipeline_refuses_when_all_chunks_weak(mock_get_llm):
     mock_get_llm.return_value.generate.assert_not_called()  # LLM never invoked
 
 
+@patch("ai.rag.pipeline.grade_groundedness", return_value=True)
 @patch("ai.agents.base_agent.get_llm")
-def test_pipeline_generates_with_only_passing_chunks(mock_get_llm):
+def test_pipeline_generates_with_only_passing_chunks(mock_get_llm, _mock_grounded):
     mock_get_llm.return_value = _mock_llm("Réponse simulée.")
     from ai.rag.pipeline import RAGPipeline
 

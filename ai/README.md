@@ -28,7 +28,7 @@ ai/
 │   ├── generator.py          # RAGGenerator: validates agent_type + routes to the agent
 │   ├── citation_formatter.py # Day 4: parse [doc, p.X] -> structured citations
 │   ├── retrieval_grader.py   # Day 5: filter weak chunks by score threshold
-│   └── groundedness_grader.py# Day 6 (stub): verify the answer is supported
+│   └── groundedness_grader.py# Day 6: LLM judge — verify the answer is supported
 ├── prompts/
 │   └── system_prompts.py     # The 4 French agent prompts + get_prompt() + AGENT_TYPES
 ├── tests/                    # pytest suite (no API key needed — LLM is mocked)
@@ -227,7 +227,10 @@ the real retriever is connected.
   Gemini retained as fallback.
 - **Day 5** — retrieval grader: drop chunks below `RETRIEVAL_SCORE_THRESHOLD`
   (default `0.5`) before generation; refuse if none pass.
-- **Day 6** — groundedness grader (upcoming).
+- **Day 6** — groundedness grader: an LLM judge verifies the answer is supported
+  by the chunks; ungrounded answers are blocked and replaced with the refusal
+  sentence (logged). Judge model: `GROUNDEDNESS_GRADER_MODEL` (default
+  `mistral-small-latest`).
 
 ---
 

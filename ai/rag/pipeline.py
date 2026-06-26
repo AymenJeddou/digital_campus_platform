@@ -6,10 +6,15 @@ and feeds them to the generator. The backend may also pass ``chunks`` explicitly
 to bypass retrieval (e.g. when it has already retrieved, or for tests).
 """
 
+import logging
+
 from ai.prompts.system_prompts import NO_INFO_SENTENCE
 from ai.rag.citation_formatter import format_citations
 from ai.rag.generator import RAGGenerator
+from ai.rag.groundedness_grader import grade_groundedness
 from ai.rag.retrieval_grader import filter_chunks
+
+logger = logging.getLogger(__name__)
 
 
 class RAGPipeline:
@@ -68,7 +73,20 @@ class RAGPipeline:
             formatted = format_citations(result["answer"], chunks)
             result["citations"] = formatted["citations"]
 
-        # TODO Day 6: groundedness grader — validate the answer against the chunks.
+        # Day 6: block answers that aren't grounded in the retrieved chunks.
+        answer = result.get("answer")
+        if answer and answer != NO_INFO_SENTENCE and "error" not in result:
+            if not grade_groundedness(answer, chunks):
+                logger.warning(
+                    "Groundedness grader blocked an ungrounded answer (agent=%s).",
+                    self.agent_type,
+                )
+                return {
+                    "answer": NO_INFO_SENTENCE,
+                    "agent": self.agent_type,
+                    "chunks_used": len(chunks),
+                    "citations": [],
+                }
 
         return result
 
