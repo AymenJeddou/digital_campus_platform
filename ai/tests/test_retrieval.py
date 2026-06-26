@@ -2,15 +2,19 @@
 
 Verify that ``RAGPipeline.run`` retrieves chunks from ``src.search.retriever``
 when none are passed, forwards ``top_k`` / ``category_filter``, and still works
-when chunks are supplied explicitly. Gemini and the env lookup are mocked, so no
-real API key is needed.
+when chunks are supplied explicitly. The LLM is mocked via
+``ai.agents.base_agent.get_llm`` — no real API key needed.
 """
 
 from unittest.mock import MagicMock, patch
 
-import pytest
-
 from src.search.retriever import retrieve
+
+
+def _mock_llm(text="Réponse simulée."):
+    llm = MagicMock()
+    llm.generate.return_value = text
+    return llm
 
 
 # --- 1. The mock retriever honours the agreed schema -----------------------
@@ -25,12 +29,9 @@ def test_retriever_returns_schema():
 
 # --- 2. Pipeline retrieves when no chunks are passed -----------------------
 
-@patch("ai.agents.base_agent.genai")
-@patch("ai.agents.base_agent.os.getenv", return_value="real_fake_key")
-def test_pipeline_retrieves_and_generates(_getenv, mock_genai):
-    mock_genai.GenerativeModel.return_value.generate_content.return_value.text = (
-        "Réponse simulée."
-    )
+@patch("ai.agents.base_agent.get_llm")
+def test_pipeline_retrieves_and_generates(mock_get_llm):
+    mock_get_llm.return_value = _mock_llm("Réponse simulée.")
     fake_chunks = [{
         "chunk_id": "c1", "text": "Trois licences sont proposées.",
         "title": "Guide FSB", "source": "guide.md", "page": 2,
@@ -48,22 +49,19 @@ def test_pipeline_retrieves_and_generates(_getenv, mock_genai):
             category_filter=["orientation"],
         )
 
-    # retriever was called with the question and forwarded params
     mock_ret.assert_called_once()
-    args, kwargs = mock_ret.call_args
+    _args, kwargs = mock_ret.call_args
     assert kwargs["top_k"] == 4
     assert kwargs["category_filter"] == ["orientation"]
-    # answer flowed through and counted the retrieved chunks
     assert result["answer"] == "Réponse simulée."
     assert result["chunks_used"] == len(fake_chunks)
 
 
 # --- 3. Explicit chunks bypass retrieval -----------------------------------
 
-@patch("ai.agents.base_agent.genai")
-@patch("ai.agents.base_agent.os.getenv", return_value="real_fake_key")
-def test_pipeline_explicit_chunks_skip_retrieval(_getenv, mock_genai):
-    mock_genai.GenerativeModel.return_value.generate_content.return_value.text = "OK"
+@patch("ai.agents.base_agent.get_llm")
+def test_pipeline_explicit_chunks_skip_retrieval(mock_get_llm):
+    mock_get_llm.return_value = _mock_llm("OK")
     from ai.rag.pipeline import RAGPipeline
 
     with patch("src.search.retriever.retrieve") as mock_ret:
