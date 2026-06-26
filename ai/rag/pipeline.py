@@ -6,8 +6,10 @@ and feeds them to the generator. The backend may also pass ``chunks`` explicitly
 to bypass retrieval (e.g. when it has already retrieved, or for tests).
 """
 
+from ai.prompts.system_prompts import NO_INFO_SENTENCE
 from ai.rag.citation_formatter import format_citations
 from ai.rag.generator import RAGGenerator
+from ai.rag.retrieval_grader import filter_chunks
 
 
 class RAGPipeline:
@@ -46,7 +48,16 @@ class RAGPipeline:
         if chunks is None:
             chunks = self._retrieve(question, top_k, category_filter)
 
-        # TODO Day 5: retrieval grader — filter chunks by score before generation.
+        # Day 5: drop weak chunks before generation. If none survive, refuse
+        # without calling the LLM.
+        chunks = filter_chunks(question, chunks)
+        if not chunks:
+            return {
+                "answer": NO_INFO_SENTENCE,
+                "agent": self.agent_type,
+                "chunks_used": 0,
+                "citations": [],
+            }
 
         result = self.generator.generate(
             question, chunks, student_profile=student_profile

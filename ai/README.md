@@ -27,7 +27,7 @@ ai/
 │   ├── pipeline.py           # RAGPipeline: main entry point (retrieve -> generate -> cite)
 │   ├── generator.py          # RAGGenerator: validates agent_type + routes to the agent
 │   ├── citation_formatter.py # Day 4: parse [doc, p.X] -> structured citations
-│   ├── retrieval_grader.py   # Day 5 (stub): filter weak chunks by score
+│   ├── retrieval_grader.py   # Day 5: filter weak chunks by score threshold
 │   └── groundedness_grader.py# Day 6 (stub): verify the answer is supported
 ├── prompts/
 │   └── system_prompts.py     # The 4 French agent prompts + get_prompt() + AGENT_TYPES
@@ -225,7 +225,9 @@ the real retriever is connected.
   with refusal/no-citation handling.
 - **(infra)** — provider-agnostic LLM client; default switched to **Mistral**,
   Gemini retained as fallback.
-- **Day 5 / Day 6** — retrieval grader / groundedness grader (upcoming).
+- **Day 5** — retrieval grader: drop chunks below `RETRIEVAL_SCORE_THRESHOLD`
+  (default `0.5`) before generation; refuse if none pass.
+- **Day 6** — groundedness grader (upcoming).
 
 ---
 
