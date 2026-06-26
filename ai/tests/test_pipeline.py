@@ -1,7 +1,7 @@
-"""Tests for the Day 2 generation pipeline.
+"""Tests for the generation pipeline.
 
-All tests run without a real ``GEMINI_API_KEY`` — the Gemini client and the
-environment lookup are mocked with ``unittest.mock.patch``.
+The LLM is mocked by patching ``ai.agents.base_agent.get_llm``, so no real API
+key (Gemini or Mistral) is required.
 
 Run from the repository root:
 
@@ -16,7 +16,12 @@ from ai.agents.base_agent import BaseAgent
 from ai.rag.generator import FAKE_CHUNKS
 from ai.rag.pipeline import RAGPipeline
 
-PLACEHOLDER = "your_gemini_api_key_here"
+
+def _mock_llm(text="Réponse simulée."):
+    """A fake LLM client whose generate() returns a fixed string."""
+    llm = MagicMock()
+    llm.generate.return_value = text
+    return llm
 
 
 # --- 1. _format_chunks -----------------------------------------------------
@@ -39,40 +44,18 @@ def test_format_chunks_multiple_has_separator():
     assert "---" in out
 
 
-# --- 2 & 3. API key validation at __init__ ---------------------------------
+# --- 2. Full pipeline with a mocked LLM ------------------------------------
 
-@patch("ai.agents.base_agent.os.getenv", return_value=None)
-def test_missing_api_key_raises(_mock_getenv):
-    from ai.agents.orientation_agent import OrientationAgent
-
-    with pytest.raises(ValueError):
-        OrientationAgent()
-
-
-@patch("ai.agents.base_agent.os.getenv", return_value=PLACEHOLDER)
-def test_placeholder_api_key_raises(_mock_getenv):
-    from ai.agents.academic_agent import AcademicAgent
-
-    with pytest.raises(ValueError):
-        AcademicAgent()
-
-
-# --- 4. Full pipeline with mocked Gemini -----------------------------------
-
-@patch("ai.agents.base_agent.genai")
-@patch("ai.agents.base_agent.os.getenv", return_value="real_fake_key")
-def test_pipeline_run_mocked(_mock_getenv, mock_genai):
-    fake_response = MagicMock()
-    fake_response.text = "Réponse simulée."
-    mock_genai.GenerativeModel.return_value.generate_content.return_value = (
-        fake_response
-    )
+@patch("ai.rag.pipeline.grade_groundedness", return_value=True)
+@patch("ai.agents.base_agent.get_llm")
+def test_pipeline_run_mocked(mock_get_llm, _mock_grounded):
+    mock_get_llm.return_value = _mock_llm("Réponse simulée.")
 
     pipeline = RAGPipeline("orientation")
     result = pipeline.run(
         "Quelles sont les licences disponibles?",
-        FAKE_CHUNKS,
-        {"student_status": "prospective", "academic_year": None},
+        student_profile={"student_status": "prospective", "academic_year": None},
+        chunks=FAKE_CHUNKS,
     )
 
     for key in ("answer", "agent", "chunks_used", "raw_response"):
@@ -82,7 +65,7 @@ def test_pipeline_run_mocked(_mock_getenv, mock_genai):
     assert result["agent"] == "orientation"
 
 
-# --- 5. Invalid agent type -------------------------------------------------
+# --- 3. Invalid agent type -------------------------------------------------
 
 def test_pipeline_invalid_agent_raises():
     with pytest.raises(ValueError):
