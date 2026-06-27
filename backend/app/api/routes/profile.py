@@ -23,6 +23,10 @@ def update_profile(
         if updates.student_status in {"admin", "enrolled"}:
             raise HTTPException(status_code=400, detail="student_status cannot be set through profile updates")
         current_user.student_status = updates.student_status
+    if updates.bac_type is not None:
+        current_user.bac_type = updates.bac_type
+    if updates.bac_score is not None:
+        current_user.bac_score = updates.bac_score
     if updates.interests is not None:
         current_user.interests = updates.interests
     if updates.goals is not None:

@@ -13,7 +13,7 @@ router = APIRouter(prefix="/chat", tags=["Chat"])
 def send_message(request: ChatRequest, db: Session = Depends(get_db), current_user: Student = Depends(get_current_user)):
     if request.session_id:
         session = db.query(ChatSession).filter(ChatSession.id == request.session_id).first()
-        if not session:
+        if not session or session.student_id != current_user.id:
             raise HTTPException(status_code=404, detail="Session not found")
     else:
         session = ChatSession(student_id=current_user.id)
@@ -38,6 +38,6 @@ def get_sessions(db: Session = Depends(get_db), current_user: Student = Depends(
 @router.get("/sessions/{session_id}/messages")
 def get_messages(session_id: uuid.UUID, db: Session = Depends(get_db), current_user: Student = Depends(get_current_user)):
     session = db.query(ChatSession).filter(ChatSession.id == session_id).first()
-    if not session:
+    if not session or session.student_id != current_user.id:
         raise HTTPException(status_code=404, detail="Session not found")
     return db.query(ChatMessage).filter(ChatMessage.session_id == session_id).all()

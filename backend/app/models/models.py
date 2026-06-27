@@ -19,6 +19,8 @@ class Student(Base):
     role = Column(String, default="student")
     student_status = Column(String, default="prospective")
     academic_year = Column(String)
+    bac_type = Column(String)
+    bac_score = Column(Float)
     interests = Column(JSON, default=list)
     goals = Column(JSON, default=list)
     enrollment_date = Column(DateTime, default=lambda: datetime.now(timezone.utc))
