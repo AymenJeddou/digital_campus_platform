@@ -1,0 +1,12 @@
+- Formations assurées par le département
+- Liste des enseignants
+- KHELIFI ABDESSATAR Bureau : Départment Mathematiques Poste de Tél : 227 email :
+- Bureau : Départment Mathematiques
+- Poste de Tél : 227
+- email :
+- Secrétariat : Monia BOUKMIS Bureau : Département Mathematiques Poste de Tél : 227 email :
+- Bureau : Département Mathematiques
+- Poste de Tél : 227
+- email :
+- Licence Fondamentale de Mathématiques
+- Master de Recherche en Mathématiques

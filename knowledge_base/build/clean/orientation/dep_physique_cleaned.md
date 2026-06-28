@@ -1,0 +1,19 @@
+- Formations assurées par le département
+- Liste des enseignants
+- Directeur : DHIFAOUI BELGACEM Bureau : bloc physique Poste de Tél : 154 email :
+- Bureau : bloc physique
+- Poste de Tél : 154
+- email :
+- Secrétariat :Olfa EL CHRIF Bureau : bloc physique Poste de Tél : 155 email :
+- Bureau : bloc physique
+- Poste de Tél : 155
+- email :
+- Licence Fondamentale : Physique
+- Licence Appliquée : Physique des matériaux Energétique Electronique Electrotechnique Automatique
+- Physique des matériaux
+- Energétique
+- Electronique Electrotechnique Automatique
+- Mastère de Recherche : Matériaux, propriétés et analyse
+- Mastère Professionnel : Physique médicale Contrôle de la climatisation industrielle (21-21)
+- Physique médicale
+- Contrôle de la climatisation industrielle (21-21)

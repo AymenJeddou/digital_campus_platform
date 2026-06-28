@@ -5719,8 +5719,8 @@ L’objectif de ce cours est de présenter les principaux systèmes de recherche
 d’information classiques que sur le réseau, et leurs méthodes d’évaluation qualitative. On examine les modèles sous-
 jacents et leur adéquation aux problèmes posés par la recherche interactive d’information et par les données multimedia. 
 Compétences acquises : compréhension des notions de modèle de recherche d’information, de pertinence et d’évaluation 
-qualitative des systèmes dérivés, des principales techniques d’indexation et de leurs limites. Connaissances des 
-principaux systèmes et moteurs de recherche en usage. Savoir-faire acquis : Maîtrise des modèles et techniques 
+qualitative des systèmes dérivés, des principales techniques d’indexation et de leurs limites.Connaissances des 
+principaux systèmes et moteurs de recherche en usage.Savoir-faire acquis : Maîtrise des modèles et techniques 
 classiques de recherche et indexation, des méthodes d’évaluation et des approches interactives du domaine.  
 Plan de cours 
  

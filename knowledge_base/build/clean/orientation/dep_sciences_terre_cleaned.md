@@ -1,0 +1,15 @@
+- Formations assurées par le département
+- Liste des enseignants
+- Directeur : BOUGHDIRI Mabrouk Bureau : bloc sciences de la terre Poste de Tél : 136 email :
+- Bureau : bloc sciences de la terre
+- Poste de Tél : 136
+- email :
+- Secrétariat : Bureau : bloc sciences de la terre Poste de Tél : 136 email :
+- Bureau : bloc sciences de la terre
+- Poste de Tél : 136
+- email :
+- Licence fondamentale : Sciences de la Terre Licence appliquée : Géoressources et environnement/li> Mastère recherche : Géologie Appliquée Mastère professionnel : Géorisques
+- Licence fondamentale : Sciences de la Terre
+- Licence appliquée : Géoressources et environnement/li>
+- Mastère recherche : Géologie Appliquée
+- Mastère professionnel : Géorisques

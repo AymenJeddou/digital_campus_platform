@@ -1,0 +1,16 @@
+- Formations assurées par le département
+- Liste des enseignants
+- Directeur : MAHNAOUI MOHAMED Bureau : bloc chimie Poste de Tél : 163 email :
+- Bureau : bloc chimie
+- Poste de Tél : 163
+- email :
+- Secrétariat : Bureau : bloc chimie Poste de Tél : 163 email :
+- Bureau : bloc chimie
+- Poste de Tél : 163
+- email :
+- Licence Fondamentale de Chimie
+- Licence Appliquée Chimie Industuelle
+- Licence Appliquée Chimie Fine
+- Mastère de Recherche en Chimie fondamentale
+- Mastère Professionnel de chimie : Industrie de Pétrole et gaz
+- Mastère Professionnel de chimie : Analyses physico-chimiques et application industruelle
