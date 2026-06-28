@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { chatService, ChatSession, ChatMessage, Citation } from '@/lib/services/chat';
-import { Send, Bot, User, Plus, MessageSquare, Sparkles, Trash2, FileText } from 'lucide-react';
+import { Send, Bot, User, Plus, MessageSquare, Sparkles, Trash2, FileText, Loader2, Paperclip } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
 
@@ -10,16 +10,11 @@ import { toast } from 'sonner';
 // Helpers
 // ─────────────────────────────────────────────────────────────
 
-/**
- * Deduplicate citations by document+page, keeping insertion order.
- * Returns { unique, indexMap } where indexMap[i] is the 1-based display
- * number for citations[i].
- */
 function deduplicateCitations(citations: Citation[]): {
   unique: Citation[];
   indexMap: number[];
 } {
-  const seen = new Map<string, number>(); // key -> 1-based number
+  const seen = new Map<string, number>();
   const unique: Citation[] = [];
   const indexMap: number[] = [];
 
@@ -27,7 +22,7 @@ function deduplicateCitations(citations: Citation[]): {
     const key = `${c.document}::${c.page}`;
     if (!seen.has(key)) {
       unique.push(c);
-      seen.set(key, unique.length); // 1-based
+      seen.set(key, unique.length);
     }
     indexMap.push(seen.get(key)!);
   }
@@ -35,15 +30,7 @@ function deduplicateCitations(citations: Citation[]): {
   return { unique, indexMap };
 }
 
-/**
- * Parse the answer text and replace inline [doc, p.X] markers with
- * React nodes (text + superscript ref numbers).
- *
- * The backend embeds markers like:  …see the syllabus [Introduction, p.4]…
- * We resolve each marker to its 1-based number from the citation list.
- */
 function parseInlineRefs(text: string, citations: Citation[]): React.ReactNode[] {
-  // Build a quick lookup: "doc::page" -> display number
   const { indexMap } = deduplicateCitations(citations);
   const lookup = new Map<string, number>();
   citations.forEach((c, i) => {
@@ -51,14 +38,12 @@ function parseInlineRefs(text: string, citations: Citation[]): React.ReactNode[]
     if (!lookup.has(key)) lookup.set(key, indexMap[i]);
   });
 
-  // Match [anything, p.digits]
   const regex = /\[([^\]]+?),\s*p\.(\d+)\]/g;
   const nodes: React.ReactNode[] = [];
   let cursor = 0;
   let match: RegExpExecArray | null;
 
   while ((match = regex.exec(text)) !== null) {
-    // Plain text before the marker
     if (match.index > cursor) {
       nodes.push(text.slice(cursor, match.index));
     }
@@ -71,7 +56,7 @@ function parseInlineRefs(text: string, citations: Citation[]): React.ReactNode[]
       <sup
         key={`ref-${match.index}`}
         title={`${doc} — p.${page}`}
-        className="inline-flex items-center justify-center h-[14px] min-w-[14px] px-0.5 rounded bg-indigo-100 text-indigo-700 text-[9px] font-bold mx-0.5 cursor-default select-none align-super leading-none"
+        className="inline-flex items-center justify-center h-[16px] min-w-[16px] px-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-[10px] font-bold mx-0.5 cursor-default select-none align-super leading-none"
       >
         {num ?? '?'}
       </sup>
@@ -90,67 +75,65 @@ function parseInlineRefs(text: string, citations: Citation[]): React.ReactNode[]
 
 function TypingIndicator() {
   return (
-    <div className="flex gap-3">
-      <div className="h-7 w-7 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-        <Bot className="h-3.5 w-3.5 text-indigo-600" />
+    <div className="flex gap-4 max-w-[85%]">
+      <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mt-1">
+        <Sparkles className="h-4 w-4 text-white" />
       </div>
-      <div className="bg-white border border-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 flex gap-1.5 items-center shadow-sm">
-        <span className="h-1.5 w-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-        <span className="h-1.5 w-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-        <span className="h-1.5 w-1.5 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+      <div className="bg-white dark:bg-[#1a233a] border border-border rounded-2xl px-5 py-4 flex gap-1.5 items-center">
+        <span className="h-2 w-2 bg-slate-300 dark:bg-slate-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+        <span className="h-2 w-2 bg-slate-300 dark:bg-slate-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+        <span className="h-2 w-2 bg-slate-300 dark:bg-slate-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
       </div>
     </div>
   );
 }
 
-/**
- * Renders numbered citation chips below the assistant bubble.
- */
-function CitationChips({ citations }: { citations: Citation[] }) {
+function CitationCards({ citations }: { citations: Citation[] }) {
   if (!citations.length) return null;
-
   const { unique } = deduplicateCitations(citations);
 
   return (
-    <div className="mt-2.5 pt-2.5 border-t border-gray-100 flex flex-wrap gap-1.5">
-      <span className="w-full text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-0.5 flex items-center gap-1">
-        <FileText className="h-3 w-3" />
-        Sources
-      </span>
-      {unique.map((c, i) => (
-        <div
-          key={`${c.document}::${c.page}::${i}`}
-          title={`${c.document} — Page ${c.page}`}
-          className="group inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gray-50 border border-gray-200 hover:border-indigo-300 hover:bg-indigo-50 transition-all duration-150 cursor-default"
-        >
-          {/* Number badge */}
-          <span className="flex-shrink-0 flex items-center justify-center h-4 min-w-[16px] px-1 rounded bg-indigo-100 text-indigo-700 text-[9px] font-bold group-hover:bg-indigo-200 transition-colors">
-            {i + 1}
-          </span>
-          {/* Document name */}
-          <span className="text-[11px] font-medium text-gray-700 group-hover:text-indigo-800 truncate max-w-[140px] transition-colors">
-            {c.document}
-          </span>
-          {/* Page */}
-          <span className="flex-shrink-0 text-[10px] text-gray-400 font-medium group-hover:text-indigo-500 transition-colors">
-            p.{c.page}
-          </span>
-        </div>
-      ))}
+    <div className="mt-6">
+      <span className="text-[13px] font-bold text-slate-900 dark:text-white mb-3 block">Sources</span>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {unique.map((c, i) => (
+          <div
+            key={`${c.document}::${c.page}::${i}`}
+            title={`${c.document} — Page ${c.page}`}
+            className="flex items-center justify-between p-3 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors cursor-pointer group"
+          >
+            <div className="flex items-center gap-3 overflow-hidden">
+              <div className="h-8 w-8 rounded-lg bg-background flex items-center justify-center flex-shrink-0">
+                <FileText className="h-4 w-4 text-muted-foreground" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[13px] font-semibold text-foreground truncate group-hover:text-primary transition-colors">
+                  {c.document}
+                </p>
+                <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
+                  PDF
+                </p>
+              </div>
+            </div>
+            <div className="flex-shrink-0 ml-3 h-6 min-w-[24px] px-2 rounded bg-background text-foreground text-[11px] font-bold flex items-center justify-center">
+              {i + 1}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-/**
- * The full assistant message bubble: parsed text + citation chips.
- */
 function AssistantBubble({ content, citations = [] }: { content: string; citations?: Citation[] }) {
   const inlineNodes = citations.length > 0 ? parseInlineRefs(content, citations) : [content];
 
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl rounded-tl-sm px-4 py-3 max-w-[75%] text-sm leading-relaxed text-gray-800 shadow-sm">
-      <p className="whitespace-pre-wrap">{inlineNodes}</p>
-      <CitationChips citations={citations} />
+    <div className="w-full">
+      <div className="whitespace-pre-wrap leading-relaxed text-sm text-slate-700 dark:text-slate-300 mb-4">
+        {inlineNodes}
+      </div>
+      <CitationCards citations={citations} />
     </div>
   );
 }
@@ -158,13 +141,6 @@ function AssistantBubble({ content, citations = [] }: { content: string; citatio
 // ─────────────────────────────────────────────────────────────
 // Page
 // ─────────────────────────────────────────────────────────────
-
-const SUGGESTED_PROMPTS = [
-  'Help me understand a complex topic',
-  'Create a study plan for my exams',
-  'Recommend courses for my goals',
-  'Explain a concept step by step',
-];
 
 export default function ChatPage() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
@@ -233,7 +209,6 @@ export default function ChatPage() {
         loadSessions();
       }
 
-      // Attach citations to the assistant message so they can be rendered
       const assistantMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         session_id: res.session_id,
@@ -259,188 +234,103 @@ export default function ChatPage() {
     inputRef.current?.focus();
   };
 
-  const handlePromptClick = (prompt: string) => {
-    setInput(prompt);
-    inputRef.current?.focus();
-  };
-
   return (
-    <div className="flex h-[calc(100vh-8rem)] bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-
-      {/* ── Session sidebar ─────────────────────────────── */}
-      <div className="w-64 border-r border-gray-100 bg-gray-50 flex flex-col flex-shrink-0">
-        <div className="p-3 border-b border-gray-100">
-          <button
-            id="new-chat-btn"
-            onClick={handleNewSession}
-            className="w-full flex items-center justify-center gap-2 py-2.5 px-4 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:border-indigo-300 hover:text-indigo-700 transition-all duration-150"
-          >
-            <Plus className="h-4 w-4" />
-            New Conversation
-          </button>
+    <div className="flex flex-col h-full bg-background max-w-5xl mx-auto rounded-xl">
+      {/* Header */}
+      <div className="flex items-center justify-between pb-6 border-b border-border">
+        <div>
+          <h1 className="text-xl font-bold tracking-tight text-foreground">AI Assistant</h1>
+          <p className="text-sm text-muted-foreground mt-1">Your academic companion</p>
         </div>
-
-        <div className="flex-1 overflow-y-auto p-2 space-y-0.5">
-          {sessions.length === 0 ? (
-            <p className="text-xs text-gray-400 text-center py-8 px-3">No conversations yet.</p>
-          ) : (
-            <>
-              <p className="px-3 py-2 text-[10px] font-semibold text-gray-400 uppercase tracking-widest">
-                History
-              </p>
-              {sessions.map((session) => {
-                const isActive = currentSessionId === session.id;
-                return (
-                  <button
-                    key={session.id}
-                    onClick={() => setCurrentSessionId(session.id)}
-                    className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center gap-2.5 transition-all duration-150 text-xs font-medium ${
-                      isActive
-                        ? 'bg-indigo-50 text-indigo-700'
-                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                    }`}
-                  >
-                    <MessageSquare className={`h-3.5 w-3.5 flex-shrink-0 ${isActive ? 'text-indigo-500' : 'text-gray-400'}`} />
-                    <span className="truncate">
-                      {new Date(session.created_at).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                      })}{' '}
-                      Chat
-                    </span>
-                  </button>
-                );
-              })}
-            </>
-          )}
-        </div>
+        <button
+          onClick={handleNewSession}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-border rounded-lg hover:bg-secondary/50 transition-colors bg-background"
+        >
+          New Chat <Plus className="h-4 w-4" />
+        </button>
       </div>
 
-      {/* ── Main chat area ──────────────────────────────── */}
-      <div className="flex-1 flex flex-col min-w-0">
-
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white flex-shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center">
-              <Sparkles className="h-4 w-4 text-indigo-600" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-gray-900">Campus AI Assistant</p>
-              <div className="flex items-center gap-1.5 mt-px">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                <span className="text-[10px] text-gray-400 font-medium">Online</span>
-              </div>
-            </div>
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto py-8 space-y-6 scrollbar-hide" ref={scrollRef}>
+        {messages.length === 0 ? (
+          <div className="flex h-full items-center justify-center">
+            <p className="text-muted-foreground text-sm font-medium">Send a message to start the conversation.</p>
           </div>
-          {currentSessionId && (
-            <button
-              onClick={handleNewSession}
-              className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-md transition-colors"
-              title="Start new conversation"
+        ) : (
+          messages.map((msg) => (
+            <motion.div
+              key={msg.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`flex gap-4 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
-              <Trash2 className="h-4 w-4" />
-            </button>
-          )}
-        </div>
-
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto px-6 py-6" ref={scrollRef}>
-          {messages.length === 0 ? (
-            <div className="h-full flex flex-col items-center justify-center gap-6">
-              <div className="text-center space-y-2">
-                <div className="h-14 w-14 rounded-2xl bg-indigo-50 flex items-center justify-center mx-auto">
-                  <Bot className="h-7 w-7 text-indigo-500" />
+              {msg.role === 'assistant' && (
+                <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mt-1">
+                  <Sparkles className="h-4 w-4 text-white" />
                 </div>
-                <p className="text-base font-bold text-gray-800">How can I help you?</p>
-                <p className="text-sm text-gray-400 max-w-sm">
-                  I can help with course planning, concept explanations, study strategies, and more.
+              )}
+              
+              <div className={`max-w-[85%] ${msg.role === 'user' ? 'order-1' : 'order-2'}`}>
+                {msg.role === 'user' ? (
+                  <div className="bg-primary text-primary-foreground rounded-2xl rounded-tr-sm px-5 py-4 text-sm shadow-sm">
+                    {msg.content}
+                  </div>
+                ) : (
+                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
+                    <AssistantBubble content={msg.content} citations={msg.citations} />
+                  </div>
+                )}
+                <p className={`text-[10px] font-medium text-muted-foreground mt-2 ${msg.role === 'user' ? 'text-right pr-2' : 'pl-2'}`}>
+                  {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
-              <div className="grid grid-cols-2 gap-2 w-full max-w-md">
-                {SUGGESTED_PROMPTS.map((p) => (
-                  <button
-                    key={p}
-                    onClick={() => handlePromptClick(p)}
-                    className="text-left px-3 py-2.5 rounded-lg border border-gray-200 bg-white text-xs text-gray-600 font-medium hover:border-indigo-300 hover:text-indigo-700 hover:bg-indigo-50 transition-all duration-150"
-                  >
-                    {p}
-                  </button>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="space-y-5 max-w-3xl mx-auto">
-              <AnimatePresence initial={false}>
-                {messages.map((msg) => (
-                  <motion.div
-                    key={msg.id}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.18 }}
-                    className={`flex gap-3 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                  >
-                    {/* Bot avatar */}
-                    {msg.role === 'assistant' && (
-                      <div className="h-7 w-7 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <Bot className="h-3.5 w-3.5 text-indigo-600" />
-                      </div>
-                    )}
 
-                    {/* Bubble */}
-                    {msg.role === 'assistant' ? (
-                      <AssistantBubble content={msg.content} citations={msg.citations} />
-                    ) : (
-                      <div className="rounded-2xl rounded-tr-sm px-4 py-3 max-w-[75%] text-sm leading-relaxed bg-indigo-600 text-white shadow-sm">
-                        <p className="whitespace-pre-wrap">{msg.content}</p>
-                      </div>
-                    )}
+              {msg.role === 'user' && (
+                <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0 mt-1 order-2">
+                  <span className="text-white text-[11px] font-bold tracking-wider">SR</span>
+                </div>
+              )}
+            </motion.div>
+          ))
+        )}
+        {isLoading && <TypingIndicator />}
+      </div>
 
-                    {/* User avatar */}
-                    {msg.role === 'user' && (
-                      <div className="h-7 w-7 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <User className="h-3.5 w-3.5 text-gray-500" />
-                      </div>
-                    )}
-                  </motion.div>
-                ))}
-
-                {isLoading && (
-                  <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-                    <TypingIndicator />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
-        </div>
-
-        {/* Input bar */}
-        <div className="px-6 py-4 border-t border-gray-100 bg-white flex-shrink-0">
-          <form onSubmit={handleSend} className="max-w-3xl mx-auto flex items-center gap-3">
-            <input
-              id="chat-input"
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Message the AI Assistant…"
-              disabled={isLoading}
-              className="flex-1 px-4 py-3 text-sm text-gray-900 font-medium bg-gray-50 border border-gray-200 rounded-xl placeholder-gray-400 focus:outline-none focus:border-indigo-400 focus:bg-white focus:ring-2 focus:ring-indigo-500/10 transition-all duration-150 disabled:opacity-60"
-            />
-            <button
-              id="send-message-btn"
-              type="submit"
-              disabled={isLoading || !input.trim()}
-              className="flex-shrink-0 flex items-center justify-center h-10 w-10 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl transition-colors duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
-            >
+      {/* Input Area */}
+      <div className="pt-4 pb-2">
+        <p className="text-center text-[11px] text-muted-foreground mb-3">
+          AI-generated content may be inaccurate. Please verify important information.
+        </p>
+        <form onSubmit={handleSend} className="relative flex items-center bg-card border border-border rounded-xl shadow-sm focus-within:ring-1 focus-within:ring-primary focus-within:border-primary transition-all p-1.5">
+          <button
+            type="button"
+            className="p-3 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Paperclip className="h-5 w-5" />
+          </button>
+          
+          <input
+            ref={inputRef}
+            type="text"
+            placeholder="Ask a question or type a command..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={isLoading}
+            className="flex-1 bg-transparent border-none focus:ring-0 text-sm placeholder:text-muted-foreground px-2 py-3 outline-none text-foreground"
+          />
+          
+          <button
+            type="submit"
+            disabled={isLoading || !input.trim()}
+            className="h-10 w-12 flex items-center justify-center rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors ml-2 mr-1"
+          >
+            {isLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
               <Send className="h-4 w-4" />
-              <span className="sr-only">Send</span>
-            </button>
-          </form>
-          <p className="text-center text-[10px] text-gray-300 mt-2">
-            AI responses may not always be accurate. Verify important information.
-          </p>
-        </div>
+            )}
+          </button>
+        </form>
       </div>
     </div>
   );

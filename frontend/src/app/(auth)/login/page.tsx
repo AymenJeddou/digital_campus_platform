@@ -5,7 +5,9 @@ import { useRouter } from 'next/navigation';
 import { authService } from '@/lib/services/auth';
 import { toast } from 'sonner';
 import Link from 'next/link';
-import { GraduationCap, Mail, Lock, LogIn, ArrowRight, Shield } from 'lucide-react';
+import { BookOpen, Users, Calendar, BarChart2, Eye, EyeOff, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect } from 'react';
 
 const GoogleIcon = () => (
   <svg className="h-4 w-4" viewBox="0 0 533.5 544.3" aria-hidden="true">
@@ -16,14 +18,23 @@ const GoogleIcon = () => (
   </svg>
 );
 
+
+
 const inputBase =
-  'w-full pl-10 pr-4 py-3 rounded-lg text-sm font-medium bg-gray-50 border border-gray-200 placeholder-gray-400 text-gray-900 focus:outline-none focus:border-indigo-400 focus:bg-white focus:ring-2 focus:ring-indigo-500/10 transition-all duration-150';
+  'w-full pl-4 pr-10 py-3 rounded-md text-sm font-medium bg-background border border-border placeholder-muted-foreground/60 text-foreground focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all duration-150';
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,113 +52,106 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-screen-lg bg-white shadow-lg rounded-2xl overflow-hidden flex min-h-[600px]">
+    <div className="min-h-screen flex items-stretch">
+      {/* ── Left panel: Dark Brand Section ─────────────────── */}
+      <div className="hidden lg:flex flex-1 flex-col p-12 relative overflow-hidden" style={{ backgroundColor: '#0f142b' }}>
+        {/* Geometric line background (approximated with CSS gradients for simplicity) */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none"
+             style={{
+               backgroundImage: `
+                 linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.2) 49%, rgba(255,255,255,0.2) 51%, transparent 52%),
+                 linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.2) 49%, rgba(255,255,255,0.2) 51%, transparent 52%),
+                 radial-gradient(circle at 100% 100%, transparent 40%, rgba(255,255,255,0.1) 41%, rgba(255,255,255,0.1) 42%, transparent 43%),
+                 radial-gradient(circle at 0% 100%, transparent 60%, rgba(255,255,255,0.1) 61%, rgba(255,255,255,0.1) 62%, transparent 63%)
+               `,
+               backgroundSize: '400px 400px, 400px 400px, 600px 600px, 800px 800px'
+             }}
+        />
 
-        {/* ── Left panel: illustration ─────────────────── */}
-        <div className="hidden lg:flex flex-1 flex-col bg-indigo-600 p-12 relative overflow-hidden">
-          {/* Background pattern */}
-          <div className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: 'radial-gradient(circle at 25% 25%, white 2px, transparent 2px), radial-gradient(circle at 75% 75%, white 2px, transparent 2px)',
-              backgroundSize: '48px 48px',
-            }}
-          />
-          <div className="relative z-10 flex flex-col h-full">
-            {/* Brand */}
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm">
-                <GraduationCap className="h-4 w-4 text-white" />
-              </div>
-              <span className="text-white font-bold text-sm">Digital Campus</span>
+        <div className="relative z-10 flex flex-col h-full max-w-xl mx-auto w-full">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="flex h-8 w-10 items-center justify-center">
+              {/* Mockup logo shape */}
+              <div className="w-4 h-8 bg-blue-500 rounded-sm transform skew-y-6" />
+              <div className="w-4 h-8 bg-blue-300 rounded-sm transform -skew-y-6 ml-0.5" />
             </div>
+            <span className="text-white font-semibold text-lg tracking-tight">Digital Campus</span>
+          </div>
 
-            {/* Main copy */}
-            <div className="flex-1 flex flex-col justify-center">
-              <h2 className="text-3xl font-bold text-white leading-snug">
-                Your intelligent<br />academic companion.
-              </h2>
-              <p className="mt-4 text-indigo-200 text-sm leading-relaxed max-w-xs">
-                Access AI-powered support, manage your academic profile, and stay on track with your learning goals.
-              </p>
+          {/* Typography */}
+          <div className="flex-1 flex flex-col justify-center mt-12">
+            <h1 className="text-[44px] font-bold text-white leading-[1.1] tracking-tight">
+              Your academic<br />journey, elevated.
+            </h1>
+            <p className="mt-6 text-slate-300 text-base leading-relaxed max-w-md font-medium">
+              Digital Campus is your all-in-one platform to learn, collaborate, and achieve more—every day.
+            </p>
 
-              <div className="mt-10 space-y-3">
-                {[
-                  { label: 'AI-powered study assistant', icon: '🤖' },
-                  { label: 'Personalized recommendations', icon: '🎯' },
-                  { label: 'Academic progress tracking', icon: '📈' },
-                ].map((feat) => (
-                  <div key={feat.label} className="flex items-center gap-3">
-                    <span className="text-lg">{feat.icon}</span>
-                    <span className="text-sm text-indigo-100 font-medium">{feat.label}</span>
+            {/* Features */}
+            <div className="mt-16 space-y-8">
+              {[
+                { label: 'Smart Learning', desc: 'Access modern courses and personalized learning paths.', icon: BookOpen },
+                { label: 'Seamless Collaboration', desc: 'Work with peers and faculty in real time.', icon: Users },
+                { label: 'Organized Campus', desc: 'Manage classes, assignments, and deadlines effortlessly.', icon: Calendar },
+                { label: 'Track Your Progress', desc: 'Monitor your performance and reach your goals.', icon: BarChart2 },
+              ].map((feat) => (
+                <div key={feat.label} className="flex items-start gap-5">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 flex-shrink-0">
+                    <feat.icon className="h-5 w-5 text-blue-400" strokeWidth={1.5} />
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Trust badge */}
-            <div className="flex items-center gap-2 text-indigo-200 text-xs">
-              <Shield className="h-3.5 w-3.5" />
-              <span>Secure · Private · Student-first</span>
+                  <div>
+                    <p className="text-[15px] font-semibold text-white">{feat.label}</p>
+                    <p className="text-sm text-slate-400 mt-1">{feat.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
+      </div>
 
-        {/* ── Right panel: form ─────────────────────────── */}
-        <div className="flex flex-col justify-center px-8 py-12 sm:px-12 lg:w-[420px] lg:flex-none">
-          {/* Mobile brand */}
-          <div className="flex items-center gap-2.5 mb-8 lg:hidden">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600">
-              <GraduationCap className="h-4 w-4 text-white" />
+      {/* ── Right panel: Form Section ─────────────────────────── */}
+      <div className="flex-1 flex flex-col justify-center px-8 sm:px-16 lg:px-24 bg-background relative">
+        {mounted && (
+          <button
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="absolute top-6 right-6 p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 transition-colors"
+            title="Toggle theme"
+          >
+            {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+        )}
+        <div className="w-full max-w-md mx-auto">
+          {/* Mobile Logo */}
+          <div className="flex items-center gap-3 mb-10 lg:hidden">
+            <div className="flex h-8 w-10 items-center justify-center">
+              <div className="w-4 h-8 bg-blue-600 rounded-sm transform skew-y-6" />
+              <div className="w-4 h-8 bg-blue-400 rounded-sm transform -skew-y-6 ml-0.5" />
             </div>
-            <span className="font-bold text-gray-900 text-sm">Digital Campus</span>
+            <span className="text-foreground font-semibold text-lg tracking-tight">Digital Campus</span>
           </div>
 
-          <div className="mb-8">
-            <h1 className="text-2xl font-bold text-gray-900">Sign in to your account</h1>
-            <p className="mt-1.5 text-sm text-gray-500">
-              Don't have an account?{' '}
-              <Link href="/register" className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
-                Create one free
-              </Link>
+          <div className="mb-10 text-left">
+            <h2 className="text-[32px] font-bold tracking-tight text-foreground">Welcome back</h2>
+            <p className="mt-2 text-[15px] text-muted-foreground">
+              Login to continue to Digital Campus
             </p>
           </div>
 
-          {/* Social buttons */}
-          <div className="mb-6">
-            <button
-              type="button"
-              className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all duration-150"
-            >
-              <GoogleIcon />
-              Continue with Google
-            </button>
-          </div>
-
-          {/* Divider */}
-          <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-200" />
-            </div>
-            <div className="relative flex justify-center">
-              <span className="bg-white px-3 text-xs text-gray-400 font-medium">or continue with email</span>
-            </div>
-          </div>
-
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="block text-xs font-semibold text-gray-700 mb-1.5 uppercase tracking-wide">
-                Email Address
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-[13px] font-medium text-foreground">
+                Email address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
                 <input
                   id="email"
                   type="email"
                   autoComplete="email"
                   required
-                  placeholder="you@university.edu"
+                  placeholder="name@university.edu"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className={inputBase}
@@ -155,53 +159,90 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div>
-              <label htmlFor="password" className="block text-xs font-semibold text-gray-700 mb-1.5 uppercase tracking-wide">
-                Password
-              </label>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <label htmlFor="password" className="text-[13px] font-medium text-foreground">
+                  Password
+                </label>
+                <Link href="#" className="text-[13px] font-medium text-primary hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
                 <input
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
                   required
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className={inputBase}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
               </div>
+            </div>
+
+            <div className="flex items-center gap-2 pt-2 pb-4">
+              <input
+                type="checkbox"
+                id="remember"
+                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+              />
+              <label htmlFor="remember" className="text-[13px] font-medium text-muted-foreground cursor-pointer">
+                Remember me
+              </label>
             </div>
 
             <button
               id="login-submit-btn"
               type="submit"
               disabled={isLoading}
-              className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold py-3 rounded-lg transition-colors duration-150 disabled:opacity-60 disabled:cursor-not-allowed mt-2"
+              className="w-full flex items-center justify-center bg-[#1d3557] hover:bg-[#152744] text-white text-[15px] font-medium py-3 rounded-md transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+              style={{ backgroundColor: '#1e3a8a' }} // Deep blue matching mockup
             >
               {isLoading ? (
-                <>
-                  <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Signing in…
-                </>
+                <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
-                <>
-                  <LogIn className="h-4 w-4" />
-                  Sign In
-                </>
+                'Log in'
               )}
             </button>
           </form>
 
-          <p className="mt-8 text-center text-[11px] text-gray-400">
-            By signing in, you agree to our{' '}
-            <span className="underline cursor-pointer hover:text-gray-600">Terms of Service</span>
-            {' '}and{' '}
-            <span className="underline cursor-pointer hover:text-gray-600">Privacy Policy</span>.
+          {/* Divider */}
+          <div className="relative my-8">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border" />
+            </div>
+            <div className="relative flex justify-center text-xs">
+              <span className="bg-background px-4 text-muted-foreground/70">or continue with</span>
+            </div>
+          </div>
+
+          {/* Social buttons */}
+          <div className="grid grid-cols-1 gap-3 mb-10">
+            <button
+              type="button"
+              className="flex items-center justify-center gap-2 py-2.5 px-3 bg-background border border-border rounded-md text-[13px] font-medium text-foreground hover:bg-secondary/50 transition-colors"
+            >
+              <GoogleIcon />
+              Continue with Google
+            </button>
+          </div>
+
+          <p className="text-left text-[13px] text-muted-foreground">
+            Don't have an account?{' '}
+            <Link href="/register" className="font-medium text-primary hover:underline">
+              Sign up
+            </Link>
           </p>
         </div>
-
       </div>
     </div>
   );
