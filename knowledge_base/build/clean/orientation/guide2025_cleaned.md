@@ -1,0 +1,744 @@
+www.orientation.tn
+
+.وسائل الاعلام حول التوجيه الجامعي 1
+
+ - الأيام الاعلامية حول التوجيه الجامعي
+
+- وسائل التواصل الحديثة حول التوجيه الجامعي
+
+ - الدليل التونسي لعروض التكوين الجامعي
+
+## . إجراءات التوجيه الجامعي
+
+## 2
+
+• كلمة العبور الحصول على ) FGالصيغة الاجمالية ( • )Tمجموع النقاط ( • بطاقة الاختيارات تعمير •
+
+.روزنامة التوجيه الجامعي
+
+• دورة المتفوقين
+
+- الدورة الرئيسية للتوجيه الجامعي
+
+• الدورة النهائية للتوجيه الجامعي • تستوجب اختبارات الشعب التي
+
+• توجيه المحرزين على بكالوريا أجنبية
+
+- دورة إعادة التوجيه الجامعي
+
+.4 عروض التكوين للطالب الجديد
+
+• العالي الشهادات الوطنية للتعليم • العالي حسب المجالات في التعليم عروض التكوين • العسكري العالي في التعليم عروض التكوين • المؤسسات الخاصة للتعليم العالي • الافتراضية جامعة تونس • سام تقني في مستوى المهني عروض التكوين
+
+. معلومات مفيدة للطالب الجديد
+
+• التسجيل وسحب التسجيل الجامعي • مناظرات إعادة التوجيه المنظمة من الجامعات والإدارة العامة للدراسات التكنولوجية مارس2025
+
+• الخدمات الجامعية • ا لإحاطة النفسية للطلبة • تعاونية الحوادث المدرسية والجامعية
+
+6 .الأسئلة المتداولة حول التوجيه الجامعي
+
+# وسائل الاعلام حول التوجيه 1 ad wl الجامعي > as ~~x~~
+
+## الفهرس po
+
+## الجامعي الأيام الاعلامية حول التوجيه 1 i
+
+يمكنك العالي والخدمات الجامعية في التعليم ومجالات التكوين الجامعي للاستفسار حول عمليات التوجيه العلمي والجامعات العالي والبحث التي تنظمها وزارة التعليم الجامعي مواكبة الأيام الاعلامية حول التوجيه كالآتي :لفائدة الناجحين الجدد في امتحان البكالوريا
+
+## الجامعي حول التوجيه الأيام الإعلامية الوطنية
+
+مجالات الدراسة وآليات التوجيه الجامعي محاضرات حول لقاءات مباشرة مع الأساتذة الجامعيين للاستفسار حول عروض التكوين وآفاقها المهنية
+
+والجامعي لمساعدتكلقاءات مباشرة مع مستشاري الاعلام والتوجيه المدرسي :على
+
+• التقييم الموضوعي لمؤهّلاتك وقدراتك واستعداداتك. • بين نتائجكالاختيار الأنسب لمجالات الاختصاص والشعب وترتيبها من خلال الملاءمة الدراسية ورغباتك ومؤهّلاتك الفرديّة. • التعرف على آليات التوجيه الجامعي ومراحله.
+
+وعروض التكوين في التعليم العاليمعرض للجامعات والخدمات الجامعية والتعليم العالي العسكري والتكوين المهني
+
+الفهرس
+
+فعاليات لحضور 2025تدعو وزارة التعليم العالي والبحث العلمي كافة الناجحين في البكالوريا وفي هذا الإطار الأيام الإعلامية الوطنية حول التوجيه الجامعي
+
+http://www.facebook.com/OrientationUniversitaire كما يمكن متابعة كل الفعاليات عن بعد عبر الرابط التالي
+
+L2oladl de>93Il a> dxibs!l drodc 3! ala
+
+الفهرس
+
+## الجامعي الأيام الإعلامية الجهوية حول التوجيه
+
+||المكان||التاريخ||الجامعة||
+||المعهد العالي لأصول الدين||15 جويلية2025||الزيتونة|الشمال|
+||المؤسسات التابعة لجامعة تونس||14و15 جويلية2025||تونس||
+|المدرسة الوطنية للمهندسين بتونس|المدرسة الوطنية للمهندسين بتونس||15 و16 جويلية2025||تونس المنار||
+||جامعة منوبة||15 جويلية2025||منوبة||
+||كلية العلوم ببنزرت||22 جويلية2025||قرطاج||
+||جامعة جندوبة||14 جويلية2025||جندوبة||
+||المكان كلية الطب بسوسة||التاريخ 23 و24 جويلية2025||الجامعة سوسة|الوسط|
+||المعهد العالي للبيو تكنولوجي ا|المعهد العالي للبيو تكنولوجي|14 جويلية2025 المعهد العالي للبيو تكنولوجي||المنستير||
+||المعهد العالي للفنون والحرف||14 جويلية2025||القيروان||
+
+## الوسط
+
+الفهرس
+
+الجامعي وسائل التواصل الحديثة حول التوجيه
+
+> الدليل التفاعلي للتوجيه الجامعي 01 &} 2*O v O http://guide.orientation.tn . Po y o®, , a
+
+> فيسبوك الرسمية للتوجيه الجامعي صفحة ال 02 0% ee http://www.facebook.com/OrientationUniversitaire
+
+> ي على منصة اليوتيوب قناة التوجيه الجامع 03
+
+https://www.youtube.com/channel/UCSS0Ol4wji0jNtCwQus7cTA?view_as=subsc
+
+## الدليل التونسي لعروض التكوين الجامعي
+
+تفاعلي يحتوي على قائمة مفصلة لعروض التكوين الجامعي التي تؤمنها مؤسسات التعليم العالي دليل العمومية والخاصة المعترف بها في تونس. وهو يمكن كل مهتم بالتعليم العالي من معرفة عروض .التكوين المؤهلة والاطلاع على جملة المسالك المتفرعة عنها
+
+للتعرف على عروض التكوين أنقر على هذا الرابط:
+
+## http://uni-formation.rnu.tn
+
+# al 2 إجراءات التوجيه الجامعي
+
+الفهرس
+
+العبور الحصول على كلمة 1 ت مكّن كل مترشح من النفاذ لبطاقة الاختيارات والقيام بجميع عمليات كلمة العبور هي رمز خاص وشخصي www.orientation.tn الموقععبر التوجيه الجامعي
+
+## ويمكن الحصول عليها حسب التواريخ التالية :
+
+الناجحون في الدورة الرئيسية – – 2025 06 28
+
+==> picture [216 x 493] intentionally omitted picture [327 x 154] intentionally omitted picture [482 x 166] intentionally omitted picture [219 x 32] intentionally omitted picture [326 x 15] intentionally omitted picture [29 x 15] intentionally omitted picture [101 x 50] intentionally omitted picture [111 x 79] intentionally omitted picture [442 x 87] intentionally omitted picture [549 x 620] intentionally omitted picture [402 x 149] intentionally omitted picture [29 x 16] intentionally omitted picture [107 x 27] intentionally omitted gill is
+
+الفهرس
+
+## المتفوقين دورة
+
+الشروط حسب الجهامعي www.orientation.tn يتم الترشح لدورة المتفوقين حصريا عبر موقع التوجيهه التالية :
+
+الدورة خلال الحصول على شهادة البكالوريا2025 الرئيسية 01 P| ¥.,"ee, "a"., بالنسبة إلى شعب الرياضيات والعلوم التقنية والعلوم شروط الترشح يجب أن التجريبية والاقتصاد والتصرف وعلوم الإعلامية من المعدل النهائي للبكالوريا يساوي أو يفوق16 يكهون 02 لدورة المتفوقين 20 ry Sertrenens بالنسبة إلى شعبة الآداب يجب أن يكهون المعدل &*o*°.°°°o* 03
+
+بالنسبة إلى شعبة الآداب يجب أن يكهون المعدل من20 يساوي أو يفوق14 النهائي للبكالوريا
+
+|عدد البقاع|رمز الشعبة|الشعبة وصيغة احتساب مجموع النقاط حسب نوع البكالوريا|نوع البكالوريا|مكان الدراسة|
+|80|99101|مرحلة تحضيرية للدراسات الهندسية :رياضيات فيزياء علوم الهندسة( 1) ; 0) 3 12 Ang− Max( 5MG+2M+2SP+1F+1PH+|الرياضيات|المعهد التحضيري للدراسات العلمية والتقنية بتونس ( IPEST )|
+|40|99102|مرحلة تحضيرية للدراسات الهندسية : فيزياء كيمياء علوم الهندسة( 1 ) ; 0) 3 12 Ang− Max( 5MG+2M+2SP+1F+1PH+|||
+|1|99217|اإلجازة في اآلداب الحديثة بجامعة السوربون( 2) 5MG+3F+2PH+2Ang|اآلداب|فرنسا|
+|1|99218|اإلجازة في علمالجتماع بجامعة السوربون( 2 ) 5MG+3F+2PH+2Ang|||
+
+الفهرس عدد رمز نوع مكان الشعبة وصيغة احتساب مجموع النقاط حسب نوع البكالوريا البقاع الشعبة البكالوريا الدراسة 99201 6 ور ذك ) 1[(] مرحلة تحضيرية للدراسات الهندسية :رياضيات فيزياء علوم الهندسة 99214 5MG+2M+2SP+1F+1PH+Max( Ang − 12 ; 0) 6 3 ن ثإ الرياضيات 99202 2 ) 1 ور ذك[(] مرحلة تحضيرية للدراسات الهندسية : فيزياء كيمياء علوم الهندسة 99215 5MG+2M+2SP+1F+1PH+Max( Ang − 12 ; 0) 2 3 ن ثإ 99310 4 ز فوه ن مسار هندسيBachelor-Master:Génie [ )][2][(] 99311 5MG+2M+2SP+1F+1PH+ Max( Ang − 12 ; 0) الرياضيات 4 3 زغ دميه 99310 2 زفوه ن مسار هندسي Bachelor-Master:Génie [)][2][(] العلوم 99311 5MG+2M+1SP+1SVT+1F+1PH+Max( Ang − 12 ; 0) التجريبية 1 3 زغدميه Bachelor-Master [)][2][( ] 1 ه يدم زغ99311 5MG+2Ec+2Ge+2M+1PH+1HG+1F+Max( Ang3 − 12 ; 0) القتصاد والتصرف ألمانيا 99310 2 زفوه ن مسار هندسيBachelor-Master:Génie [ )][2][(] العلوم 99311 5MG+2M+1SP+1TE+1F+1PH+Max( Ang − 12 ; 0) التقنية 2 3 زغدميه مسار هندسي Bachelor-Master:Génie [)][2][(] 99310 5MG+2M+1SP+1.5Algo+0.5STI+0.5(F+PH)+Max( علوم 1 ه نوفز Ang − 12 اإلعالمية ; 0) 3 من عدد البقاع المفتوحة لفائدة المترشحين المحرزين على شهادة أجنبية % حُدِّّدَ سقف بههه10 )1( • معادلة لشهادة البكالوريا الأفضل ترتيبا حسب مجموع النقاط من بين كافة المترشحين للالتحاق بالمرحلة التحضيرية للدراسات الهندسية بفرنسا وبالمرحلة التحضيرية للدراسات الهندسية بالمعهد التحضيري للدر اسات العلمية والتقنية بتونس، مع التأكيد على إجبارية المواد المشار .إليها في صيغة احتساب مجموع النقاط للترشح لهذه الدورة على البكالوريا التونسية . مفتوحة للمحرزين هذه العروض )2[(] • ~~Bl~~
+
+الفهرس
+
+==> picture [547 x 203] intentionally omitted picture [539 x 190] intentionally omitted picture [431 x 110] intentionally omitted picture [566 x 729] intentionally omitted picture [474 x 338] intentionally omitted picture [497 x 212] intentionally omitted picture [443 x 115] intentionally omitted الشهادات الوطنية للتعليم العالي 1 الشهادات الوطنية خارج نظام "أمد" نظام "أمد" الشهادات الوطنية في 01 02 Gum” @ —- الشهادة الوطنية لمهندس ▪ الشهادة الوطنية للإجازة ▪ ▪ الشهادة الوطنية لدكتور في طب الأسنان سنوات ،) + (مستوى البكالوريا3 الشهادة الوطنية لمهندس معماري ▪ الشهادة الوطنية للماجستير ▪ الشهادة الطب في لدكتور الوطنية ▪ ،)سنوات + (مستوى البكالوريا5 البيطري الشهادة الوطنية للدكتوراه ▪ ▪ الشهادة الوطنية لدكتور في الصيدلة ،)سنوات + (مستوى البكالوريا8 الشهادة الوطنية في الدراسات الطبية ▪ ▪ في إدارةللبكالوريوس الشهادة الوطنية الأعمال
+
+إلى معاهد ومدارس عليا وكليات تشرفوزع يمكن للطالب مزاولة تعليمه ب مؤسسات تعليم عالي تت ومعاهد عليا للدراسات التكنولوجية تشرف عليها الإدارة العامة للدراساتعليها مجموعة من الجامعات ، ،التكنولوجية ويمكن التعرف على الجامعات والمؤسسات الراجعة لها بالنظر عبر موقع وزارة التعليم www.mes.tn العالي والبحث العلمي الإدارة العامة للدراسات التكنولوجية الجامعة 7 ~~-#,~~ المعاهد العليا للدراسات التكنولوجية الكليات المدارس العليا المعاهد العليا
+
+> في التعليم العالي حسب المجالات عروض التكوين 2 Dp
+
+الفهرس —|
+
+، الشعب والتخصصات مبوبة حسب مجالات التكوين، ويمكن الاطلاع يعرض دليل التوجيه الجامعي2025 المجالات التالية: على الاجازات والشعب في كل مجال من خلال النقر على اسم كل مجال من
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|Aol&paowl Jolbly GleWyGIO|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|92,435|FG+A|آداب|40101|اللغة واآلداب والحضارة 40101|كلية اآلداب والعلوم اإلنسانية بصفاقس (جامعة صفاقس(||
+|96,300 ~~Pf~~|FG+A ~~Pf~~|آداب ~~Pf~~|50101|اللغة واآلداب والحضارة 50101|المعهد العاليللغات بقابس (جامعة قابس)||
+|90,840 ~~TO~~|FG+A ~~TO~~|آداب ~~TO~~|54101|اللغة واآلداب والحضارة 54101|المعهد العالي للعلوم اإلنسانية بمدنين (جامعة قابس)||
+|89,112 ~~oP~~|FG+A ~~oP~~|آداب ~~oP~~|60101|اللغة واآلداب والحضارة 60101|المعهد العالي للدراسات التطبيقية في النسانيات بقفصة(جامعة قفصة)||
+|115,426 ~~ToT~~|FG+Ang ~~ToT~~|آداب ~~ToT~~|10102|اللغة واآلداب والحضارة 10102|كلية العلوم اإلنسانية واإلجتماعية بتونس (جامعة تونس)|اإلجازة في اإلنقليزية|
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|113,238 ~~Top~~|FG+Ang ~~Top~~|آداب ~~Top~~|11102|اللغة واآلداب والحضارة 11102|كلية اآلداب والفنون واإلنسانيات بمنوبة (جامعة منوبة)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|106,420 ~~Top~~|FG+Ang ~~Top~~|آداب ~~Top~~|34102|اللغة واآلداب والحضارة 34102|المعهد العالي للغات بالمكنين (جامعة المنستير)||
+|77,864 ~~Tor~~|FG+Ang ~~Tor~~|آداب ~~Tor~~|54102|اللغة واآلداب والحضارة 54102|المعهد العالي للعلوم اإلنسانية بمدنين (جامعة قابس)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|| sl dspao! Jolsblg oLeWs GIVI ||| sl dspao! Jolsblg oLeWs GIVI ||| sl dspao! Jolsblg oLeWs GIVI ||| sl dspao! Jolsblg oLeWs GIVI ||| sl dspao! Jolsblg oLeWs GIVI ||| sl dspao! Jolsblg oLeWs GIVI ||| sl dspao! Jolsblg oLeWs GIVI ||
+|71,780|FG+Ang|آداب|70102|اللغة واآلداب والحضارة 70102|كلية اآلداب والعلوم اإلنسانية بالقيروان (جامعة القيروان)||
+|74,138|FG+Ang|آداب|73102|إنقليزية األعمال 73102|المعهد العالي للدراسات التطبيقية في النسانيات بسبيطلة (جامعة القيروان)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|
+|86,659 ~~Toh~~|FG+Ang ~~Toh~~|آداب ~~Toh~~|82102|اللغة واآلداب والحضارة 82102|المعهد العالي للدراسات التطبيقية في اإلنسانيات بالكاف (جامعة جندوبة)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|
+|مجموع نقاط اخر موجه 2024 ~~pt~~|صيغة احتساب مجموع النقاط ~~pt~~|نوع البكالوريا ~~pt~~|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|73,443 ~~Toh~~|FG+F ~~Toh~~|آداب ~~Toh~~|30103|اللغة واآلداب والحضارة 30103|كلية اآلداب والعلوم اإلنسانية بسوسة (جامعة سوسة)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|AoW dydot! JolbloSLEWgWIsVI|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|71,128|FG+F|آداب|34103|اللغة واآلداب والحضارة 34103|المعهد العالي للغات بالمكنين (جامعة المنستير)||
+|71.2099 ~~Pf~~|FG+F ~~Pf~~|آداب ~~Pf~~|54103|اللغة واآلداب والحضارة 54103|المعهد العالي للعلوم اإلنسانية بمدنين (جامعة )قابس||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|
+|72,442|FG+F|آداب|82103|اللغة واآلداب والحضارة 82103|المعهد العالي للدراسات التطبيقية في اإلنسانيات بالكاف (جامعة جندوبة)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|89,832 ~~TP~~|FG+ESP ~~TP~~|آداب ~~TP~~|10104|اللغة واآلداب والحضارة 10104|كلية اآلداب والفنون واإلنسانيات بمنوبة (جامعة منوبة)|اإلجازة في اإلسبانية|
+|112,928 ~~ToT~~|FG+ESP ~~ToT~~|آداب ~~ToT~~|34104|اللغة واآلداب والحضارة 34104|المعهد العالي للغات بالمكنين (جامعة المنستير)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||
+|100,043|FG+IT|آداب|10105|اللغة واآلداب والحضارة 10105|كلية اآلداب والفنون واإلنسانيات بمنوبة (جامعة منوبة)|اإلجازة في اإليطالية 3 سنوات )(امد|
+|104,365|FG+IT|آداب|11105|اقتصاد وتجارة دولية 11105|المعهد العالي للعلوم اإلنسانية بتونس (جامعة تونس المنار)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|106,904 ~~Toh~~|FG+IT ~~Toh~~|آداب ~~Toh~~|34105|اللغة واآلداب والحضارة 34105|المعهد العالي للغات بالمكنين (جامعة المنستير)||
+|84,894 ~~Toh~~|FG+IT ~~Toh~~|آداب ~~Toh~~|40105|اللغة واآلداب والحضارة 40105|كلية اآلداب والعلوم اإلنسانية بصفاقس (جامعة صفاقس)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|
+|103,560|FG+ALL|آداب|11106|اقتصاد وتجارة دولية 11106|المعهد العالي للعلوم اإلنسانية بتونس (جامعة تونس المنار)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|doM! dyasd! LolbloGLUGIS|
+|103,310|FG+(A+F)/2|آداب|10119|لغة اإلشارات 10119|المعهد العالي للعلوم اإلنسانية بتونس (جامعة تونس المنار)|اإلجازة في لغة اإلشارات|
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|108,815 ~~A+~~|FG+(A+Ang+F)/3 ~~A+~~|آداب FG+(A+Ang+F)/3 ~~A+~~|34147 ~~A+~~|إنقليزية 34147|المعهد العالي للغات بالمكنين (جامعة المنستير)|اإلجازة في الترجمة|
+|109,373|FG+(2A+Ang+F)/ 4|آداب|10190|عربية 10190|المعهد التحضيري للدراسات األدبية والعلوم اإلنسانية بتونس (جامعة تونس)|المرحلة التحضيرية للغات:واآلداب عربي ة سنتان|
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|87,322|FG+(2A+Ang+F)/ 4|آداب|11190|عربية 11190|كلية اآلداب والفنون واإلنسانيات بمنوبة (جامعة منوبة)||
+|113,995|FG+(A+Ang+2F)/ 4|آداب|10191|فرنسية 10191|المعهد التحضيري للدراسات األدبية والعلوم اإلنسانية بتونس (جامعة تونس)|المرحلة التحضيرية للغات واآلداب:فرنسية سنتان|
+|75,501|FG+(A+Ang+2F)/ 4|آداب|11191|فرنسية 11191|كلية اآلداب والفنون واإلنسانيات بمنوبة (جامعة منوبة)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|Wl dypaodll Jolbly SLVIg GIS! ||Wl dypaodll Jolbly SLVIg GIS! ||Wl dypaodll Jolbly SLVIg GIS! ||Wl dypaodll Jolbly SLVIg GIS! ||Wl dypaodll Jolbly SLVIg GIS! ||Wl dypaodll Jolbly SLVIg GIS! ||Wl dypaodll Jolbly SLVIg GIS! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|150,683|FG+(A+2Ang+F)/ 4|آداب|10192|انقليزية 10192|المعهد التحضيري للدراسات األدبية والعلوم اإلنسانية بتونس (جامعة تونس)|المرحلة التحضيرية للغات واآلداب:انقليزية سنتان ال سن القصوى أقل من20 سنة في غرة سبتمبر|
+|123,828|FG+(A+2Ang+F)/ 4|آداب|11192|انقليزية 11192|كلية اآلداب والفنون واإلنسانيات بمنوبة (جامعة منوبة)||
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||| Wl dypaodll Jolbly SLVIg GIS! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|91,428|FG+(A+F+HG+PH)/ 4|آداب|10193|تاريخ 10193|المعهد التحضيري للدراسات األدبية والعلوم اإلنسانية بتونس (جامعة تونس)|المرحلة التحضيرية للعلوم اإلنسانية: تاري خ سنتان|
+|93,415|FG+(A+F+HG+PH)/ 4|آداب|10195|فلسفة 10195|المعهد التحضيري للدراسات األدبية والعلوم اإلنسانية بتونس (جامعة تونس)|المرحلة التحضيرية للعلوم اإلنسانية: فلسف ة سنتان|
+
+الآداب واللغات والمراحل التحضيرية الأدبية
+
+|| Ao) dsypdoed! JolblyGW GIST ||| Ao) dsypdoed! JolblyGW GIST ||| Ao) dsypdoed! JolblyGW GIST ||| Ao) dsypdoed! JolblyGW GIST ||| Ao) dsypdoed! JolblyGW GIST ||| Ao) dsypdoed! JolblyGW GIST ||| Ao) dsypdoed! JolblyGW GIST ||
+
+بدار المعلمين العليا كيفية الالتحاق
+
+بالاختبارات تفتح سنويا بدار المعلمين العليا بقرار من السيد وزير التعليم العالي والبحث العلمي مناظرة وطنية :الكتابية والشفاهية لقبول الطلبة المسجلين ب
+
+السنة الثانية من المرحلة التحضيرية للدراسات الأدبية والعلوم الإنسانية والذين اجتازوا الامتحان .1 ،النهائي بنجاح
+
+،السنة الثانية علوم أساسية من المرحلة التحضيرية للدراسات الهندسية .2 التالية: اللغةالاختصاصات السنة الثانية من الإجازات الوطنية والمرتقون إلى السنة الثالثة في .3 والآداب والحضارة العربية، اللغة والآداب والحضارة الأنقليزية ،، اللغة والآداب والحضارة الفرنسية الفلسفة، العلوم الأساسية(الرياضيات-الفيزياء، فيزياء-كيمياء) .،التاريخ، الجغرافيا
+
+سنة عند تاريخ إجراء ويشترط أن يكون المترشحون من حاملي الجنسية التونسية ولم يتجاوز عمرهم24 :المناظرة وتدوم الدراسة بدار المعلمين العليا ثلاث سنوات دون رسوب موزعة كالآتي
+
+،سنة ثالثة إجازة .1 .2 ،سنة أولى من المرحلة التحضيرية لمناظرة التبريز مع تكوين بيداغوجي .3 .سنة ثانية من المرحلة التحضيرية لمناظرة التبريز مع تكوين بيداغوجي
+
+يقع انتداب خريجي دار المعلمين العليا، الناجحون في مناظرة التبريز كأساتذة مبرزين بمؤسسات التعليم بوزارةة ، الدار ، مباشر العالي أو بوزارة التربية حسب الخطط المفتوحة بهاتين الوزارتين كما ينتدب بقية خريجي .دار المعلمين العليا إلى جانب النجاح في التربص البيداغوجي التربية بعد الحصول على شهادة
+
+## 02
+
+## العلوم الإنسانية والاجتماعية والتربيةوالدينية
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|109,686 ~~ToT~~|FG+(HG+PH)/2 ~~ToT~~|آداب ~~ToT~~|10120|- الوساطة والضبط والتدخل السوسيولوجي - الديمغرافيا والسياسات العمومية والتنمية المستدامة - الشباب والحراك واإلشراك الجتماعي|لجتماع كلية العلوم اإلنسانية واإلجتماعية بتونس (جامعة تونس)|اإلجازة في علمالجتماع كلية العلوم اإلنسانية واإلجتماعية بتونس|
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|104,515 ~~ft~~|FG+(HG+PH)/2 ~~ft~~|آداب ~~ft~~|40120|- الوساطة والضبط والتدخل السوسيولوجي - الديمغرافيا والسياسات العمومية والتنمية المستدامة - الشباب والحراك واإلشراك الجتماعي|كلية اآلداب والعلوم اإلنسانية بصفاقس (جامعة صفاقس)||
+|100,345 ~~|]~~|FG+(HG+PH)/2 ~~|]~~|آداب ~~|]~~|60120|الوساطة والضبط والتدخل السوسيولوجي|المعهد العالي للدراسات التطبيقية في النسانيات بقفصة(جامعة قفصة)||
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|dyjldays AclsieVigAsli! pglel|
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|76,290|FG+(F+HG)/2|آداب|80123|- التاريخ - اآلثار وعلوم التراث|المعهد العالي للعلوم اإلنسانية بجندوبة (جامعة جندوبة)||
+|86,069 ~~|]~~|FG+(F+HG)/2 ~~|]~~|آداب ~~|]~~|10124|الجغرافيا|اإلجازة في الجغرافيا كلية العلوم اإلنسانية واإلجتماعية بتونس (جامعة تونس)|اإلجازة في الجغرافيا كلية العلوم اإلنسانية واإلجتماعية بتونس|
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|104,200|FG+(M+Info)/2|رياضيات|10164|- الجيوماتيك - التهيئة والتخطيط الترابي|لجازة في الجيوماتيك والتهيئة كلية العلوم اإلنسانية واإلجتماعية بتونس (جامعة تونس)|الجازة في الجيوماتيك والتهيئة كلية العلوم اإلنسانية واإلجتماعية بتونس|
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|82,553|FG+(F+HG)/2|آداب|70167|اآلثار|كلية اآلداب والعلوم اإلنسانية بالقيروان (جامعة القيروان)||
+|92,567 ~~|]~~|FG+Info ~~|]~~|آداب ~~|]~~|10260|- تقنيات فنون التراث اإلسالمي - الوسائط المتعددة المطبقة على الفنون اإلسالمية|المعهد العالي ألصول الدين بتونس (جامعة الزيتونة)|اإلجازة في فنون التراث اإلسالمي|
+|109,835|FG+(HG+PH)/2|آداب ~~Poy~~|10355 ~~Poy~~|- الخدمة اإلجتماعية بالمؤسسة ~~Poy~~|المعهد الوطني للشغل والدراسات اإلجتماعية بتونس(جامعة قرطاج) ~~Poyod~~|اإلجازة في الخدمةالجتماعية ~~od~~|
+|108,853|FG+(A+Ang+F)/3|آداب ~~Poy~~|10362 ~~Poy~~|التصرف اإللكتروني في المعلومات والوثائق ~~Poy~~|المعهد العالي للتوثيق بتونس (جامعة منوبة) ~~Poy od~~|اإلجازة في التصرف اإللكتروني في المعلومات و الوثائق ~~od~~|
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|128,625|FG+(F+Ang+PH)/3|آداب|10473|التربية المختصة|المعهد العالي للتربية المختصة (جامعة منوبة)|اإلجازة في التربية المختصة 3 سنوات )(امد تربية بدنية إجبارية|
+|121,505|FG+(A+F)/2 ~~tf~~|آداب ~~tf~~|24477|التربية والتعليم|المعهد العالي للدراسات التطبيقية في اإلنسانيات بزغوان (جامعة تونس)|اإلجازة في التربية والتعليم|
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|117,825|FG+(A+F)/2|آداب|54477|التربية والتعليم|المعهد العالي للعلوم اإلنسانية بمدنين (جامعة قابس)||
+|114,500 ~~|]~~|FG+(A+F)/2 ~~|]~~|آداب ~~|]~~|63477|التربية والتعليم|المعهد العالي للدراسات التطبيقية في اإلنسانيات بتوزر (جامعة قفصة)||
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||| dn lg daisWig AeelyzeVlg dilus¥l pglsll ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|130,330|FG+(A+F)/2|آداب|82477|التربية والتعليم|المعهد العالي للدراسات التطبيقية في اإلنسانيات بالكاف (جامعة جندوبة)||
+|106,405 ~~jf~~|FG+(HG+PH)/2 ~~jf~~|آداب ~~jf~~|10548|الوساطة العائلية|المعهد الوطني للشغل والدراسات اإلجتماعية بتونس (جامعة قرطاج)|اإلجازة في التدخلالجتماعي 3 )سنوات(امد|
+
+العلوم الإنسانية والاجتماعية والدينية والتربية
+
+|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|dy lgArledelsieVigASLisyl aglell|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|98,495 ~~ff~~|FG+(A+Ang+F+PH)/4 ~~ff~~|آداب ~~ff~~|10612|إتصال|معهد الصحافة وعلوم اإلخبار (جامعة منوبة)|اإلجازة فيالتصال|
+
+## 03
+
+الثقافة والفنون الجميلة والحرفوالفنون
+
+\ia
+
+(his
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|91,374|FG+(F+HG)/2|آداب|30162|الفسيفساء والمساحات المزخرفة|المعهد العالي للفنون الجميلة بسوسة (جامعة سوسة)|اإلجازة في المحافظة على الممتلكات الثقافية وترميمها|
+|76,030|FG+PH|آداب|82200|- فن الممثل - مسرحالطفل|المعهد العالي للموسيقى والمسرح بالكاف (جامعة جندوبة)||
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|83,845 ~~Top~~|FG+PH ~~Top~~|آداب ~~Top~~|40201|- الموسيقى واألداء - الموسيقى و العلومالموسيقية|المعهد العالي للموسيقى بصفاقس (جامعة صفاقس)||
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|
+|87,274|FG+PH|آداب|22202|- رسم -خزف - نحت -حفر - التصوير الفوتوغرافي|المعهد العالى للفنون الجميلة بنابل (جامعة قرطاج)||
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|133,547|FG+PH|آداب|10207|- هندسة داخلية - سينوغرافيا|المعهد العالى للفنون الجميلة بتونس (جامعة تونس)|اإلجازة في تصميم الفضاء|
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|128,425|FG+PH|آداب|11207|- هندسة داخلية - سينوغرافيا|المدرسة العليا لعلوم وتكنولوجيات التصميم (جامعة منوبة)||
+|128,055 ~~ff~~|FG+PH ~~ff~~|آداب ~~ff~~|36207|- هندسة داخلية - سينوغرافيا|المعهد العالي للفنون والحرف بالمهدية (جامعة المنستير)||
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|GyodI9 OgiWlls dlood! Yoitlls daliu!|GyodI9 OgiWlls dlood! Yoitlls daliu!|GyodI9 OgiWlls dlood! Yoitlls daliu!|GyodI9 OgiWlls dlood! Yoitlls daliu!|GyodI9 OgiWlls dlood! Yoitlls daliu!|GyodI9 OgiWlls dlood! Yoitlls daliu!|GyodI9 OgiWlls dlood! Yoitlls daliu!|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|118,995|FG+PH|آداب|40207|هندسة داخلية|المعهد العالى للفنون والحرف بصفاقس (جامعة صفاقس)||
+|120,145|FG+PH|آداب|56207|هندسة داخلية|المعهد العالي للفنون والحرف بتطاوين (جامعة قابس)||
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|111,087|FG+PH|آداب|70207|هندسة داخلية|المعهد العالي للفنون والحرف بالقيروان (جامعة القيروان)||
+|116,478|FG+PH|آداب|86207|هندسة داخلية|المعهد العالي للفنون والحرف بسليانة (جامعة جندوبة)||
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|| Grol Ygitlla ALwod! Ygiilla dtaul ||| Grol Ygitlla ALwod! Ygiilla dtaul ||| Grol Ygitlla ALwod! Ygiilla dtaul ||| Grol Ygitlla ALwod! Ygiilla dtaul ||| Grol Ygitlla ALwod! Ygiilla dtaul ||| Grol Ygitlla ALwod! Ygiilla dtaul ||| Grol Ygitlla ALwod! Ygiilla dtaul ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|111,215|FG+PH|آداب|10208|تصميم المنتوج|المعهد العالي للفنون الجميلة بتونس (جامعة تونس)|الجازة في تصميم المنتوج|
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||
+|97,285|FG+PH|آداب|60208|- أثاث|المعهد العالي للفنون والحرف بقفصة )(جامعة قفصة|المعهد|
+|-|FG+PH|رياضيات||- ابتكار حرفي|||
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|ByedI9 Ygidle decd! Ugidlle dslaul|
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||
+|117,363|FG+PH|آداب|30209|- اشهار خطي - اشهار سمعي بصري ~~|—~~|المعهد العالي للفنون الجميلة بسوسة (جامعة سوسة)||
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|SyodI9 Yoitlls dood) Ygidls asi]|
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|| yodle Qgidlls ULiesd! jgidlle JdLan! ||| yodle Qgidlls ULiesd! jgidlle JdLan! ||| yodle Qgidlls ULiesd! jgidlle JdLan! ||| yodle Qgidlls ULiesd! jgidlle JdLan! ||| yodle Qgidlls ULiesd! jgidlle JdLan! ||| yodle Qgidlls ULiesd! jgidlle JdLan! ||| yodle Qgidlls ULiesd! jgidlle JdLan! ||
+|114,450|FG+Info|رياضيات ~~foo)~~|40247 ~~foo)~~|هندسة الصوت والتكنولوجيات الحديثة ~~foo)~~|المعهد العالي للموسيقى بصفاقس (جامعة صفاقس) ~~foo)~~|اإلجازة في هندسة الصوت والتكنولوجيات الحديثة 3 سنوات )(امد|
+
+الثقافة والفنون الجميلة والفنون والحرف
+
+|| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||| Byoly Sgiilly Upeodl Gguilly d5tau)! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|128,528|FG+Info|آداب|10622|تواصل تعددي الوسائط|المعهد العالي لفنون الملتميديا بمنوبة (جامعة منوبة)|اإلجازة في الفنون والوسائط|
+
+## والسينما بقمرت المدرسة العليا للسمعي البصري
+
+يمكن للطلبة الراغبين في الالتحاق بالمدرسة العليا للسمعي البصري والسينما بقمرت الترشح لإجراء مناظرة في اختصاص السينما والسمعيالتكوين كل سنة جامعية. تؤمن المدرسة يتم الاعلان عنها خلال موفي البصري على :مستوى
+
+:)والسينما (عدد سنوات الدراسة ثلاث سنوات * الشهادة الوطنية في علوم وتقنيات السمعي البصري يمكن ان يتقدم لهذه المناظرة المترشحين المتحصلين على شهادة الدراسات الجامعية للمرحلة ،الأولى التكنولوجية ،العليا الدراسات وشهادة للإجازة، الوطنية والشهادة للتكنولوجيا، والشهادة الجامعية و .الشهادة الوطنية للإجازة في نظام امد
+
+،الاعلامية ،الكيمياء ،الفيزياء ،الرياضيات ان تكون الشهادات المذكورة في اختصاصات،التكنولوجيا ويجب الفنون الفنون،التشكيلية العلوم،القانونية العلوم الانسانية،والاجتماعية العلوم الاقتصادية،والتصرف الهندسة ،المعمارية تصميم،الفضاء فنون،الملتميديا السمعي البصري،والسينما ،الموسيقى الركحية، .التعمير والتهيئة الماجستير المهني سمعي بصري وسينما اختصاصات انتاج سمعي بصري ومساعدة اخراج (عدد * ) سنوات الدراسة سنتين
+
+الماجستير المهني علوم وتقنيات السمعي البصري والسينما اختصاصات تركيب-صوت وتوضيب* صورة واضاءة
+
+ديكور ركحي * الماجستير المهني علوم وتقنيات السمعي البصري والسينما:اختصاص "في نظام "أمد يمكن ان يتقدم لهذه المناظرة المترشحين المتحصلين على الشهادة الوطنية للإجازة او ما يعادلها أو شهادة تختم تكوينا جامعيا تدوم الدراسة فيه ثلاث سنوات بعد البكالوريا على الأقل . )السمعي البصري والسينما (عدد سنوات الدراسة سنتين وتقنيات ماجستير بحث علوم * للإجازة في نظام "امد" او يمكن ان يتقدم لهذه المناظرة المترشحين المتحصلين على شهادة الوطنية بعد البكالوريا على الأقل.ما يعادلها او شهادة تختم تكوينا جامعيا تدوم الدراسة فيه ثلاث سنوات
+
+والتنشيط السياحة \Ja Bg البدنيةوالرياضة والتربية
+
+السياحة والتنشيط والرياضة والتربية البدنية
+
+|dSdd] diyWg dob Slodatidoll|dSdd] diyWg dob Slodatidoll|dSdd] diyWg dob Slodatidoll|dSdd] diyWg dob Slodatidoll|dSdd] diyWg dob Slodatidoll|dSdd] diyWg dob Slodatidoll|dSdd] diyWg dob Slodatidoll|
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|100,362|FG+(F+Ang+EP)/3|آداب|73440|التنشيط السياحي 73440|المعهد العالي للدراسات التطبيقية في النسانيات بسبيطلة (جامعة القيروان)|اإلجازة في التنشيط السياحي|
+|104,335|FG+PH|آداب|10443|- الوساطة والتنشيط الثقافي 10443 - التنشيط الشبابي|المعهد العالي للتنشيط الشبابي والثقافيببئر الباي (جامعة تونس)|اإلجازة في الوساطة والتنشيط|
+|151,865|FG+EP|آداب|10450|- التربية والحركية 10450 - التدريب الرياضي|المعهد العالي للرياضة والتربية البدنية بقصر السعيد(جامعة منوبة)|اإلجازة في علوم وتقنيات األنشطة البدنية والرياضة|
+
+L ~~idice:~~
+
+الهندسة المعمارية والمراحل التحضيرية العلمية
+
+|doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|155,160|FG+PH|آداب|10203|الهندسة المعمارية 10203|المدرسة الوطنية للهندسة المعمارية والتعمير بتونس (جامعة قرطاج)|الهندسة المعمارية|
+|130,095|FG+PH|آداب|10244|التعمير والتهيئة 10244|المعهد العالي لتكنولوجيات البيئة والعمران والبنيان (جامعة قرطاج)|اإلجازة في التعمير والتهيئة|
+|136,845|FG+(M+SP)/2|رياضيات|36322|رياضيات- فيزياء 36322|المعهد العالي للعلوم التطبيقية والتكنولوجيا بالمهدية (جامعة المنستير)|المرحلة التحضيرية العلمية: رياضيات - فيزياء|
+|154,080|FG+(M+SP)/2|رياضيات|11422|فيزياء كيمياء 11422|كلية العلوم بتونس (جامعة تونس المنار)|المرحلة التحضيرية العلمية: فيزياء - كيمياء|
+|125,442|FG+(M+SP+SVT)/3|رياضيات|82515|هندسة بيولوجية وبيوطبية 82515|المعهد الوطني للتكنولوجيا والعلوم بالكاف(جامعة جندوبة)|مرحلة تحضيرية مندمجة في الهندسة البيولوجية والبيوطبية|
+|158,615|FG+(M+SP+SVT)/3|رياضيات|10516|الهندسة البيوطبية 10516|الهندسة البيوطبية المعهد العالي للتكنولوجيات الطبية بتونس (جامعة تونس المنار)|مرحلة تحضيرية مندمجة في الهندسة البيوطبية المعهد العالي للتكنولوجيات الطبية|
+
+الهندسة المعمارية والمراحل التحضيرية العلمية
+
+|duolsdl| dypcaot! Jolblo dsslosh! durigl! ||duolsdl| dypcaot! Jolblo dsslosh! durigl! ||duolsdl| dypcaot! Jolblo dsslosh! durigl! ||duolsdl| dypcaot! Jolblo dsslosh! durigl! ||duolsdl| dypcaot! Jolblo dsslosh! durigl! ||duolsdl| dypcaot! Jolblo dsslosh! durigl! ||duolsdl| dypcaot! Jolblo dsslosh! durigl! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|144,775|FG+(M+SP+SVT)/3|رياضيات|10517|هندسة بيوتكنولوجيات الصحة 10517|المعهد العالي للتكنولوجيات الطبية بتونس (جامعة تونس المنار)|مرحلة تحضيرية مندمجة في هندسة بيوتكنولوجيات الصحة|
+|181,002|FG+(M+SP+Info)/3|رياضيات|34518|اإلعالمية 34518|المعهد العالي لإلعالمية والرياضيات بالمنستير (جامعة المنستير)||
+|161,095|FG+(M+SP+Info)/3|رياضيات|40518|اإلعالمية 40518|كلية العلوم بصفاقس (جامعة صفاقس)||
+|167,383|FG+(M+SP+Info)/3|رياضيات|41518|اإلعالمية 41518|المعهد العالي لإلعالمية والملتميديا بصفاقس (جامعة صفاقس)||
+
+الهندسة المعمارية والمراحل التحضيرية العلمية
+
+|duolsdl| dypcaot! Jol blo dsslosh! durigl! ||duolsdl| dypcaot! Jol blo dsslosh! durigl! ||duolsdl| dypcaot! Jol blo dsslosh! durigl! ||duolsdl| dypcaot! Jol blo dsslosh! durigl! ||duolsdl| dypcaot! Jol blo dsslosh! durigl! ||duolsdl| dypcaot! Jol blo dsslosh! durigl! ||duolsdl| dypcaot! Jol blo dsslosh! durigl! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|175,295|FG+(M+SP)/2|رياضيات|13522|رياضيات فيزياء/فيزياء كيمياء 13522|المعهد التحضيري للدراسات الهندسية بالمنار (جامعة تونس المنار)||
+
+الهندسة المعمارية والمراحل التحضيرية العلمية
+
+|doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|147,235|FG+(M+SP)/2|رياضيات|30522|رياضيات فيزياء/فيزياء كيمياء 30522|المدرسة العليا للعلوم والتكنولوجيا بحمامسوسة(جامعة سوسة)||
+|167,610|FG+(M+SP)/2|رياضيات|35522|رياضيات فيزياء/فيزياء كيمياء 35522|المعهد التحضيري للدراسات الهندسية بالمنستير (جامعة المنستير)||
+|141,135|FG+(M+SP)/2|رياضيات|40522|رياضيات فيزياء/فيزياء كيمياء 40522|كلية العلوم بصفاقس (جامعة صفاقس)||
+|164,815|FG+(M+SP)/2|رياضيات|41522|رياضيات فيزياء/فيزياء كيمياء 41522|المعهد التحضيري للدراسات الهندسية بصفاقس (جامعة صفاقس)||
+|123,000|FG+(M+SP)/2|رياضيات|50522|رياضيات فيزياء/فيزياء كيمياء 50522|المعهد التحضيري للدراسات الهندسية بقابس (جامعة قابس)||
+|81,787|FG+(M+SP)/2|رياضيات|60522|رياضيات فيزياء/فيزياء كيمياء 60522|المعهد التحضيري للدراسات الهندسية بقفصة(جامعة قفصة)||
+|136,325|FG+(M+SP)/2|رياضيات|70522|رياضيات فيزياء/فيزياء كيمياء 70522|المعهد التحضيري للدراسات الهندسية بالقيروان(جامعة القيروان)||
+
+الهندسة المعمارية والمراحل التحضيرية العلمية
+
+|doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||doled! dypcroll Jolsblo dsjloseb! duriglt ||
+|154,233|FG+(M+Info+2Ang)/ 4|علوم تجريبية|||تدرس باللغة ب النقليزية|+ سنتان3 سنوات|
+|177,948|FG+(M+Info+2Ang)/ 4|رياضيات|11526|الجيوماتيك 11526|المدرسة الوطنية للمهندسين بمنوبة (جامعة منوبة)|:مرحلة تحضيرية مندمجة رياضيات- فيزياء وا عالمية|
+|160,473|FG+(M+Info+2Ang)/ 4|علوم تجريبية|||تدرس باللغة بالنقليزية|+ سنتان3 سنوات|
+|165,735|FG+(M+Info+2Ang)/ 4|العلوم التقنية|||ايزي||
+|154,963|FG+(M+SP+TE)/3|العلوم التقنية|10532|تكنولوجيا 10532|المعهد التحضيري للدراسات الهندسية بالمنار (جامعة تونس المنار)|مرحلة تحضيرية- تكنولوجيا|
+|158,972|FG+(M+SP+TE)/3|العلوم التقنية|22532|تكنولوجيا 22532|المعهد التحضيري للدراسات الهندسية بنابل (جامعة قرطاج)|سنتان|
+|162,527|FG+(M+SP+TE)/3|العلوم التقنية|34532|تكنولوجيا 34532|المعهد التحضيري للدراسات الهندسية بالمنستير (جامعة المنستير)||
+|153,250|FG+(M+SP+TE)/3|العلوم التقنية|40532|تكنولوجيا 40532|المعهد التحضيري للدراسات الهندسية بصفاقس (جامعة صفاقس)||
+|143,767|FG+(M+SP+TE)/3|العلوم التقنية|50532|تكنولوجيا 50532|المعهد التحضيري للدراسات الهندسية بقابس (جامعة قابس)||
+|126,903|FG+(M+SP+TE)/3|العلوم التقنية|60532|تكنولوجيا 60532|المعهد التحضيري للدراسات الهندسية بقفصة(جامعة قفصة)||
+
+الهندسة المعمارية والمراحل التحضيرية العلمية
+
+|| doled! dypao! Lolblo 4jlosebl dutigl! ||| doled! dypao! Lolblo 4jlosebl dutigl! ||| doled! dypao! Lolblo 4jlosebl dutigl! ||| doled! dypao! Lolblo 4jlosebl dutigl! ||| doled! dypao! Lolblo 4jlosebl dutigl! ||| doled! dypao! Lolblo 4jlosebl dutigl! ||| doled! dypao! Lolblo 4jlosebl dutigl! ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|اإلجازة / الشعبة|
+|158,083|FG+(M+SP+SVT)/3|رياضيات|11832|بيولوجيا- جيولوجيا 11832|المعهد العالي للتكنولوجيات الطبية بتونس (جامعة تونس المنار)||
+|156,543|FG+(M+SP+SVT)/3|رياضيات|12832|بيولوجيا- جيولوجيا 12832|المعهد العالي للدراسات التحضيرية في البيولوجيا والجيولوجيا بسكرة (جامعة قرطاج)||
+|120,803|FG+(M+SP+SVT)/3|رياضيات|40832|بيولوجيا- جيولوجيا 40832|كلية العلوم بصفاقس (جامعة صفاقس)||
+|128,987|FG+(M+SP+SVT)/3|رياضيات|41832|بيولوجيا- جيولوجيا 41832|المعهد التحضيري للدراسات الهندسية بصفاقس (جامعة صفاقس)||
+
+## الدراسات الهندسية
+
+:الشهادة الوطنية لمهندس -1
+
+:ضبطت مدة الدراسة للحصول على الشهادة الوطنية لمهندس بخمس سنوات موزعة على مرحلتين الهندسية للدراسات التحضيرية بالمرحلة القبول يتم : سنتين تدوم تحضيرية مرحلة ▪ :للمتحصلين على شهادة البكالوريا طبقا لنظام التوجيه الجامعي في الشعب التالية )فيزياء (ر.ف رياضيات ▪ )فيزياء وكيمياء (ف.ك ▪ )تكنولوجيا (ت ▪ )بيولوجيا وجيولوجيا (ب.ج ▪
+
+▪ مرحلة تكوين هندسي تدوم ثلاث سنوات بمؤسسات التكوين الهندسي
+
+يتم القبول بالسنة الأولى بمؤسسات تكوين المهندسين المؤهلة لهذا الغرض عن طريق .المناظرات الوطنية للدخول الى مراحل تكوين المهندسين :يمكن كذلك لهذه المؤسسات أن تقبل، في حدود طاقة استيعابها، عن طريق المناظرات الخصوصية الشهادة الوطنية لل إجازة في الاختصاصات العلمية والتقنية بالسنة الاولى: الطلبة المحرزين على ▪ في إطار نظام الإجازة والماجستير .والدكتوراه ▪ بالسنة الثانية: الطلبة الناجحين في السنة الأولى من الماجستير في الاختصاصات العلمية والتقنية في إطار نظام الإجازة والماجستير .والدكتوراه
+
+قائمة مؤسسات التكوين الهندسي المسندة للشهادة الوطنية لمهندس
+
+|قائمة مؤسسات التكوين الهندسي المسندة للشهادة الوطنية لمهندس|قائمة مؤسسات التكوين الهندسي المسندة للشهادة الوطنية لمهندس|||
+|قائمة مؤسسات التكوين الهندسي المسندة للشهادة الوطنية لمهندس|قائمة مؤسسات التكوين الهندسي المسندة للشهادة الوطنية لمهندس||قائمة المعاهد التحضيرية العلمية|
+|المؤسسة|ع/ر||المؤسسة|
+|المدرسة التونسية للتقنيات|المدرسة التونسية للتقنيات 1|1|المعهد التحضيري للدراسات العلمية والتقنية|
+|المدرسة العليا للإحصاء وتحليل المعلومات|المدرسة العليا للإحصاء وتحليل المعلومات 2|2|المعهد التحضيري للدراسات الهندسية بالقيروان|
+|المدرسة العليا للصناعات الغذائية بتونس|المدرسة العليا للصناعات الغذائية بتونس 3|3|المعهد التحضيري للدراسات الهندسية بالمنار|
+|المدرسة العليا للفلاحة بالكاف|المدرسة العليا للفلاحة بالكاف 4|4|المعهد التحضيري للدراسات الهندسية بالمنستير|
+|المدرسة العليا للفلاحة بماطر|المدرسة العليا للفلاحة بماطر 5|5|المعهد التحضيري للدراسات الهندسية ببنزرت|
+|المدرسة العليا للفلاحة بمقرن|المدرسة العليا للفلاحة بمقرن 6|6|المعهد التحضيري للدراسات الهندسية بتونس|
+|المدرسة العليا للمهندسين بمجاز الباب|المدرسة العليا للمهندسين بمجاز الباب 7|7|المعهد التحضيري للدراسات الهندسية بصفاقس|
+|المدرسة العليا للمواصلات بتونس|المدرسة العليا للمواصلات بتونس 8|8|المعهد التحضيري للدراسات الهندسية بقابس|
+|المدرسة الوطنية للالكترونيك والاتصالات بصفاقس|المدرسة الوطنية للالكترونيك والاتصالات بصفاقس 9|9|المعهد التحضيري للدراسات الهندسية بقفصة|
+|المدرسة الوطنية العليا للمهندسين بتونس|المدرسة الوطنية العليا للمهندسين بتونس 10|10|المعهد التحضيري للدراسات الهندسية بنابل|
+|المدرسة الوطنية لعلوم الإعلامية|المدرسة الوطنية لعلوم الإعلامية 11|11|المعهد العالي للتكنولوجيات الطبية بتونس|
+|المدرسة الوطنية للعلوم والتكنولوجيات المتقدمة ببرج|12|12|المعهد العالي للدراسات التحضيرية في البيولوجيا|
+|السدرية|ة||لوجيابسكرة|
+|المدرسة الوطنية للمهندسين بالمنستير|المدرسة الوطنية للمهندسين بالمنستير 13|13|المدرسة العليا للعلوم والتكنولوجيا بحمام سوسة|
+|المدرسة الوطنية للمهندسين ببنزرت|المدرسة الوطنية للمهندسين ببنزرت 14|14|المعهد العالي للعلوم التطبيقية والتكنولوجيا ة|
+|المدرسة الوطنية للمهندسين بتونس|المدرسة الوطنية للمهندسين بتونس 15|15|ية كلية العلوم بالمنستير|
+|المدرسة الوطنية للمهندسين بسوسة|المدرسة الوطنية للمهندسين بسوسة 16|16|كلية العلوم بصفاقس|
+|المدرسة الوطنية للمهندسين بصفاقس|المدرسة الوطنية للمهندسين بصفاقس 17|17|كلية العلوم بتونس|
+|المدرسة الوطنية للمهندسين بقابس|المدرسة الوطنية للمهندسين بقابس 18|18||
+|المدرسة الوطنية للمهندسين بقرطاج|المدرسة الوطنية للمهندسين بقرطاج 19|19||
+|المدرسة الوطنية للمهندسين بقفصة|المدرسة الوطنية للمهندسين بقفصة 20|20||
+|المعهد العالي للعلوم الفلاحية بشط مريم|المعهد العالي للعلوم الفلاحية بشط مريم 21|21||
+|المعهد الوطني للعلوم الفلاحية بتونس|المعهد الوطني للعلوم الفلاحية بتونس 22|22||
+|كلية العلوم بتونس|كلية العلوم بتونس 23|23||
+
+|المؤسسة|ع/ر|
+|المعهد التحضيري للدراسات العلمية والتقنية|المعهد التحضيري للدراسات العلمية والتقنية 1|
+|المعهد التحضيري للدراسات الهندسية بالقيروان|المعهد التحضيري للدراسات الهندسية بالقيروان 2|
+|المعهد التحضيري للدراسات الهندسية بالمنار|المعهد التحضيري للدراسات الهندسية بالمنار 3|
+|المعهد التحضيري للدراسات الهندسية بالمنستير|المعهد التحضيري للدراسات الهندسية بالمنستير 4|
+|المعهد التحضيري للدراسات الهندسية ببنزرت|المعهد التحضيري للدراسات الهندسية ببنزرت 5|
+|المعهد التحضيري للدراسات الهندسية بتونس|المعهد التحضيري للدراسات الهندسية بتونس 6|
+|المعهد التحضيري للدراسات الهندسية بصفاقس|المعهد التحضيري للدراسات الهندسية بصفاقس 7|
+|المعهد التحضيري للدراسات الهندسية بقابس|المعهد التحضيري للدراسات الهندسية بقابس 8|
+|المعهد التحضيري للدراسات الهندسية بقفصة|المعهد التحضيري للدراسات الهندسية بقفصة 9|
+|المعهد التحضيري للدراسات الهندسية بنابل|المعهد التحضيري للدراسات الهندسية بنابل 10|
+|المعهد العالي للتكنولوجيات الطبية بتونس|المعهد العالي للتكنولوجيات الطبية بتونس 11|
+|المعهد العالي للدراسات التحضيرية في البيولوجيا والجيولوجيابسكرة|ة 12|
+|المدرسة العليا للعلوم والتكنولوجيا بحمام سوسة|13|
+|المعهد العالي للعلوم التطبيقية والتكنولوجيا بالمهدية|ة 14|
+|كلية العلوم بالمنستير|كلية العلوم بالمنستير 15|
+|كلية العلوم بصفاقس|كلية العلوم بصفاقس 16|
+|كلية العلوم بتونس|كلية العلوم بتونس 17|
+
+) زحل تكوين هندس+رممؤسس ت رمت تؤ ن (إج زة - 2.2
+
+يتم القبول بشعبة من شعب تكوين المهندسين عن طريق المناظرات الخصوصية وتفتح للطلبة المسجلين بالسنة الثالثة من الا جازة في الاختصاصات العلمية والتقنية في إطار نظام الإجازة والماجستير والدكتوراه والذين لم يرسبوا خلال دراستهم الجامعية ويتم تنظيم المناظرات سنويا بقرار من السيد وزير التعليم العالي والبحث العلمي
+
+## ) مرحلة تكوين هندسي+قائمة المؤسسات التي تؤمن (إجازة
+
+|المؤسسة|ع/ر|
+|المعهد العاليلفنونالملتيميديابمنوبة|ة 1|
+|المعهد العاليللإعلامية|ة 2|
+|المعهد العاليللإعلاميةوالرياضياتبالمنستير|3|
+|المعهد العاليللإعلاميةوالملتيميديابصفاقس|4|
+|المعهد العاليللإعلاميةوتقنيات الاتصال بحمامسوسة|سة 5|
+|المعهد العالي للعلوم التطبيقية والتكنولوجيا بسوسة|المعهد العالي للعلوم التطبيقية والتكنولوجيا بسوسة 6|
+
+## 09
+
+علوم الصحة والطب والصيدلةوطب الأسنان
+
+\ ae
+
+علوم الصحة والطب وطب الأسنان والصيدلة
+
+|Viwatle Glu!bsUbi douall egle|Viwatle Glu!bsUbi douall egle|Viwatle Glu!bsUbi douall egle|Viwatle Glu!bsUbi douall egle|Viwatle Glu!bsUbi douall egle|Viwatle Glu!bsUbi douall egle|Viwatle Glu!bsUbi douall egle|
+|166,620 ~~ot~~|FG+SVT ~~ot~~|)*(آداب ~~ot~~|40700|الطب|كلية الطب بصفاقس (جامعة صفاقس)||
+|167,305 ~~of~~|FG+SVT ~~of~~|)*(آداب ~~of~~|34701|الصيدلة|كلية الصيدلة بالمنستير(جامعة المنستير)|الصيدلة|
+|182,910 ~~I~~|FG+SVT ~~I~~|)*(آداب ~~I~~|34702|طب األسنان|كلية طب األسنان بالمنستير (جامعة المنستير) تأمين الدارسة ب النقليز|طب األسنان|
+
+علوم الصحة والطب وطب الأسنان والصيدلة
+
+|ViralGuu!bs Ully douall agle ||ViralGuu!bs Ully douall agle ||ViralGuu!bs Ully douall agle ||ViralGuu!bs Ully douall agle ||ViralGuu!bs Ully douall agle ||ViralGuu!bs Ully douall agle ||ViralGuu!bs Ully douall agle ||
+
+علوم الصحة والطب وطب الأسنان والصيدلة
+
+|ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|152,625|FG+(SP+SVT)/2|رياضيات FG+(SP+SVT)/2|10743|البيولوجيا الطبية|المدرسة العليا لعلوم وتقنيات الصحة بتونس (جامعة تونس المنار)|اإلجازة في البيولوجيا الطبية|
+|151,309|FG+(SP+SVT)/2|رياضيات FG+(SP+SVT)/2|34743|البيولوجيا الطبية|المدرسة العليا لعلوم وتقنيات الصحة بالمنستير (جامعة المنستير)||
+|141,165|FG+(SP+SVT)/2|رياضيات FG+(SP+SVT)/2|40743|البيولوجيا الطبية|المدرسة العليا لعلوم وتقنيات الصحة بصفاقس (جامعة صفاقس)||
+|120,011 ~~ft~~|FG+(SP+SVT)/2 ~~ft~~|رياضيات FG+(SP+SVT)/2 ~~ft~~|60743|البيولوجيا الطبية|المدرسة العليا لعلوم وتقنيات الصحة بقفصة (جامعة )قفصة|المدرسة|
+|163,876 ~~ef~~|FG+SVT ~~ef~~|)*(آداب ~~ef~~|34744|العالج الطبيعي|المدرسة العليا لعلوم وتقنيات الصحة بالمنستير (جامعة المنستير)|اإلجازة في العالج الطبيعي|
+|160,864 ~~ft~~|FG+SVT ~~ft~~|40744 آداب(*) ~~ft~~|40744 آداب(*)|العالج الطبيعي|المدرسة العليا لعلوم وتقنيات الصحة بصفاقس (جامعة صفاقس)||
+|124,605 ~~ft~~|FG+SVT ~~ft~~|)*(آداب ~~ft~~|10745|تقويم النطق والكالم|المدرسة العليا لعلوم وتقنيات الصحة بتونس (جامعة تونس المنار)|اإلجازة في تقويم النطق والكالم|
+
+علوم الصحة والطب وطب الأسنان والصيدلة
+
+|ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||ViwatleGlu!bsUbi douall egle ||
+|119,675 ~~++i}~~|FG+(M+SP)/2 ~~++i}~~|رياضيات ~~++i}~~|40749 ~~++i}~~|المبصريات والنظارات الطبية ~~++i}ff~~|المدرسة العليا لعلوم وتقنيات الصحة بصفاقس (جامعة صفاقس) ~~ff~~|اإلجازة في المبصريات و النظارات الطبية ~~ff~~|
+|146,055 ~~++i}~~|FG+SVT ~~++i}~~|رياضيات ~~++i}~~|10750 ~~++i}~~|أدواتية قاعة العمليات الجراحية ~~++i} ff~~|المدرسة العليا لعلوم وتقنيات الصحة بتونس (جامعة تونس المنار) ~~ff~~|اإلجازة في أدواتية قاعة العمليات الجراحية ~~ff~~|
+|135,697 ~~eft~~|FG+SVT ~~eft~~|رياضيات ~~eft~~|30750|أدواتية قاعة العمليات الجراحية|المدرسة العليا لعلوم و تقنيات الصحة بسوسة(جامعة سوسة)||
+|133,960 ~~eft~~|FG+SVT ~~eft~~|رياضيات ~~eft~~|40750|أدواتية قاعة العمليات الجراحية|المدرسة العليا لعلوم وتقنيات الصحة بصفاقس (جامعة صفاقس)||
+|144,320 ~~eft~~|FG+SVT ~~eft~~|)*(آداب ~~eft~~|34752|بدائل األسنان|المدرسة العليا لعلوم وتقنيات الصحة بالمنستير (جامعة المنستير)|اإلجازة في بدائل األسنان|
+|121,230|FG+(SP+SVT)/2|رياضيات FG+(SP+SVT)/2|10753|تركيب و إستعمال آلة سمع|اإلجازة في تركيب و إستعمال آلة سمع المعهد العالي للتكنولوجيات الطبية بتونس (جامعة تونس المنار) ب الشتراك مع المدرسة العليا لعلوم|اإلجازة في تركيب و إستعمال آلة سمع المعهد العالي للتكنولوجيات الطبية بتونس|
+|125,750|FG+(SP+SVT)/2|علوم تجريبية FG+(SP+SVT)/2|||ب الشتراك مع المدرسة العليا لعلوم وتقنيات الصحة بتونس|3 )سنوات (امد|
+|164,052|FG+SVT|)*(آداب|10754|الرعاية الصحية للطفل|المدرسة العليا لعلوم وتقنيات الصحة بتونس (جامعة تونس المنار)|اإلجازة في الرعاية الصحية للطفل|
+
+علوم الصحة والطب وطب الأسنان والصيدلة
+
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|164,304|FG+SVT|آداب|30754|الرعاية الصحية للطفل|المدرسة العليا لعلوم و تقنيات الصحة بسوسة(جامعة سوسة)||
+|144,065|FG+(SP+SVT)/2|رياضيات FG+(SP+SVT)/2|10759|- تكنولوجيات التصوير الطبي - اإلعالمية الطبية - األنظمة اإللكترونية المحمولة - تكنولوجيات األجهزة الطبية|المعهد العالي للتكنولوجيات الطبية بتونس (جامعة تونس المنار)|اإلجازة في الهندسة البيوطبية|
+|130,005 ~~ft~~|FG+SVT ~~ft~~|)*(آداب ~~ft~~|60760|الرعاية الصحية والستعجالية واإلنعاش|المدرسة العليا لعلوم وتقنيات الصحة بقفصة (جامعة )قفصة|المدرسة|
+|174,710|FG+SVT|)*(آداب|10797 اناث|علوم التمريض |المعهد العالي لعلوم التمريض بتونس (جامعة تونس المنار)|اإلجازة في علوم التمريض 3 )سنوات (امد )*(علوم الحياة واألرض إجبارية|
+
+علوم الصحة والطب وطب الأسنان والصيدلة
+
+|169,600 ~~ft~~|FG+SVT ~~ft~~|)*(آداب ~~ft~~|30797|علوم التمريض |المعهد العالي لعلوم التمريض بسوسة (جامعة سوسة)||
+|163,651|FG+SVT|)*(آداب|50797|علوم التمريض |المعهد العالي لعلوم التمريض بقابس (جامعة قابس)||
+
+علوم الصحة والطب وطب الأسنان والصيدلة
+
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|157,087|FG+SVT|)*(آداب|10799|علوم التوليد- قابلة|المدرسة العليا لعلوم وتقنيات الصحة بتونس (جامعة تونس المنار)|اإلجازة في علوم التوليد- قابلة|
+|159,350|FG+SVT|)*(آداب|34799|علوم التوليد- قابلة|المدرسة العليا لعلوم وتقنيات الصحة بالمنستير (جامعة المنستير)||
+|159,724|FG+SVT|)*(آداب|40799|علوم التوليد- قابلة|المدرسة العليا لعلوم وتقنيات الصحة بصفاقس (جامعة صفاقس)||
+
+## 10
+
+العلوم الفلاحية والبيو تكنولوجيا والبيئة
+
+“ya
+
+as
+
+7) yee
+
+العلوم الفلاحية والبيو تكنولوجيا والبيئة مجموع صيغة احتساب نوع الرمز التخصصات المؤسسة وال جامعة الشعبة / اإلجازة نقاط اخر مجموع النقاط البكالوريا موجه 2024 117,732 FG+(SP+SVT)/2 رياضيات 10546 -البي و تكنولوجيا والصناعات الصيدلية المعهد العالي للبيوتكنولوجيا بسيدي ثابت اإلجازة في البيوتكنولوجيا ) منوبةجامعة ( 112,981 -[FG+(SP+SVT)/2 ] علوم تجريبية تحاليل وتجارب بيولوجية امد ) (سنوات 3 - مراقبة جودة األغذية وحفظ الصحة 126,367 FG+(SP+SVT)/2 رياضيات 11546 البيوتكنولوجيا النباتية - المعهد العالي للعلوم البيولوجية التطبيقية بتونس )جامعة تونس المنار( 109,782 -[FG+(SP+SVT)/2 ] علوم تجريبية بيوتكنولوجيا الكائنات الدقيقة - مراقبة جودة األغذية وحفظ الصحة 116,350 FG+(SP+SVT)/2 اضيات ري 20546 مراقبة جودة األغذية وحفظ الصحة ج)جامعة قرطا( كلية العلو ببنزرتم 103,066[FG+(SP+SVT)/2 ] علوبيةي تجرم 118,085 FG+(SP+SVT)/2 رياضيات 34546 بيولوجية وتجارب تحاليل(جامعة المعهد العالي للبيوتكنولوجيا بالمنستير )المنستير 112,685 -[FG+(SP+SVT)/2 ] علوبيةي تجرم مراقبة جودة األغذية وحفظ الصحة 106,053 FG+(SP+SVT)/2 رياضيات 36546 مراقبة جودة األغذية وحفظ الصحة والتكنولوجيا المعهد العالي للعلوم التطبيقية ) المنستيرجامعة بالمهدية ( 107,870[FG+(SP+SVT)/2 ] علوبيةي تجرم - FG+(SP+SVT)/2 اضيات ري 40546 مراقبة جودة األغذية وحفظ الصحة ) صفاقسجامعة بصفاقس ( كلية العلوم 102,323[FG+(SP+SVT)/2 ] علوبيةي تجرم - FG+(SP+SVT)/2 رياضيات 41546 البيوتكنولوجيا النباتية (جامعة المعهد العالي للبيوتكنولوجيا بصفاقس ) صفاقس - 107,040 بيوتكنولوجيا الكائنات الدقيقة 106,262 -[FG+(SP+SVT)/2 ] علوم تجريبية تحاليل و تجارب بيولوجية - مراقبة جودة األغذية وحفظ الصحة - FG+(SP+SVT)/2 اضيات ري 50546 تحاليل وتجارب بيولوجية )جامعة قابس( كلية العلو بقابسم 99,667[FG+(SP+SVT)/2 ] علوبيةي تجرم - FG+(SP+SVT)/2 رياضيات 54546 مراقبة جودة األغذية وحفظ الصحة المعهد العالي للبيولوجيا التطبيقية بمدنين ) قابسجامعة ( 73,007[FG+(SP+SVT)/2 ] علوبيةي تجرم - FG+(SP+SVT)/2 اضيات ري 60546 تحاليل وتجارب بيولوجية ) قفصةجامعة ( كلية العلو بقفصةم 86,157[FG+(SP+SVT)/2 ] علوبيةي تجرم 80,517 FG+(SP+SVT)/2 رياضيات 84546 البيوتكنولوجيا النباتية - (جامعة المعهد العالي للبيوتكنولوجيا بباجة ) جندوبة 79,173 -[FG+(SP+SVT)/2 ] علوم تجريبية البيوتكنولوجيا الحيوانية ~~i~~
+
+|مجموع نقاط اخر موجه 2024|صيغة احتساب مجموع النقاط|نوع البكالوريا|الرمز|التخصصات|المؤسسة وال جامعة|/ اإلجازة الشعبة|
+|121,090|FG+(SP+SVT)/2|رياضيات FG+(SP+SVT)/2|10840|الصناعات واألساليب الغذائية|المدرسة العليا للصناعات الغذائية بتونس (جامعة قرطاج)|اإلجازة في الصناعات الغذائية|
+|105,780|FG+(SP+SVT)/2|رياضيات FG+(SP+SVT)/2|40841|- هندسة األساليب الغذائية - التغذية والصحة|المعهد العالي للبيوتكنولوجيا بصفاقس (جامعة صفاقس)|اإلجازة في علوم وتقنيات األغذية|
+|-|FG+(SP+SVT)/2|رياضيات FG+(SP+SVT)/2|84841|- مراقبة جودة األغذية - الصناعات واألساليب الغذائية|المعهد العالي للبيوتكنولوجيا بباجة (جامعة جندوبة)||
+|85.19|FG+SVT|آداب)*(|75842|الصناعات الغذائية وتأثيراتها على المحيط|كلية العلوم والتقنيات بسيدي بوزيد جامعة القيروان|اإلجازة في التكنولوجيات الغذائية والمحيط|
+|98,713|FG+SVT|رياضيات|20844|بعث والتصرف فيالمؤسسات الفالحية|المدرسة العليا للفالحة بمقرن (جامعة قرطاج)|اإلجازة فيالعلومالفالحية|
+|98,959|FG+SVT|رياضيات|21844|اإلنتاجالحيواني والموارد الغذائية|المدرسة العليا للفالحة بماطر (جامعة قرطاج)||
+|112,585|FG+SVT|رياضيات|30844|- البستنة - تهيئة الفضاءات|المعهد العالي للعلوم الفالحية بشط مريم (جامعة سوسة)||
+|-|FG+SVT|رياضيات|80844|علوم وتقنيات الغابات|معهد الغابات والمراعي بطبرقة (جامعة جندوبة)||
+|-|FG+SVT|رياضيات|82844|تقنيات اإلنتاجالفالحي|المدرسة العليا للفالحة بالكاف (جامعة جندوبة)||
+
+|-|FG+(SP+SVT)/2|رياضيات FG+(SP+SVT)/2|20846|- الصيد البحري وتربية الكائنات المائية - التبريد وتثمين المنتوجات المائية|اإلجازة في علوم البحار ا لمعهد العالي لعلوم البحار ببنزرت (جامعة قرطاج)|اإلجازة في علوم البحار ا|
+|85,410|FG+(SP+SVT)/2|علومتجريبيةFG+(SP+SVT)/2|اناث|||3 سنوات )(امد|
+
+كيفية الالتحاق بالمدرسة الوطنية للطب البيطري
+
+:مناظرة وطنية يتم القبول بالسنة الأولى من المرحلة الأولى للدراسات البيطريّة عن طريق النسبة للمناظرة ب :الاختبارات الكتابية ب •
+
+الطلبة الذين تابعوا بانتظام دراسات السنة الأولى بمعهد تحضيري للدراسات الهندسية ✓ .شعبة "البيولوجيا وجيولوجيا" خلال السنة التي فتحت فيها المناظرة الطلبة الذين تابعوا بانتظام السنة الأولى من الدراسات لمرحلة تحضيريّة أجنبيّة معترف ✓ .بمعادلتها خلال السنة التي فتحت فيها المناظرة .من عدد البقاع المفتوحة ) %( وذلك في حدود تسعين بالمائة90 ب النسبة للمناظرة:بالملفات •
+
+للطلبة الأوائل الذين أتمّوا بنجاح وبدون إمهال السنة الثانية في نظام "أمد" من الإجازة في علوم جيولوجيا " بكليات العلومعلوم الطبيعية والتطبيقات " بيولوجيا- ال أو الاجازة في الحياة والأرض والطلبة الأوائل الذين أتمّوا بنجاح السنة الثانية وبدون رسوب بالمعاهد التحضيريّة للدراسات ."جيولوجيا الهندسيّة شعبة "بيولوجيا.من عدد البقاع المفتوحة ) %( وذلك في حدود عشرة بالمائة10
+
+## في التعليم العالي العسكري عروض التكوين
+
+:التكوين الأساسي الخاص بالضباط  أ ساسي للضباط بمؤسسات التعليم العالي العسكري :على يشتمل التكوين ال • فرع الدراسات الهندسية • "فرع الدراسات في نظام "إمد فرع الدراسات الهندسية كالتالي: الدراسات الهندسيةفي فرع التكوينالعسكري تؤمن مؤسسات التعليم العالي الأكاديمية العسكرية بفندق الجديد 1 — في:الاختصاصات التالية .هندسة مدنية إلكتروميكانيك– اتصالات– هندسة إعلامية– تقنيات الأسلحة– الأكاديمية البحرية بمنزل بورقيبة 2 في:الاختصاصات التالية طاقة وتقنيات )قيادة السفن وأنظمة بحرية (لفائدة البحرية الوطنية– ملاحة بحرية (لفائدة البحرية )بحرية (لفائدة البحرية الوطنية– )طاقة ومحركات (لفائدة البحرية التجارية )التجارية– —" مدرسة الطيران ببرج العامري 3 au في:الاختصاصات التالية » هندسة ميكانيكية– تيليميكانيك–جغرفة رقمية– جولان جوي-هندسة إعلامية- سياقة الطائرات– الاتصالات أنظمة الطيران-
+
+• سنوات بمرحلة تحضيرية وثلاث بالمرحلة ال يدوم تكوين الضباط المهندسين خمس سنوات (سنتين "بالحصول على "الشهادة الوطنية لمهندس. الهندسي) ويختم التكوين (الرياضيات، العلوم في شعب )(دورة رئيسية شهادة البكالوريا لسنة2025 ويمكن للمتحصلين على الانتداب التي تفتحة ا لتكوين أن يشاركوا في مناظر في متابعة هذاوالراغبين )التجريبية، العلوم التقنية و .فحص طبي واختبار في الرياضة للغرض والتي تتضمن اختبار نفساني
+
+في نظام "إمد" كالتالي: الدراساتالعسكري التكوين في فرع تؤمن مؤسسات التعليم العالي
+
+## الأكاديمية البحرية بمنزل بورقيبة
+
+في:الاختصاص التالي علوم بحرية في:الاختصاصات التالية علوم قانونية–محاسبة ومالية- علوم عسكرية.
+
+ويختم بالحصول على )"ماجستيرخمس سنوات (ثلاث سنوات "إجازة "وسنتان "يدوم هذا التكوين (دورة رئيسية )2025شهادة البكالوريا لسنة على "الشهادة الوطنية للماجستير ."ويمكن للمتحصلين التي تفتح للغرض في مناظرة الانتداب في متابعة هذا التكوين أن يشاركوا والراغبين في كل الشعب و .فحص طبي واختبار في الرياضة والتي تتضمن اختبار نفساني
+
+:التكوين الأساسي الخاص بضباط الصف لفائدة الصحة العسكرية 
+
+في الاختصاصات شبهعلى الشهادة الوطنية للإجازة) يشتمل التكوين الخاص بضباط الصف للحصول الطبية (بههههههههههههه :
+
+مدرسة الصحة العسكرية على:الاختصاصات التالية علوم التمريض-التخدير والانعاش-التصوير الطبي والمداواة بالأشعةلعلاج الطبيعي ا
+
+ويمكن "الشهادة الوطنية للإجازة " ويختم بالحصول على ،) إجازة (ثلاث سنوات يدوم هذا التكوين (دورة رئيسية) في شعبتي العلوم التجريبية شهادة البكالوريا لسنة2025 للمتحصلين على التي تفتح للغرضة الانتداب ا لتكوين أن يشاركوا في مناظر والراغبين في متابعة هذا والرياضيات و .فحص طبي واختبار في الرياضة والتي تتضمن اختبار نفساني
+
+العالي يقع الاعلان عن مناظرة الانتداب لمتابعة التكوين بمؤسسات التعليم الوطنيالعسكري عبر وسائل الإعلام وعبر موقع الواب لوزارة الدفاع
+
+www.defense.tn
+
+## العالي المؤسسات الخاصة للتعليم
+
+تذكر وزارة التعليم العالي والبحث العلمي كافة الطلبة والأولياء، أن المؤسسات الخاصة للتعليم العالي معترف بها وقابلة للمعادلة .المرخص لها من قبل الوزارة هي المؤهلة حصريا لإسناد شهادات جامعية
+
+على قائمة المؤسسات الخاصة للتعليم العالي المرخص لها للاطلاع من قبل الوزارة للسنة الجامعية2026-2025
+
+• والاعلانات المغالطة التي تفيد ان المؤسسات المذكورة تسلمتحذر الوزارة من كل الاشهارات .شهادات أجنبية أو تشير إلى وجود مؤسسات أجنبية منتصبة بتونس • ،الطبية في الاختصاصات الشبه التي تؤمن التكوين العالي للالتحاق بالمؤسسات الخاصة للتعليم :التالي في الجدول بالشروط المعلنة يتعين التقيد بنوعية البكالوريا المطلوبة والالتزام
+
+|الشروط المطلوبة|نوعية البكالوريا المطلوبة|الشهادة|
+|لا شيء|رياضيات/علوم تجريبية|الإجازة في المبصريات والنظارات الطبية|
+|لا شيء|رياضيات/علوم تجريبية|الإجازة في التصوير الطبي والمداواة بالأشعة|
+|مادة علوم الحياة والأرض إجبارية للباكالوريا آداب|رياضيات/علوم تجريبية/آداب/رياضة|الإجازة في التغذية البشرية|
+|مادة علوم الحياة والأرض إجبارية للباكالوريا آداب|رياضيات/علوم تجريبية/آداب/رياضة|الإجازة في بدائل الأسنان|
+|شعبة مخصصة للإناث ومادة علوم الحياة والأرض إجبارية للباكالوريا آداب|رياضيات/علوم تجريبية/آداب/رياضة|الإجازة في علوم التوليد/قابلة|
+|لا شيء|رياضيات/علوم تجريبية|الإجازة في أدواتية قاعة العمليات الجراحية|
+|مادة التربية البدنية إجبارية /مادة علوم الحياة والأرض إجبارية للباكالوريا آداب|رياضيات/علوم تجريبية/آداب/رياضة|الإجازة في علوم التمريض|
+|مادة التربية البدنية إجبارية /مادة علوم الحياة والأرض إجبارية للباكالوريا آداب|رياضيات/علوم تجريبية/آداب/رياضة|الإجازة في العلاج الطبيعي|
+|لا شيء|رياضيات/علوم تجريبية|الإجازة في التبنيج والإنعاش|
+|مادة علوم الحياة والأرض إجبارية للباكالوريا آداب|آداب/رياضيات/علوم تجريبية|الإجازة في تقويم النطق والكلام|
