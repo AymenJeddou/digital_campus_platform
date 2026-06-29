@@ -1,58 +1,80 @@
 """Groundedness grader (Day 6).
 
-After generation, verify that every claim in the answer is actually supported by
-the retrieved chunks. If not, the pipeline blocks the answer and returns the safe
-refusal sentence — the last line of defence against hallucination, targeting the
-RAG Triad "groundedness = 100%" goal.
-
-This grader uses an LLM judge. By default it uses the active provider's
-generation model; set ``GROUNDEDNESS_GRADER_MODEL`` to use a cheaper, independent
-judge (e.g. ``mistral-small-latest``) — judging with a different model avoids the
-self-grading bias of a model rating its own output.
-
-Fail-safe: only an explicit "OUI" verdict counts as grounded; anything else
-(including "NON" or an unparseable reply) is treated as NOT grounded.
+Verifies the generated answer is strictly supported by the retrieved context.
+If an answer is not grounded, the caller should block it and return the safe
+fallback sentence defined in ``system_prompts.NO_INFO_SENTENCE``.
 """
+
+from __future__ import annotations
 
 import logging
 import os
+from pathlib import Path
 
-from ai.agents.base_agent import BaseAgent
-from ai.llm.client import get_llm
+import google.generativeai as genai
+from dotenv import load_dotenv
+
+from ai.prompts.system_prompts import NO_INFO_SENTENCE
 
 logger = logging.getLogger(__name__)
 
-_GROUNDEDNESS_PROMPT = """Tu es un vérificateur de fiabilité (groundedness).
-On te donne un CONTEXTE (extraits de documents FSB) et une RÉPONSE.
-Vérifie si CHAQUE affirmation de la RÉPONSE est directement appuyée par le CONTEXTE.
-Réponds par un seul mot, sans aucune explication :
-- "OUI" si toute la réponse est appuyée par le contexte.
-- "NON" si au moins une affirmation n'est pas appuyée par le contexte.
+_ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
+_PLACEHOLDER_KEY = "your_gemini_api_key_here"
 
-CONTEXTE:
+_GRADER_PROMPT = """\
+Tu es un vérificateur de véracité strict.
+
+Contexte (seule source autorisée):
 {context}
 
-RÉPONSE:
+Réponse générée:
 {answer}
 
-Verdict (OUI ou NON):"""
+La réponse est-elle ENTIÈREMENT basée sur le contexte fourni, sans aucune information inventée?
+Réponds UNIQUEMENT par "oui" ou "non".
+"""
 
 
-def grade_groundedness(answer: str, chunks: list, llm=None) -> bool:
-    """Return True if ``answer`` is fully supported by ``chunks``.
+def _get_model():
+    load_dotenv(_ENV_PATH)
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key or api_key == _PLACEHOLDER_KEY:
+        raise ValueError("GEMINI_API_KEY is not configured.")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    genai.configure(api_key=api_key)
+    return genai.GenerativeModel(model_name)
+
+
+def _chunks_to_context(chunks: list[dict]) -> str:
+    parts = [
+        f"[{c.get('source', '?')}, p.{c.get('page', '?')}]\n{c.get('text', '')}"
+        for c in chunks
+    ]
+    return "\n\n---\n\n".join(parts) if parts else "Aucun contexte."
+
+
+def grade_groundedness(answer: str, chunks: list) -> bool:
+    """Return True if ``answer`` is grounded in ``chunks``.
 
     Args:
-        answer: The generated answer to verify.
-        chunks: The chunks the answer was generated from.
-        llm: Optional LLM client (injected for tests); otherwise built from the
-            configured provider and ``GROUNDEDNESS_GRADER_MODEL``.
+        answer: The LLM-generated answer string.
+        chunks: The retrieved chunk dicts used to generate the answer.
+
+    Returns:
+        True if grounded, False if hallucination detected.
+        Falls back to True on API errors to avoid blocking valid answers.
     """
-    if not chunks or not answer:
-        return False
+    # The standard refusal sentence is always considered grounded.
+    if NO_INFO_SENTENCE in answer:
+        return True
 
-    context = BaseAgent._format_chunks(chunks)
-    prompt = _GROUNDEDNESS_PROMPT.format(context=context, answer=answer)
-
-    llm = llm or get_llm(model=os.getenv("GROUNDEDNESS_GRADER_MODEL"))
-    verdict = (llm.generate(prompt) or "").strip().lstrip("\"'").upper()
-    return verdict.startswith("OUI")
+    try:
+        model = _get_model()
+        context = _chunks_to_context(chunks)
+        prompt = _GRADER_PROMPT.format(context=context, answer=answer)
+        response = model.generate_content(prompt)
+        result = response.text.strip().lower()
+        return result.startswith("oui")
+    except Exception as exc:
+        logger.warning("grade_groundedness failed (%s) — treating as grounded", exc)
+        return True

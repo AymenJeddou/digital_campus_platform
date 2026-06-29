@@ -1,73 +1,130 @@
-"""Day 3 tests — pipeline wired to the semantic search layer.
+"""Day 7 — End-to-end pipeline tests with all stages wired.
 
-Verify that ``RAGPipeline.run`` retrieves chunks from ``src.search.retriever``
-when none are passed, forwards ``top_k`` / ``category_filter``, and still works
-when chunks are supplied explicitly. The LLM is mocked via
-``ai.agents.base_agent.get_llm`` — no real API key needed.
+Tests the full flow: retrieval grader → generator → groundedness grader → citations.
+All external calls (Gemini) are mocked.
+
+Run from the repository root:
+    pytest ai/tests/
 """
 
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, call, patch
 
-from src.search.retriever import retrieve
+import pytest
 
+from ai.prompts.system_prompts import AGENT_TYPES, NO_INFO_SENTENCE
+from ai.rag.generator import FAKE_CHUNKS
+from ai.rag.pipeline import RAGPipeline
 
-def _mock_llm(text="Réponse simulée."):
-    llm = MagicMock()
-    llm.generate.return_value = text
-    return llm
-
-
-# --- 1. The mock retriever honours the agreed schema -----------------------
-
-def test_retriever_returns_schema():
-    out = retrieve("Quelles licences à la FSB?", top_k=3)
-    assert isinstance(out, list) and out
-    for field in ("chunk_id", "text", "title", "source", "page", "category", "score"):
-        assert field in out[0]
-    assert 0.0 <= out[0]["score"] <= 1.0
+STUDENT_PROFILE = {"student_status": "enrolled", "academic_year": "L2"}
 
 
-# --- 2. Pipeline retrieves when no chunks are passed -----------------------
-
-@patch("ai.rag.pipeline.grade_groundedness", return_value=True)
-@patch("ai.agents.base_agent.get_llm")
-def test_pipeline_retrieves_and_generates(mock_get_llm, _mock_grounded):
-    mock_get_llm.return_value = _mock_llm("Réponse simulée.")
-    fake_chunks = [{
-        "chunk_id": "c1", "text": "Trois licences sont proposées.",
-        "title": "Guide FSB", "source": "guide.md", "page": 2,
-        "category": "orientation", "score": 0.9,
-    }]
-
-    from ai.rag.pipeline import RAGPipeline
-
-    with patch("src.search.retriever.retrieve", return_value=fake_chunks) as mock_ret:
-        pipeline = RAGPipeline("orientation")
-        result = pipeline.run(
-            "Quelles licences sont disponibles?",
-            student_profile={"student_status": "prospective", "academic_year": None},
-            top_k=4,
-            category_filter=["orientation"],
-        )
-
-    mock_ret.assert_called_once()
-    _args, kwargs = mock_ret.call_args
-    assert kwargs["top_k"] == 4
-    assert kwargs["category_filter"] == ["orientation"]
-    assert result["answer"] == "Réponse simulée."
-    assert result["chunks_used"] == len(fake_chunks)
+def _mock_genai_returning(text: str):
+    """Helper: patch genai so generate_content always returns ``text``."""
+    mock_resp = MagicMock()
+    mock_resp.text = text
+    mock_model = MagicMock()
+    mock_model.generate_content.return_value = mock_resp
+    mock_genai = MagicMock()
+    mock_genai.GenerativeModel.return_value = mock_model
+    return mock_genai
 
 
-# --- 3. Explicit chunks bypass retrieval -----------------------------------
+# --- 1. Full pipeline: grounded answer with citation ---------------------
 
-@patch("ai.rag.pipeline.grade_groundedness", return_value=True)
-@patch("ai.agents.base_agent.get_llm")
-def test_pipeline_explicit_chunks_skip_retrieval(mock_get_llm, _mock_grounded):
-    mock_get_llm.return_value = _mock_llm("OK")
-    from ai.rag.pipeline import RAGPipeline
+@patch("ai.rag.groundedness_grader.genai", new_callable=lambda: type("G", (), {"GenerativeModel": None}))
+@patch("ai.rag.retrieval_grader.genai")
+@patch("ai.agents.base_agent.genai")
+@patch("ai.rag.groundedness_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.retrieval_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.agents.base_agent.os.getenv", return_value="real_fake_key")
+def test_full_pipeline_grounded(
+    _ge1, _ge2, _ge3, mock_base_genai, mock_grader_genai, mock_ground_genai
+):
+    answer_text = "Les cours commencent en octobre [Guide Académique FSB, p.12]."
 
-    with patch("src.search.retriever.retrieve") as mock_ret:
-        pipeline = RAGPipeline("academic")
-        pipeline.run("Une question", chunks=[{"text": "x", "source": "s.md", "page": 1}])
+    # base agent returns the answer
+    fake_resp = MagicMock()
+    fake_resp.text = answer_text
+    mock_base_genai.GenerativeModel.return_value.generate_content.return_value = fake_resp
 
-    mock_ret.assert_not_called()
+    # retrieval grader says "oui" (relevant)
+    grader_resp = MagicMock()
+    grader_resp.text = "oui"
+    mock_grader_genai.GenerativeModel.return_value.generate_content.return_value = grader_resp
+
+    # groundedness grader says "oui" (grounded)
+    ground_resp = MagicMock()
+    ground_resp.text = "oui"
+    mock_ground_genai.GenerativeModel = MagicMock(
+        return_value=MagicMock(generate_content=MagicMock(return_value=ground_resp))
+    )
+
+    pipeline = RAGPipeline("academic")
+    result = pipeline.run("Quand commencent les cours?", FAKE_CHUNKS, STUDENT_PROFILE)
+
+    assert result["answer"] == answer_text
+    assert result["agent"] == "academic"
+    assert result["chunks_used"] > 0
+    assert isinstance(result["citations"], list)
+    assert len(result["citations"]) >= 1
+
+
+# --- 2. Hallucinated answer is replaced by NO_INFO_SENTENCE --------------
+
+@patch("ai.rag.groundedness_grader.genai")
+@patch("ai.rag.retrieval_grader.genai")
+@patch("ai.agents.base_agent.genai")
+@patch("ai.rag.groundedness_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.retrieval_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.agents.base_agent.os.getenv", return_value="real_fake_key")
+def test_hallucinated_answer_replaced(
+    _ge1, _ge2, _ge3, mock_base_genai, mock_grader_genai, mock_ground_genai
+):
+    # Agent produces a hallucinated answer
+    fake_resp = MagicMock()
+    fake_resp.text = "La FSB a 5000 étudiants inscrits cette année."  # not in context
+    mock_base_genai.GenerativeModel.return_value.generate_content.return_value = fake_resp
+
+    grader_resp = MagicMock()
+    grader_resp.text = "oui"
+    mock_grader_genai.GenerativeModel.return_value.generate_content.return_value = grader_resp
+
+    # Groundedness grader says "non" — hallucination
+    ground_resp = MagicMock()
+    ground_resp.text = "non"
+    mock_ground_genai.GenerativeModel.return_value.generate_content.return_value = ground_resp
+
+    pipeline = RAGPipeline("orientation")
+    result = pipeline.run("Combien d'étudiants?", FAKE_CHUNKS, STUDENT_PROFILE)
+
+    assert result["answer"] == NO_INFO_SENTENCE
+
+
+# --- 3. All agent types instantiate without error ------------------------
+
+@patch("ai.agents.base_agent.os.getenv", return_value="real_fake_key")
+@patch("ai.agents.base_agent.genai")
+@pytest.mark.parametrize("agent_type", AGENT_TYPES)
+def test_all_agent_types_valid(_mock_genai, _mock_getenv, agent_type):
+    pipeline = RAGPipeline(agent_type)
+    assert pipeline.agent_type == agent_type
+
+
+# --- 4. Empty chunks handled gracefully ----------------------------------
+
+@patch("ai.rag.groundedness_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.retrieval_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.agents.base_agent.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.groundedness_grader.genai")
+@patch("ai.rag.retrieval_grader.genai")
+@patch("ai.agents.base_agent.genai")
+def test_empty_chunks(_mock_base, _mock_grader, _mock_ground, _ge1, _ge2, _ge3):
+    fake_resp = MagicMock()
+    fake_resp.text = NO_INFO_SENTENCE
+    _mock_base.GenerativeModel.return_value.generate_content.return_value = fake_resp
+
+    pipeline = RAGPipeline("administrative")
+    result = pipeline.run("Question sans contexte.", [], STUDENT_PROFILE)
+
+    assert "answer" in result
+    assert "citations" in result

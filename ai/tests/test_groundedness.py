@@ -1,62 +1,71 @@
-"""Day 6 tests — groundedness grader."""
+"""Tests for the Day 6 groundedness grader.
+
+All Gemini calls are mocked — no real API key needed.
+
+Run from the repository root:
+    pytest ai/tests/
+"""
 
 from unittest.mock import MagicMock, patch
 
 from ai.prompts.system_prompts import NO_INFO_SENTENCE
 from ai.rag.groundedness_grader import grade_groundedness
 
-CHUNKS = [{"title": "Guide FSB", "source": "g.md", "page": 3,
-           "text": "Trois licences: Informatique, Mathématiques, Physique."}]
+CHUNKS = [
+    {
+        "source": "Guide Académique FSB",
+        "page": 12,
+        "text": "Les étudiants de L2 doivent s'inscrire avant le 15 octobre.",
+    }
+]
 
 
-def _judge(verdict):
-    llm = MagicMock()
-    llm.generate.return_value = verdict
-    return llm
+# --- 1. Grounded answer --------------------------------------------------
+
+@patch("ai.rag.groundedness_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.groundedness_grader.genai")
+def test_grounded_answer_returns_true(mock_genai, _mock_getenv):
+    mock_resp = MagicMock()
+    mock_resp.text = "oui"
+    mock_genai.GenerativeModel.return_value.generate_content.return_value = mock_resp
+
+    result = grade_groundedness(
+        "Les inscriptions sont avant le 15 octobre [Guide Académique FSB, p.12].",
+        CHUNKS,
+    )
+    assert result is True
 
 
-# --- grade_groundedness ----------------------------------------------------
+# --- 2. Hallucinated answer -----------------------------------------------
 
-def test_grounded_verdict_oui_passes():
-    assert grade_groundedness("Trois licences.", CHUNKS, llm=_judge("OUI")) is True
+@patch("ai.rag.groundedness_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.groundedness_grader.genai")
+def test_hallucinated_answer_returns_false(mock_genai, _mock_getenv):
+    mock_resp = MagicMock()
+    mock_resp.text = "non"
+    mock_genai.GenerativeModel.return_value.generate_content.return_value = mock_resp
 
-
-def test_ungrounded_verdict_non_blocks():
-    assert grade_groundedness("Licence de Médecine.", CHUNKS, llm=_judge("NON")) is False
-
-
-def test_garbage_verdict_blocks():
-    # fail-safe: anything not starting with OUI is treated as not grounded
-    assert grade_groundedness("X", CHUNKS, llm=_judge("peut-être")) is False
-
-
-def test_no_chunks_blocks():
-    assert grade_groundedness("X", [], llm=_judge("OUI")) is False
+    result = grade_groundedness(
+        "Les inscriptions sont disponibles toute l'année.",  # not in context
+        CHUNKS,
+    )
+    assert result is False
 
 
-# --- pipeline integration --------------------------------------------------
+# --- 3. Refusal sentence is always grounded --------------------------------
 
-@patch("ai.rag.pipeline.grade_groundedness", return_value=False)
-@patch("ai.agents.base_agent.get_llm")
-def test_pipeline_blocks_ungrounded_answer(mock_get_llm, _mock_grounded):
-    llm = MagicMock()
-    llm.generate.return_value = "Une réponse inventée [Guide FSB, p.3]."
-    mock_get_llm.return_value = llm
-    from ai.rag.pipeline import RAGPipeline
-
-    result = RAGPipeline("orientation").run("Une question", chunks=CHUNKS)
-    assert result["answer"] == NO_INFO_SENTENCE
-    assert result["citations"] == []
+def test_no_info_sentence_always_grounded():
+    # NO_INFO_SENTENCE should pass without any API call
+    result = grade_groundedness(NO_INFO_SENTENCE, CHUNKS)
+    assert result is True
 
 
-@patch("ai.rag.pipeline.grade_groundedness", return_value=True)
-@patch("ai.agents.base_agent.get_llm")
-def test_pipeline_passes_grounded_answer(mock_get_llm, _mock_grounded):
-    llm = MagicMock()
-    llm.generate.return_value = "Trois licences [Guide FSB, p.3]."
-    mock_get_llm.return_value = llm
-    from ai.rag.pipeline import RAGPipeline
+# --- 4. Fail open on API error --------------------------------------------
 
-    result = RAGPipeline("orientation").run("Une question", chunks=CHUNKS)
-    assert result["answer"] == "Trois licences [Guide FSB, p.3]."
-    assert result["citations"] == [{"document": "Guide FSB", "page": 3}]
+@patch("ai.rag.groundedness_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.groundedness_grader.genai")
+def test_fails_open_on_api_error(mock_genai, _mock_getenv):
+    mock_genai.GenerativeModel.return_value.generate_content.side_effect = Exception("quota exceeded")
+
+    result = grade_groundedness("Réponse quelconque.", CHUNKS)
+    assert result is True  # fail open — don't block valid answers

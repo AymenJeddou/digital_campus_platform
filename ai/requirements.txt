@@ -1,4 +1,7 @@
 google-generativeai
-mistralai
 python-dotenv
 pytest
+sentence-transformers>=2.7.0
+torch>=2.0.0
+sqlalchemy
+pgvector

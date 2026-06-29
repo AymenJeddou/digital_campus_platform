@@ -1,77 +1,94 @@
-"""Day 5 tests — retrieval grader (score threshold)."""
+"""Tests for the Day 5 retrieval grader.
+
+All Gemini calls are mocked — no real API key needed.
+
+Run from the repository root:
+    pytest ai/tests/
+"""
 
 from unittest.mock import MagicMock, patch
 
-from ai.prompts.system_prompts import NO_INFO_SENTENCE
+import pytest
+
 from ai.rag.retrieval_grader import filter_chunks, grade_retrieval
 
-
-def _chunk(score=None):
-    c = {"text": "t", "title": "Doc", "source": "doc.md", "page": 1, "category": "orientation"}
-    if score is not None:
-        c["score"] = score
-    return c
-
-
-def _mock_llm(text="Réponse simulée."):
-    llm = MagicMock()
-    llm.generate.return_value = text
-    return llm
-
-
-# --- grade_retrieval -------------------------------------------------------
-
-def test_high_score_passes():
-    assert grade_retrieval("q", _chunk(0.91)) is True
+CHUNK_RELEVANT = {
+    "chunk_id": "001",
+    "text": "Les étudiants de L2 doivent s'inscrire avant le 15 octobre.",
+    "source": "Guide FSB",
+    "page": 12,
+    "category": "academic",
+    "score": 0.92,
+}
+CHUNK_IRRELEVANT = {
+    "chunk_id": "002",
+    "text": "La cafétéria est ouverte de 8h à 17h.",
+    "source": "Guide FSB",
+    "page": 45,
+    "category": "campus_life",
+    "score": 0.21,
+}
 
 
-def test_low_score_fails():
-    assert grade_retrieval("q", _chunk(0.2)) is False
+# --- 1. grade_retrieval ---------------------------------------------------
+
+@patch("ai.rag.retrieval_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.retrieval_grader.genai")
+def test_grade_relevant_chunk(mock_genai, _mock_getenv):
+    mock_resp = MagicMock()
+    mock_resp.text = "oui"
+    mock_genai.GenerativeModel.return_value.generate_content.return_value = mock_resp
+
+    result = grade_retrieval("Quand sont les inscriptions?", CHUNK_RELEVANT)
+    assert result is True
 
 
-def test_missing_score_is_kept():
-    assert grade_retrieval("q", _chunk(None)) is True
+@patch("ai.rag.retrieval_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.retrieval_grader.genai")
+def test_grade_irrelevant_chunk(mock_genai, _mock_getenv):
+    mock_resp = MagicMock()
+    mock_resp.text = "non"
+    mock_genai.GenerativeModel.return_value.generate_content.return_value = mock_resp
+
+    result = grade_retrieval("Quand sont les inscriptions?", CHUNK_IRRELEVANT)
+    assert result is False
 
 
-def test_custom_threshold_respected():
-    assert grade_retrieval("q", _chunk(0.6), threshold=0.7) is False
-    assert grade_retrieval("q", _chunk(0.8), threshold=0.7) is True
+@patch("ai.rag.retrieval_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.retrieval_grader.genai")
+def test_grade_fails_open_on_api_error(mock_genai, _mock_getenv):
+    mock_genai.GenerativeModel.return_value.generate_content.side_effect = Exception("timeout")
+
+    result = grade_retrieval("Question?", CHUNK_RELEVANT)
+    assert result is True  # fail open — keep the chunk
 
 
-# --- filter_chunks ---------------------------------------------------------
+# --- 2. filter_chunks -----------------------------------------------------
 
-def test_filter_keeps_passers_drops_failers():
-    chunks = [_chunk(0.9), _chunk(0.1), _chunk(0.55)]
-    kept = filter_chunks("q", chunks)
-    assert len(kept) == 2
-    assert all(c["score"] >= 0.5 for c in kept)
+@patch("ai.rag.retrieval_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.retrieval_grader.genai")
+def test_filter_keeps_relevant(mock_genai, _mock_getenv):
+    mock_resp = MagicMock()
+    mock_resp.text = "oui"
+    mock_genai.GenerativeModel.return_value.generate_content.return_value = mock_resp
 
-
-# --- pipeline integration --------------------------------------------------
-
-@patch("ai.agents.base_agent.get_llm")
-def test_pipeline_refuses_when_all_chunks_weak(mock_get_llm):
-    mock_get_llm.return_value = _mock_llm("should not be called")
-    from ai.rag.pipeline import RAGPipeline
-
-    pipeline = RAGPipeline("orientation")
-    result = pipeline.run("Une question", chunks=[_chunk(0.1), _chunk(0.2)])
-
-    assert result["answer"] == NO_INFO_SENTENCE
-    assert result["chunks_used"] == 0
-    assert result["citations"] == []
-    mock_get_llm.return_value.generate.assert_not_called()  # LLM never invoked
+    result = filter_chunks("Inscriptions?", [CHUNK_RELEVANT, CHUNK_IRRELEVANT])
+    assert CHUNK_RELEVANT in result
 
 
-@patch("ai.rag.pipeline.grade_groundedness", return_value=True)
-@patch("ai.agents.base_agent.get_llm")
-def test_pipeline_generates_with_only_passing_chunks(mock_get_llm, _mock_grounded):
-    mock_get_llm.return_value = _mock_llm("Réponse simulée.")
-    from ai.rag.pipeline import RAGPipeline
+@patch("ai.rag.retrieval_grader.os.getenv", return_value="real_fake_key")
+@patch("ai.rag.retrieval_grader.genai")
+def test_filter_fallback_when_all_filtered(mock_genai, _mock_getenv):
+    """If all chunks are graded out, the original list is returned."""
+    mock_resp = MagicMock()
+    mock_resp.text = "non"
+    mock_genai.GenerativeModel.return_value.generate_content.return_value = mock_resp
 
-    pipeline = RAGPipeline("orientation")
-    result = pipeline.run("Une question", chunks=[_chunk(0.9), _chunk(0.1)])
+    original = [CHUNK_RELEVANT, CHUNK_IRRELEVANT]
+    result = filter_chunks("Question hors sujet?", original)
+    assert result == original
 
-    # only the high-score chunk should have reached generation
-    assert result["answer"] == "Réponse simulée."
-    assert result["chunks_used"] == 1
+
+def test_filter_empty_input():
+    result = filter_chunks("Question?", [])
+    assert result == []
