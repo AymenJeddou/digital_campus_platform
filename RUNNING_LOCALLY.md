@@ -45,9 +45,11 @@ python scripts/ingest_kb.py
 ```
 
 ## 5. Start the backend (:8000)
-Run from the repo root so `app`, `ai`, and `src` all import:
+Run from `backend/` (so pydantic-settings finds `backend/.env`) with the repo
+root on the path (so `ai` and `src` import):
 ```bash
-PYTHONPATH=. uvicorn app.main:app --app-dir backend --port 8000 --reload
+cd backend
+PYTHONPATH=.. uvicorn app.main:app --port 8000 --reload
 ```
 
 ## 6. Start the frontend (:3000)
