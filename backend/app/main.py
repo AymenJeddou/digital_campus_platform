@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+
+# Ensure the repo root is importable so the backend can load the AI package
+# (ai.integration / ai.rag) regardless of how uvicorn is launched.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
