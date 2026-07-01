@@ -29,6 +29,10 @@ app.add_middleware(
 
 @app.middleware("http")
 async def protected_route_guard(request, call_next):
+    # Never block CORS preflight — it carries no Authorization header. Letting
+    # OPTIONS through allows the CORS middleware to answer the preflight.
+    if request.method == "OPTIONS":
+        return await call_next(request)
     protected_prefixes = ("/profile", "/chat", "/documents", "/onboarding/status")
     if request.url.path.startswith(protected_prefixes) and not request.headers.get("authorization"):
         return JSONResponse(status_code=401, content={"detail": "Not authenticated"})
