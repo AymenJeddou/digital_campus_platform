@@ -1,0 +1,7 @@
+# Never commit real secrets — only .env.example is tracked.
+.env
+
+# Python caches
+__pycache__/
+*.pyc
+.pytest_cache/

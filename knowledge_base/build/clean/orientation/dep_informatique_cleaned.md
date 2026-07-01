@@ -1,0 +1,16 @@
+- FADI KACEM Bureau : Départment Informatique Poste de Tél : 312 email :
+- Bureau : Départment Informatique
+- Poste de Tél : 312
+- email :
+- Secrétariat : Afef GHAZOUANI Bureau : Département Informatique Poste de Tél : 312 email :
+- Bureau : Département Informatique
+- Poste de Tél : 312
+- email :
+- Licence Ingénierie des Systèmes Informatiques : Systèmes Embarqués & IOT
+- Licence Sciences de l’Informatique : Génie Logiciel et Système d'Information
+- MR Sciences informatiques
+- MP Expert Systèmes, Réseaux et Virtualisation
+- MP Data Sciences
+- Cycle Préparatoire Intégrée en Informatique
+- Cycle Ingénieur en Génie Logiciel
+IDEA LAB: Laboratoire de Recherche en I ntelligence Artificielle, Ingénierie des D onnées E t A pplications
