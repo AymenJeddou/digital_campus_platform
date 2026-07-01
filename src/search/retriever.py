@@ -1,15 +1,16 @@
-"""Semantic search layer — FSBridge V2 (Iheb Bouali → Aymen).
+"""Semantic search layer — FSBridge V2 (Iheb Bouali).
 
-DAY 3 MOCK. This is the agreed interface contract from Iheb's handoff. The real
-implementation (pgvector + paraphrase-multilingual-mpnet-base-v2 embeddings)
-lands end of Day 6; the function *signature and return schema below are final* —
-only the body gets swapped, so the RAG pipeline needs no changes.
+This is the stable seam the RAG pipeline calls (``RAGPipeline._retrieve`` →
+``from src.search.retriever import retrieve``). The interface and return schema
+are fixed; the body delegates to the pgvector implementation in ``ai.rag.search``.
 
 Return schema (every dict): chunk_id, text, title, source, page, category, score
-- score: cosine similarity in [0.0, 1.0] (L2-normalized; safe to threshold).
-- page:  0-based section index within the document (NOT a printed page number).
-- category: opaque string set at ingestion from the folder; do NOT hardcode its
-  values on the consumer side — the taxonomy will change with the new schema.
+- score:   cosine similarity in [0, 1] (embeddings are L2-normalized).
+- page:    section/page index within the document.
+- category: opaque string set at ingestion from the folder.
+
+Heavy imports (embeddings/torch, the DB engine) are deferred to call time, so
+importing this module stays cheap and dependency-free.
 """
 
 
@@ -18,27 +19,29 @@ def retrieve(
     top_k: int = 5,
     category_filter: "list[str] | None" = None,
 ) -> "list[dict]":
-    """Return the top-K relevant chunks for ``query``.
+    """Return the top-K relevant chunks for ``query`` via pgvector search.
 
     Args:
-        query: The student's question (raw text).
+        query: The student's question (Arabic / French / English).
         top_k: Maximum number of chunks to return.
-        category_filter: Optional list of categories to restrict the search to
-            (translated to ``WHERE category = ANY(...)`` before vector search).
-            ``None`` searches across all categories.
+        category_filter: Optional categories to restrict the search to. The
+            underlying search filters by a single category, so when exactly one
+            is given it is applied; otherwise the search runs across all
+            categories and relevance ranking decides.
 
     Returns:
         A list of chunk dicts following the FSBridge V2 schema.
     """
-    # --- MOCK BODY (Day 3). Real pgvector search swapped in on Day 6. ---
-    return [
-        {
-            "chunk_id": "mock001",
-            "text": f"[MOCK] Result for: {query}",
-            "title": "FSB Guide 2025",
-            "source": "guide2025_cleaned.md",
-            "page": 1,
-            "category": "orientation",
-            "score": 0.91,
-        }
-    ]
+    # Deferred imports: keep module import cheap and free of torch/DB deps.
+    from ai.rag.db import get_session
+    from ai.rag.search import semantic_search
+
+    category = None
+    if category_filter and len(category_filter) == 1:
+        category = category_filter[0]
+
+    db = get_session()
+    try:
+        return semantic_search(db, query, top_k=top_k, category=category)
+    finally:
+        db.close()

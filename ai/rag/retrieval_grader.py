@@ -11,8 +11,11 @@ it on Day 7 against real score distributions from the retriever.
 
 import os
 
-# Starting threshold — chunks scoring below this are dropped. Tune on Day 7.
-DEFAULT_THRESHOLD = 0.5
+# Chunks scoring below this cosine similarity are dropped. Calibrated for the
+# retriever's model (paraphrase-multilingual-mpnet-base-v2), whose relevant
+# matches typically score ~0.35–0.6; 0.5 was too aggressive and over-refused.
+# Override per-environment with RETRIEVAL_SCORE_THRESHOLD.
+DEFAULT_THRESHOLD = 0.35
 
 
 def _threshold(threshold: float = None) -> float:

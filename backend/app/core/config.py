@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     SMTP_FROM_EMAIL: str | None = None
     SMTP_USE_TLS: bool = True
     RAG_PIPELINE_HANDLER: str | None = None
+    # Local/dev only: auto-verify new accounts so login works without SMTP.
+    # MUST stay False in production (the real email flow is the gate).
+    AUTO_VERIFY_EMAIL: bool = False
 
     class Config:
         env_file = ".env"

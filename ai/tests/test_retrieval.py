@@ -1,12 +1,15 @@
-"""Day 3 tests — pipeline wired to the semantic search layer.
+"""Tests — pipeline wired to the semantic search layer.
 
-Verify that ``RAGPipeline.run`` retrieves chunks from ``src.search.retriever``
+Verify that ``RAGPipeline.run`` retrieves chunks via ``src.search.retriever``
 when none are passed, forwards ``top_k`` / ``category_filter``, and still works
 when chunks are supplied explicitly. The LLM is mocked via
-``ai.agents.base_agent.get_llm`` — no real API key needed.
+``ai.agents.base_agent.get_llm``; the retriever is mocked so no DB or embedding
+model is needed.
 """
 
 from unittest.mock import MagicMock, patch
+
+import pytest
 
 from src.search.retriever import retrieve
 
@@ -17,14 +20,26 @@ def _mock_llm(text="Réponse simulée."):
     return llm
 
 
-# --- 1. The mock retriever honours the agreed schema -----------------------
+# --- 1. The seam delegates to semantic_search and maps the schema ----------
 
-def test_retriever_returns_schema():
-    out = retrieve("Quelles licences à la FSB?", top_k=3)
-    assert isinstance(out, list) and out
-    for field in ("chunk_id", "text", "title", "source", "page", "category", "score"):
-        assert field in out[0]
-    assert 0.0 <= out[0]["score"] <= 1.0
+def test_retrieve_delegates_to_semantic_search():
+    # Needs the embedding stack importable (not the model / no DB).
+    pytest.importorskip("sentence_transformers")
+
+    fake = [{
+        "chunk_id": "x", "text": "...", "title": "Guide d'Orientation FSB",
+        "source": "guide.md", "page": 3, "category": "orientation", "score": 0.91,
+    }]
+    with patch("ai.rag.db.get_session") as mock_session, \
+         patch("ai.rag.search.semantic_search", return_value=fake) as mock_search:
+        out = retrieve("Quelles licences à la FSB?", top_k=3, category_filter=["orientation"])
+
+    assert out == fake
+    # session is opened and closed; single category is forwarded
+    mock_session.return_value.close.assert_called_once()
+    _args, kwargs = mock_search.call_args
+    assert kwargs["top_k"] == 3
+    assert kwargs["category"] == "orientation"
 
 
 # --- 2. Pipeline retrieves when no chunks are passed -----------------------

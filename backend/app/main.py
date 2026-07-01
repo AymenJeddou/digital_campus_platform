@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+
+# Ensure the repo root is importable so the backend can load the AI package
+# (ai.integration / ai.rag) regardless of how uvicorn is launched.
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
@@ -22,6 +29,10 @@ app.add_middleware(
 
 @app.middleware("http")
 async def protected_route_guard(request, call_next):
+    # Never block CORS preflight — it carries no Authorization header. Letting
+    # OPTIONS through allows the CORS middleware to answer the preflight.
+    if request.method == "OPTIONS":
+        return await call_next(request)
     protected_prefixes = ("/profile", "/chat", "/documents", "/onboarding/status")
     if request.url.path.startswith(protected_prefixes) and not request.headers.get("authorization"):
         return JSONResponse(status_code=401, content={"detail": "Not authenticated"})

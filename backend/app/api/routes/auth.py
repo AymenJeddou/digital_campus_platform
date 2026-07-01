@@ -11,6 +11,7 @@ from app.schemas.auth import (
     VerificationResponse,
 )
 from app.core.security import hash_password, verify_password, create_access_token, decode_token
+from app.core.config import settings
 from app.services.email import send_verification_email
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -33,12 +34,13 @@ def register(request: RegisterRequest, db: Session = Depends(get_db)):
         email=request.email,
         hashed_password=hash_password(request.password),
         full_name=request.full_name,
-        is_verified=False,
+        is_verified=settings.AUTO_VERIFY_EMAIL,
     )
     db.add(student)
     db.commit()
     db.refresh(student)
-    send_verification_email(student.email, _create_verification_token(student.email))
+    if not settings.AUTO_VERIFY_EMAIL:
+        send_verification_email(student.email, _create_verification_token(student.email))
     return {
         "message": "Account created successfully",
         "email": student.email,
