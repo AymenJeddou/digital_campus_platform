@@ -90,6 +90,26 @@ class RAGPipeline:
 
         return result
 
+    def run_stream(
+        self,
+        question: str,
+        student_profile: dict = None,
+        chunks: list = None,
+        top_k: int = 5,
+        category_filter: list = None,
+    ):
+        if chunks is None:
+            chunks = self._retrieve(question, top_k, category_filter)
+
+        chunks = filter_chunks(question, chunks)
+        if not chunks:
+            def _no_info():
+                yield NO_INFO_SENTENCE
+            return _no_info(), []
+
+        stream = self.generator.generate_stream(question, chunks, student_profile=student_profile)
+        return stream, chunks
+
     @staticmethod
     def _retrieve(question: str, top_k: int, category_filter: list) -> list:
         """Fetch chunks from the semantic search layer (Iheb's FSBridge V2).

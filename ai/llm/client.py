@@ -30,6 +30,9 @@ class BaseLLM:
     def generate(self, prompt: str) -> str:  # pragma: no cover - interface
         raise NotImplementedError
 
+    def generate_stream(self, prompt: str):
+        raise NotImplementedError
+
 
 class GeminiClient(BaseLLM):
     def __init__(self, model: str = None):
@@ -48,6 +51,12 @@ class GeminiClient(BaseLLM):
 
     def generate(self, prompt: str) -> str:
         return self._model.generate_content(prompt).text
+
+    def generate_stream(self, prompt: str):
+        response = self._model.generate_content(prompt, stream=True)
+        for chunk in response:
+            if chunk.text:
+                yield chunk.text
 
 
 class MistralClient(BaseLLM):
@@ -69,6 +78,16 @@ class MistralClient(BaseLLM):
             messages=[{"role": "user", "content": prompt}],
         )
         return resp.choices[0].message.content
+
+    def generate_stream(self, prompt: str):
+        resp = self._client.chat.stream(
+            model=self._model,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        for chunk in resp:
+            content = chunk.data.choices[0].delta.content
+            if content:
+                yield content
 
 
 _PROVIDERS = {"gemini": GeminiClient, "mistral": MistralClient}

@@ -48,8 +48,13 @@ class Document(Base):
     __tablename__ = "documents"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String)
-    content = Column(Text)
+    content = Column(Text, nullable=True)
+    file_path = Column(String, nullable=True) # Allowed null for old documents
+    uploaded_by_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=True)
+    is_ingested = Column(Boolean, default=False)
     uploaded_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    
+    uploaded_by = relationship("Student")
 
 class DocumentChunk(Base):
     __tablename__ = "document_chunks"
@@ -87,6 +92,7 @@ class ChatMessage(Base):
     session_id = Column(UUID(as_uuid=True), ForeignKey("chat_sessions.id"))
     role = Column(String)
     content = Column(Text)
+    citations = Column(JSON, nullable=True)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     session = relationship("ChatSession", back_populates="messages")
 
@@ -96,3 +102,33 @@ class AuditLog(Base):
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
     action = Column(String)
     timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+class RevokedToken(Base):
+    __tablename__ = "revoked_tokens"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    jti = Column(String, unique=True, nullable=False)
+    revoked_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+class Feedback(Base):
+    __tablename__ = "feedback"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    chat_message_id = Column(UUID(as_uuid=True), ForeignKey("chat_messages.id"), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=False)
+    rating = Column(Integer, nullable=False)
+    comment = Column(String, nullable=True)
+    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    chat_message = relationship("ChatMessage")
+    user = relationship("Student")
+
+class GoogleClassroomToken(Base):
+    __tablename__ = "google_classroom_tokens"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), unique=True, nullable=False)
+    access_token = Column(String, nullable=False)
+    refresh_token = Column(String, nullable=True)
+    expires_at = Column(DateTime, nullable=False)
+    scope = Column(String, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    student = relationship("Student")

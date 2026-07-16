@@ -15,6 +15,11 @@ class Settings(BaseSettings):
     # Local/dev only: auto-verify new accounts so login works without SMTP.
     # MUST stay False in production (the real email flow is the gate).
     AUTO_VERIFY_EMAIL: bool = False
+    
+    FRONTEND_URL: str = "http://localhost:3000"
+    GOOGLE_CLIENT_ID: str = "placeholder_client_id"
+    GOOGLE_CLIENT_SECRET: str = "placeholder_client_secret"
+    GOOGLE_REDIRECT_URI: str = "http://localhost:8000/google-classroom/auth-callback"
 
     class Config:
         env_file = ".env"

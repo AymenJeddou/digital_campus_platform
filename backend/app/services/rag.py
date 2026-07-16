@@ -38,3 +38,21 @@ def generate_chat_response(message: str, session_id, student) -> dict[str, Any]:
         )
     except Exception:
         return {"answer": _fallback_response(message), "citations": []}
+
+def generate_chat_response_stream(message: str, session_id, student):
+    handler_path = getattr(settings, "RAG_PIPELINE_HANDLER", None)
+    if not handler_path:
+        def _fallback():
+            yield _fallback_response(message)
+        return _fallback(), []
+
+    module_name, separator, attribute_name = handler_path.rpartition(":")
+    attribute_name += "_stream"
+    try:
+        module = import_module(module_name)
+        handler = getattr(module, attribute_name)
+        return handler(message=message, session_id=session_id, student=student)
+    except Exception:
+        def _fallback():
+            yield _fallback_response(message)
+        return _fallback(), []

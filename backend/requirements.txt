@@ -9,3 +9,6 @@ pydantic-settings
 python-multipart
 email-validator
 pgvector
+redis
+sse-starlette
+httpx
