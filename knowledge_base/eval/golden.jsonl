@@ -1,0 +1,41 @@
+{"q": "Quelles sont les licences proposees par la faculte des sciences de Bizerte ?", "lang": "fr", "expect_sources": ["fsb_licences", "fsb_presentation"], "category": "orientation", "answerable": true}
+{"q": "Quelle est la licence en mathematiques a la FSB ?", "lang": "fr", "expect_sources": ["LM_Parcours_Math", "fsb_licences", "dep_mathematiques"], "category": "orientation", "answerable": true}
+{"q": "Y a-t-il une licence en informatique ?", "lang": "fr", "expect_sources": ["dep_informatique", "fsb_licences", "prog_info", "LM_Parcous_Math_matiques_et_Informatique"], "category": "orientation", "answerable": true}
+{"q": "Quelles licences en chimie sont disponibles ?", "lang": "fr", "expect_sources": ["L._Chimie", "dep_chimie", "fsb_licences"], "category": "orientation", "answerable": true}
+{"q": "Existe-t-il une licence en physique ou physique-chimie ?", "lang": "fr", "expect_sources": ["Licence_Physique_Chimie", "dep_physique", "fsb_licences", "Maquette_Pgramme_Phys"], "category": "orientation", "answerable": true}
+{"q": "Quels sont les departements de la faculte des sciences de Bizerte ?", "lang": "fr", "expect_sources": ["dep_", "fsb_presentation", "guide2025"], "category": "orientation", "answerable": true}
+{"q": "Presente moi la faculte des sciences de Bizerte", "lang": "fr", "expect_sources": ["fsb_presentation"], "category": "orientation", "answerable": true}
+{"q": "Quels masteres sont proposes a la FSB ?", "lang": "fr", "expect_sources": ["fsb_masteres", "MP_", "MR_", "fsb_candidature_masters"], "category": "orientation", "answerable": true}
+{"q": "Y a-t-il un mastere en data science ?", "lang": "fr", "expect_sources": ["MP_INFO_Data_sciences", "MP_MATH_Data_Science", "fsb_masteres"], "category": "orientation", "answerable": true}
+{"q": "Quelles formations en geologie ou sciences de la terre existent ?", "lang": "fr", "expect_sources": ["G_ologiques", "dep_sciences_terre", "MR_ST", "MP_ST"], "category": "orientation", "answerable": true}
+{"q": "Comment s'inscrire a la faculte des sciences de Bizerte ?", "lang": "fr", "expect_sources": ["fsb_inscription"], "category": "admissions", "answerable": true}
+{"q": "Comment candidater a un mastere pour l'annee 2026 2027 ?", "lang": "fr", "expect_sources": ["appel_candidature_masters_2026", "fsb_candidature_masters"], "category": "admissions", "answerable": true}
+{"q": "Comment deposer un dossier de bourse universitaire ?", "lang": "fr", "expect_sources": ["bourses_2025_2026_depot", "bourses_universitaires_oou", "bourses_etudiants_tunisie"], "category": "admissions", "answerable": true}
+{"q": "Quels sont les montants et conditions des bourses pour les etudiants en Tunisie ?", "lang": "fr", "expect_sources": ["bourses_etudiants_tunisie_montants"], "category": "admissions", "answerable": true}
+{"q": "Comment demander une derogation ?", "lang": "fr", "expect_sources": ["fsb_derogation"], "category": "admissions", "answerable": true}
+{"q": "Quel est le calendrier universitaire 2025 2026 ?", "lang": "fr", "expect_sources": ["calendrier_universitaire_2025_2026"], "category": "regulation", "answerable": true}
+{"q": "Comment changer de parcours ?", "lang": "fr", "expect_sources": ["Formulaire_changement_de_parcours"], "category": "regulation", "answerable": true}
+{"q": "Comment retirer mon inscription ?", "lang": "fr", "expect_sources": ["form_retrait_inscription"], "category": "regulation", "answerable": true}
+{"q": "Comment obtenir un duplicata de carte d'etudiant ?", "lang": "fr", "expect_sources": ["form_duplicata_carte_etudiant"], "category": "regulation", "answerable": true}
+{"q": "Comment demander une attestation de presence ?", "lang": "fr", "expect_sources": ["form_attestation_presence"], "category": "regulation", "answerable": true}
+{"q": "Quelles sont les informations sur les stages a la FSB ?", "lang": "fr", "expect_sources": ["fsb_stages", "demande_stage_initiation"], "category": "regulation", "answerable": true}
+{"q": "Comment deposer une these de doctorat ?", "lang": "fr", "expect_sources": ["procedure_depot_these", "fsb_doctorats"], "category": "course", "answerable": true}
+{"q": "Quel est le programme de la licence en biologie ?", "lang": "fr", "expect_sources": ["L_Biologie_SV", "L_F_SVT", "Syllabus_entier_de_SVT", "syllabus_de_L1-L2"], "category": "course", "answerable": true}
+{"q": "Que contient le programme de la prepa integree ?", "lang": "fr", "expect_sources": ["fsb_ci_prepa_integre", "prepa"], "category": "course", "answerable": true}
+{"q": "Quel est le contenu du parcours GLSI en informatique ?", "lang": "fr", "expect_sources": ["Computer_Science_-_GLSI", "prog_info_integre"], "category": "course", "answerable": true}
+{"q": "Quels cours couvre la licence EEA (electronique) ?", "lang": "fr", "expect_sources": ["Licence_EEA", "MP_PHYS_Electronique"], "category": "course", "answerable": true}
+{"q": "Y a-t-il un mastere en chimie industrielle ?", "lang": "fr", "expect_sources": ["MP_CHIM_Chimie_Industrielle", "L._Chimie_Parcours__Chimie_industrielle"], "category": "course", "answerable": true}
+{"q": "Quels sont les coordinateurs des parcours ?", "lang": "fr", "expect_sources": ["liste_des_coordinateurs"], "category": "course", "answerable": true}
+{"q": "Y a-t-il des clubs etudiants a la faculte ?", "lang": "fr", "expect_sources": ["charte_des_clubs"], "category": "orientation", "answerable": true}
+{"q": "ما هي الاجازات المتاحة في كلية العلوم ببنزرت ؟", "lang": "ar", "expect_sources": ["fsb_licences", "guide2025", "fsb_presentation"], "category": "orientation", "answerable": true}
+{"q": "Quel est le prix d'un cafe a la cafeteria de la faculte ?", "lang": "fr", "expect_sources": [], "category": "orientation", "answerable": false}
+{"q": "Quelle est la capitale de l'Australie ?", "lang": "fr", "expect_sources": [], "category": "orientation", "answerable": false}
+{"q": "Peux-tu me donner le numero de telephone personnel du doyen ?", "lang": "fr", "expect_sources": [], "category": "orientation", "answerable": false}
+{"q": "Quel est le salaire d'un professeur a la Faculte des Sciences de Bizerte ?", "lang": "fr", "expect_sources": [], "category": "orientation", "answerable": false}
+{"q": "Combien d'etudiants sont inscrits en licence d'informatique cette annee ?", "lang": "fr", "expect_sources": [], "category": "orientation", "answerable": false}
+{"q": "Quel est le taux de reussite en licence de mathematiques a la FSB ?", "lang": "fr", "expect_sources": [], "category": "orientation", "answerable": false}
+{"q": "Combien coute l'inscription en licence de chimie a la faculte ?", "lang": "fr", "expect_sources": [], "category": "admissions", "answerable": false}
+{"q": "Quels sont les horaires d'ouverture de la bibliotheque de la faculte ?", "lang": "fr", "expect_sources": [], "category": "orientation", "answerable": false}
+{"q": "Y a-t-il un logement etudiant ou un internat sur le campus de la FSB ?", "lang": "fr", "expect_sources": [], "category": "orientation", "answerable": false}
+{"q": "Quelle est la moyenne d'admission requise pour le master en data science ?", "lang": "fr", "expect_sources": [], "category": "admissions", "answerable": false}
+{"q": "Quel est le nombre de places disponibles en licence de physique ?", "lang": "fr", "expect_sources": [], "category": "orientation", "answerable": false}
