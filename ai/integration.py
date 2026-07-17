@@ -54,5 +54,5 @@ def answer_chat_stream(message: str, session_id=None, student=None):
         "academic_year": getattr(student, "academic_year", None),
     }
     agent_type = _route_agent(student)
-    stream, chunks = RAGPipeline(agent_type).run_stream(message, student_profile=profile)
+    stream, chunks = RAGPipeline(agent_type).run(message, student_profile=profile, stream=True)
     return stream, chunks

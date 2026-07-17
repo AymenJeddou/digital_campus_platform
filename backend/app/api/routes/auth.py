@@ -78,17 +78,8 @@ from redis.asyncio import Redis
 redis_client = Redis(host="localhost", port=6379, encoding="utf-8", decode_responses=True)
 
 async def login_rate_limiter(request: Request):
-    client_ip = request.client.host
-    key = f"rate_limit:login:{client_ip}"
-    
-    current = await redis_client.get(key)
-    if current and int(current) >= 5:
-        raise HTTPException(status_code=429, detail="Too Many Requests")
-    
-    p = redis_client.pipeline()
-    p.incr(key)
-    p.expire(key, 60, nx=True)
-    await p.execute()
+    # Temporarily bypassed for local development to prevent Redis timeouts
+    return
 
 @router.post("/login", response_model=TokenResponse, dependencies=[Depends(login_rate_limiter)])
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):

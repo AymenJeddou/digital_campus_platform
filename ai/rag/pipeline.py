@@ -36,6 +36,7 @@ class RAGPipeline:
         chunks: list = None,
         top_k: int = 5,
         category_filter: list = None,
+        stream: bool = False,
     ) -> dict:
         """Run the pipeline for a single question.
 
@@ -49,6 +50,7 @@ class RAGPipeline:
                 Passed straight through to the retriever — the pipeline does NOT
                 derive it from ``agent_type`` (per Iheb's handoff, category values
                 are opaque and will change with the new schema).
+            stream: If True, streams the response and yields a groundedness marker.
         """
         if chunks is None:
             chunks = self._retrieve(question, top_k, category_filter)
@@ -57,12 +59,31 @@ class RAGPipeline:
         # without calling the LLM.
         chunks = filter_chunks(question, chunks)
         if not chunks:
+            if stream:
+                def _no_info():
+                    yield NO_INFO_SENTENCE
+                return _no_info(), []
             return {
                 "answer": NO_INFO_SENTENCE,
                 "agent": self.agent_type,
                 "chunks_used": 0,
                 "citations": [],
             }
+
+        if stream:
+            def _stream_and_grade():
+                stream_generator = self.generator.generate_stream(
+                    question, chunks, student_profile=student_profile
+                )
+                full_answer = ""
+                for token in stream_generator:
+                    full_answer += token
+                    yield token
+                
+                is_grounded = grade_groundedness(full_answer, chunks)
+                yield f"\n\n[groundedness_check: {is_grounded}]"
+                
+            return _stream_and_grade(), chunks
 
         result = self.generator.generate(
             question, chunks, student_profile=student_profile
@@ -90,25 +111,7 @@ class RAGPipeline:
 
         return result
 
-    def run_stream(
-        self,
-        question: str,
-        student_profile: dict = None,
-        chunks: list = None,
-        top_k: int = 5,
-        category_filter: list = None,
-    ):
-        if chunks is None:
-            chunks = self._retrieve(question, top_k, category_filter)
 
-        chunks = filter_chunks(question, chunks)
-        if not chunks:
-            def _no_info():
-                yield NO_INFO_SENTENCE
-            return _no_info(), []
-
-        stream = self.generator.generate_stream(question, chunks, student_profile=student_profile)
-        return stream, chunks
 
     @staticmethod
     def _retrieve(question: str, top_k: int, category_filter: list) -> list:
