@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const api = axios.create({ baseURL: process.env.NEXT_PUBLIC_API_URL })
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') || 'http://localhost:8000'
+
+const api = axios.create({ baseURL: apiBaseUrl })
 
 api.interceptors.request.use(config => {
   const token = localStorage.getItem('token')
