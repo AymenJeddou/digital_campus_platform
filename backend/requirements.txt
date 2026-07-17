@@ -9,3 +9,9 @@ pydantic-settings
 python-multipart
 email-validator
 pgvector
+pypdf
+python-docx
+python-pptx
+cryptography
+PyJWT
+requests
