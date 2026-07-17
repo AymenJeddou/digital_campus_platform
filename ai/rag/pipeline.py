@@ -36,6 +36,8 @@ class RAGPipeline:
         chunks: list = None,
         top_k: int = 5,
         category_filter: list = None,
+        history: str = None,
+        retrieval_query: str = None,
     ) -> dict:
         """Run the pipeline for a single question.
 
@@ -49,9 +51,16 @@ class RAGPipeline:
                 Passed straight through to the retriever — the pipeline does NOT
                 derive it from ``agent_type`` (per Iheb's handoff, category values
                 are opaque and will change with the new schema).
+            history: Formatted recent conversation turns. When present, it is
+                prepended to the question sent to the generator so follow-ups are
+                understood in context. Retrieval and groundedness still use only
+                the current question, so memory never weakens grounding.
+            retrieval_query: Query used for retrieval instead of ``question``
+                (e.g. a short follow-up augmented with the previous turn). Falls
+                back to ``question``.
         """
         if chunks is None:
-            chunks = self._retrieve(question, top_k, category_filter)
+            chunks = self._retrieve(retrieval_query or question, top_k, category_filter)
 
         # Day 5: drop weak chunks before generation. If none survive, refuse
         # without calling the LLM.
@@ -64,8 +73,11 @@ class RAGPipeline:
                 "citations": [],
             }
 
+        gen_question = question
+        if history:
+            gen_question = f"{history}\n\nQuestion actuelle: {question}"
         result = self.generator.generate(
-            question, chunks, student_profile=student_profile
+            gen_question, chunks, student_profile=student_profile
         )
 
         # Day 4: parse [document, p.X] markers into a structured citations list.
