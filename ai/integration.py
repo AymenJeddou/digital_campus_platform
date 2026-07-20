@@ -70,14 +70,17 @@ def _route_agent(student) -> str:
     return _DEFAULT_AGENT
 
 
-def answer_chat(message: str, session_id=None, student=None) -> dict:
+def answer_chat(message: str, session_id=None, student=None, course_id=None) -> dict:
     """Generate a grounded, cited answer for a chat message.
 
     Args:
         message: The student's question.
-        session_id: Chat session id (unused here; kept for the backend contract).
+        session_id: Chat session id (used to load recent conversation history).
         student: The Student row; ``student_status`` / ``academic_year`` are
             injected as system context.
+        course_id: Optional. When set (and ``student`` is known), that student's
+            materials for this course are searched alongside the global KB. When
+            omitted, only the global KB is searched.
 
     Returns:
         ``{"answer": str, "citations": [{"document": str, "page": int}]}``
@@ -110,10 +113,12 @@ def answer_chat(message: str, session_id=None, student=None) -> dict:
         student_profile=profile,
         history=history,
         retrieval_query=retrieval_query,
+        student_id=str(getattr(student, "id", None)) if course_id else None,
+        course_id=str(course_id) if course_id else None,
     )
     return {"answer": result["answer"], "citations": result.get("citations", [])}
 
-def answer_chat_stream(message: str, session_id=None, student=None):
+def answer_chat_stream(message: str, session_id=None, student=None, course_id=None):
     """Streaming counterpart of ``answer_chat``.
 
     Returns ``(token_generator, chunks)``. Applies the SAME intent routing and
@@ -148,5 +153,7 @@ def answer_chat_stream(message: str, session_id=None, student=None):
         history=history,
         retrieval_query=retrieval_query,
         stream=True,
+        student_id=str(getattr(student, "id", None)) if course_id else None,
+        course_id=str(course_id) if course_id else None,
     )
     return stream, chunks

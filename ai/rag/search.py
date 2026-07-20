@@ -57,6 +57,8 @@ def semantic_search(
     top_k: int = DEFAULT_TOP_K,
     category: str | None = None,
     min_similarity: float = MIN_SIMILARITY,
+    student_id: str | None = None,
+    course_id: str | None = None,
 ) -> list[dict[str, Any]]:
     """Return the top-K most relevant chunks for ``question``.
 
@@ -66,6 +68,12 @@ def semantic_search(
         top_k: Maximum number of chunks to return.
         category: Optional filter on ``document_chunks.category``.
         min_similarity: Minimum cosine similarity threshold (0–1).
+        student_id, course_id: Course-material scope. Course chunks carry a
+            ``student_id``/``course_id``; global knowledge-base chunks have both
+            NULL. By DEFAULT (both None) only global KB chunks are searched, so a
+            student's private course material can NEVER leak into another user's
+            answer. When both are given, that student's chunks for that course are
+            included ALONGSIDE the global KB.
 
     Returns:
         List of chunk dicts compatible with ``RAGGenerator.generate()``:
@@ -75,6 +83,15 @@ def semantic_search(
     query_vec = embed_query(question)
     cat_clause = "AND dc.category = :category" if category else ""
     cat_params = {"category": category} if category else {}
+
+    # Scope: default to global KB only (no course-material leakage). If a course
+    # scope is given, add that student's chunks for that course.
+    if student_id and course_id:
+        cat_clause += " AND (dc.student_id IS NULL OR (dc.student_id = CAST(:sid AS uuid) AND dc.course_id = CAST(:cid AS uuid)))"
+        cat_params["sid"] = str(student_id)
+        cat_params["cid"] = str(course_id)
+    else:
+        cat_clause += " AND dc.student_id IS NULL"
 
     # --- Vector arm: candidate pool of the closest chunks by cosine distance. ---
     vec_rows = db.execute(text(f"""

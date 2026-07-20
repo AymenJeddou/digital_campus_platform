@@ -39,6 +39,8 @@ class RAGPipeline:
         history: str = None,
         retrieval_query: str = None,
         stream: bool = False,
+        student_id: str = None,
+        course_id: str = None,
     ) -> dict:
         """Run the pipeline for a single question.
 
@@ -67,7 +69,10 @@ class RAGPipeline:
                 the marker lets the client flag/discard it after the fact.
         """
         if chunks is None:
-            chunks = self._retrieve(retrieval_query or question, top_k, category_filter)
+            chunks = self._retrieve(
+                retrieval_query or question, top_k, category_filter,
+                student_id=student_id, course_id=course_id,
+            )
 
         # Day 5: drop weak chunks before generation. If none survive, refuse
         # without calling the LLM.
@@ -134,7 +139,8 @@ class RAGPipeline:
 
 
     @staticmethod
-    def _retrieve(question: str, top_k: int, category_filter: list) -> list:
+    def _retrieve(question: str, top_k: int, category_filter: list,
+                  student_id: str = None, course_id: str = None) -> list:
         """Fetch chunks from the semantic search layer (Iheb's FSBridge V2).
 
         Imported lazily so the rest of the pipeline (and prompt-only tests) does
@@ -148,4 +154,7 @@ class RAGPipeline:
                 "Pass `chunks=` explicitly, or ensure the retriever module is on "
                 "the path."
             ) from e
-        return retrieve(question, top_k=top_k, category_filter=category_filter)
+        return retrieve(
+            question, top_k=top_k, category_filter=category_filter,
+            student_id=student_id, course_id=course_id,
+        )

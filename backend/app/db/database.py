@@ -90,3 +90,20 @@ def ensure_schema():
             material_columns = {column["name"] for column in inspector.get_columns("course_materials")}
             if "original_filename" not in material_columns:
                 connection.execute(text("ALTER TABLE course_materials ADD COLUMN original_filename VARCHAR"))
+
+        # Columns added by the backend/streaming/feedback work (#18).
+        if "chat_messages" in table_names:
+            msg_columns = {column["name"] for column in inspector.get_columns("chat_messages")}
+            if "citations" not in msg_columns:
+                connection.execute(text("ALTER TABLE chat_messages ADD COLUMN citations JSONB"))
+
+        if "documents" in table_names:
+            doc_columns = {column["name"] for column in inspector.get_columns("documents")}
+            if "file_path" not in doc_columns:
+                connection.execute(text("ALTER TABLE documents ADD COLUMN file_path VARCHAR"))
+            if "uploaded_by_id" not in doc_columns:
+                connection.execute(text("ALTER TABLE documents ADD COLUMN uploaded_by_id UUID"))
+            if "is_ingested" not in doc_columns:
+                connection.execute(text("ALTER TABLE documents ADD COLUMN is_ingested BOOLEAN DEFAULT FALSE"))
+            if "content" in doc_columns:
+                connection.execute(text("ALTER TABLE documents ALTER COLUMN content DROP NOT NULL"))
