@@ -1,0 +1,410 @@
+{
+  "timestamp": "2026-07-16T09:47:40.179164+00:00",
+  "tag": "baseline_prod",
+  "regime": "prod-default",
+  "metrics": {
+    "n_answerable": 30,
+    "hit@5": 0.5,
+    "recall@10": 0.533,
+    "recall@20": 0.567,
+    "MRR": 0.395
+  },
+  "full_metrics": null,
+  "per_question": [
+    {
+      "q": "Quelles sont les licences proposees par la faculte des sciences de Bizerte ?",
+      "expect": [
+        "fsb_licences",
+        "fsb_presentation"
+      ],
+      "rank": 2,
+      "top3": [
+        "fsb_candidature_masters_2025_2026_cleaned.md",
+        "fsb_presentation_about_cleaned.md",
+        "appel_candidature_masters_2026_2027_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quelle est la licence en mathematiques a la FSB ?",
+      "expect": [
+        "LM_Parcours_Math",
+        "fsb_licences",
+        "dep_mathematiques"
+      ],
+      "rank": 2,
+      "top3": [
+        "LM_Parcous_Math_matiques_et_Informatique_cleaned.md",
+        "LM_Parcours_Math_matiques_cleaned.md",
+        "LM_Parcours_Math_matiques_cleaned.md"
+      ]
+    },
+    {
+      "q": "Y a-t-il une licence en informatique ?",
+      "expect": [
+        "dep_informatique",
+        "fsb_licences",
+        "prog_info",
+        "LM_Parcous_Math_matiques_et_Informatique"
+      ],
+      "rank": null,
+      "top3": [
+        "Computer_Engineering-Syst_mes_embarqu_s_et_IoT_R_vision_02_2020_cleaned.md",
+        "Computer_Science_-_GLSI_-_R_vision_02_2020_cleaned.md",
+        "Computer_Engineering-Syst_mes_embarqu_s_et_IoT_R_vision_02_2020_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quelles licences en chimie sont disponibles ?",
+      "expect": [
+        "L._Chimie",
+        "dep_chimie",
+        "fsb_licences"
+      ],
+      "rank": 1,
+      "top3": [
+        "L._Chimie_Parcours__Chimie_fine_cleaned.md",
+        "L._Chimie_Parcours___Recherche_cleaned.md",
+        "L._Chimie_Parcours__Chimie_industrielle_cleaned.md"
+      ]
+    },
+    {
+      "q": "Existe-t-il une licence en physique ou physique-chimie ?",
+      "expect": [
+        "Licence_Physique_Chimie",
+        "dep_physique",
+        "fsb_licences",
+        "Maquette_Pgramme_Phys"
+      ],
+      "rank": null,
+      "top3": [
+        "LM_Parcous_Math_matiques_et_Informatique_cleaned.md",
+        "LM_Parcours_Math_matiques_cleaned.md",
+        "fsb_ci_prepa_integre_2022_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quels sont les departements de la faculte des sciences de Bizerte ?",
+      "expect": [
+        "dep_",
+        "fsb_presentation",
+        "guide2025"
+      ],
+      "rank": 1,
+      "top3": [
+        "fsb_presentation_about_cleaned.md",
+        "fsb_candidature_masters_2025_2026_cleaned.md",
+        "fsb_inscription_2024_2025_cleaned.md"
+      ]
+    },
+    {
+      "q": "Presente moi la faculte des sciences de Bizerte",
+      "expect": [
+        "fsb_presentation"
+      ],
+      "rank": 1,
+      "top3": [
+        "fsb_presentation_about_cleaned.md",
+        "fsb_candidature_masters_2025_2026_cleaned.md",
+        "fsb_inscription_2024_2025_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quels masteres sont proposes a la FSB ?",
+      "expect": [
+        "fsb_masteres",
+        "MP_",
+        "MR_",
+        "fsb_candidature_masters"
+      ],
+      "rank": null,
+      "top3": [
+        "guide2025_cleaned.md",
+        "LM_Parcours_Math_matiques_cleaned.md",
+        "LM_Parcous_Math_matiques_et_Informatique_cleaned.md"
+      ]
+    },
+    {
+      "q": "Y a-t-il un mastere en data science ?",
+      "expect": [
+        "MP_INFO_Data_sciences",
+        "MP_MATH_Data_Science",
+        "fsb_masteres"
+      ],
+      "rank": null,
+      "top3": [
+        "LM_Parcours_Math_matiques_cleaned.md",
+        "LM_Parcous_Math_matiques_et_Informatique_cleaned.md",
+        "Syllabus_entier_de_SVT_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quelles formations en geologie ou sciences de la terre existent ?",
+      "expect": [
+        "G_ologiques",
+        "dep_sciences_terre",
+        "MR_ST",
+        "MP_ST"
+      ],
+      "rank": 1,
+      "top3": [
+        "Licence__Guide_C.N.S._des_sciences_G_ologiques___Octobre_2020_cleaned.md",
+        "Licence__Guide_C.N.S._des_sciences_G_ologiques___Octobre_2020_cleaned.md",
+        "Licence__Guide_C.N.S._des_sciences_G_ologiques___Octobre_2020_cleaned.md"
+      ]
+    },
+    {
+      "q": "Comment s'inscrire a la faculte des sciences de Bizerte ?",
+      "expect": [
+        "fsb_inscription"
+      ],
+      "rank": 3,
+      "top3": [
+        "fsb_candidature_masters_2025_2026_cleaned.md",
+        "fsb_presentation_about_cleaned.md",
+        "fsb_inscription_2024_2025_cleaned.md"
+      ]
+    },
+    {
+      "q": "Comment candidater a un mastere pour l'annee 2026 2027 ?",
+      "expect": [
+        "appel_candidature_masters_2026",
+        "fsb_candidature_masters"
+      ],
+      "rank": null,
+      "top3": [
+        "calendrier_universitaire_2025_2026_cleaned.md",
+        "guide2025_cleaned.md",
+        "fsb_ci_prepa_integre_2022_cleaned.md"
+      ]
+    },
+    {
+      "q": "Comment deposer un dossier de bourse universitaire ?",
+      "expect": [
+        "bourses_2025_2026_depot",
+        "bourses_universitaires_oou",
+        "bourses_etudiants_tunisie"
+      ],
+      "rank": null,
+      "top3": [
+        "procedure_depot_these_cleaned.md",
+        "form_duplicata_carte_etudiant_cleaned.md",
+        "form_demande_credits_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quels sont les montants et conditions des bourses pour les etudiants en Tunisie ?",
+      "expect": [
+        "bourses_etudiants_tunisie_montants"
+      ],
+      "rank": 2,
+      "top3": [
+        "calendrier_universitaire_2025_2026_cleaned.md",
+        "bourses_etudiants_tunisie_montants_conditions_cleaned.md",
+        "fsb_presentation_cleaned.md"
+      ]
+    },
+    {
+      "q": "Comment demander une derogation ?",
+      "expect": [
+        "fsb_derogation"
+      ],
+      "rank": 1,
+      "top3": [
+        "fsb_derogation_cleaned.md",
+        "fsb_presentation_cleaned.md",
+        "fsb_presentation_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quel est le calendrier universitaire 2025 2026 ?",
+      "expect": [
+        "calendrier_universitaire_2025_2026"
+      ],
+      "rank": 1,
+      "top3": [
+        "calendrier_universitaire_2025_2026_cleaned.md",
+        "calendrier_universitaire_2025_2026_cleaned.md",
+        "calendrier_universitaire_2025_2026_cleaned.md"
+      ]
+    },
+    {
+      "q": "Comment changer de parcours ?",
+      "expect": [
+        "Formulaire_changement_de_parcours"
+      ],
+      "rank": null,
+      "top3": [
+        "LM_Parcous_Math_matiques_et_Informatique_cleaned.md",
+        "LM_Parcours_Math_matiques_cleaned.md",
+        "Licence__Guide_C.N.S._des_sciences_G_ologiques___Octobre_2020_cleaned.md"
+      ]
+    },
+    {
+      "q": "Comment retirer mon inscription ?",
+      "expect": [
+        "form_retrait_inscription"
+      ],
+      "rank": 16,
+      "top3": [
+        "fsb_derogation_cleaned.md",
+        "fsb_ci_prepa_integre_2022_cleaned.md",
+        "fsb_presentation_cleaned.md"
+      ]
+    },
+    {
+      "q": "Comment obtenir un duplicata de carte d'etudiant ?",
+      "expect": [
+        "form_duplicata_carte_etudiant"
+      ],
+      "rank": 1,
+      "top3": [
+        "form_duplicata_carte_etudiant_cleaned.md",
+        "form_demande_credits_cleaned.md",
+        "form_demande_attestation_classement_cleaned.md"
+      ]
+    },
+    {
+      "q": "Comment demander une attestation de presence ?",
+      "expect": [
+        "form_attestation_presence"
+      ],
+      "rank": 1,
+      "top3": [
+        "form_attestation_presence_cleaned.md",
+        "form_attestation_depart_cleaned.md",
+        "form_demande_passage_examens_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quelles sont les informations sur les stages a la FSB ?",
+      "expect": [
+        "fsb_stages",
+        "demande_stage_initiation"
+      ],
+      "rank": null,
+      "top3": [
+        "fsb_ci_prepa_integre_2022_cleaned.md",
+        "charte_des_clubs_cleaned.md",
+        "calendrier_universitaire_2025_2026_cleaned.md"
+      ]
+    },
+    {
+      "q": "Comment deposer une these de doctorat ?",
+      "expect": [
+        "procedure_depot_these",
+        "fsb_doctorats"
+      ],
+      "rank": null,
+      "top3": [
+        "prog_info_integre_2021_cleaned.md",
+        "L._Chimie_Parcours___Recherche_cleaned.md",
+        "Licence_EEA_AutoInfoIndus_FSB_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quel est le programme de la licence en biologie ?",
+      "expect": [
+        "L_Biologie_SV",
+        "L_F_SVT",
+        "Syllabus_entier_de_SVT",
+        "syllabus_de_L1-L2"
+      ],
+      "rank": 1,
+      "top3": [
+        "syllabus_de_L1-L2_et_maquettes_L3___Mention_Biotechnologies_cleaned.md",
+        "syllabus_de_L1-L2_et_maquettes_L3___Mention_Biotechnologies_cleaned.md",
+        "Syllabus_L1-L2_et_plan_L3_mention_SVE_cleaned.md"
+      ]
+    },
+    {
+      "q": "Que contient le programme de la prepa integree ?",
+      "expect": [
+        "fsb_ci_prepa_integre",
+        "prepa"
+      ],
+      "rank": null,
+      "top3": [
+        "fsb_doctorats_cleaned.md",
+        "fsb_presentation_cleaned.md",
+        "fsb_presentation_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quel est le contenu du parcours GLSI en informatique ?",
+      "expect": [
+        "Computer_Science_-_GLSI",
+        "prog_info_integre"
+      ],
+      "rank": 2,
+      "top3": [
+        "fsb_ci_prepa_integre_2022_cleaned.md",
+        "Computer_Science_-_GLSI_-_R_vision_02_2020_cleaned.md",
+        "Computer_Science_-_GLSI_-_R_vision_02_2020_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quels cours couvre la licence EEA (electronique) ?",
+      "expect": [
+        "Licence_EEA",
+        "MP_PHYS_Electronique"
+      ],
+      "rank": null,
+      "top3": [
+        "Computer_Engineering-Syst_mes_embarqu_s_et_IoT_R_vision_02_2020_cleaned.md",
+        "prog_info_integre_2021_cleaned.md",
+        "Computer_Science_-_GLSI_-_R_vision_02_2020_cleaned.md"
+      ]
+    },
+    {
+      "q": "Y a-t-il un mastere en chimie industrielle ?",
+      "expect": [
+        "MP_CHIM_Chimie_Industrielle",
+        "L._Chimie_Parcours__Chimie_industrielle"
+      ],
+      "rank": 3,
+      "top3": [
+        "L._Chimie_Parcours__Chimie_fine_cleaned.md",
+        "L._Chimie_Parcours___Recherche_cleaned.md",
+        "L._Chimie_Parcours__Chimie_industrielle_cleaned.md"
+      ]
+    },
+    {
+      "q": "Quels sont les coordinateurs des parcours ?",
+      "expect": [
+        "liste_des_coordinateurs"
+      ],
+      "rank": null,
+      "top3": [
+        "Syllabus_L1-L2_et_plan_L3_mention_SVE_cleaned.md",
+        "Syllabus_L1-L2_et_plan_L3_mention_SVE_cleaned.md",
+        "Syllabus_L1-L2_et_plan_L3_mention_SVE_cleaned.md"
+      ]
+    },
+    {
+      "q": "Y a-t-il des clubs etudiants a la faculte ?",
+      "expect": [
+        "charte_des_clubs"
+      ],
+      "rank": null,
+      "top3": [
+        "calendrier_universitaire_2025_2026_cleaned.md",
+        "calendrier_universitaire_2025_2026_cleaned.md",
+        "bourses_etudiants_tunisie_montants_conditions_cleaned.md"
+      ]
+    },
+    {
+      "q": "ما هي الاجازات المتاحة في كلية العلوم ببنزرت ؟",
+      "expect": [
+        "fsb_licences",
+        "guide2025",
+        "fsb_presentation"
+      ],
+      "rank": 9,
+      "top3": [
+        "Syllabus_entier_de_SVT_cleaned.md",
+        "MR_PHYS_Physique_des_Mat_riaux_et_Applications_cleaned.md",
+        "Syllabus_entier_de_SVT_cleaned.md"
+      ]
+    }
+  ]
+}
