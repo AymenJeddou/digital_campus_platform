@@ -17,7 +17,7 @@ def register_user(email: str, full_name: str = "Test User"):
         "/auth/register",
         json={
             "email": email,
-            "password": "testpass123",
+            "password": "Testpass123!",
             "full_name": full_name,
         },
     )
@@ -30,7 +30,7 @@ def verify_user(token: str):
 def login_user(email: str):
     return client.post(
         "/auth/login",
-        data={"username": email, "password": "testpass123"},
+        data={"username": email, "password": "Testpass123!"},
     )
 
 
@@ -165,24 +165,27 @@ def test_documents_admin_upload_and_list():
     finally:
         db.close()
 
-    upload_response = client.post(
-        "/documents",
-        json={"title": "Test Doc", "content": "Some content"},
-        headers=auth_headers(token),
-    )
+    # Admin upload is now a file upload (POST /documents/upload). Patch the
+    # background ingestion so the test stays fast and doesn't embed a junk chunk.
+    with patch("app.api.routes.documents.ingest_document_pipeline"):
+        upload_response = client.post(
+            "/documents/upload",
+            files={"file": ("Test Doc.txt", b"Some content for the document.", "text/plain")},
+            headers=auth_headers(token),
+        )
     assert upload_response.status_code == 201
-    assert upload_response.json()["title"] == "Test Doc"
+    assert upload_response.json()["title"] == "Test Doc.txt"
 
     list_response = client.get("/documents", headers=auth_headers(token))
     assert list_response.status_code == 200
-    assert any(document["title"] == "Test Doc" for document in list_response.json())
+    assert any(document["title"] == "Test Doc.txt" for document in list_response.json())
 
 
 def test_documents_reject_non_admin():
     _, token = make_verified_user("documentsblocked", full_name="Blocked User")
     response = client.post(
-        "/documents",
-        json={"title": "Blocked Doc", "content": "Nope"},
+        "/documents/upload",
+        files={"file": ("Blocked Doc.txt", b"Nope", "text/plain")},
         headers=auth_headers(token),
     )
     assert response.status_code == 403

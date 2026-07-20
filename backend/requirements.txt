@@ -16,5 +16,6 @@ cryptography
 PyJWT
 requests
 redis
-sse-starlette
+# Pinned: newer sse-starlette pulls starlette>=0.41 which conflicts with fastapi 0.115 (needs <0.39).
+sse-starlette==1.8.2
 httpx

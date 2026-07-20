@@ -19,13 +19,13 @@ def make_verified_user(prefix: str):
     with patch("app.api.routes.auth.send_verification_email") as send_email_mock:
         register_response = client.post(
             "/auth/register",
-            json={"email": email, "password": "testpass123", "full_name": "Test User"},
+            json={"email": email, "password": "Testpass123!", "full_name": "Test User"},
         )
     assert register_response.status_code == 201
     verification_token = send_email_mock.call_args.args[1]
     verify_response = client.post("/auth/verify", json={"token": verification_token})
     assert verify_response.status_code == 200
-    login_response = client.post("/auth/login", data={"username": email, "password": "testpass123"})
+    login_response = client.post("/auth/login", data={"username": email, "password": "Testpass123!"})
     assert login_response.status_code == 200
     return email, login_response.json()["access_token"]
 
