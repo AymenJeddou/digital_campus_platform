@@ -5,13 +5,16 @@ from pathlib import Path
 # (ai.integration / ai.rag) regardless of how uvicorn is launched.
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from app.db.database import Base, engine, ensure_schema
 from app.models import models
 from app.api.routes import auth, profile, chat, documents, courses
 from app.core.dependencies import get_current_user
+from app.core.config import settings
 
 Base.metadata.create_all(bind=engine)
 ensure_schema()
@@ -20,11 +23,36 @@ app = FastAPI(title="Digital Campus API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=[settings.FRONTEND_URL],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.on_event("startup")
+async def startup():
+    pass
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    return JSONResponse(
+        status_code=422,
+        content={"detail": "Validation error", "errors": exc.errors()},
+    )
+
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request: Request, exc: StarletteHTTPException):
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail},
+    )
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Internal server error"},
+    )
 
 
 @app.middleware("http")

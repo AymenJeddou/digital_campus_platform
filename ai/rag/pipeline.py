@@ -38,6 +38,7 @@ class RAGPipeline:
         category_filter: list = None,
         history: str = None,
         retrieval_query: str = None,
+        stream: bool = False,
     ) -> dict:
         """Run the pipeline for a single question.
 
@@ -58,6 +59,12 @@ class RAGPipeline:
             retrieval_query: Query used for retrieval instead of ``question``
                 (e.g. a short follow-up augmented with the previous turn). Falls
                 back to ``question``.
+            stream: If True, returns (token_generator, chunks). The generator
+                yields answer tokens then a final "[groundedness_check: <bool>]"
+                marker. Memory (history) and the groundedness check both apply on
+                the streaming path too. NOTE: because tokens are sent as they are
+                produced, an ungrounded answer cannot be retracted mid-stream --
+                the marker lets the client flag/discard it after the fact.
         """
         if chunks is None:
             chunks = self._retrieve(retrieval_query or question, top_k, category_filter)
@@ -66,6 +73,10 @@ class RAGPipeline:
         # without calling the LLM.
         chunks = filter_chunks(question, chunks)
         if not chunks:
+            if stream:
+                def _no_info():
+                    yield NO_INFO_SENTENCE
+                return _no_info(), []
             return {
                 "answer": NO_INFO_SENTENCE,
                 "agent": self.agent_type,
@@ -73,9 +84,27 @@ class RAGPipeline:
                 "citations": [],
             }
 
+        # Conversation memory: history is prepended to the generator's question
+        # only; retrieval and grounding already ran on the current question alone.
         gen_question = question
         if history:
             gen_question = f"{history}\n\nQuestion actuelle: {question}"
+
+        if stream:
+            def _stream_and_grade():
+                stream_generator = self.generator.generate_stream(
+                    gen_question, chunks, student_profile=student_profile
+                )
+                full_answer = ""
+                for token in stream_generator:
+                    full_answer += token
+                    yield token
+
+                is_grounded = grade_groundedness(full_answer, chunks)
+                yield f"\n\n[groundedness_check: {is_grounded}]"
+
+            return _stream_and_grade(), chunks
+
         result = self.generator.generate(
             gen_question, chunks, student_profile=student_profile
         )
@@ -101,6 +130,8 @@ class RAGPipeline:
                 }
 
         return result
+
+
 
     @staticmethod
     def _retrieve(question: str, top_k: int, category_filter: list) -> list:

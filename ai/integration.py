@@ -112,3 +112,41 @@ def answer_chat(message: str, session_id=None, student=None) -> dict:
         retrieval_query=retrieval_query,
     )
     return {"answer": result["answer"], "citations": result.get("citations", [])}
+
+def answer_chat_stream(message: str, session_id=None, student=None):
+    """Streaming counterpart of ``answer_chat``.
+
+    Returns ``(token_generator, chunks)``. Applies the SAME intent routing and
+    conversation memory as the non-streaming path so streaming does not silently
+    bypass them. The token generator ends with a "[groundedness_check: <bool>]"
+    marker for factual answers (see ``RAGPipeline.run``).
+    """
+    # Conversational intents (greeting / thanks / meta) get a canned reply,
+    # streamed as a single chunk, with no retrieval and no groundedness marker.
+    intent = classify_intent(message)
+    if intent != FACTUAL:
+        reply = conversational_reply(intent)
+        if reply is not None:
+            def _canned():
+                yield reply
+            return _canned(), []
+
+    profile = {
+        "student_status": getattr(student, "student_status", "prospective"),
+        "academic_year": getattr(student, "academic_year", None),
+    }
+    agent_type = _route_agent(student)
+
+    history, last_user = _recent_history(session_id)
+    retrieval_query = message
+    if last_user and len(message.split()) <= 5:
+        retrieval_query = f"{last_user} {message}"
+
+    stream, chunks = RAGPipeline(agent_type).run(
+        message,
+        student_profile=profile,
+        history=history,
+        retrieval_query=retrieval_query,
+        stream=True,
+    )
+    return stream, chunks

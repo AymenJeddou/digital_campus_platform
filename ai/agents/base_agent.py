@@ -71,3 +71,20 @@ class BaseAgent:
             "chunks_used": len(chunks),
             "raw_response": answer,
         }
+
+    def run_stream(
+        self,
+        question: str,
+        chunks: list,
+        student_status: str,
+        student_academic_year: str,
+    ):
+        context = self._format_chunks(chunks)
+        prompt = get_prompt(
+            agent_type=self.agent_type,
+            student_status=student_status,
+            student_academic_year=student_academic_year,
+            context=context,
+            question=question,
+        )
+        return self._llm.generate_stream(prompt)

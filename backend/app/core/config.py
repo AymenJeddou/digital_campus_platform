@@ -16,11 +16,16 @@ class Settings(BaseSettings):
     # MUST stay False in production (the real email flow is the gate).
     AUTO_VERIFY_EMAIL: bool = False
 
-    # Google Classroom / Drive OAuth
+    FRONTEND_URL: str = "http://localhost:3000"
+
+    # Redis (rate limiting / token bucket for /auth/login).
+    REDIS_URL: str = "redis://localhost:6379"
+
+    # Google Classroom / Drive OAuth (courses feature). Tokens are encrypted at
+    # rest with GOOGLE_TOKEN_ENCRYPTION_KEY; the OAuth callback uses a signed state.
     GOOGLE_CLASSROOM_CLIENT_ID: str | None = None
     GOOGLE_CLASSROOM_CLIENT_SECRET: str | None = None
     GOOGLE_CLASSROOM_REDIRECT_URI: str = "http://localhost:8000/courses/classroom/callback"
-    FRONTEND_URL: str = "http://localhost:3000"
     GOOGLE_TOKEN_ENCRYPTION_KEY: str | None = None
 
     class Config:
