@@ -1,11 +1,11 @@
 {
   "summary": {
-    "documents": 107,
+    "documents": 106,
     "skipped": [],
-    "total_chunks": 3706,
+    "total_chunks": 3687,
     "chunks_by_category": {
       "orientation": 152,
-      "admissions": 52,
+      "admissions": 33,
       "course": 3469,
       "regulation": 33
     }
@@ -502,18 +502,6 @@
       "orig_chars": 2830,
       "clean_chars": 2493,
       "n_chunks": 2
-    },
-    {
-      "source": "bourses_etudiants_tunisie_montants_conditions_cleaned.md",
-      "title": "Bourses étudiants Tunisie — montants, conditions, démarches",
-      "category": "admissions",
-      "language": "fr",
-      "cleaner": "web",
-      "source_url": "https://web6.tn/blog/bourses-etudiants-tunisie-2026-2027/",
-      "orig_path": "admissions/national/bourses_etudiants_tunisie_montants_conditions.md",
-      "orig_chars": 7355,
-      "clean_chars": 6922,
-      "n_chunks": 19
     },
     {
       "source": "bourses_universitaires_oou_nord_cleaned.md",

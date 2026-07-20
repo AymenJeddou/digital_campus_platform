@@ -11,7 +11,7 @@
 {"q": "Comment s'inscrire a la faculte des sciences de Bizerte ?", "lang": "fr", "expect_sources": ["fsb_inscription"], "category": "admissions", "answerable": true}
 {"q": "Comment candidater a un mastere pour l'annee 2026 2027 ?", "lang": "fr", "expect_sources": ["appel_candidature_masters_2026", "fsb_candidature_masters"], "category": "admissions", "answerable": true}
 {"q": "Comment deposer un dossier de bourse universitaire ?", "lang": "fr", "expect_sources": ["bourses_2025_2026_depot", "bourses_universitaires_oou", "bourses_etudiants_tunisie"], "category": "admissions", "answerable": true}
-{"q": "Quels sont les montants et conditions des bourses pour les etudiants en Tunisie ?", "lang": "fr", "expect_sources": ["bourses_etudiants_tunisie_montants"], "category": "admissions", "answerable": true}
+{"q": "Quels sont les montants et conditions des bourses pour les etudiants en Tunisie ?", "lang": "fr", "expect_sources": [], "category": "admissions", "answerable": false}
 {"q": "Comment demander une derogation ?", "lang": "fr", "expect_sources": ["fsb_derogation"], "category": "admissions", "answerable": true}
 {"q": "Quel est le calendrier universitaire 2025 2026 ?", "lang": "fr", "expect_sources": ["calendrier_universitaire_2025_2026"], "category": "regulation", "answerable": true}
 {"q": "Comment changer de parcours ?", "lang": "fr", "expect_sources": ["Formulaire_changement_de_parcours"], "category": "regulation", "answerable": true}
