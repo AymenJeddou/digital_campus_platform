@@ -17,8 +17,8 @@ import { profileService, ProfileResponse } from '@/lib/services/profile';
 const navigation = [
   { name: 'Overview', href: '/dashboard', icon: Home },
   { name: 'AI Assistant', href: '/chat', icon: Bot },
+  { name: 'My Courses', href: '/courses', icon: BookOpenText },
   { name: 'Programs', href: '/dashboard', icon: GraduationCap },
-  { name: 'Courses', href: '/dashboard', icon: BookOpenText },
   { name: 'Documents', href: '/dashboard', icon: FolderOpen },
   { name: 'Profile', href: '/profile', icon: UserRound },
 ];

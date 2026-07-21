@@ -5,10 +5,12 @@ import { useRouter, usePathname } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bell, Search } from 'lucide-react';
+import { getToken } from '@/lib/auth';
 
 const pageTitles: Record<string, { title: string; subtitle: string }> = {
   '/dashboard': { title: 'Dashboard', subtitle: 'Overview of your academic journey' },
   '/chat': { title: 'AI Assistant', subtitle: 'Get personalized academic support' },
+  '/courses': { title: 'My Courses', subtitle: 'Bring in your courses and ask about them' },
   '/profile': { title: 'Profile Settings', subtitle: 'Manage your account and preferences' },
 };
 
@@ -22,13 +24,13 @@ export default function ProtectedLayout({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Temporarily bypassed for UI testing
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   router.push('/login');
-    // } else {
-      setIsAuthenticated(true);
-    // }
+    // Guard every protected route: no token -> bounce to /login.
+    const token = getToken();
+    if (!token) {
+      router.replace('/login');
+      return;
+    }
+    setIsAuthenticated(true);
   }, [router]);
 
   if (!isAuthenticated) {
