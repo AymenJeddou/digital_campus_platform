@@ -19,6 +19,12 @@ class CourseEnrollRequest(BaseModel):
     course_id: uuid.UUID
 
 
+class CourseCreateRequest(BaseModel):
+    name: str = Field(..., min_length=1)
+    code: Optional[str] = None
+    description: Optional[str] = None
+
+
 class EnrolledCourseResponse(CourseResponse):
     enrolled_at: datetime
     source: str

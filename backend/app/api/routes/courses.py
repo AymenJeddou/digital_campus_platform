@@ -14,6 +14,7 @@ from app.schemas.course import (
     ClassroomAuthorizeResponse,
     ClassroomStatusResponse,
     ClassroomSyncResponse,
+    CourseCreateRequest,
     CourseDetailResponse,
     CourseEnrollRequest,
     CourseMaterialCreate,
@@ -63,6 +64,47 @@ def list_courses(
     if program_id:
         query = query.filter(Course.program_id == program_id)
     return query.all()
+
+
+@router.post("", response_model=EnrolledCourseResponse, status_code=201)
+def create_and_enroll(
+    body: CourseCreateRequest,
+    db: Session = Depends(get_db),
+    current_user: Student = Depends(get_current_user),
+):
+    """Add a course by name and enrol the current student in one step.
+
+    The manual path for a student bringing in their own course: /enroll only
+    accepts a course that already exists in the catalog, which is of no help
+    when the course isn't there yet. Reuses an existing course with the same
+    name (case-insensitive) instead of creating duplicates.
+    """
+    name = body.name.strip()
+    course = db.query(Course).filter(Course.name.ilike(name)).first()
+    if not course:
+        course = Course(name=name, code=body.code, description=body.description)
+        db.add(course)
+        db.commit()
+        db.refresh(course)
+
+    if _get_enrollment(db, current_user.id, course.id):
+        raise HTTPException(status_code=409, detail="Already enrolled in this course")
+
+    enrollment = StudentCourse(student_id=current_user.id, course_id=course.id, source="manual")
+    db.add(enrollment)
+    db.commit()
+    db.refresh(enrollment)
+
+    return EnrolledCourseResponse(
+        id=course.id,
+        name=course.name,
+        program_id=course.program_id,
+        code=course.code,
+        description=course.description,
+        enrolled_at=enrollment.enrolled_at,
+        source=enrollment.source,
+        material_count=0,
+    )
 
 
 @router.get("/mine", response_model=list[EnrolledCourseResponse])

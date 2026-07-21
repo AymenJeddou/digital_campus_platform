@@ -27,7 +27,7 @@ def send_message(request: ChatRequest, db: Session = Depends(get_db), current_us
     user_message = ChatMessage(session_id=session.id, role="user", content=request.message)
     db.add(user_message)
 
-    bot_reply = generate_chat_response(message=request.message, session_id=session.id, student=current_user)
+    bot_reply = generate_chat_response(message=request.message, session_id=session.id, student=current_user, course_id=request.course_id)
     bot_message = ChatMessage(
         session_id=session.id, 
         role="assistant", 
@@ -55,10 +55,12 @@ def send_message_stream(request: ChatRequest, db: Session = Depends(get_db), cur
     db.add(user_message)
     db.commit()
 
-    stream, chunks = generate_chat_response_stream(message=request.message, session_id=session.id, student=current_user)
+    stream, chunks = generate_chat_response_stream(message=request.message, session_id=session.id, student=current_user, course_id=request.course_id)
     session_id = session.id
 
     async def event_generator():
+        # Emit the session id first so the client can track a brand-new conversation.
+        yield {"data": json.dumps({"session_id": str(session_id)})}
         full_answer = ""
         grounded = None
         for chunk in stream:
