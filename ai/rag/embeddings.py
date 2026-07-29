@@ -43,6 +43,12 @@ def embed_texts(texts: list[str], batch_size: int = 32, show_progress: bool = Fa
     return vectors.tolist()
 
 
+@lru_cache(maxsize=512)
 def embed_query(query: str) -> list[float]:
-    """Embed a single query string (runtime path)."""
+    """Embed a single query string (runtime path).
+
+    Cached (bounded) so a repeated identical query — common in retries and the
+    warmup — skips re-encoding. The returned list is shared; callers treat it as
+    read-only (the search layer only stringifies it).
+    """
     return embed_texts([query])[0]

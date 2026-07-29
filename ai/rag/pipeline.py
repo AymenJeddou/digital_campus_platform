@@ -7,6 +7,7 @@ to bypass retrieval (e.g. when it has already retrieved, or for tests).
 """
 
 import logging
+import os
 
 from ai.prompts.system_prompts import NO_INFO_SENTENCE
 from ai.rag.citation_formatter import format_citations
@@ -15,6 +16,11 @@ from ai.rag.groundedness_grader import grade_groundedness
 from ai.rag.retrieval_grader import filter_chunks
 
 logger = logging.getLogger(__name__)
+
+
+def _groundedness_enabled() -> bool:
+    """Whether the post-generation groundedness judge runs (GROUNDEDNESS_ENABLED)."""
+    return os.getenv("GROUNDEDNESS_ENABLED", "1") != "0"
 
 
 class RAGPipeline:
@@ -105,8 +111,9 @@ class RAGPipeline:
                     full_answer += token
                     yield token
 
-                is_grounded = grade_groundedness(full_answer, chunks)
-                yield f"\n\n[groundedness_check: {is_grounded}]"
+                if _groundedness_enabled():
+                    is_grounded = grade_groundedness(full_answer, chunks)
+                    yield f"\n\n[groundedness_check: {is_grounded}]"
 
             return _stream_and_grade(), chunks
 
@@ -121,11 +128,11 @@ class RAGPipeline:
 
         # Day 6: block answers that aren't grounded in the retrieved chunks.
         answer = result.get("answer")
-        if answer and answer != NO_INFO_SENTENCE and "error" not in result:
+        if _groundedness_enabled() and answer and answer != NO_INFO_SENTENCE and "error" not in result:
             if not grade_groundedness(answer, chunks):
                 logger.warning(
-                    "Groundedness grader blocked an ungrounded answer (agent=%s).",
-                    self.agent_type,
+                    "Groundedness grader BLOCKED an answer (agent=%s) | q=%r | answer=%r",
+                    self.agent_type, question[:80], answer[:120],
                 )
                 return {
                     "answer": NO_INFO_SENTENCE,

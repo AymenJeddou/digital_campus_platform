@@ -119,14 +119,18 @@ def run(full, probes, exact, tag):
     full_metrics = None
     if full:
         from ai.integration import answer_chat
-        from ai.prompts.system_prompts import NO_INFO_SENTENCE
-        refusal = NO_INFO_SENTENCE.strip(' "')
+
+        # The softened prompt lets the model refuse a SPECIFIC fact while still
+        # offering context ("Je ne trouve pas d'information fiable sur le taux de
+        # réussite ... voici ce qui est disponible"). That is a refusal, not an
+        # answer — so match the refusal STEM, not the one exact sentence.
+        REFUSAL_STEM = "je ne trouve pas d'information fiable"
 
         def answered(q):
             """Return (gave_an_answer, answer_had_citation)."""
             res = answer_chat(q)
             ans = res.get("answer") or ""
-            gave = refusal not in ans
+            gave = REFUSAL_STEM not in ans.lower()
             cited = bool(res.get("citations"))
             return gave, cited
 
@@ -135,10 +139,19 @@ def run(full, probes, exact, tag):
         n_ans_ok = sum(1 for gave, _ in ans_flags if gave)
         n_ans_cited = sum(1 for gave, cited in ans_flags if gave and cited)
         n_false = sum(1 for gave, _ in false_flags if gave)
+
+        # Valid-answer block rate: of questions whose expected source WAS
+        # retrieved in the top 5, how many still refused. Isolates generator/judge
+        # refusals from genuine retrieval misses — the reliability metric.
+        retrieved = [(pq["rank"] is not None and pq["rank"] <= 5) for pq in per_q]
+        n_retrieved = sum(retrieved)
+        n_blocked = sum(1 for got, (gave, _) in zip(retrieved, ans_flags) if got and not gave)
+
         full_metrics = {
             # deliverable: "answered questions WITH citations"
             "answer_rate": round(n_ans_ok / n, 3),
             "answer_with_citation_rate": round(n_ans_cited / n, 3),
+            "valid_answer_block_rate": round(n_blocked / n_retrieved, 3) if n_retrieved else 0.0,
             # deliverable: "unsupported answers remain blocked"
             "false_answer_rate": round(n_false / max(len(unanswerable), 1), 3),
             "n_unanswerable": len(unanswerable),

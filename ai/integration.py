@@ -57,13 +57,17 @@ def _recent_history(session_id):
     return "Historique de la conversation:\n" + "\n".join(lines), last_user
 
 
-def _route_agent(student) -> str:
-    """Pick an agent from the student profile.
+def _route_agent(student, course_id=None) -> str:
+    """Pick an agent from the student profile and the query scope.
 
-    Newcomers (prospective) default to Orientation; enrolled students default to
-    Academic. Kept deliberately simple — routing can be refined later without
-    touching the backend.
+    A course-scoped question is about course *content*, which is the Learning
+    agent's scope ("expliquer le contenu des cours"). The Orientation agent's
+    prompt scope explicitly excludes course content, so it refuses such questions
+    ~half the time — the wrong agent for course chat. Otherwise: enrolled ->
+    Academic, newcomers -> Orientation.
     """
+    if course_id:
+        return "learning"
     status = getattr(student, "student_status", None)
     if status == "enrolled":
         return "academic"
@@ -98,7 +102,7 @@ def answer_chat(message: str, session_id=None, student=None, course_id=None) -> 
         "student_status": getattr(student, "student_status", "prospective"),
         "academic_year": getattr(student, "academic_year", None),
     }
-    agent_type = _route_agent(student)
+    agent_type = _route_agent(student, course_id)
 
     # Conversation memory: give the generator the recent turns, and for a short
     # follow-up ("et pour la chimie ?") augment the retrieval query with the
@@ -140,7 +144,7 @@ def answer_chat_stream(message: str, session_id=None, student=None, course_id=No
         "student_status": getattr(student, "student_status", "prospective"),
         "academic_year": getattr(student, "academic_year", None),
     }
-    agent_type = _route_agent(student)
+    agent_type = _route_agent(student, course_id)
 
     history, last_user = _recent_history(session_id)
     retrieval_query = message

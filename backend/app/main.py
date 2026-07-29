@@ -31,7 +31,21 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup():
-    pass
+    # Warm the heavy singletons so the FIRST real request doesn't pay the
+    # ~30s embedding-model load (and the LLM clients are built once). Best-effort:
+    # a warmup failure must not stop the API from starting.
+    import logging
+    log = logging.getLogger("startup")
+    try:
+        from ai.rag.embeddings import embed_query
+        embed_query("warmup")
+        from ai.llm.client import get_llm
+        import os
+        get_llm()
+        get_llm(model=os.getenv("GROUNDEDNESS_GRADER_MODEL"))
+        log.info("Warmup complete: embedding model + LLM clients ready.")
+    except Exception:
+        log.exception("Warmup failed (continuing to serve).")
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):

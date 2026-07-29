@@ -8,8 +8,16 @@ Citation parsing / formatting is layered on by the pipeline (Day 4); ``run``
 returns the raw answer plus light metadata.
 """
 
+import os
+
 from ai.llm.client import get_llm
 from ai.prompts.system_prompts import get_prompt
+
+
+def _generation_temperature() -> float | None:
+    """Generation temperature from GENERATION_TEMPERATURE, else the client default."""
+    raw = os.getenv("GENERATION_TEMPERATURE")
+    return float(raw) if raw not in (None, "") else None
 
 
 class BaseAgent:
@@ -63,7 +71,7 @@ class BaseAgent:
             question=question,
         )
 
-        answer = self._llm.generate(prompt)
+        answer = self._llm.generate(prompt, temperature=_generation_temperature())
 
         return {
             "answer": answer,
@@ -87,4 +95,4 @@ class BaseAgent:
             context=context,
             question=question,
         )
-        return self._llm.generate_stream(prompt)
+        return self._llm.generate_stream(prompt, temperature=_generation_temperature())
