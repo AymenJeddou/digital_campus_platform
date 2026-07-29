@@ -88,12 +88,14 @@ export const chatService = {
           if (done) break;
           buffer += decoder.decode(value, { stream: true });
 
-          // SSE events are separated by a blank line.
-          const events = buffer.split('\n\n');
+          // SSE events are separated by a blank line. sse-starlette uses CRLF
+          // ("\r\n\r\n"), so splitting on "\n\n" alone never finds a boundary
+          // and the stream never renders — match CRLF, CR, and LF forms.
+          const events = buffer.split(/\r\n\r\n|\r\r|\n\n/);
           buffer = events.pop() ?? '';
           for (const evt of events) {
             const line = evt
-              .split('\n')
+              .split(/\r\n|\r|\n/)
               .find((l) => l.startsWith('data:'));
             if (!line) continue;
             const payload = line.slice(5).trim();
