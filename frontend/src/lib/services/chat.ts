@@ -13,6 +13,8 @@ export interface ChatMessage {
   content: string;
   /** Present on freshly-received assistant messages; not stored in message history from the API */
   citations?: Citation[];
+  /** Streaming groundedness signal: false means the sources may not fully support the answer. */
+  grounded?: boolean;
   created_at: string;
 }
 
@@ -25,6 +27,8 @@ export interface ChatSession {
 export interface ChatRequest {
   message: string;
   session_id?: string;
+  /** When set, the assistant also searches this course's materials (scoped to the student). */
+  course_id?: string;
 }
 
 export interface ChatResponse {
@@ -33,10 +37,87 @@ export interface ChatResponse {
   citations: Citation[];
 }
 
+export interface StreamHandlers {
+  onSession?: (sessionId: string) => void;
+  onChunk?: (text: string) => void;
+  onCitations?: (citations: Citation[]) => void;
+  onGrounded?: (grounded: boolean) => void;
+  onDone?: () => void;
+  onError?: (err: unknown) => void;
+}
+
+const apiBaseUrl =
+  process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') || 'http://localhost:8000';
+
 export const chatService = {
   sendMessage: async (data: ChatRequest) => {
     const response = await api.post<ChatResponse>('/chat', data);
     return response.data;
+  },
+
+  /**
+   * Stream an answer token-by-token from POST /chat/stream (Server-Sent Events).
+   * EventSource can't send an Authorization header or a POST body, so we read
+   * the response body stream directly. The backend emits `data:` lines carrying
+   * JSON ({session_id} | {chunk} | {grounded} | {citations}) then a "[DONE]".
+   * Returns an AbortController so the caller can cancel an in-flight stream.
+   */
+  streamMessage: (data: ChatRequest, handlers: StreamHandlers) => {
+    const controller = new AbortController();
+    (async () => {
+      try {
+        const token =
+          typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+        const res = await fetch(`${apiBaseUrl}/chat/stream`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify(data),
+          signal: controller.signal,
+        });
+        if (!res.ok || !res.body) throw new Error(`Stream failed (${res.status})`);
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+
+          // SSE events are separated by a blank line.
+          const events = buffer.split('\n\n');
+          buffer = events.pop() ?? '';
+          for (const evt of events) {
+            const line = evt
+              .split('\n')
+              .find((l) => l.startsWith('data:'));
+            if (!line) continue;
+            const payload = line.slice(5).trim();
+            if (payload === '[DONE]') {
+              handlers.onDone?.();
+              continue;
+            }
+            try {
+              const obj = JSON.parse(payload);
+              if (obj.session_id) handlers.onSession?.(obj.session_id);
+              if (typeof obj.chunk === 'string') handlers.onChunk?.(obj.chunk);
+              if (Array.isArray(obj.citations)) handlers.onCitations?.(obj.citations);
+              if (typeof obj.grounded === 'boolean') handlers.onGrounded?.(obj.grounded);
+            } catch {
+              /* ignore malformed keep-alive lines */
+            }
+          }
+        }
+        handlers.onDone?.();
+      } catch (err) {
+        if ((err as Error)?.name !== 'AbortError') handlers.onError?.(err);
+      }
+    })();
+    return controller;
   },
 
   getSessions: async () => {
@@ -46,6 +127,11 @@ export const chatService = {
 
   getMessages: async (sessionId: string) => {
     const response = await api.get<ChatMessage[]>(`/chat/sessions/${sessionId}/messages`);
+    return response.data;
+  },
+
+  sendFeedback: async (data: { chat_message_id: string; rating: number; comment?: string }) => {
+    const response = await api.post('/chat/feedback', data);
     return response.data;
   },
 };
