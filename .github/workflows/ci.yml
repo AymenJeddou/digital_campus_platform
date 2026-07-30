@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  ai-tests:
+    name: AI / RAG tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install AI dependencies
+        run: pip install -r ai/requirements.txt
+      - name: Run ai/tests
+        # The AI suite mocks get_llm and the retriever (no DB, no embedding
+        # model, no Mistral calls) — see ai/tests/*.
+        run: python -m pytest ai/tests -q
+
+  backend-tests:
+    name: Backend API tests
+    runs-on: ubuntu-latest
+    services:
+      # pgvector image so document_chunks' Vector column can be created.
+      db:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: digital_campus
+        ports:
+          - "5432:5432"
+        options: >-
+          --health-cmd "pg_isready -U postgres -d digital_campus"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+      # NOTE: no Redis service on purpose. The /auth/login rate limiter fails
+      # open when Redis is unreachable; with a live Redis the whole suite shares
+      # one TestClient IP and trips the 5-per-minute limit mid-run. CI exercises
+      # the fail-open path (rate-limit enforcement is validated separately).
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/digital_campus
+      SECRET_KEY: ci-test-secret
+      AUTO_VERIFY_EMAIL: "False"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install dependencies
+        # Backend imports the AI package (ai.integration) so install both.
+        run: |
+          pip install -r backend/requirements.txt
+          pip install -r ai/requirements.txt
+      - name: Apply migrations
+        # Also validates the Alembic migration end-to-end; it creates the
+        # pgvector extension and the full schema the tests run against.
+        working-directory: backend
+        run: python -m alembic upgrade head
+      - name: Run backend/tests
+        working-directory: backend
+        run: python -m pytest tests -q
