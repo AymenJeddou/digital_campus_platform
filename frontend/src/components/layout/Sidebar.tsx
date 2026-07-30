@@ -7,21 +7,38 @@ import {
   BookOpenText,
   Bot,
   ChevronRight,
-  FolderOpen,
-  GraduationCap,
   Home,
   UserRound,
 } from 'lucide-react';
 import { profileService, ProfileResponse } from '@/lib/services/profile';
 
 const navigation = [
-  { name: 'Overview', href: '/dashboard', icon: Home },
-  { name: 'AI Assistant', href: '/chat', icon: Bot },
-  { name: 'My Courses', href: '/courses', icon: BookOpenText },
-  { name: 'Programs', href: '/dashboard', icon: GraduationCap },
-  { name: 'Documents', href: '/dashboard', icon: FolderOpen },
-  { name: 'Profile', href: '/profile', icon: UserRound },
+  { name: 'Aperçu', href: '/dashboard', icon: Home },
+  { name: 'Assistant IA', href: '/chat', icon: Bot },
+  { name: 'Mes cours', href: '/courses', icon: BookOpenText },
+  { name: 'Profil', href: '/profile', icon: UserRound },
 ];
+
+const STATUS_LABELS: Record<string, string> = {
+  prospective: 'Futur étudiant',
+  enrolled: 'Étudiant inscrit',
+  admin: 'Administration',
+};
+
+// Honest completeness: fraction of onboarding-relevant fields that are filled.
+function computeCompleteness(p: ProfileResponse | null): number {
+  if (!p) return 0;
+  const checks = [
+    !!p.full_name,
+    !!p.student_status,
+    !!p.academic_year,
+    !!p.bac_type,
+    p.bac_score != null,
+    !!(p.interests && p.interests.length),
+    !!(p.goals && p.goals.length),
+  ];
+  return Math.round((checks.filter(Boolean).length / checks.length) * 100);
+}
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -30,6 +47,8 @@ export default function Sidebar() {
   useEffect(() => {
     profileService.getProfile().then(setProfile).catch(() => {});
   }, []);
+
+  const completeness = computeCompleteness(profile);
 
   const getInitials = (name?: string | null) => {
     if (!name) return 'U';
@@ -49,7 +68,7 @@ export default function Sidebar() {
         </div>
         <div>
           <p className="text-sm font-semibold text-white">Digital Campus</p>
-          <p className="text-sm text-slate-300">Admin Blueprint</p>
+          <p className="text-sm text-slate-300">Sciences de Bizerte</p>
         </div>
       </div>
 
@@ -86,28 +105,36 @@ export default function Sidebar() {
             </div>
             <div className="min-w-0">
               <p className="truncate text-sm font-semibold text-white">
-                {profile?.full_name || 'Student'}
+                {profile?.full_name || profile?.email?.split('@')[0] || 'Étudiant'}
               </p>
               <p className="truncate text-sm text-slate-300">
-                {profile?.student_status || 'Undergraduate'}
+                {profile?.student_status
+                  ? STATUS_LABELS[profile.student_status] ?? profile.student_status
+                  : 'Compte'}
               </p>
             </div>
           </div>
 
           <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-3">
             <div className="flex items-center justify-between text-sm text-slate-200">
-              <span>Profile completeness</span>
-              <span>84%</span>
+              <span>Profil complété</span>
+              <span>{completeness}%</span>
             </div>
             <div className="mt-3 h-2 rounded-full bg-white/10">
-              <div className="h-2 w-[84%] rounded-full bg-[var(--sidebar-primary)]" />
+              <div
+                className="h-2 rounded-full bg-[var(--sidebar-primary)]"
+                style={{ width: `${completeness}%` }}
+              />
             </div>
           </div>
 
-          <div className="mt-4 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-300">
-            <span>View profile</span>
+          <Link
+            href="/profile"
+            className="mt-4 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+          >
+            <span>Voir le profil</span>
             <ChevronRight className="h-4 w-4" />
-          </div>
+          </Link>
         </div>
       </div>
     </aside>

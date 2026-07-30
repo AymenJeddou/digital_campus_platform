@@ -5,6 +5,8 @@ export interface ProfileResponse {
   full_name: string | null;
   student_status: string | null;
   academic_year: string | null;
+  bac_type: string | null;
+  bac_score: number | null;
   interests: string[] | null;
   goals: string[] | null;
   enrollment_date: string | null;
