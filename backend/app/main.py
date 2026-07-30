@@ -1,9 +1,21 @@
 import sys
+import logging
 from pathlib import Path
 
 # Ensure the repo root is importable so the backend can load the AI package
 # (ai.integration / ai.rag) regardless of how uvicorn is launched.
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+# Configure application logging so our own loggers (services/rag.py,
+# groundedness warnings, startup warmup) actually surface with timestamps and
+# level. uvicorn only configures its own loggers; without a root handler these
+# app-logger lines are swallowed. force=True installs our handler even if a
+# library already touched the root logger at import time.
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)-8s %(name)s: %(message)s",
+    force=True,
+)
 
 from fastapi import FastAPI, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware

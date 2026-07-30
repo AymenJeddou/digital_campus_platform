@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { removeToken } from './auth'
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, '') || 'http://localhost:8000'
 
@@ -16,7 +17,9 @@ api.interceptors.response.use(
   response => response,
   error => {
     if (error?.response?.status === 401 && typeof window !== 'undefined') {
-      localStorage.removeItem('token')
+      // Clear BOTH localStorage and the middleware cookie. A dead token with a
+      // stale cookie would let middleware pass, the API 401, and bounce again.
+      removeToken()
       if (!window.location.pathname.startsWith('/login')) {
         window.location.href = '/login'
       }

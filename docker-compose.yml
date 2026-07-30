@@ -1,0 +1,39 @@
+# Local infrastructure for the Digital Campus platform.
+#
+#   docker compose up -d
+#
+# Brings up Postgres (with pgvector) and Redis. Redis backs the /auth/login
+# rate limiter (backend/app/api/routes/auth.py); without it the limiter
+# fails open and never enforces. Postgres host port is 5433 to avoid clashing
+# with a native Postgres on 5432 (see RUNNING_LOCALLY.md).
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: fsb-db
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: digital_campus
+    ports:
+      - "5433:5432"
+    volumes:
+      - fsb_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d digital_campus"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: fsb-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  fsb_db_data:
