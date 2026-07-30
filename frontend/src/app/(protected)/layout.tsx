@@ -52,8 +52,17 @@ export default function ProtectedLayout({
       return;
     }
     setIsAuthenticated(true);
-    profileService.getProfile().then(setProfile).catch(() => {});
-  }, [router]);
+    profileService
+      .getProfile()
+      .then((p) => {
+        setProfile(p);
+        // Gate: a new user must finish onboarding once before using the app.
+        if (!p.onboarding_completed && pathname !== '/onboarding') {
+          router.replace('/onboarding');
+        }
+      })
+      .catch(() => {});
+  }, [router, pathname]);
 
   const handleLogout = () => {
     removeToken();
