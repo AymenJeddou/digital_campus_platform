@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FSB Nexus — AI/RAG & Knowledge Base Work Report</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.2pt; line-height: 1.5; color: #1c2430; margin: 0;
+  }
+  h1, h2, h3 { color: #143c6e; margin: 0 0 .35em; line-height: 1.25; }
+  h1 { font-size: 25pt; letter-spacing: -.4px; }
+  h2 {
+    font-size: 14pt; margin-top: 1.5em; padding-bottom: .25em;
+    border-bottom: 2px solid #143c6e;
+  }
+  h3 { font-size: 11.2pt; margin-top: 1.15em; color: #1f5590; }
+  p { margin: .45em 0; }
+  ul { margin: .4em 0; padding-left: 1.15em; }
+  li { margin: .22em 0; }
+  code {
+    font-family: "Consolas", monospace; font-size: 9pt;
+    background: #eef2f7; padding: 1px 4px; border-radius: 3px; color: #123;
+  }
+  table { border-collapse: collapse; width: 100%; margin: .7em 0; font-size: 9.3pt; }
+  th, td { border: 1px solid #cfd8e3; padding: 5px 7px; text-align: left; }
+  th { background: #143c6e; color: #fff; font-weight: 600; }
+  tbody tr:nth-child(even) { background: #f5f8fb; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .win { color: #1a7a41; font-weight: 700; }
+  .bad { color: #b3261e; font-weight: 700; }
+  .cover { text-align: center; padding: 22mm 0 8mm; border-bottom: 3px solid #143c6e; margin-bottom: 1em; }
+  .cover .sub { font-size: 12.5pt; color: #44536b; margin-top: .5em; }
+  .meta { margin-top: 1.6em; font-size: 9.6pt; color: #44536b; }
+  .kpi { display: flex; gap: 8px; margin: 1em 0; }
+  .kpi div {
+    flex: 1; border: 1px solid #cfd8e3; border-top: 3px solid #143c6e;
+    border-radius: 4px; padding: 8px 6px; text-align: center; background: #fbfcfe;
+  }
+  .kpi .v { font-size: 16pt; font-weight: 700; color: #143c6e; display: block; }
+  .kpi .l { font-size: 7.8pt; color: #56657d; text-transform: uppercase; letter-spacing: .3px; }
+  .callout {
+    border-left: 4px solid #143c6e; background: #f2f6fb;
+    padding: 8px 11px; margin: .8em 0; border-radius: 0 4px 4px 0;
+  }
+  .warn { border-left-color: #c77700; background: #fff8ec; }
+  .note { font-size: 9pt; color: #56657d; font-style: italic; }
+  .pagebreak { page-break-before: always; }
+  h2, h3 { page-break-after: avoid; }
+  table, .callout, .kpi { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>FSB Nexus</h1>
+  <div class="sub">AI / RAG &amp; Knowledge Base — Work Report</div>
+  <div class="sub" style="font-size:10.5pt">From an assistant that refused almost everything<br>to one that answers 83% of questions, every answer cited</div>
+  <div class="meta">
+    <strong>Scope:</strong> AI/RAG pipeline, retrieval, knowledge base, evaluation<br>
+    <strong>Faculté des Sciences de Bizerte</strong> · 16 July 2026
+  </div>
+</div>
+
+<h2>1. Executive Summary</h2>
+<p>
+  The assistant was refusing almost every question, including ones it had the documents to answer.
+  The inherited explanation was “the knowledge base data is dirty.” That turned out to be
+  <em>half</em> right — and the half that was missing was the expensive one.
+</p>
+<p>
+  Rather than start fixing, we first built an <strong>evaluation harness</strong> and measured a
+  baseline. That scoreboard then drove every decision and proved every change. The result:
+</p>
+
+<div class="kpi">
+  <div><span class="v">0.50 → 0.90</span><span class="l">Retrieval hit@5</span></div>
+  <div><span class="v">0.395 → 0.776</span><span class="l">MRR (rank quality)</span></div>
+  <div><span class="v">→ 0.833</span><span class="l">Answer rate</span></div>
+  <div><span class="v">0.833</span><span class="l">Answers with citations</span></div>
+</div>
+
+<div class="callout">
+  <strong>The key discovery:</strong> the biggest single cause of the refusals was not the data at all —
+  it was a <strong>database index misconfiguration</strong> that made correct answers literally
+  invisible to the search, no matter how good the text was. Fixing it took one line and moved
+  retrieval from 0.50 to 0.80. The data work then took it to 0.90.
+</div>
+
+<h2>2. The Problem</h2>
+<p>
+  FSB Nexus answers student questions using RAG (Retrieval-Augmented Generation): it searches
+  official faculty documents, then asks a language model to answer <em>only</em> from what it found,
+  with citations. This is what prevents invented answers.
+</p>
+<p>The system was behaving safely but uselessly — it declined nearly everything:</p>
+<ul>
+  <li><strong>Factual questions</strong> (“which licences in informatique?”) were refused even though the answer existed in the corpus.</li>
+  <li><strong>Greetings and small talk</strong> (“bonjour”, “merci”) were refused — they have no supporting document, so the sourced pipeline had no path for them.</li>
+  <li><strong>Follow-up questions</strong> had no context: <code>session_id</code> was passed into the pipeline but never used.</li>
+</ul>
+
+<h2>3. Method: Measure First, Then Fix</h2>
+<p>
+  We deliberately did <strong>not</strong> start by cleaning data. Without a number that predates the
+  changes, “the chat got better” is an opinion. So step one was the scoreboard.
+</p>
+<h3>The evaluation harness (<code>knowledge_base/eval/</code>)</h3>
+<ul>
+  <li><strong>41 questions</strong> grounded in the real corpus: 30 answerable (each tagged with the document that should answer it) and 11 that <em>must</em> be refused.</li>
+  <li><strong>Retrieval metrics</strong> (fast, no LLM): <code>hit@5</code> — was the right document in the top 5 the pipeline actually reads; <code>MRR</code> — how highly it ranked.</li>
+  <li><strong>End-to-end metrics</strong> (real LLM): <code>answer_rate</code>, <code>answer_with_citation_rate</code>, and <code>false_answer_rate</code> — how often it invents an answer to an impossible question.</li>
+</ul>
+<p class="note">
+  This harness is now the team’s shared quality gate — any future change to prompts, retrieval, or
+  the corpus can be scored against it in minutes.
+</p>
+
+<h2>4. The Diagnosis That Changed Everything</h2>
+<p>
+  The corpus holds only <strong>3,675 chunks</strong>, served through an <code>ivfflat</code> vector index.
+  That index type groups vectors into clusters and, by default, searches <strong>only one cluster</strong>
+  (<code>probes = 1</code>). If the right chunk lives in a different cluster, it is invisible —
+  <strong>at any number of results</strong>. Raising the result count cannot rescue it.
+</p>
+<p>
+  So “un-retrievable even at top-15” never proved the text was dirty. We tested it directly, comparing
+  the live index against exact (brute-force) search:
+</p>
+<table>
+  <thead><tr><th>Question</th><th>Best relevant chunk — production (<code>probes=1</code>)</th><th>Best relevant chunk — exact search</th></tr></thead>
+  <tbody>
+    <tr><td>“licence en <strong>informatique</strong>?”</td><td class="bad">not found at all</td><td class="win">rank 2 (0.55)</td></tr>
+    <tr><td>“licences en <strong>mathématiques</strong>?”</td><td class="bad">not found</td><td>rank 11</td></tr>
+    <tr><td>“<strong>départements</strong> de la FSB?”</td><td class="bad">not found</td><td>rank 9</td></tr>
+    <tr><td>“conditions d’admission en <strong>master</strong>?”</td><td class="bad">not found</td><td>rank 11</td></tr>
+  </tbody>
+</table>
+<div class="callout">
+  For “licence en informatique”, the <strong>2nd- and 3rd-best chunks in the entire corpus were invisible in
+  production</strong>. At 3,675 rows an approximate index buys nothing — exact search takes milliseconds.
+</div>
+<p>
+  <strong>But the data did also need work.</strong> Even with perfect (exact) search, the right content
+  ranked only 9th–13th while the pipeline reads the top 5, and unrelated “attractor” documents
+  (masters application forms, the clubs charter) outranked real licence pages. Both causes were real —
+  the measurement told us the split instead of guessing.
+</p>
+
+<div class="pagebreak"></div>
+<h2>5. What We Changed</h2>
+
+<h3>5.1 Fixed the vector index — <code>ai/rag/search.py</code></h3>
+<p>Made the search scan every cluster instead of one, restoring exact-search recall at negligible cost.</p>
+<p><strong>Measured: hit@5 0.50 → 0.80, MRR 0.395 → 0.612.</strong></p>
+
+<h3>5.2 Softened the answering rules — <code>ai/prompts/system_prompts.py</code></h3>
+<p>
+  All four agents said: <em>“answer ONLY from the context; if insufficient, refuse.”</em> The model read
+  “insufficient” strictly and refused even with a partially relevant document in hand. New rule: answer
+  what the sources support, state plainly what they do not cover, and refuse only when
+  <strong>nothing</strong> relevant was found. The “never invent” rule and citations were kept.
+</p>
+<p>
+  <strong>Measured: answer rate 0.60 → 0.70 with no increase in false answers.</strong> The groundedness
+  checker fired 7 times instead of 2 — exactly as designed: the model attempts more, and the safety
+  net silently blocks the unsupported attempts.
+</p>
+
+<h3>5.3 Added intent routing — <code>ai/rag/intent.py</code></h3>
+<p>
+  Greetings, thanks, and “what can you do?” now get a real, bounded reply and never enter the sourced
+  pipeline. The classifier is deliberately conservative — anything ambiguous falls through to the
+  factual path, so it cannot damage answer quality. Handles French, Arabic, and English.
+</p>
+<p><strong>Verified: 0 of 30 factual questions misroute;</strong> “Bonjour, quelles licences en maths ?” correctly stays factual.</p>
+
+<h3>5.4 Authored fact cards — <code>knowledge_base/orientation/web/</code></h3>
+<p>
+  The highest-value documents were each crammed into a <strong>single chunk</strong>: the entire licence
+  list for every department was one run-on blob, so its meaning was diluted into an average and ranked
+  below noise. We split the verified content into <strong>7 clean, atomic cards</strong> (one per department,
+  plus a masters list). No facts were invented — existing verified content was restructured.
+</p>
+<p><strong>Measured: MRR 0.612 → 0.678; all five licence questions now retrieve their card at rank 1.</strong></p>
+
+<h3>5.5 Added hybrid retrieval — <code>ai/rag/search.py</code></h3>
+<p>
+  The remaining failures were <em>exact-word</em> questions (“coordinateurs”, “retirer mon inscription”)
+  that meaning-based search fumbles. We added a keyword arm (PostgreSQL full-text — no new dependency)
+  and fused it with the vector arm using Reciprocal Rank Fusion. Two non-obvious fixes were required:
+</p>
+<ul>
+  <li><strong>OR instead of AND.</strong> The default query builder required <em>every</em> word — so “<u>Comment</u> changer de parcours” demanded the word “comment” and matched nothing.</li>
+  <li><strong>Title weighting.</strong> Query words appear more often in big course documents than in the small form that actually answers, so titles are now weighted far above body text.</li>
+</ul>
+<p><strong>Measured: hit@5 0.80 → 0.90, recall@10 → 0.967.</strong></p>
+
+<h3>5.6 Added conversation memory — <code>ai/integration.py</code>, <code>ai/rag/pipeline.py</code></h3>
+<p>
+  The last 6 turns are now read from the chat history and given to the model. Crucially,
+  <strong>retrieval and the groundedness check still use only the current question</strong>, so memory can
+  never weaken grounding. Short follow-ups additionally borrow the previous question when searching.
+</p>
+<div class="callout">
+  <strong>Verified live.</strong> After a conversation about <em>maths</em> licences, the vague follow-up
+  “<em>Et en informatique ?</em>” returned the informatique licence card <strong>with a citation</strong>.
+  The identical question with no session drifted to an unrelated “prépa intégrée” answer — proof the
+  memory is doing real work.
+</div>
+
+<h2>6. Results</h2>
+<p>Each change was measured in isolation, in order:</p>
+<table>
+  <thead>
+    <tr><th>Stage</th><th class="num">hit@5</th><th class="num">MRR</th><th class="num">Answer rate</th><th class="num">False answers</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Starting point (<code>probes=1</code>, strict prompt)</td><td class="num">0.50</td><td class="num">0.395</td><td class="num">0.60</td><td class="num">0.00</td></tr>
+    <tr><td>+ index fix</td><td class="num win">0.80</td><td class="num">0.612</td><td class="num">0.60</td><td class="num">0.00</td></tr>
+    <tr><td>+ softened prompts &amp; intent routing</td><td class="num">0.80</td><td class="num">0.612</td><td class="num win">0.70</td><td class="num">0.00</td></tr>
+    <tr><td>+ licence fact cards</td><td class="num">0.80</td><td class="num win">0.678</td><td class="num">—</td><td class="num">—</td></tr>
+    <tr><td>+ hybrid retrieval</td><td class="num win">0.90</td><td class="num">0.750</td><td class="num win">0.833</td><td class="num">0.00</td></tr>
+    <tr><td><strong>+ masters card &amp; memory (final)</strong></td><td class="num win">0.90</td><td class="num win">0.776</td><td class="num win">0.833</td><td class="num">0.00–0.09</td></tr>
+  </tbody>
+</table>
+<p>
+  <strong>Every answered question carries citations</strong> — <code>answer_with_citation_rate</code> (0.833)
+  equals <code>answer_rate</code> (0.833). The gain is real sourced answers, not vague hedging.
+</p>
+
+<h2>7. Honest Caveats</h2>
+<div class="callout warn">
+  <strong>The anti-hallucination guardrail is strong but not provably perfect.</strong> Running the same
+  11 impossible questions three times produced <strong>0, 0, and 1</strong> invented answers. The language
+  model is stochastic, so the correct figure is a <strong>range (0.00–0.09), not a clean 0.00</strong>.
+  This matters because keyword matches now bypass the earlier relevance filter, leaving the groundedness
+  checker as the sole backstop. It should be sampled over several runs, and any slip treated as a bug.
+</div>
+<p><strong>Three retrieval misses remain</strong> (out of 30): “s’inscrire” (rank 6) and “coordinateurs”
+(rank 8) sit just below the top-5 cut; “prépa intégrée” misses on word-frequency noise. A dedicated
+inscription fact card would likely close the first. None of these block the assistant.</p>
+<p class="note">
+  Scope note: this report covers the AI/RAG and knowledge-base surface only. Frontend, backend
+  security, and the courses/Google Classroom integration are other roles’ tracks.
+</p>
+
+<h2>8. What Changed, File by File</h2>
+<table>
+  <thead><tr><th>File</th><th>Change</th></tr></thead>
+  <tbody>
+    <tr><td><code>knowledge_base/eval/golden.jsonl</code></td><td><em>New.</em> 41-question benchmark (30 answerable, 11 must-refuse incl. 8 adversarial)</td></tr>
+    <tr><td><code>knowledge_base/eval/run_eval.py</code></td><td><em>New.</em> Scoreboard: hit@5, MRR, answer rate, citation rate, false-answer rate</td></tr>
+    <tr><td><code>ai/rag/search.py</code></td><td>Index fix (full-recall probes) + hybrid vector/keyword retrieval with RRF</td></tr>
+    <tr><td><code>ai/rag/intent.py</code></td><td><em>New.</em> Conservative FR/AR/EN intent router for greetings, thanks, capability questions</td></tr>
+    <tr><td><code>ai/rag/pipeline.py</code></td><td><code>history</code> + <code>retrieval_query</code> parameters (memory without weakening grounding)</td></tr>
+    <tr><td><code>ai/integration.py</code></td><td>Intent short-circuit + conversation-history fetch</td></tr>
+    <tr><td><code>ai/prompts/system_prompts.py</code></td><td>Softened answering rules across all four agents</td></tr>
+    <tr><td><code>knowledge_base/orientation/web/</code></td><td><em>New.</em> 7 fact cards (6 licence departments + masters list)</td></tr>
+  </tbody>
+</table>
+<p class="note">
+  Corpus: 85 documents → 3,684 chunks, embedded with
+  <code>paraphrase-multilingual-mpnet-base-v2</code> (768-dim). All 43 existing tests still pass.
+</p>
+
+<h2>9. Conclusion</h2>
+<p>
+  The assistant now answers <strong>83% of real questions with citations on every answer</strong>, handles
+  ordinary conversation, remembers context across turns, and still refuses what it cannot support.
+</p>
+<p>
+  The most transferable lesson is the method. The original diagnosis — “the data is dirty” — would have
+  sent us straight into weeks of cleaning, and it would have <em>partly</em> worked while the real
+  bottleneck sat untouched: a one-line index setting hiding correct answers. Building the scoreboard
+  first cost a few hours and turned every subsequent decision from an argument into a measurement.
+</p>
+
+</body>
+</html>

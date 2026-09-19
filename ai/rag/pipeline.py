@@ -7,6 +7,7 @@ to bypass retrieval (e.g. when it has already retrieved, or for tests).
 """
 
 import logging
+import os
 
 from ai.prompts.system_prompts import NO_INFO_SENTENCE
 from ai.rag.citation_formatter import format_citations
@@ -15,6 +16,11 @@ from ai.rag.groundedness_grader import grade_groundedness
 from ai.rag.retrieval_grader import filter_chunks
 
 logger = logging.getLogger(__name__)
+
+
+def _groundedness_enabled() -> bool:
+    """Whether the post-generation groundedness judge runs (GROUNDEDNESS_ENABLED)."""
+    return os.getenv("GROUNDEDNESS_ENABLED", "1") != "0"
 
 
 class RAGPipeline:
@@ -36,6 +42,11 @@ class RAGPipeline:
         chunks: list = None,
         top_k: int = 5,
         category_filter: list = None,
+        history: str = None,
+        retrieval_query: str = None,
+        stream: bool = False,
+        student_id: str = None,
+        course_id: str = None,
     ) -> dict:
         """Run the pipeline for a single question.
 
@@ -49,14 +60,34 @@ class RAGPipeline:
                 Passed straight through to the retriever — the pipeline does NOT
                 derive it from ``agent_type`` (per Iheb's handoff, category values
                 are opaque and will change with the new schema).
+            history: Formatted recent conversation turns. When present, it is
+                prepended to the question sent to the generator so follow-ups are
+                understood in context. Retrieval and groundedness still use only
+                the current question, so memory never weakens grounding.
+            retrieval_query: Query used for retrieval instead of ``question``
+                (e.g. a short follow-up augmented with the previous turn). Falls
+                back to ``question``.
+            stream: If True, returns (token_generator, chunks). The generator
+                yields answer tokens then a final "[groundedness_check: <bool>]"
+                marker. Memory (history) and the groundedness check both apply on
+                the streaming path too. NOTE: because tokens are sent as they are
+                produced, an ungrounded answer cannot be retracted mid-stream --
+                the marker lets the client flag/discard it after the fact.
         """
         if chunks is None:
-            chunks = self._retrieve(question, top_k, category_filter)
+            chunks = self._retrieve(
+                retrieval_query or question, top_k, category_filter,
+                student_id=student_id, course_id=course_id,
+            )
 
         # Day 5: drop weak chunks before generation. If none survive, refuse
         # without calling the LLM.
         chunks = filter_chunks(question, chunks)
         if not chunks:
+            if stream:
+                def _no_info():
+                    yield NO_INFO_SENTENCE
+                return _no_info(), []
             return {
                 "answer": NO_INFO_SENTENCE,
                 "agent": self.agent_type,
@@ -64,8 +95,30 @@ class RAGPipeline:
                 "citations": [],
             }
 
+        # Conversation memory: history is prepended to the generator's question
+        # only; retrieval and grounding already ran on the current question alone.
+        gen_question = question
+        if history:
+            gen_question = f"{history}\n\nQuestion actuelle: {question}"
+
+        if stream:
+            def _stream_and_grade():
+                stream_generator = self.generator.generate_stream(
+                    gen_question, chunks, student_profile=student_profile
+                )
+                full_answer = ""
+                for token in stream_generator:
+                    full_answer += token
+                    yield token
+
+                if _groundedness_enabled():
+                    is_grounded = grade_groundedness(full_answer, chunks)
+                    yield f"\n\n[groundedness_check: {is_grounded}]"
+
+            return _stream_and_grade(), chunks
+
         result = self.generator.generate(
-            question, chunks, student_profile=student_profile
+            gen_question, chunks, student_profile=student_profile
         )
 
         # Day 4: parse [document, p.X] markers into a structured citations list.
@@ -75,11 +128,11 @@ class RAGPipeline:
 
         # Day 6: block answers that aren't grounded in the retrieved chunks.
         answer = result.get("answer")
-        if answer and answer != NO_INFO_SENTENCE and "error" not in result:
+        if _groundedness_enabled() and answer and answer != NO_INFO_SENTENCE and "error" not in result:
             if not grade_groundedness(answer, chunks):
                 logger.warning(
-                    "Groundedness grader blocked an ungrounded answer (agent=%s).",
-                    self.agent_type,
+                    "Groundedness grader BLOCKED an answer (agent=%s) | q=%r | answer=%r",
+                    self.agent_type, question[:80], answer[:120],
                 )
                 return {
                     "answer": NO_INFO_SENTENCE,
@@ -90,8 +143,11 @@ class RAGPipeline:
 
         return result
 
+
+
     @staticmethod
-    def _retrieve(question: str, top_k: int, category_filter: list) -> list:
+    def _retrieve(question: str, top_k: int, category_filter: list,
+                  student_id: str = None, course_id: str = None) -> list:
         """Fetch chunks from the semantic search layer (Iheb's FSBridge V2).
 
         Imported lazily so the rest of the pipeline (and prompt-only tests) does
@@ -105,4 +161,7 @@ class RAGPipeline:
                 "Pass `chunks=` explicitly, or ensure the retriever module is on "
                 "the path."
             ) from e
-        return retrieve(question, top_k=top_k, category_filter=category_filter)
+        return retrieve(
+            question, top_k=top_k, category_filter=category_filter,
+            student_id=student_id, course_id=course_id,
+        )

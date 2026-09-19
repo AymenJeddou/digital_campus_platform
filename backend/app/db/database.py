@@ -61,3 +61,49 @@ def ensure_schema():
                 connection.execute(text("ALTER TABLE document_chunks ADD COLUMN category VARCHAR"))
             if "embedding" not in chunk_columns:
                 connection.execute(text("ALTER TABLE document_chunks ADD COLUMN embedding JSONB"))
+            if "document_id" in chunk_columns:
+                connection.execute(text("ALTER TABLE document_chunks ALTER COLUMN document_id DROP NOT NULL"))
+            if "student_id" not in chunk_columns:
+                connection.execute(text("ALTER TABLE document_chunks ADD COLUMN student_id UUID"))
+            if "course_id" not in chunk_columns:
+                connection.execute(text("ALTER TABLE document_chunks ADD COLUMN course_id UUID"))
+            if "material_id" not in chunk_columns:
+                connection.execute(text("ALTER TABLE document_chunks ADD COLUMN material_id UUID"))
+            connection.execute(text(
+                "CREATE INDEX IF NOT EXISTS ix_document_chunks_student_course "
+                "ON document_chunks (student_id, course_id)"
+            ))
+
+        if "courses" in table_names:
+            course_columns = {column["name"] for column in inspector.get_columns("courses")}
+            if "code" not in course_columns:
+                connection.execute(text("ALTER TABLE courses ADD COLUMN code VARCHAR"))
+            if "description" not in course_columns:
+                connection.execute(text("ALTER TABLE courses ADD COLUMN description TEXT"))
+            if "source" not in course_columns:
+                connection.execute(text("ALTER TABLE courses ADD COLUMN source VARCHAR DEFAULT 'manual'"))
+                connection.execute(text("UPDATE courses SET source = 'manual' WHERE source IS NULL"))
+            if "external_id" not in course_columns:
+                connection.execute(text("ALTER TABLE courses ADD COLUMN external_id VARCHAR"))
+
+        if "course_materials" in table_names:
+            material_columns = {column["name"] for column in inspector.get_columns("course_materials")}
+            if "original_filename" not in material_columns:
+                connection.execute(text("ALTER TABLE course_materials ADD COLUMN original_filename VARCHAR"))
+
+        # Columns added by the backend/streaming/feedback work (#18).
+        if "chat_messages" in table_names:
+            msg_columns = {column["name"] for column in inspector.get_columns("chat_messages")}
+            if "citations" not in msg_columns:
+                connection.execute(text("ALTER TABLE chat_messages ADD COLUMN citations JSONB"))
+
+        if "documents" in table_names:
+            doc_columns = {column["name"] for column in inspector.get_columns("documents")}
+            if "file_path" not in doc_columns:
+                connection.execute(text("ALTER TABLE documents ADD COLUMN file_path VARCHAR"))
+            if "uploaded_by_id" not in doc_columns:
+                connection.execute(text("ALTER TABLE documents ADD COLUMN uploaded_by_id UUID"))
+            if "is_ingested" not in doc_columns:
+                connection.execute(text("ALTER TABLE documents ADD COLUMN is_ingested BOOLEAN DEFAULT FALSE"))
+            if "content" in doc_columns:
+                connection.execute(text("ALTER TABLE documents ALTER COLUMN content DROP NOT NULL"))

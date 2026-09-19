@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authService } from '@/lib/services/auth';
+import { setToken } from '@/lib/auth';
 import { toast } from 'sonner';
 import Link from 'next/link';
 import { BookOpen, Users, Calendar, BarChart2, Eye, EyeOff, Sun, Moon } from 'lucide-react';
@@ -41,7 +42,7 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       const response = await authService.login({ username: email, password });
-      localStorage.setItem('token', response.access_token);
+      setToken(response.access_token);
       toast.success('Welcome back!');
       router.push('/dashboard');
     } catch (error: any) {

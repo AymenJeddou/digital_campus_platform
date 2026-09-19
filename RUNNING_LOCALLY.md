@@ -11,7 +11,12 @@ Frontend (:3000) ──HTTP──> Backend (:8000) ──python──> AI pipeli
 - Python 3.12+ and Node 18+
 - A Mistral API key (https://console.mistral.ai/api-keys)
 
-## 1. Database (Postgres + pgvector)
+## 1. Database (Postgres + pgvector) and Redis
+```bash
+docker compose up -d          # starts Postgres (:5433) + Redis (:6379)
+```
+This uses `docker-compose.yml` at the repo root. Redis backs the `/auth/login`
+rate limiter (without it the limiter fails open). Or start Postgres alone:
 ```bash
 docker run -d --name fsb-db \
   -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=digital_campus \
@@ -37,14 +42,23 @@ The AI deps include `torch` + `sentence-transformers` (the embedding model,
 - `frontend/.env.local` (copy from `frontend/.env.example`):
   `NEXT_PUBLIC_API_URL=http://localhost:8000`
 
-## 4. Ingest the knowledge base (once)
-Embeds the chunked KB into `document_chunks`. Run **before** the backend so the
-table is created with the correct `vector(768)` type.
+## 4. Apply database migrations
+Create the schema (and the `vector` extension) via Alembic. Run from `backend/`:
+```bash
+cd backend
+alembic upgrade head
+```
+> The app also calls `create_all` + `ensure_schema()` at startup as a dev safety
+> net, but new schema changes should go through a migration:
+> `alembic revision --autogenerate -m "..."` then `alembic upgrade head`.
+
+## 5. Ingest the knowledge base (once)
+Embeds the chunked KB into `document_chunks`.
 ```bash
 python scripts/ingest_kb.py
 ```
 
-## 5. Start the backend (:8000)
+## 6. Start the backend (:8000)
 Run from `backend/` (so pydantic-settings finds `backend/.env`) with the repo
 root on the path (so `ai` and `src` import):
 ```bash
@@ -52,12 +66,12 @@ cd backend
 PYTHONPATH=.. uvicorn app.main:app --port 8000 --reload
 ```
 
-## 6. Start the frontend (:3000)
+## 7. Start the frontend (:3000)
 ```bash
 cd frontend && npm install && npm run dev
 ```
 
-## 7. Try it
+## 8. Try it
 Open http://localhost:3000 → Register → (auto-verified in dev) → Login → Chat.
 Ask e.g. *"Quelles licences sont disponibles à la FSB ?"* and you should get a
 grounded, cited French answer.

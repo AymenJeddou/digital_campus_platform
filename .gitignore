@@ -4,3 +4,9 @@ backend/app/**/__pycache__/
 backend/.env
 *.pyc
 backend/.env
+
+# Resume scratch file for the 100-question eval run (regenerated each run).
+knowledge_base/build/test100_partial.jsonl
+
+# Runtime document-upload storage (admin uploads land here before ingestion).
+backend/uploads/

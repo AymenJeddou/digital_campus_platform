@@ -90,3 +90,27 @@ class RAGGenerator:
                 "chunks_used": 0,
                 "error": str(e),
             }
+
+    def generate_stream(
+        self,
+        question: str,
+        chunks: list,
+        student_status: str = "prospective",
+        student_academic_year: str = None,
+        student_profile: dict = None,
+    ):
+        if student_profile:
+            student_status = student_profile.get("student_status", "prospective")
+            student_academic_year = student_profile.get("academic_year", None)
+
+        try:
+            return self.agent.run_stream(
+                question=question,
+                chunks=chunks,
+                student_status=student_status,
+                student_academic_year=student_academic_year,
+            )
+        except Exception as e:
+            def _error_stream():
+                yield f"Error: {e}"
+            return _error_stream()

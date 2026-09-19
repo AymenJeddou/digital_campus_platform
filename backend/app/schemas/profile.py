@@ -27,3 +27,12 @@ class ProfileUpdate(BaseModel):
 
 class AcademicYearUpdate(BaseModel):
     academic_year: str
+
+class OnboardingRequest(BaseModel):
+    # The only place a student can become "enrolled". "admin" stays rejected.
+    student_status: str  # "prospective" | "enrolled"
+    academic_year: Optional[str] = None
+    bac_type: Optional[str] = None
+    bac_score: Optional[float] = None
+    interests: Optional[list[str]] = None
+    goals: Optional[list[str]] = None

@@ -4,11 +4,33 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bell, Search } from 'lucide-react';
+import { Bell, LogOut, Search } from 'lucide-react';
+import { getToken, removeToken } from '@/lib/auth';
+import { profileService, ProfileResponse } from '@/lib/services/profile';
+
+const STATUS_LABELS: Record<string, string> = {
+  prospective: 'Futur étudiant',
+  enrolled: 'Étudiant inscrit',
+  admin: 'Administration',
+};
+
+function initials(name?: string | null, email?: string): string {
+  if (name) {
+    return name
+      .split(' ')
+      .map((p) => p[0])
+      .join('')
+      .substring(0, 2)
+      .toUpperCase();
+  }
+  if (email) return email.substring(0, 2).toUpperCase();
+  return 'U';
+}
 
 const pageTitles: Record<string, { title: string; subtitle: string }> = {
   '/dashboard': { title: 'Dashboard', subtitle: 'Overview of your academic journey' },
   '/chat': { title: 'AI Assistant', subtitle: 'Get personalized academic support' },
+  '/courses': { title: 'My Courses', subtitle: 'Bring in your courses and ask about them' },
   '/profile': { title: 'Profile Settings', subtitle: 'Manage your account and preferences' },
 };
 
@@ -20,16 +42,32 @@ export default function ProtectedLayout({
   const router = useRouter();
   const pathname = usePathname();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [profile, setProfile] = useState<ProfileResponse | null>(null);
 
   useEffect(() => {
-    // Temporarily bypassed for UI testing
-    // const token = localStorage.getItem('token');
-    // if (!token) {
-    //   router.push('/login');
-    // } else {
-      setIsAuthenticated(true);
-    // }
-  }, [router]);
+    // Guard every protected route: no token -> bounce to /login.
+    const token = getToken();
+    if (!token) {
+      router.replace('/login');
+      return;
+    }
+    setIsAuthenticated(true);
+    profileService
+      .getProfile()
+      .then((p) => {
+        setProfile(p);
+        // Gate: a new user must finish onboarding once before using the app.
+        if (!p.onboarding_completed && pathname !== '/onboarding') {
+          router.replace('/onboarding');
+        }
+      })
+      .catch(() => {});
+  }, [router, pathname]);
+
+  const handleLogout = () => {
+    removeToken();
+    router.replace('/login');
+  };
 
   if (!isAuthenticated) {
     return (
@@ -45,41 +83,65 @@ export default function ProtectedLayout({
   const page = pageTitles[pathname] ?? { title: 'Digital Campus', subtitle: '' };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background text-foreground">
+    <div className="flex h-screen overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
       <Sidebar />
       <div className="flex flex-col flex-1 overflow-hidden">
-        {/* Top header bar */}
-        <header className="flex h-16 flex-shrink-0 items-center justify-between border-b border-border bg-background px-8">
-          <div className="flex flex-col">
-            <h1 className="text-sm font-bold tracking-tight text-foreground">{page.title}</h1>
-            {page.subtitle && (
-              <p className="text-[11px] text-muted-foreground font-medium">{page.subtitle}</p>
-            )}
+        <header className="sticky top-0 z-20 flex h-20 flex-shrink-0 items-center justify-between border-b border-[color:var(--border)]/70 bg-[color:var(--background)]/95 px-6 backdrop-blur-xl sm:px-8">
+          <div className="flex items-center gap-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-[#1d4ed8] shadow-sm">
+              <span className="h-2 w-2 rounded-full bg-[#2563eb]" />
+              <span>Faculty of Digital Systems</span>
+            </div>
+            <div className="hidden lg:block">
+              <h1 className="text-sm font-semibold tracking-tight text-[#0f172a]">{page.title}</h1>
+              {page.subtitle && <p className="text-xs text-slate-500">{page.subtitle}</p>}
+            </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-secondary/50 border border-border rounded-lg text-muted-foreground">
-              <Search className="h-3.5 w-3.5" />
-              <span className="text-xs font-medium">Search anything...</span>
-              <kbd className="ml-4 pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border border-border bg-card px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                <span className="text-xs">⌘</span>K
-              </kbd>
-            </div>
+          <div className="flex items-center gap-3 sm:gap-4">
+            <label className="hidden md:flex min-w-[340px] items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 shadow-sm">
+              <Search className="h-4 w-4 text-slate-400" />
+              <input
+                aria-label="Search dashboard"
+                placeholder="Search courses, documents, or faculty"
+                className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
+              />
+            </label>
 
-            <div className="flex items-center gap-2">
-              <button className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground hover:bg-secondary hover:text-foreground transition-all">
-                <Bell className="h-4 w-4" />
-                <span className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-primary ring-2 ring-card" />
-              </button>
-              <div className="h-9 w-9 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-all">
-                <span className="text-xs font-bold text-primary tracking-tighter">JD</span>
+            <button className="relative flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-colors hover:border-blue-200 hover:text-[#1d4ed8]">
+              <Bell className="h-5 w-5" />
+              <span className="absolute right-3 top-3 h-2.5 w-2.5 rounded-full border-2 border-white bg-[#2563eb]" />
+            </button>
+
+            <div className="hidden items-center gap-3 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm lg:flex">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#eff6ff] text-sm font-semibold text-[#1d4ed8]">
+                {initials(profile?.full_name, profile?.email)}
+              </div>
+              <div className="pr-2">
+                <p className="text-sm font-semibold text-[#0f172a]">
+                  {profile?.full_name || profile?.email?.split('@')[0] || 'Étudiant'}
+                </p>
+                <p className="text-xs text-slate-500">
+                  {profile?.student_status
+                    ? STATUS_LABELS[profile.student_status] ?? profile.student_status
+                    : 'Compte'}
+                </p>
               </div>
             </div>
+
+            <button
+              onClick={handleLogout}
+              aria-label="Se déconnecter"
+              title="Se déconnecter"
+              className="relative flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-colors hover:border-blue-200 hover:text-[#1d4ed8]"
+            >
+              <LogOut className="h-5 w-5" />
+            </button>
           </div>
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto bg-background">
+        <main className="flex-1 overflow-y-auto bg-[var(--background)]">
           <AnimatePresence mode="wait">
             <motion.div
               key={pathname}
@@ -87,7 +149,7 @@ export default function ProtectedLayout({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-              className="h-full p-8 max-w-7xl mx-auto w-full"
+              className="mx-auto h-full w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8"
             >
               {children}
             </motion.div>

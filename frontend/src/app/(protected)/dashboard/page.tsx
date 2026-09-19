@@ -1,259 +1,354 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { profileService, ProfileResponse } from '@/lib/services/profile';
-import {
-  CheckCircle2,
-  Circle,
-  GraduationCap,
-  LayoutList,
-  Trophy,
-  ArrowRight,
-  MessageSquare,
-  TrendingUp,
-  Sparkles,
-} from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
+import {
+  ArrowUpRight,
+  Bot,
+  BookOpenText,
+  ChevronRight,
+  Clock3,
+  FileText,
+  Layers3,
+  MessageSquareText,
+  Plus,
+  Sparkles,
+  CheckCircle2,
+} from 'lucide-react';
+import { profileService, ProfileResponse } from '@/lib/services/profile';
+import { coursesService, EnrolledCourse } from '@/lib/services/courses';
+import { chatService, ChatSession } from '@/lib/services/chat';
+
+function firstName(profile: ProfileResponse | null): string {
+  if (profile?.full_name) return profile.full_name.split(' ')[0];
+  if (profile?.email) return profile.email.split('@')[0];
+  return 'là';
+}
+
+// Honest completeness: fraction of the onboarding-relevant fields that are filled.
+function computeCompleteness(p: ProfileResponse | null): number {
+  if (!p) return 0;
+  const checks = [
+    !!p.full_name,
+    !!p.student_status,
+    !!p.academic_year,
+    !!p.bac_type,
+    p.bac_score != null,
+    !!(p.interests && p.interests.length),
+    !!(p.goals && p.goals.length),
+  ];
+  const filled = checks.filter(Boolean).length;
+  return Math.round((filled / checks.length) * 100);
+}
+
+function relativeDate(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return '';
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+const STATUS_LABELS: Record<string, string> = {
+  prospective: 'Futur étudiant',
+  enrolled: 'Étudiant inscrit',
+  admin: 'Administration',
+};
 
 export default function DashboardPage() {
-  const [onboardingStatus, setOnboardingStatus] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [profile, setProfile] = useState<ProfileResponse | null>(null);
+  const [courses, setCourses] = useState<EnrolledCourse[]>([]);
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchStatus = async () => {
-      try {
-        const status = await profileService.getOnboardingStatus();
-        setOnboardingStatus(status);
-      } catch (error) {
-        console.error('Failed to load onboarding status');
-      } finally {
-        setIsLoading(false);
-      }
+    let active = true;
+    Promise.allSettled([
+      profileService.getProfile(),
+      coursesService.listMine(),
+      chatService.getSessions(),
+    ]).then(([p, c, s]) => {
+      if (!active) return;
+      if (p.status === 'fulfilled') setProfile(p.value);
+      if (c.status === 'fulfilled') setCourses(c.value);
+      if (s.status === 'fulfilled') setSessions(s.value);
+      setLoading(false);
+    });
+    return () => {
+      active = false;
     };
-    fetchStatus();
   }, []);
+
+  const completeness = useMemo(() => computeCompleteness(profile), [profile]);
+  const totalMaterials = useMemo(
+    () => courses.reduce((sum, c) => sum + (c.material_count || 0), 0),
+    [courses],
+  );
+  const recentSessions = useMemo(() => sessions.slice(0, 4), [sessions]);
 
   const stats = [
     {
-      name: 'Student Status',
-      value: onboardingStatus?.student_status || 'Not configured',
-      icon: GraduationCap,
-      iconBg: 'bg-primary/10',
-      iconColor: 'text-primary',
-      accent: 'border-l-primary',
+      label: 'Cours suivis',
+      value: String(courses.length),
+      detail: courses.length ? 'Ajoutés à ton espace' : 'Aucun cours pour l’instant',
+      icon: BookOpenText,
     },
     {
-      name: 'Academic Year',
-      value: onboardingStatus?.academic_year || 'Not configured',
-      icon: Trophy,
-      iconBg: 'bg-primary/10',
-      iconColor: 'text-primary',
-      accent: 'border-l-primary',
+      label: 'Supports de cours',
+      value: String(totalMaterials),
+      detail: totalMaterials ? 'Documents disponibles' : 'Ajoute tes premiers supports',
+      icon: FileText,
     },
     {
-      name: 'Setup Progress',
-      value: onboardingStatus?.onboarding_completed ? 'Complete' : 'In progress',
-      icon: LayoutList,
-      iconBg: onboardingStatus?.onboarding_completed ? 'bg-emerald-500/10' : 'bg-amber-500/10',
-      iconColor: onboardingStatus?.onboarding_completed ? 'text-emerald-500' : 'text-amber-500',
-      accent: onboardingStatus?.onboarding_completed ? 'border-l-emerald-500' : 'border-l-amber-500',
+      label: 'Conversations',
+      value: String(sessions.length),
+      detail: sessions.length ? 'Avec l’assistant IA' : 'Pose ta première question',
+      icon: MessageSquareText,
+    },
+    {
+      label: 'Profil complété',
+      value: `${completeness}%`,
+      detail: profile?.onboarding_completed ? 'Onboarding terminé' : 'Complète ton profil',
+      icon: CheckCircle2,
     },
   ];
 
-  const steps = [
-    {
-      label: 'Complete your profile',
-      description: 'Add your academic year and learning goals.',
-      done: !!(onboardingStatus?.student_status && onboardingStatus?.academic_year),
-      href: '/profile',
-      cta: 'Go to Profile',
-    },
-    {
-      label: 'Start a conversation',
-      description: 'Get personalized academic support from the AI assistant.',
-      done: false,
-      href: '/chat',
-      cta: 'Open Assistant',
-    },
-  ];
-
-  const completedCount = steps.filter((s) => s.done).length;
-  const progressPct = Math.round((completedCount / steps.length) * 100);
+  if (loading) {
+    return (
+      <div className="flex h-full items-center justify-center py-24">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-[#2563eb]/20 border-t-[#2563eb]" />
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto">
-
-      {/* Welcome banner */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="bg-card border border-border rounded-2xl p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 shadow-sm shadow-primary/5"
-      >
-        <div className="space-y-1">
-          <h2 className="text-2xl font-bold tracking-tight text-foreground">Welcome back</h2>
-          <p className="text-sm text-muted-foreground max-w-md leading-relaxed">
-            Your Digital Campus dashboard gives you a real-time view of your academic profile and progress.
-          </p>
-        </div>
-        <Link
-          href="/chat"
-          className="inline-flex items-center gap-2.5 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold px-6 py-3 rounded-xl transition-all shadow-sm shadow-primary/20 whitespace-nowrap group"
-        >
-          <Sparkles className="h-4 w-4 transition-transform group-hover:scale-110" />
-          Ask the Assistant
-        </Link>
-      </motion.div>
-
-      {/* Stat cards */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {stats.map((stat, i) => (
-          <motion.div
-            key={stat.name}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.07, duration: 0.3 }}
-            className={`bg-card border border-border rounded-2xl p-6 border-l-4 ${stat.accent} hover:shadow-md transition-all duration-300 group`}
-          >
-            <div className="flex items-start justify-between">
-              <div className="space-y-3">
-                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{stat.name}</p>
-                <p className="text-lg font-bold text-foreground capitalize tracking-tight">
-                  {isLoading ? (
-                    <span className="inline-block h-6 w-32 bg-secondary rounded-lg animate-pulse" />
-                  ) : (
-                    stat.value
-                  )}
-                </p>
-              </div>
-              <div className={`p-3 rounded-xl ${stat.iconBg} transition-transform group-hover:scale-110`}>
-                <stat.icon className="h-5 w-5 ${stat.iconColor}" />
-              </div>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Two column section */}
-      <div className="grid gap-6 lg:grid-cols-5">
-
-        {/* Getting started — 3 cols */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25, duration: 0.3 }}
-          className="lg:col-span-3 bg-card border border-border rounded-2xl overflow-hidden shadow-sm"
-        >
-          <div className="px-8 py-6 border-b border-border flex items-center justify-between bg-secondary/30">
-            <div className="space-y-1">
-              <h3 className="text-sm font-bold tracking-tight text-foreground">Setup Checklist</h3>
-              <p className="text-xs text-muted-foreground">Complete all steps to unlock the full experience.</p>
-            </div>
-            <span className="text-[10px] font-bold text-primary bg-primary/10 px-3 py-1 rounded-full uppercase tracking-wider">
-              {completedCount}/{steps.length} completed
-            </span>
-          </div>
-
-          {/* Progress bar */}
-          <div className="px-8 pt-6">
-            <div className="h-2 bg-secondary rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-primary rounded-full shadow-[0_0_10px_rgba(var(--primary),0.5)]"
-                initial={{ width: 0 }}
-                animate={{ width: `${progressPct}%` }}
-                transition={{ duration: 0.8, delay: 0.4, ease: [0.23, 1, 0.32, 1] }}
-              />
-            </div>
-          </div>
-
-          <div className="px-8 py-6 space-y-4">
-            {steps.map((step) => (
-              <Link
-                key={step.label}
-                href={step.href}
-                className="group flex items-center gap-5 rounded-xl p-4 hover:bg-secondary/50 transition-all border border-transparent hover:border-border"
-              >
-                <div className="flex-shrink-0">
-                  {step.done ? (
-                    <div className="h-6 w-6 rounded-full bg-emerald-500/10 flex items-center justify-center">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-                    </div>
-                  ) : (
-                    <div className="h-6 w-6 rounded-full border-2 border-border group-hover:border-primary/50 transition-colors flex items-center justify-center">
-                      <Circle className="h-2 w-2 text-transparent group-hover:text-primary/30 transition-colors" />
-                    </div>
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className={`text-sm font-bold tracking-tight ${step.done ? 'text-muted-foreground line-through opacity-60' : 'text-foreground'}`}>
-                    {step.label}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-0.5 truncate">{step.description}</p>
-                </div>
-                {!step.done && (
-                  <span className="text-xs font-bold text-primary group-hover:translate-x-1 transition-transform flex items-center gap-1.5 whitespace-nowrap uppercase tracking-wider">
-                    {step.cta}
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
-                )}
-              </Link>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Quick info panel — 2 cols */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.32, duration: 0.3 }}
-          className="lg:col-span-2 flex flex-col gap-6"
-        >
-          {/* AI CTA card */}
-          <div className="flex-1 bg-primary rounded-2xl p-6 flex flex-col justify-between text-primary-foreground relative overflow-hidden group">
-            <div className="absolute -right-8 -top-8 h-32 w-32 bg-white/10 rounded-full blur-3xl transition-transform group-hover:scale-150" />
-            <div className="relative z-10">
-              <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl w-fit mb-6">
-                <MessageSquare className="h-5 w-5 text-white" />
-              </div>
-              <p className="text-lg font-bold tracking-tight text-white">AI-Powered Assistance</p>
-              <p className="text-sm text-primary-foreground/80 mt-2 leading-relaxed">
-                Ask questions, get explanations, and receive personalized study recommendations instantly.
+    <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="space-y-6">
+        {/* Greeting */}
+        <section className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-[0_24px_55px_rgba(15,23,42,0.07)]">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl space-y-4">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#1d4ed8]">
+                Ton espace
+              </p>
+              <h2 className="text-3xl font-semibold tracking-tight text-[#0f172a] sm:text-4xl">
+                Bonjour {firstName(profile)}, bienvenue sur ton campus.
+              </h2>
+              <p className="max-w-2xl text-base leading-7 text-slate-600">
+                Retrouve tes cours, tes conversations avec l’assistant, et pose des questions
+                sourcées sur la Faculté des Sciences de Bizerte.
               </p>
             </div>
-            <Link
-              href="/chat"
-              className="mt-8 relative z-10 inline-flex items-center justify-center gap-2 bg-white text-primary text-xs font-bold px-5 py-3 rounded-xl hover:bg-primary-foreground transition-all shadow-lg shadow-black/10 group/btn"
+
+            <div className="grid gap-3 sm:grid-cols-2 lg:min-w-[320px] lg:grid-cols-1">
+              <div className="rounded-2xl border border-slate-200 bg-[var(--background)] px-4 py-3">
+                <p className="text-sm text-slate-500">Statut</p>
+                <p className="mt-1 text-lg font-semibold text-[#0f172a]">
+                  {profile?.student_status
+                    ? STATUS_LABELS[profile.student_status] ?? profile.student_status
+                    : '—'}
+                </p>
+              </div>
+              <div className="rounded-2xl border border-slate-200 bg-[var(--background)] px-4 py-3">
+                <p className="text-sm text-slate-500">Année académique</p>
+                <p className="mt-1 text-lg font-semibold text-[#0f172a]">
+                  {profile?.academic_year || 'Non renseignée'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats */}
+        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {stats.map(({ label, value, detail, icon: Icon }) => (
+            <article
+              key={label}
+              className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-[0_18px_40px_rgba(15,23,42,0.06)]"
             >
-              Open Chat
-              <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+              <div className="flex items-center justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#eff6ff] text-[#2563eb]">
+                  <Icon className="h-5 w-5" />
+                </div>
+              </div>
+              <p className="mt-5 text-sm font-medium text-slate-500">{label}</p>
+              <p className="mt-2 text-3xl font-semibold tracking-tight text-[#0f172a]">{value}</p>
+              <p className="mt-2 text-sm leading-6 text-slate-500">{detail}</p>
+            </article>
+          ))}
+        </section>
+
+        {/* Courses */}
+        <section className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-[0_24px_55px_rgba(15,23,42,0.07)]">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#1d4ed8]">
+                Mes cours
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#0f172a]">
+                Tes matières et leurs supports
+              </h2>
+            </div>
+            <Link
+              href="/courses"
+              className="inline-flex items-center gap-2 rounded-full bg-[#2563eb] px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 transition-colors hover:bg-[#1d4ed8]"
+            >
+              <Plus className="h-4 w-4" />
+              Ajouter un cours
             </Link>
           </div>
 
-          {/* Platform info card */}
-          <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
-            <div className="flex items-center gap-2 mb-5">
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Platform Status</p>
-            </div>
-            <ul className="space-y-4">
-              {[
-                { label: 'AI Assistant', status: 'Active' },
-                { label: 'Profile Setup', status: onboardingStatus?.onboarding_completed ? 'Complete' : 'Pending' },
-              ].map((item) => (
-                <li key={item.label} className="flex items-center justify-between text-xs">
-                  <span className="text-muted-foreground font-bold">{item.label}</span>
-                  <span className={`font-bold px-3 py-1 rounded-full text-[10px] uppercase tracking-wider ${item.status === 'Active' || item.status === 'Complete'
-                      ? 'bg-emerald-500/10 text-emerald-500'
-                      : 'bg-amber-500/10 text-amber-500'
-                    }`}>
-                    {item.status}
-                  </span>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-6 space-y-3">
+            {courses.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-slate-300 bg-[#eff6ff] px-4 py-8 text-center">
+                <p className="text-sm font-medium text-[#0f172a]">Aucun cours pour l’instant</p>
+                <p className="mt-1 text-sm text-slate-500">
+                  Ajoute un cours pour poser des questions sur tes propres supports.
+                </p>
+                <Link
+                  href="/courses"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-[#1d4ed8] transition-colors hover:border-blue-200"
+                >
+                  <Plus className="h-4 w-4" />
+                  Ajouter mon premier cours
+                </Link>
+              </div>
+            )}
+
+            {courses.map((course) => (
+              <article
+                key={course.id}
+                className="flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-[#eff6ff] px-4 py-4"
+              >
+                <div className="flex min-w-0 items-center gap-4">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#2563eb] shadow-sm">
+                    <BookOpenText className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-[#0f172a]">{course.name}</p>
+                    <p className="truncate text-sm text-slate-500">
+                      {course.material_count} support{course.material_count === 1 ? '' : 's'}
+                      {course.code ? ` · ${course.code}` : ''}
+                    </p>
+                  </div>
+                </div>
+
+                <Link
+                  href={`/chat?course=${course.id}&name=${encodeURIComponent(course.name)}`}
+                  className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-3 py-2 text-xs font-semibold text-[#1d4ed8] shadow-sm transition-colors hover:text-[#2563eb]"
+                >
+                  <Bot className="h-4 w-4" />
+                  Poser une question
+                </Link>
+              </article>
+            ))}
           </div>
-        </motion.div>
+        </section>
+      </div>
+
+      {/* Sidebar column */}
+      <div className="space-y-6 xl:sticky xl:top-24 xl:self-start">
+        {/* Complete your profile */}
+        {!profile?.onboarding_completed && (
+          <section className="rounded-3xl bg-[#0f172a] p-6 text-white shadow-[0_26px_60px_rgba(15,23,42,0.28)]">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">
+                  À faire
+                </p>
+                <h2 className="mt-2 text-2xl font-semibold tracking-tight">Complète ton profil</h2>
+              </div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-[#93c5fd]">
+                <ArrowUpRight className="h-5 w-5" />
+              </div>
+            </div>
+            <p className="mt-4 text-sm leading-6 text-slate-300">
+              Renseigne ton statut et tes centres d’intérêt pour des réponses plus adaptées.
+            </p>
+            <div className="mt-6 rounded-3xl border border-white/10 bg-white/5 p-4">
+              <div className="flex items-center justify-between text-sm text-slate-300">
+                <span>Profil complété</span>
+                <span>{completeness}%</span>
+              </div>
+              <div className="mt-3 h-2 rounded-full bg-white/10">
+                <div
+                  className="h-2 rounded-full bg-[#2563eb]"
+                  style={{ width: `${completeness}%` }}
+                />
+              </div>
+            </div>
+            <Link
+              href="/profile"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#2563eb] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1d4ed8]"
+            >
+              Compléter maintenant
+              <ChevronRight className="h-4 w-4" />
+            </Link>
+          </section>
+        )}
+
+        {/* Recent conversations */}
+        <section className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-[0_24px_55px_rgba(15,23,42,0.07)]">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#1d4ed8]">
+                Assistant IA
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#0f172a]">
+                Conversations récentes
+              </h2>
+            </div>
+            <Clock3 className="h-5 w-5 text-slate-400" />
+          </div>
+
+          <div className="mt-6 space-y-3">
+            {recentSessions.length === 0 && (
+              <div className="rounded-2xl border border-dashed border-slate-300 bg-[#eff6ff] px-4 py-6 text-center">
+                <p className="text-sm font-medium text-[#0f172a]">Aucune conversation</p>
+                <p className="mt-1 text-sm text-slate-500">
+                  Démarre une discussion avec l’assistant.
+                </p>
+              </div>
+            )}
+
+            {recentSessions.map((s) => (
+              <Link
+                key={s.id}
+                href="/chat"
+                className="flex items-center gap-4 rounded-2xl bg-[#eff6ff] p-4 transition-colors hover:bg-[#dbeafe]"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white text-[#2563eb] shadow-sm">
+                  <MessageSquareText className="h-5 w-5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium leading-6 text-[#0f172a]">Conversation</p>
+                  <p className="mt-0.5 text-sm text-slate-500">{relativeDate(s.created_at)}</p>
+                </div>
+                <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+              </Link>
+            ))}
+
+            <Link
+              href="/chat"
+              className="flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-[#1d4ed8] transition-colors hover:border-blue-200"
+            >
+              <Sparkles className="h-4 w-4" />
+              Ouvrir l’assistant
+            </Link>
+          </div>
+        </section>
+
+        {/* Quick tip */}
+        <section className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-[0_24px_55px_rgba(15,23,42,0.07)]">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#eff6ff] text-[#2563eb]">
+              <Layers3 className="h-5 w-5" />
+            </div>
+            <h3 className="text-base font-semibold text-[#0f172a]">Le savais-tu ?</h3>
+          </div>
+          <p className="mt-4 text-sm leading-6 text-slate-600">
+            L’assistant cite toujours les documents officiels utilisés pour répondre. Vérifie les
+            sources en bas de chaque réponse.
+          </p>
+        </section>
       </div>
     </div>
   );

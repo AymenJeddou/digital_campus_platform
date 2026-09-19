@@ -18,6 +18,8 @@ def retrieve(
     query: str,
     top_k: int = 5,
     category_filter: "list[str] | None" = None,
+    student_id: "str | None" = None,
+    course_id: "str | None" = None,
 ) -> "list[dict]":
     """Return the top-K relevant chunks for ``query`` via pgvector search.
 
@@ -28,6 +30,10 @@ def retrieve(
             underlying search filters by a single category, so when exactly one
             is given it is applied; otherwise the search runs across all
             categories and relevance ranking decides.
+        student_id, course_id: Optional course scope. Omitted (the default) means
+            global knowledge-base only — a student's course material never leaks
+            into another user's answer. Both given adds that student's chunks for
+            that course.
 
     Returns:
         A list of chunk dicts following the FSBridge V2 schema.
@@ -42,6 +48,9 @@ def retrieve(
 
     db = get_session()
     try:
-        return semantic_search(db, query, top_k=top_k, category=category)
+        return semantic_search(
+            db, query, top_k=top_k, category=category,
+            student_id=student_id, course_id=course_id,
+        )
     finally:
         db.close()

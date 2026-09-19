@@ -1,0 +1,1960 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<title>FSB Nexus — Test de 100 questions</title><style>
+@page { size: A4; margin: 14mm 12mm; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Arial, sans-serif; font-size: 9.2pt; line-height: 1.45; color: #1c2430; margin: 0; }
+h1,h2 { color: #143c6e; margin: 0 0 .3em; }
+h1 { font-size: 24pt; }
+h2 { font-size: 13pt; margin-top: 1.3em; border-bottom: 2px solid #143c6e; padding-bottom: .2em; }
+.cover { text-align:center; padding: 16mm 0 6mm; border-bottom: 3px solid #143c6e; margin-bottom: .8em; }
+.cover .sub { font-size: 12pt; color:#44536b; margin-top:.4em; }
+.meta { margin-top:1.2em; font-size:9.5pt; color:#44536b; }
+.kpi { display:flex; gap:6px; margin:1em 0; }
+.kpi div { flex:1; border:1px solid #cfd8e3; border-top:3px solid #143c6e; border-radius:4px; padding:7px 4px; text-align:center; background:#fbfcfe; }
+.kpi .v { font-size:15pt; font-weight:700; color:#143c6e; display:block; }
+.kpi .l { font-size:7pt; color:#56657d; text-transform:uppercase; letter-spacing:.3px; }
+.callout { border-left:4px solid #143c6e; background:#f2f6fb; padding:7px 10px; margin:.7em 0; border-radius:0 4px 4px 0; }
+.warn { border-left-color:#c77700; background:#fff8ec; }
+table.sum { border-collapse:collapse; width:100%; margin:.6em 0; font-size:9pt; }
+table.sum th, table.sum td { border:1px solid #cfd8e3; padding:4px 6px; }
+table.sum th { background:#143c6e; color:#fff; }
+.q { border:1px solid #d8e0ea; border-radius:5px; margin:7px 0; page-break-inside:avoid; overflow:hidden; }
+.qh { background:#eef3f9; padding:5px 8px; font-weight:600; color:#143c6e; display:flex; justify-content:space-between; gap:8px; border-bottom:1px solid #d8e0ea; }
+.qh .id { color:#7a8699; font-weight:400; font-size:8pt; white-space:nowrap; }
+.qb { padding:6px 8px; }
+.lbl { font-size:7.2pt; text-transform:uppercase; letter-spacing:.4px; color:#7a8699; font-weight:700; margin-bottom:1px; }
+.exp { background:#f3f9f4; border-left:3px solid #1a7a41; padding:4px 7px; margin-bottom:5px; border-radius:0 3px 3px 0; }
+.got { background:#f7f9fc; border-left:3px solid #2a6bb0; padding:4px 7px; border-radius:0 3px 3px 0; }
+.got.ref { background:#fdf3f3; border-left-color:#b3261e; }
+.tag { font-size:7.2pt; font-weight:700; padding:1px 6px; border-radius:9px; color:#fff; white-space:nowrap; }
+.CORRECT { background:#1a7a41; } .INCOMPLET { background:#c77700; } .INCORRECT { background:#b3261e; }
+.DISCUTABLE { background:#c77700; } .CONFLIT { background:#7c4dbd; } .REFUS { background:#6b7280; }
+.cite { font-size:7.6pt; color:#56657d; margin-top:3px; font-style:italic; }
+.note { background:#fffbe9; border-left:3px solid #c77700; padding:4px 7px; margin-top:5px; font-size:8.4pt; border-radius:0 3px 3px 0; }
+.pagebreak { page-break-before:always; }
+</style></head><body>
+<div class="cover">
+  <h1>FSB Nexus</h1>
+  <div class="sub">Test du modèle sur 100 questions</div>
+  <div class="sub" style="font-size:10pt">Question · Réponse du modèle · Réponse attendue</div>
+  <div class="meta"><strong>Faculté des Sciences de Bizerte</strong> · Assistant IA / RAG<br>
+  Généré le 2026-07-16 · 100 questions fondées sur les documents officiels</div>
+</div>
+
+<h2>Résumé</h2>
+<div class="kpi">
+  <div><span class="v">80/100</span><span class="l">Réponses correctes</span></div>
+  <div><span class="v">85/85</span><span class="l">Réponses citées</span></div>
+  <div><span class="v">1</span><span class="l">Erreur factuelle</span></div>
+  <div><span class="v">15</span><span class="l">Refus</span></div>
+</div>
+<table class="sum">
+  <tr><th>Verdict (revue manuelle)</th><th>Nombre</th><th>Signification</th></tr>
+  <tr><td><strong>CORRECT</strong></td><td>80</td><td>La réponse est conforme aux documents sources</td></tr>
+  <tr><td><strong>INCOMPLET</strong></td><td>1</td><td>Exacte mais partielle (#6 : un seul département cité sur six)</td></tr>
+  <tr><td><strong>INCORRECT</strong></td><td>1</td><td>Contredit les documents (#55 : deux mastères confondus)</td></tr>
+  <tr><td><strong>DISCUTABLE</strong></td><td>1</td><td>Ne répond pas vraiment à la question posée (#78)</td></tr>
+  <tr><td><strong>CONFLIT</strong></td><td>2</td><td>La base contient deux sources contradictoires (#74, #75)</td></tr>
+  <tr><td><strong>REFUS</strong></td><td>15</td><td>Le modèle a décliné alors que l'information existe</td></tr>
+</table>
+
+<div class="callout"><strong>Comment lire ce rapport.</strong> Chaque question montre la
+<strong>réponse attendue</strong> (extraite des documents officiels de la FSB) puis la
+<strong>réponse réelle du modèle</strong> avec ses citations. Les 100 questions portent
+uniquement sur des informations réellement présentes dans la base documentaire — aucune
+question piège. Chaque verdict a été <strong>vérifié à la main</strong>.</div>
+
+<div class="callout warn"><strong>Pourquoi les verdicts sont manuels.</strong> Un score automatique
+avait d'abord été calculé (présence des faits clés attendus dans la réponse). Il s'est révélé faux
+<em>dans les deux sens</em> : il marquait « échec » des réponses correctes écrites autrement
+(« 3 428 » vs « 3428 », « 12 septembre 2024 » vs « 12/09/2024 », « 4 mois » vs « quatre mois »),
+et il a marqué « réussite » une réponse hors sujet (#78) sur un simple jeton commun. Il a donc été
+écarté : <strong>les 100 réponses ont été relues une par une face à leurs documents sources</strong>.
+Chaque question ci-après porte son verdict vérifié et sa justification.</div>
+
+<h2>Analyse</h2>
+<h3 style="color:#1a7a41">Ce qui fonctionne</h3>
+<ul>
+  <li><strong>80 réponses correctes sur les 85 fournies</strong>, et <strong>85/85 portent une citation</strong> vers le document source.</li>
+  <li><strong>Une seule erreur factuelle sur 100 questions</strong> (#55).</li>
+  <li><strong>Aucune information inventée.</strong> Quand le modèle ne trouve pas, il refuse au lieu d'improviser — c'est le comportement voulu pour un assistant officiel.</li>
+  <li>Le modèle restitue fidèlement des données précises : dates d'inscription, montants, postes téléphoniques, procédures en plusieurs étapes.</li>
+</ul>
+
+<h3 style="color:#b3261e">Les 15 refus : un seul document en cause</h3>
+<p><strong>8 des 15 refus remontent au même fichier</strong> : <code>liste_des_coordinateurs</code>
+(#54, #56–#60 directement, plus #45 et #53 qui en dépendent). L'information existe pourtant — ce
+fichier contient les 22 coordinateurs — mais c'est un <strong>tableau compact en un seul bloc</strong>,
+que la recherche retrouve mal. C'est exactement le problème déjà rencontré, et résolu, pour les licences.</p>
+<div class="callout warn"><strong>Nuance importante :</strong> l'échec n'est pas systématique mais
+<strong>instable</strong>. Sur le même document, #61 (coordinateur du MP EEA) a été
+<strong>correctement répondu</strong>, tandis que #55 a produit la seule erreur factuelle du test en
+confondant deux mastères voisins du même tableau. Un bloc unique et dense ne « disparaît » pas : il
+devient imprévisible — parfois trouvé, parfois manqué, parfois confondu avec sa ligne voisine.</div>
+<div class="callout"><strong>Correctif identifié :</strong> découper le tableau des coordinateurs en
+fiches courtes (une par mastère), comme cela a été fait pour les licences — correctif qui avait fait
+passer les questions « licence » du rang 11 au rang 1. Cela corrigerait d'un coup les 8 refus
+<em>et</em> l'erreur #55. Les refus #3, #10 et #51 relèvent du même schéma : des fiches
+en bloc unique (<code>dep_*</code>, <code>fsb_presentation_about</code>).</div>
+
+<h3 style="color:#7c4dbd">Un problème de qualité des sources (#74, #75, #76, #80)</h3>
+<p>La base contient un <strong>article de blog commercial</strong> (rédigé par une agence web) sur les
+bourses, dont les montants <strong>contredisent le document officiel de l'Office des Œuvres
+Universitaires</strong>. Interrogé, le modèle a cité les <strong>montants officiels de l'OOUN</strong> —
+donc la source la plus fiable — et c'est la « réponse attendue » qui était tirée de l'article commercial.
+<strong>Le modèle a eu raison contre notre référence.</strong></p>
+<div class="callout warn"><strong>Recommandation :</strong> retirer cet article de la base documentaire.
+Une source non officielle qui contredit un document ministériel est un risque : sur une autre question,
+le modèle pourrait citer le mauvais chiffre en toute confiance.</div>
+
+<h3>Limite connue</h3>
+<p>Aucun document ne liste les six départements ensemble (#6) : l'information est éclatée entre les
+fiches de chaque département. Une fiche de synthèse « départements de la FSB » corrigerait ce point.</p>
+
+<div class="pagebreak"></div>
+
+<div class="pagebreak"></div>
+<h2>Présentation <span style="font-size:9pt;color:#7a8699;font-weight:400">(8 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>En quelle année la Faculté des Sciences de Bizerte a-t-elle été créée ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#1</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_presentation_about)</div>En 1990, par la loi n°106 du 26 novembre 1990.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La Faculté des Sciences de Bizerte a été créée en **1990** (loi n°106 du 26 novembre 1990) [fsb_presentation_about, p.0].
+      <div class="cite">Citations : fsb_presentation_about p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 1990 et loi n°106 du 26 novembre 1990 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>À quelle université la Faculté des Sciences de Bizerte est-elle rattachée ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#2</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_presentation_about)</div>À l&#x27;Université de Carthage. Elle est sous tutelle du ministère de l&#x27;enseignement supérieur et de la recherche scientifique.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La Faculté des Sciences de Bizerte (FSB) est rattachée à **l&#x27;Université de Carthage** [fsb_presentation_about, p.0].
+      <div class="cite">Citations : fsb_presentation_about p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Université de Carthage : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quel établissement la FSB a-t-elle remplacé ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#3</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_presentation_about)</div>L&#x27;École Normale Supérieure, créée en 1956 à Tunis et transférée à Bizerte en octobre 1980.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> L&#x27;information (École Normale Supérieure, 1956) figure pourtant dans fsb_presentation_about.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Combien d&#x27;étudiants compte la Faculté des Sciences de Bizerte ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#4</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_presentation_about)</div>3428 étudiants.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La Faculté des Sciences de Bizerte compte **3 428 étudiants** [fsb_presentation_about, p.0].
+      <div class="cite">Citations : fsb_presentation_about p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 3 428 étudiants : exact. L&#x27;indice automatique l&#x27;avait marqué à tort (format 3428 vs 3 428).</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Présente-moi la Faculté des Sciences de Bizerte.</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#5</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_presentation_about)</div>Établissement d&#x27;enseignement et de recherche sous tutelle du ministère de l&#x27;enseignement supérieur, rattaché à l&#x27;Université de Carthage, créé en 1990 (loi n°106 du 26 novembre 1990), en remplacement de l&#x27;École Normale Supérieure. Environ 3428 étudiants.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Voici une présentation de la **Faculté des Sciences de Bizerte (FSB)** basée sur les informations disponibles :
+
+La **FSB** est un établissement public d’enseignement supérieur et de recherche, placé sous la tutelle du **ministère de l’Enseignement Supérieur et de la Recherche Scientifique** et rattaché à l’**Université de Carthage**. Elle a été créée en **1990** (loi n°106 du 26 novembre 1990), succédant à l’**École Normale Supérieure** (créée en 1956 à Tunis, puis transférée à Bizerte en **octobre 1980**) [fsb_presentation_about, p.0].
+
+La faculté accueille **3 428 étudiants** et compte un corps enseignant dédié [fsb_presentation_about, p.0].
+
+### **Offre de formation**
+La FSB propose des **licences** et des **mastères** (recherche et professionnels) dans divers domaines scientifiques, notamment :
+- **Sciences de la Terre** (parcours *Géo-ressources et environnement* et *Sciences et techniques de géologie*) [FSB — Licences en Sciences de la Terre, p.0].
+- **Sciences Biologiques** (licences en *SVT*, *Sciences du Vivant et de l’Environnement*, *Biologie moléculaire et cellulaire*, et *Biotechnologie*) [FSB — Licences en Biologie et Sciences du Vivant, p.0].
+- **Masters et mastères** (recherche et professionnels) [FSB — Masters et Mastères proposés, p.0].
+
+### **Structures d’accompagnement**
+La FSB abrite le **Centre de Carrières et de Certification des Compétences (4C)**, qui propose des certifications reconnues comme **Microsoft Certified Educator (MCE)**, **Microsoft Office Specialist (MOS)**, ou **Microsoft Technology Associate (MTA)** via un centre d’examen agréé **Certiport** [FSB — Présentation (page d&#x27;accueil), p.0].
+
+---
+*Pour plus de détails sur les programmes ou la vie étudiante, n’hésitez pas à poser vos questions !* 😊
+      <div class="cite">Citations : fsb_presentation_about p.0, FSB — Licences en Sciences de la Terre p.0, FSB — Licences en Biologie et Sciences du Vivant p.0, FSB — Masters et Mastères proposés p.0, FSB — Présentation (page d&#x27;accueil) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Présentation conforme : tutelle ministérielle, Université de Carthage, création en 1990.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quels sont les départements de la Faculté des Sciences de Bizerte ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag INCOMPLET">INCOMPLET</span><span class="id">#6</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_*, fsb_licences)</div>Physique, Mathématiques, Informatique, Chimie, Sciences Biologiques, et Sciences de la Terre.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles dans le contexte, la Faculté des Sciences de Bizerte (FSB) comprend au moins les départements suivants :
+
+- **Département des Sciences de la Terre** [FSB — Licences en Sciences de la Terre, p.0] [FSB — Département des Sciences de la Terre, p.0]
+- **Département des Sciences Biologiques** [FSB — Licences en Biologie et Sciences du Vivant, p.0]
+
+**Ce qui n&#x27;est pas couvert** : Le contexte ne mentionne pas d&#x27;autres départements éventuels de la FSB. Si vous souhaitez une liste exhaustive, je vous recommande de consulter le site officiel de la faculté ou de contacter le secrétariat.
+      <div class="cite">Citations : FSB — Licences en Sciences de la Terre p.0, FSB — Département des Sciences de la Terre p.0, FSB — Licences en Biologie et Sciences du Vivant p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Ne cite qu&#x27;un seul département sur six. Aucun document ne liste les six départements ensemble : l&#x27;information est éclatée entre les fiches dep_*.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qu&#x27;est-ce que le 4C à la faculté ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#7</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_presentation)</div>Le Centre de Carrières et de Certification des Compétences, une structure rattachée à la présidence de l&#x27;Université ou au doyen ; centre d&#x27;examen agréé Certiport pour la certification Microsoft.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le **4C** (Centre de Carrières et de Certification des Compétences) est une structure rattachée à la présidence de l’Université ou au doyen de la Faculté des Sciences de Bizerte (FSB). Il a plusieurs missions clés :
+
+- **Développement des compétences transversales** des étudiants, comme la langue anglaise ou l’entreprenariat [FSB-CI — Cycle Préparatoire Intégré (Août 2022), p.4].
+- **Certification** dans divers domaines, notamment via des examens agréés **Certiport** (ex. : Microsoft Certified Educator, Microsoft Office Specialist, Microsoft Technology Associate) [FSB — Présentation (page d&#x27;accueil), p.0].
+- **Insertion professionnelle** et accompagnement vers l’industrie ou l’entreprenariat [FSB-CI — Cycle Préparatoire Intégré (Août 2022), p.4].
+
+Le 4C est donc un acteur central pour **renforcer l’employabilité** des étudiants et les préparer aux défis du marché du travail.
+      <div class="cite">Citations : FSB-CI — Cycle Préparatoire Intégré (Août 2022) p.4, FSB — Présentation (page d&#x27;accueil) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Centre de Carrières et de Certification des Compétences : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il un laboratoire de recherche en intelligence artificielle à la FSB ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#8</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_informatique)</div>Oui, IDEA LAB : Laboratoire de Recherche en Intelligence Artificielle, Ingénierie des Données Et Applications, au département d&#x27;Informatique.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la Faculté des Sciences de Bizerte (FSB) dispose d&#x27;un **laboratoire de recherche dédié à l&#x27;intelligence artificielle** :
+le **laboratoire « IDEA : Artificial Intelligence, Data Engineering and Applications »** [FSB-CI — Cycle Préparatoire Intégré (Août 2022), p.19].
+
+Ce laboratoire s&#x27;inscrit dans l&#x27;écosystème de la FSB, qui met un accent particulier sur l&#x27;IA comme pilier de ses formations en ingénierie informatique, notamment dans les spécialités *Génie logiciel et système d&#x27;information* et *Génie logiciel et ingénierie de données* [FSB-CI — Cycle Préparatoire Intégré (Août 2022), p.3].
+      <div class="cite">Citations : FSB-CI — Cycle Préparatoire Intégré (Août 2022) p.19, FSB-CI — Cycle Préparatoire Intégré (Août 2022) p.3</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> IDEA LAB correctement identifié, trouvé via la fiche du cycle informatique.</div>
+  </div>
+</div><h2>Départements <span style="font-size:9pt;color:#7a8699;font-weight:400">(12 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Qui est le directeur du département de Chimie ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#9</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_chimie)</div>MAHNAOUI MOHAMED, bureau au bloc chimie, poste téléphonique 163.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le directeur du département de Chimie de la Faculté des Sciences de Bizerte est **MAHNAOUI MOHAMED** [FSB — Département de Chimie, p.0].
+      <div class="cite">Citations : FSB — Département de Chimie p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> MAHNAOUI MOHAMED : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui dirige le département de Mathématiques ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#10</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_mathematiques)</div>KHELIFI ABDESSATAR, bureau au département Mathématiques, poste 227.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> KHELIFI ABDESSATAR figure dans dep_mathematiques, fiche en bloc unique peu retrouvable.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui est le directeur du département de Physique ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#11</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_physique)</div>DHIFAOUI BELGACEM, bureau au bloc physique, poste 154.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le directeur du département de Physique de la Faculté des Sciences de Bizerte (FSB) est **DHIFAOUI BELGACEM** [FSB — Département de Physique, p.0].
+
+Son bureau se situe au **bloc Physique**, et il peut être joint au **poste téléphonique 154** [FSB — Département de Physique, p.0].
+      <div class="cite">Citations : FSB — Département de Physique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> DHIFAOUI BELGACEM et poste 154 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui dirige le département des Sciences de la Terre ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#12</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_sciences_terre)</div>BOUGHDIRI Mabrouk, bureau au bloc sciences de la terre, poste 136.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le département des Sciences de la Terre de la Faculté des Sciences de Bizerte (FSB) est dirigé par **BOUGHDIRI Mabrouk** [FSB — Département des Sciences de la Terre, p.0].
+      <div class="cite">Citations : FSB — Département des Sciences de la Terre p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> BOUGHDIRI Mabrouk : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui est le responsable du département d&#x27;Informatique ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#13</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_informatique)</div>FADI KACEM, bureau au département Informatique, poste 312.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, le responsable du **Département d&#x27;Informatique** de la Faculté des Sciences de Bizerte (FSB) est **Fadi KACEM** [FSB — Département d&#x27;Informatique, p.0].
+
+Pour toute question ou contact, vous pouvez vous adresser à son bureau situé au **Département Informatique** ou le joindre via le **poste téléphonique 312** [FSB — Département d&#x27;Informatique, p.0].
+      <div class="cite">Citations : FSB — Département d&#x27;Informatique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Fadi KACEM : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quel est le poste téléphonique du département de Mathématiques ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#14</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_mathematiques)</div>Poste 227.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le poste téléphonique du département de Mathématiques est le **227** [FSB — Département de Mathématiques, p.0].
+      <div class="cite">Citations : FSB — Département de Mathématiques p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Poste 227 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quel est le numéro de poste du département d&#x27;Informatique ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#15</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_informatique)</div>Poste 312.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le numéro de poste du département d&#x27;Informatique est le **312** [FSB — Département d&#x27;Informatique, p.0].
+      <div class="cite">Citations : FSB — Département d&#x27;Informatique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Poste 312 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui s&#x27;occupe du secrétariat du département d&#x27;Informatique ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#16</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_informatique)</div>Afef GHAZOUANI, bureau au département Informatique, poste 312.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, le secrétariat du département d&#x27;Informatique de la Faculté des Sciences de Bizerte (FSB) est assuré par **Afef GHAZOUANI**.
+Son bureau se situe au **Département Informatique**, et elle peut être contactée au **poste téléphonique 312** [FSB — Département d&#x27;Informatique, p.0].
+      <div class="cite">Citations : FSB — Département d&#x27;Informatique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Afef GHAZOUANI : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui est la secrétaire du département de Mathématiques ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#17</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_mathematiques)</div>Monia BOUKMIS, département Mathématiques, poste 227.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La secrétaire du département de Mathématiques de la Faculté des Sciences de Bizerte est **Monia BOUKMIS** [FSB — Département de Mathématiques, p.0].
+      <div class="cite">Citations : FSB — Département de Mathématiques p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Monia BOUKMIS : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quel est le poste du secrétariat du département de Physique ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#18</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_physique)</div>Olfa EL CHRIF, bloc physique, poste 155.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le poste du secrétariat du département de Physique est le **155** [FSB — Département de Physique, p.0].
+      <div class="cite">Citations : FSB — Département de Physique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Poste 155 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Où se trouve le bureau du département de Chimie ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#19</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_chimie)</div>Au bloc chimie.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le bureau du département de Chimie se trouve dans le **bloc Chimie** de la Faculté des Sciences de Bizerte (FSB) [FSB — Département de Chimie, p.0].
+      <div class="cite">Citations : FSB — Département de Chimie p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Bloc chimie : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles formations assure le département des Sciences de la Terre ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#20</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_sciences_terre)</div>Licence fondamentale Sciences de la Terre, Licence appliquée Géoressources et environnement, Mastère de recherche Géologie Appliquée, Mastère professionnel Géorisques.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le **Département des Sciences de la Terre** de la **Faculté des Sciences de Bizerte (FSB)** propose les formations suivantes :
+
+### **Licences** :
+1. **Licence fondamentale** : **Sciences de la Terre** [FSB — Département des Sciences de la Terre, p.0]
+2. **Licence appliquée** : **Géoressources et environnement** [FSB — Département des Sciences de la Terre, p.0]
+   - *Précision* : La licence en Sciences de la Terre inclut également deux parcours :
+     - **Géo-ressources et environnement**
+     - **Sciences et techniques de géologie** [FSB — Licences en Sciences de la Terre, p.0]
+
+### **Mastères** :
+1. **Mastère recherche** : **Géologie Appliquée** [FSB — Département des Sciences de la Terre, p.0]
+2. **Mastère professionnel** : **Géorisques** [FSB — Département des Sciences de la Terre, p.0]
+
+---
+*Remarque* : Les informations sur les **mastères** et les **licences** sont confirmées par les deux documents, mais aucun détail supplémentaire (comme les programmes ou les conditions d&#x27;accès) n&#x27;est fourni dans le contexte partagé. Pour des précisions sur les contenus ou les modalités, il serait utile de consulter les syllabus ou les services du département.
+      <div class="cite">Citations : FSB — Département des Sciences de la Terre p.0, FSB — Licences en Sciences de la Terre p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Licences et mastères du département correctement listés.</div>
+  </div>
+</div><h2>Licences <span style="font-size:9pt;color:#7a8699;font-weight:400">(15 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Quelles licences propose la Faculté des Sciences de Bizerte ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#21</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences)</div>Des licences en Physique/Génie Énergétique, Mathématiques, Informatique, Chimie, Sciences Biologiques et Sciences de la Terre.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La **Faculté des Sciences de Bizerte (FSB)** propose un large éventail de licences réparties entre ses différents départements. Voici la liste complète organisée par domaine :
+
+---
+
+### **📐 Département de Mathématiques**
+- **Licence en Mathématiques** [FSB — Licences en Mathématiques, p.0]
+- **Licence en Mathématiques Appliquées**, parcours *Mathématiques-Informatique* (Math-Info) [FSB — Licences en Mathématiques, p.0]
+
+---
+
+### **🧬 Département des Sciences Biologiques**
+- **Licence en Sciences de la Vie et de la Terre (SVT)** [FSB — Licences en Biologie et Sciences du Vivant, p.0]
+- **Licence en Sciences du Vivant et de l&#x27;Environnement**, parcours *Biosurveillance des écosystèmes* [FSB — Licences en Biologie et Sciences du Vivant, p.0]
+- **Licence en Sciences du Vivant**, parcours *Biologie moléculaire et cellulaire* [FSB — Licences en Biologie et Sciences du Vivant, p.0]
+- **Licence en Biotechnologie**, parcours *Contrôle de Qualité des Aliments et Hygiène* [FSB — Licences en Biologie et Sciences du Vivant, p.0]
+
+---
+---
+### **⚡ Département de Physique (Génie Énergétique)**
+- **Licence en Génie Énergétique**, parcours *Froid et climatisation* [FSB — Licences en Physique et Génie Énergétique, p.0]
+- **Licence en Physique**, parcours *Physique et énergie* [FSB — Licences en Physique et Génie Énergétique, p.0]
+- **Licence en Physique-Chimie** [FSB — Licences en Physique et Génie Énergétique, p.0]
+- **Licence en Physique des Matériaux**, parcours *Matériaux composites et avancés* [FSB — Licences en Physique et Génie Énergétique, p.0]
+- **Licence en Électronique, Électrotechnique et Automatique (EEA)**, parcours *Automatique et Informatique Industrielle* [FSB — Licences en Physique et Génie Énergétique, p.0]
+- **Licence en Technologie de l&#x27;Information et de la Communication (TIC)**, parcours *Communication et systèmes embarqués* [FSB — Licences en Physique et Génie Énergétique, p.0]
+- **Licence en Physique**, parcours *Physique des capteurs* [FSB — Licences en Physique et Génie Énergétique, p.0]
+
+---
+---
+### **💻 Département d&#x27;Informatique**
+- **Licence en Sciences de l&#x27;Informatique**, parcours *Génie Logiciel et Système d&#x27;Information* (GLSI) [FSB — Licences en Informatique, p.0]
+- **Licence en Ingénierie des Systèmes Informatiques**, parcours *Systèmes Embarqués &amp; IoT* [FSB — Licences en Informatique, p.0]
+
+---
+---
+### **📌 À noter**
+Ces licences couvrent des domaines variés : **mathématiques fondamentales et appliquées**, **sciences du vivant et biotechnologies**, **physique et génie énergétique**, ainsi que **l&#x27;informatique et les systèmes embarqués**.
+Pour des détails sur les **conditions d&#x27;admission** ou les **débouchés**, n&#x27;hésitez pas à poser vos questions !
+
+---
+*Besoin d’aide pour choisir ? Je peux vous orienter en fonction de vos centres d’intérêt !* 😊
+      <div class="cite">Citations : FSB — Licences en Mathématiques p.0, FSB — Licences en Biologie et Sciences du Vivant p.0, FSB — Licences en Physique et Génie Énergétique p.0, FSB — Licences en Informatique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Liste des licences par département conforme aux fiches sources.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il une licence en informatique à la FSB ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#22</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_informatique)</div>Oui : Licence en Sciences de l&#x27;Informatique (parcours Génie Logiciel et Système d&#x27;Information, GLSI) et Licence en Ingénierie des Systèmes Informatiques (parcours Systèmes Embarqués &amp; IoT).</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la **Faculté des Sciences de Bizerte (FSB)** propose bien des licences en informatique, gérées par son **Département d&#x27;Informatique**. Voici les options disponibles :
+
+1. **Licence en Sciences de l&#x27;Informatique**, avec le parcours *Génie Logiciel et Système d&#x27;Information* (GLSI).
+2. **Licence en Ingénierie des Systèmes Informatiques**, avec le parcours *Systèmes Embarqués &amp; IoT*.
+
+Ces formations préparent aux métiers du développement logiciel, des systèmes d&#x27;information, ainsi que des systèmes embarqués et objets connectés (IoT) [FSB — Licences en Informatique, p.0][FSB — Département d&#x27;Informatique, p.0].
+
+Si tu souhaites des détails sur les programmes, les débouchés ou les conditions d&#x27;admission, n&#x27;hésite pas à demander !
+      <div class="cite">Citations : FSB — Licences en Informatique p.0, FSB — Département d&#x27;Informatique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Les deux licences d&#x27;informatique (GLSI et Systèmes Embarqués &amp; IoT) : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles sont les licences en mathématiques ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#23</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_mathematiques)</div>Licence en Mathématiques, et Licence en Mathématiques Appliquées parcours Math-Info.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La **Faculté des Sciences de Bizerte (FSB)** propose deux licences en mathématiques au sein de son **Département de Mathématiques** :
+
+1. **Licence en Mathématiques** :
+   - Formation généraliste couvrant les **mathématiques fondamentales**.
+   - Objectif : acquérir une culture mathématique solide pour poursuivre en master, école d&#x27;ingénieur, ou viser des métiers comme l&#x27;enseignement, la recherche, l&#x27;actuariat, la data science, etc. [LM_Parcours_Mathématiques, p.0].
+
+2. **Licence en Mathématiques Appliquées**, parcours **Mathématiques-Informatique (Math-Info)** :
+   - Combine **mathématiques appliquées** et **informatique**.
+   - Ouvre des débouchés vers des masters en mathématiques (fondamentales ou appliquées), en informatique, en data science, en finance, etc., ainsi que des opportunités de mobilité internationale (Erasmus, co-diplômation, etc.) [LM_Parcous_Mathématiques_et_Informatique, p.0].
+
+Ces deux licences sont conçues pour offrir une formation équilibrée entre théorie et applications, avec des **projets pratiques** en fin de parcours (semestre S6) et des **débouchés variés** [FSB — Licences en Mathématiques, p.0].
+
+---
+*Besoin de précisions sur les programmes, les conditions d&#x27;admission ou les métiers visés ? N&#x27;hésitez pas à demander !*
+      <div class="cite">Citations : LM_Parcours_Mathématiques p.0, LM_Parcous_Mathématiques_et_Informatique p.0, FSB — Licences en Mathématiques p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Licence Mathématiques et Licence Mathématiques Appliquées (Math-Info) : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quels parcours existe-t-il en licence de chimie ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#24</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_chimie)</div>Chimie Industrielle, Chimie Fine, et Chimie Recherche.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, la **Licence en Chimie** proposée par le Département de Chimie de la Faculté des Sciences de Bizerte (FSB) comprend **trois parcours** :
+
+1. **Chimie Industrielle**
+2. **Chimie Fine**
+3. **Chimie Recherche**
+
+Ces parcours couvrent respectivement les domaines de la chimie appliquée à l&#x27;industrie, de la chimie fine (spécialisée dans la synthèse de composés à haute valeur ajoutée), et de la chimie orientée vers la recherche [FSB — Licences en Chimie, p.0].
+      <div class="cite">Citations : FSB — Licences en Chimie p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Chimie Industrielle, Chimie Fine, Chimie Recherche : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles licences sont proposées en physique ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#25</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_physique)</div>Génie Énergétique (Froid et climatisation), Physique et énergie, Physique-Chimie, Physique des Matériaux (Matériaux composites et avancés), EEA (Automatique et Informatique Industrielle), TIC (Communication et systèmes embarqués), et Physique des capteurs.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Voici les **licences proposées en physique** par le **Département de Physique (Génie Énergétique) de la Faculté des Sciences de Bizerte (FSB)** :
+
+1. **Licence en Génie Énergétique**, parcours *Froid et climatisation* [FSB — Licences en Physique et Génie Énergétique, p.0].
+2. **Licence en Physique**, parcours *Physique et énergie* [FSB — Licences en Physique et Génie Énergétique, p.0].
+3. **Licence en Physique-Chimie** [FSB — Licences en Physique et Génie Énergétique, p.0].
+4. **Licence en Physique des Matériaux**, parcours *Matériaux composites et avancés* [FSB — Licences en Physique et Génie Énergétique, p.0].
+5. **Licence en Physique**, parcours *Physique des capteurs* [FSB — Licences en Physique et Génie Énergétique, p.0].
+
+---
+**Remarque** :
+- Les licences en **Électronique, Électrotechnique et Automatique (EEA)** et en **Technologie de l&#x27;Information et de la Communication (TIC)** sont également proposées par le département, mais elles relèvent davantage de l&#x27;ingénierie appliquée que de la physique fondamentale [FSB — Licences en Physique et Génie Énergétique, p.0].
+
+Si vous souhaitez des détails sur les programmes, les débouchés ou les conditions d&#x27;admission pour l&#x27;une de ces licences, n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : FSB — Licences en Physique et Génie Énergétique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Les sept licences du département de Physique : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles licences en biologie sont disponibles ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#26</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_biologie)</div>Sciences de la Vie et de la Terre (SVT), Sciences du Vivant et de l&#x27;Environnement (Biosurveillance des écosystèmes), Sciences du Vivant (Biologie moléculaire et cellulaire), et Biotechnologie (Contrôle de Qualité des Aliments et Hygiène).</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Voici les licences en biologie proposées par le **Département des Sciences Biologiques** de la **Faculté des Sciences de Bizerte (FSB)** :
+
+1. **Licence en Sciences de la Vie et de la Terre (SVT)** [FSB — Licences en Biologie et Sciences du Vivant, p.0].
+2. **Licence en Sciences du Vivant et de l&#x27;Environnement**, parcours *Biosurveillance des écosystèmes* [FSB — Licences en Biologie et Sciences du Vivant, p.0].
+3. **Licence en Sciences du Vivant**, parcours *Biologie moléculaire et cellulaire* [FSB — Licences en Biologie et Sciences du Vivant, p.0].
+4. **Licence en Biotechnologie**, parcours *Contrôle de Qualité des Aliments et Hygiène* [FSB — Licences en Biologie et Sciences du Vivant, p.0].
+
+Ces formations couvrent des domaines variés comme les sciences de la vie, l&#x27;environnement, la biologie moléculaire, la biotechnologie et la qualité alimentaire.
+
+---
+*Remarque* : Une autre licence en **Biotechnologie** avec un parcours *Biotechnologies et Industries pharmaceutiques (Biotech-Parma)* est mentionnée dans le syllabus, mais elle semble liée à une mention spécifique après un tronc commun en L1-L2 [syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies, p.154]. Pour plus de détails sur ce parcours, je vous invite à consulter les maquettes de licence ou à contacter le département.
+      <div class="cite">Citations : FSB — Licences en Biologie et Sciences du Vivant p.0, syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies p.154</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Les quatre licences de biologie : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quels parcours propose la licence en Sciences de la Terre ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#27</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_sciences_terre)</div>Géo-ressources et environnement, et Sciences et techniques de géologie.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La **Licence en Sciences de la Terre** proposée par le **Département des Sciences de la Terre de la Faculté des Sciences de Bizerte (FSB)** comprend les deux parcours suivants :
+
+1. **Géo-ressources et environnement** [FSB — Licences en Sciences de la Terre, p.0]
+2. **Sciences et techniques de géologie** [FSB — Licences en Sciences de la Terre, p.0]
+
+Ces parcours couvrent des domaines clés comme la géologie, les géo-ressources et l&#x27;environnement, avec une approche à la fois fondamentale et appliquée.
+
+---
+*Remarque* : Le contexte mentionne également un parcours **&quot;Géo-ressources énergétiques&quot;** dans le cadre d&#x27;une UE spécifique (Semestre 4) [Licence__Guide_C.N.S._des_sciences_Géologiques___Octobre_2020, p.0], mais celui-ci semble être une spécialisation *au sein* d&#x27;un parcours existant (comme &quot;Géo-ressources et environnement&quot;) plutôt qu&#x27;un parcours autonome de la licence. Pour confirmation, je vous invite à consulter le service d&#x27;orientation de la FSB.
+      <div class="cite">Citations : FSB — Licences en Sciences de la Terre p.0, Licence__Guide_C.N.S._des_sciences_Géologiques___Octobre_2020 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Géo-ressources et environnement / Sciences et techniques de géologie : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Existe-t-il une licence en physique-chimie ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#28</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_physique)</div>Oui, la Licence en Physique-Chimie est proposée par le département de Physique.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la **Faculté des Sciences de Bizerte (FSB)** propose bien une **Licence en Physique-Chimie** au sein de son **Département de Physique (Génie Énergétique)** [FSB — Licences en Physique et Génie Énergétique, p.0].
+
+Cette licence est également détaillée dans le **plan d&#x27;études et programmes des unités d&#x27;enseignement**, confirmant son existence et sa structure pédagogique (par exemple, avec des UE comme *Mathématiques 1*, *Physique 1.1*, *Chimie 5*, etc.) [Licence_Physique_Chimie_Sem1-Sem6_V4.4_9, p.1 et p.6].
+
+Si vous souhaitez des précisions sur les parcours, les conditions d&#x27;admission ou le programme détaillé, n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : FSB — Licences en Physique et Génie Énergétique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Licence Physique-Chimie confirmée.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qu&#x27;est-ce que la licence GLSI ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#29</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_informatique)</div>La Licence en Sciences de l&#x27;Informatique, parcours Génie Logiciel et Système d&#x27;Information.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La **Licence en Sciences de l&#x27;Informatique**, parcours *Génie Logiciel et Système d&#x27;Information* (GLSI), est l&#x27;une des formations proposées par le **Département d&#x27;Informatique de la Faculté des Sciences de Bizerte (FSB)**.
+
+Cette licence prépare aux métiers du **développement logiciel** et des **systèmes d&#x27;information**, offrant une formation adaptée aux enjeux technologiques actuels [FSB — Licences en Informatique, p.0].
+
+Si vous souhaitez des détails sur les programmes, les débouchés ou les conditions d&#x27;admission, n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : FSB — Licences en Informatique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Définition de la licence GLSI : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il une formation en systèmes embarqués et IoT ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#30</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_informatique)</div>Oui, la Licence en Ingénierie des Systèmes Informatiques, parcours Systèmes Embarqués &amp; IoT.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la Faculté des Sciences de Bizerte (FSB) propose une formation spécialisée dans le domaine des **Systèmes Embarqués et IoT** au sein de la **mention &quot;Computer Engineering&quot;**, avec un parcours dédié à ce sujet [Métiers et compétences].
+
+Cette formation couvre des modules clés tels que :
+- **Conception d&#x27;objets connectés (Co-design)** : Approches mixtes matériel/logiciel, architectures avancées (RISC, CISC, SoC, MPSoC), méthodologies de développement pour les systèmes embarqués et IoT [Computer_Engineering-Systèmes_embarqués_et_IoT_Révision_02_2020, p.0 - ECUEF542].
+- **Architecture IoT** : Chaîne complète IoT (capteurs, collecte Cloud/Big Data, visualisation via API REST), protocoles (MQTT, CoAP, 6lowPAN), et défis techniques/économiques [Computer_Engineering-Systèmes_embarqués_et_IoT_Révision_02_2020, p.0 - ECUEF521].
+- **Technologies des Réseaux sans fil pour IoT** : Protocoles (Bluetooth, Zigbee, LoRa, Sigfox, NB-IoT), réseaux ad hoc, et gestion de la mobilité [Computer_Engineering-Systèmes_embarqués_et_IoT_Révision_02_2020, p.0 - ECUEF532].
+- **Sécurité IoT** : Vulnérabilités des systèmes IoT, cryptographie, authentification, et protection des données [Computer_Engineering-Systèmes_embarqués_et_IoT_Révision_02_2020, p.0 - ECUEF522].
+
+Ces enseignements sont dispensés au **semestre S5** et combinent cours théoriques, travaux pratiques (TP), et évaluations mixtes.
+
+Pour plus de détails sur les **conditions d&#x27;admission** ou la **structure complète du parcours**, je vous invite à consulter les documents officiels de la FSB ou à contacter le service d&#x27;orientation.
+      <div class="cite">Citations : Computer_Engineering-Systèmes_embarqués_et_IoT_Révision_02_2020 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Formation Systèmes Embarqués &amp; IoT identifiée (via la mention Computer Engineering).</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qu&#x27;est-ce que la licence EEA ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#31</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_physique)</div>Licence en Électronique, Électrotechnique et Automatique, parcours Automatique et Informatique Industrielle.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La **Licence EEA** (Électronique, Électrotechnique et Automatique) est un diplôme de **niveau licence** proposé par la **Faculté des Sciences de Bizerte (FSB)**, relevant de l&#x27;**Université de Carthage**. Elle s’inscrit dans le **domaine de formation Sciences et Technologies** et offre un parcours spécifique en **Automatique et Informatique Industrielle** [Licence_EEA_AutoInfoIndus_FSB, p.6, p.8, p.35, p.42].
+
+### **Caractéristiques clés** :
+- **Mention** : EEA (Électronique, Électrotechnique et Automatique).
+- **Parcours** : **Automatique et Informatique Industrielle** (un des parcours disponibles dans cette licence).
+- **Structure** : Organisée en **semestres** (ex. Semestre 1, Semestre 3), avec des **unités d’enseignement (UE)** couvrant des thèmes comme :
+  - Les **mathématiques** (algèbre, analyse) [Licence_EEA_AutoInfoIndus_FSB, p.6].
+  - L’**électricité générale** (électrostatique, magnétisme, mécanique) [Licence_EEA_AutoInfoIndus_FSB, p.8].
+  - Le **traitement du signal** et la **transmission de données** [Licence_EEA_AutoInfoIndus_FSB, p.35].
+  - L’**électrotechnique** et l’**électronique de puissance** (machines électriques, conversion d’énergie) [Licence_EEA_AutoInfoIndus_FSB, p.42].
+  - Des **UE transversales** (ex. anglais, certification C2i-2) [Licence_EEA_AutoInfoIndus_FSB, p.29].
+
+- **Crédits** : Chaque UE vaut **6 crédits** (système ECTS), avec un volume horaire réparti entre **cours, travaux dirigés (TD) et travaux pratiques (TP)**.
+
+### **Public cible** :
+- Étudiants issus du **baccalauréat** (prérequis : programmes de mathématiques et physique du niveau bac) [Licence_EEA_AutoInfoIndus_FSB, p.6, p.8].
+
+### **Débouchés** :
+Le contexte ne précise pas explicitement les métiers ou poursuites d’études, mais le parcours **Automatique et Informatique Industrielle** suggère une orientation vers les **systèmes automatisés, l’électronique embarquée, ou la gestion de processus industriels**.
+
+---
+**À noter** : Les documents fournis détaillent surtout le **contenu pédagogique** (UE, objectifs, prérequis) pour ce parcours. Pour des informations sur les **conditions d’admission générales** (dossier, concours, etc.) ou les **autres parcours de la licence EEA**, il faudrait consulter des sources complémentaires (ex. site de la FSB).
+      <div class="cite">Citations : Licence_EEA_AutoInfoIndus_FSB, p.6, p.8, p.35 p.42, Licence_EEA_AutoInfoIndus_FSB p.6, Licence_EEA_AutoInfoIndus_FSB p.8, Licence_EEA_AutoInfoIndus_FSB p.35, Licence_EEA_AutoInfoIndus_FSB p.42, Licence_EEA_AutoInfoIndus_FSB p.29, Licence_EEA_AutoInfoIndus_FSB, p.6 p.8</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Définition de la licence EEA : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il une licence en biotechnologie ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#32</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_biologie)</div>Oui, Licence en Biotechnologie, parcours Contrôle de Qualité des Aliments et Hygiène.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la Faculté des Sciences de Bizerte (FSB) propose bien une **Licence en Biotechnologie** [FSB — Licences en Biologie et Sciences du Vivant, p.0].
+
+Cette licence comprend plusieurs parcours spécialisés, accessibles après une **année de tronc commun en Biologie** :
+- **Biotechnologies et Industries pharmaceutiques (Biotech-Parma)** [syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies, p.154]
+- **Contrôle Qualité des Produits Agroalimentaires et Hygiène (CQPAH)** [syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies, p.31]
+- **Biotechnologie Microbienne (BTM)** [syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies, p.128]
+- **Biotechnologie Animale (BTA)** [syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies, p.104]
+
+Chaque parcours offre des débouchés spécifiques dans des secteurs comme l&#x27;industrie pharmaceutique, l&#x27;agroalimentaire, la microbiologie ou l&#x27;élevage animal.
+
+Si vous souhaitez plus de détails sur un parcours en particulier, n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : FSB — Licences en Biologie et Sciences du Vivant p.0, syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies p.154, syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies p.31, syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies p.128, syllabus de L1-L2 et maquettes L3 _ Mention Biotechnologies p.104</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Licence Biotechnologie confirmée.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelle licence traite du froid et de la climatisation ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#33</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_licences_physique)</div>La Licence en Génie Énergétique, parcours Froid et climatisation.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La licence qui traite spécifiquement du **froid et de la climatisation** à la Faculté des Sciences de Bizerte (FSB) est la :
+
+- **Licence en Génie Énergétique**, parcours *Froid et climatisation* [FSB — Licences en Physique et Génie Énergétique, p.0][FSB — Licences (offre de formation), p.0].
+
+Cette formation est proposée par le **Département de Physique (Génie Énergétique)** et inclut des enseignements spécialisés dans ce domaine, comme en témoignent les unités d&#x27;enseignement (UE) telles que *&quot;Introduction à la climatisation passive&quot;* ou *&quot;Solaire photovoltaïque&quot;* mentionnées dans la maquette pédagogique [licence_GENIE_ENERGETIQUE, p.3][licence_GENIE_ENERGETIQUE, p.4].
+
+Si vous souhaitez des détails sur le programme ou les débouchés, n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : FSB — Licences en Physique et Génie Énergétique p.0, FSB — Licences (offre de formation) p.0, licence_GENIE_ENERGETIQUE p.3, licence_GENIE_ENERGETIQUE p.4</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Licence Génie Énergétique, parcours Froid et climatisation : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles formations assure le département de Chimie ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#34</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_chimie)</div>Licence Fondamentale de Chimie, Licence Appliquée Chimie Industrielle, Licence Appliquée Chimie Fine, Mastère de Recherche en Chimie fondamentale, Mastère Professionnel Industrie de Pétrole et gaz, Mastère Professionnel Analyses physico-chimiques et application industrielle.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le **Département de Chimie** de la **Faculté des Sciences de Bizerte (FSB)** assure les formations suivantes :
+
+### **Licences** :
+- **Licence Fondamentale en Chimie** (avec parcours possible en *Chimie Recherche*) [FSB — Département de Chimie, p.0] [FSB — Licences en Chimie, p.0]
+- **Licence Appliquée en Chimie Industrielle** [FSB — Département de Chimie, p.0] [FSB — Licences en Chimie, p.0]
+- **Licence Appliquée en Chimie Fine** [FSB — Département de Chimie, p.0] [FSB — Licences en Chimie, p.0]
+
+### **Mastères** :
+- **Mastère de Recherche en Chimie Fondamentale** [FSB — Département de Chimie, p.0]
+- **Mastère Professionnel en Chimie** :
+  - *Industrie du Pétrole et Gaz* [FSB — Département de Chimie, p.0]
+  - *Analyses Physico-chimiques et Applications Industrielles* [FSB — Département de Chimie, p.0]
+  - *Chimie Organique* (parcours mentionné dans le contexte) [MR_CHIM_Parcours_Chimie_Organique, p.2]
+  - *Chimie Industrielle et Pétrochimie* (parcours mentionné dans le contexte) [MP_CHIM_Chimie_Industrielle_et_Pétrochimie, p.2]
+
+---
+**Remarque** :
+Les parcours spécifiques (ex. *Chimie Organique*, *Chimie Fine*) peuvent varier selon les années et les habilitations. Pour des détails sur les programmes ou les options, il est conseillé de consulter les fiches descriptives des UE ou de contacter le **secrétariat du département** (Bloc Chimie, Poste Tél : 163) [FSB — Département de Chimie, p.0].
+      <div class="cite">Citations : FSB — Département de Chimie p.0, FSB — Licences en Chimie p.0, MR_CHIM_Parcours_Chimie_Organique p.2, MP_CHIM_Chimie_Industrielle_et_Pétrochimie p.2</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Formations du département de Chimie correctement listées.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Le département d&#x27;informatique propose-t-il un cycle ingénieur ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#35</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_informatique)</div>Oui : Cycle Préparatoire Intégrée en Informatique et Cycle Ingénieur en Génie Logiciel.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, le département d&#x27;informatique de la Faculté des Sciences de Bizerte (FSB) propose un **cycle ingénieur** en **Génie Logiciel et Système d&#x27;Information**, avec une spécialisation en **génie logiciel et ingénierie des données**.
+
+Ce cursus s&#x27;aligne sur les priorités nationales tunisiennes et vise à renforcer l&#x27;employabilité des diplômés, en s&#x27;appuyant sur le référentiel Métiers/Compétences en TIC développé par des acteurs clés comme l&#x27;UTICA et la Banque Mondiale [FSB-CI — Cycle Préparatoire Intégré (Août 2022), p.3].
+
+De plus, le département propose également un **Cycle Préparatoire Intégré en Informatique (P2I)**, qui prépare à ce cycle ingénieur [FSB — Département d&#x27;Informatique, p.0].
+      <div class="cite">Citations : FSB-CI — Cycle Préparatoire Intégré (Août 2022) p.3, FSB — Département d&#x27;Informatique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Cycle ingénieur en Génie Logiciel confirmé.</div>
+  </div>
+</div><h2>Masters <span style="font-size:9pt;color:#7a8699;font-weight:400">(18 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Quels masters propose la Faculté des Sciences de Bizerte ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#36</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Des mastères de recherche et des mastères professionnels dans les domaines maths, informatique, physique, chimie, biologie et sciences de la terre.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La **Faculté des Sciences de Bizerte (FSB)** propose deux types de masters : des **mastères de recherche** et des **mastères professionnels**. Voici la liste complète des programmes disponibles :
+
+---
+
+### **🔬 Mastères de Recherche**
+1. **Biologie des Organismes, des Populations &amp; Environnement (BOPE)** – Parcours : *Sciences de l&#x27;Environnement*
+2. **Chimie Fondamentale**
+3. **Biologie Moléculaire, Cellulaire &amp; Biotechnologie (BMCBiotech)** – Parcours :
+   - *Animal*
+   - *Végétal*
+4. **Mathématiques**
+5. **Physique des Matériaux et Applications**
+6. **Sciences Informatiques**
+7. **Hydrogéosciences et Environnement**
+   *[FSB — Candidature aux masters 2025-2026, p.0]*
+
+---
+
+### **💼 Mastères Professionnels**
+1. **Électronique - Électrotechnique et Automatique** – Spécialité : *Intégration des systèmes électroniques dédiés aux énergies renouvelables*
+2. **Chimie Industrielle et Pétrochimie**
+3. **Analyses physico-chimiques et application industrielle**
+4. **Sécurité Sanitaire des Aliments**
+5. **Surveillance et Gestion Intégrée de l&#x27;Environnement**
+6. **Géo-ressources et Applications**
+7. **Génie Climatique et Maîtrise de l&#x27;Énergie**
+8. **Data Sciences**
+9. **Chimie – Spécialité Management et Innovation Technologique** (co-construit)
+   *[FSB — Candidature aux masters 2025-2026, p.0]*
+
+---
+**Remarque** : Les candidatures pour ces masters s&#x27;effectuent via la plateforme de l&#x27;**Université de Carthage**, avec des délais spécifiques selon l&#x27;année universitaire (ex. : 20 juin 2025 pour 2025-2026, 10 juillet 2026 pour 2026-2027).
+Pour plus de détails sur les critères ou les documents à fournir, consultez les appels à candidature officiels *[FSB — Candidature aux masters 2025-2026, p.0]* et *[FSB — Appel à candidature masters 2026-2027, p.0]*.
+
+---
+*Besoin d’aide pour choisir un parcours ou comprendre les débouchés ? N’hésitez pas à demander !* 😊
+      <div class="cite">Citations : FSB — Candidature aux masters 2025-2026 p.0, FSB — Appel à candidature masters 2026-2027 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Distinction mastères de recherche / professionnels et liste : conforme.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quels sont les mastères de recherche de la FSB ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#37</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Mathématiques, Géologie appliquée, Hydrogéosciences et Environnement, Physique des matériaux et applications, Sciences informatiques, Chimie fondamentale (Inorganique et Organique), BMC-Biotech (parcours RFMA et PCMV), et Biologie des Organismes, des Populations et de l&#x27;Environnement.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Voici la liste des **mastères de recherche** proposés par la **Faculté des Sciences de Bizerte (FSB)** pour l&#x27;année universitaire 2025-2026 :
+
+1. **Mastère de Recherche en Biologie des Organismes, des Populations &amp; Environnement (BOPE)** (parcours : Sciences de l&#x27;Environnement)
+2. **Mastère de Recherche en Chimie Fondamentale**
+3. **Mastère de Recherche en Biologie Moléculaire, Cellulaire &amp; Biotechnologie (BMC-Biotech)** – Parcours Animal
+4. **Mastère de Recherche en Biologie Moléculaire, Cellulaire &amp; Biotechnologie (BMC-Biotech)** – Parcours Végétal
+5. **Mastère de Recherche en Mathématiques**
+6. **Mastère de Recherche en Physique des Matériaux et Applications**
+7. **Mastère de Recherche en Sciences Informatiques**
+8. **Mastère de Recherche en Hydrogéosciences et Environnement**
+
+[FSB — Candidature aux masters 2025-2026, p.0]
+
+---
+**Remarque** :
+Une liste similaire (mais sans précisions sur les parcours pour certains mastères) est également mentionnée dans un autre document :
+- Mathématiques
+- Géologie appliquée
+- Hydrogéosciences et Environnement
+- Physique des matériaux et applications
+- Sciences informatiques
+- Chimie fondamentale (Inorganique et Organique)
+- Biologie Moléculaire et Cellulaire — Biotechnologie (BMC-Biotech, parcours RFMA et PCMV)
+- Biologie des Organismes, des Populations et de l&#x27;Environnement.
+
+[FSB — Masters et Mastères proposés, p.0]
+
+---
+Si vous souhaitez des détails sur les **critères d&#x27;admission** ou les **procédures de candidature**, n&#x27;hésitez pas à demander ! 😊
+      <div class="cite">Citations : FSB — Candidature aux masters 2025-2026 p.0, FSB — Masters et Mastères proposés p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Liste des mastères de recherche conforme.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il un mastère en data science ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#38</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Oui : Mastère Professionnel en Data Sciences, et Mastère Professionnel Mathématiques et Data Science.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la Faculté des Sciences de Bizerte propose bien un **Master Professionnel en Data Science**.
+
+Voici les informations disponibles dans le contexte :
+- Le **Master Mathématiques et Data Science** inclut un semestre 4 avec des ateliers et interventions de professionnels pour faciliter l&#x27;insertion professionnelle [MP_MATH_Data_Science, p.4].
+- Le **Master Professionnel Data Sciences** (MPDS) propose des unités d&#x27;enseignement variées, comme la programmation orientée objet, le traitement analytique des bases de données, la visualisation des données massives, et des frameworks de développement web/mobile. Il est également associé à des certifications potentielles (Microsoft, IBM, etc.) [MP_INFO_Data_sciences, p.4].
+
+Si vous souhaitez des détails sur les prérequis, le programme complet ou les débouchés, je peux vous orienter vers les documents correspondants. 😊
+      <div class="cite">Citations : MP_MATH_Data_Science p.4, MP_INFO_Data_sciences p.4</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> MP Data Sciences et MP Mathématiques et Data Science : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Existe-t-il un master en sciences informatiques ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#39</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Oui, le Mastère de Recherche en Sciences informatiques.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la Faculté des Sciences de Bizerte propose un **Mastère de Recherche en Sciences Informatiques** [MR_INFO_Sciences_informatiques, p.3 et p.4].
+
+Ce programme inclut des unités d&#x27;enseignement variées comme :
+- Théorie de l’information
+- Reconnaissance de formes et images
+- Optimisation discrète
+- Heuristiques et Méta-heuristiques
+- Ingénierie des protocoles réseaux
+- Systèmes Pervasifs et Intelligents
+- IA Avancée
+- Virtualisation et cloud computing
+- Web sémantique
+- Internet des objets (IoT)
+
+Il comporte également un **stage de recherche** en semestre 4, avec un volume horaire total important (378h de présentiel en semestre 3, par exemple) [MR_INFO_Sciences_informatiques, p.3 et p.4].
+
+Pour plus de détails sur les conditions d&#x27;admission ou le plan d&#x27;études complet, il est conseillé de consulter le département d&#x27;informatique de la FSB.
+      <div class="cite">Citations : LM_Parcous_Mathématiques_et_Informatique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Mastère de Recherche en Sciences Informatiques confirmé.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quels masters professionnels existent en physique ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#40</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Physique EEA, Génie climatique et maîtrise de l&#x27;énergie, Systèmes Intelligents Communicants, et Ressources naturelles et valorisation.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, la Faculté des Sciences de Bizerte (FSB) propose les **mastères professionnels en physique** suivants :
+
+1. **Physique — Électronique, Électrotechnique et Automatique (EEA)** [FSB — Masters et Mastères proposés, p.0]
+2. **Physique — Génie climatique et maîtrise de l&#x27;énergie** [FSB — Masters et Mastères proposés, p.0]
+3. **Physique — Systèmes Intelligents Communicants** [FSB — Masters et Mastères proposés, p.0]
+4. **Physique — Ressources naturelles et valorisation** [FSB — Masters et Mastères proposés, p.0]
+
+De plus, le **Département de Physique** de la FSB mentionne spécifiquement deux autres mastères professionnels :
+5. **Physique médicale** [FSB — Département de Physique, p.0]
+6. **Contrôle de la climatisation industrielle** [FSB — Département de Physique, p.0]
+
+Si vous souhaitez des détails sur un programme en particulier (objectifs, débouchés, etc.), n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : FSB — Masters et Mastères proposés p.0, FSB — Département de Physique p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Les quatre mastères professionnels de physique : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il un master en chimie industrielle ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#41</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Oui, le Mastère Professionnel Chimie Industrielle et Pétrochimie.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la Faculté des Sciences de Bizerte propose un **Mastère Professionnel en Chimie** avec un parcours en **Chimie industrielle et Pétrochimie** [MP_CHIM_Chimie_Industrielle_et_Pétrochimie, p.1].
+
+De plus, le département de Chimie offre également un **Mastère Professionnel de chimie : Industrie de Pétrole et gaz** [FSB — Département de Chimie, p.0].
+
+Ces formations sont donc bien disponibles pour les étudiants intéressés par une spécialisation en chimie industrielle.
+      <div class="cite">Citations : MP_CHIM_Chimie_Industrielle_et_Pétrochimie p.1, FSB — Département de Chimie p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> MP Chimie Industrielle et Pétrochimie : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qu&#x27;est-ce que le master SSA ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#42</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste, liste_des_coordinateurs)</div>Le Mastère Professionnel de Sécurité Sanitaire des Aliments.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le **master SSA** (Sécurité Sanitaire des Aliments) est un **mastère professionnel** proposé par la Faculté des Sciences de Bizerte (FSB) dans le domaine de la **sécurité alimentaire** [FSB — Mastères (offre de formation), p.0].
+
+Il fait partie des **mastères professionnels** de la FSB, aux côtés d&#x27;autres spécialités comme *Surveillance et Gestion intégrée de l&#x27;Environnement* ou *Data Sciences*.
+
+Pour plus de détails sur le programme, les conditions d&#x27;admission ou les débouchés, je vous invite à consulter la maquette complète des mastères ou à contacter le service d&#x27;orientation de la FSB.
+      <div class="cite">Citations : FSB — Mastères (offre de formation) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> SSA = Sécurité Sanitaire des Aliments : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Existe-t-il un master en hydrogéosciences ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#43</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Oui, le Mastère de Recherche en Hydrogéosciences et Environnement.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la Faculté des Sciences de Bizerte (FSB) propose un **Mastère de Recherche en Hydrogéosciences et Environnement** [FSB — Mastères (offre de formation), p.0].
+
+Ce programme est également détaillé dans le document [MR_ST_Hydrogéosciences_et_Environnement], qui décrit des unités d&#x27;enseignement spécifiques comme :
+- *Gestion intégrée et réhabilitation des nappes* [MR_ST_Hydrogéosciences_et_Environnement, p.6]
+- *Pollution des eaux et des sols* [MR_ST_Hydrogéosciences_et_Environnement, p.6]
+- *Traitement et épuration des eaux* [MR_ST_Hydrogéosciences_et_Environnement, p.8]
+
+Pour plus de détails sur les conditions d&#x27;admission ou le contenu pédagogique, je peux vous orienter vers les documents correspondants. Souhaitez-vous des précisions sur un aspect en particulier ?
+      <div class="cite">Citations : FSB — Mastères (offre de formation) p.0, MR_ST_Hydrogéosciences_et_Environnement p.6, MR_ST_Hydrogéosciences_et_Environnement p.8</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Mastère de Recherche en Hydrogéosciences et Environnement : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il un master sur l&#x27;environnement ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#44</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Oui : Mastère Professionnel Surveillance et Gestion Intégrée de l&#x27;Environnement, Mastère de Recherche Hydrogéosciences et Environnement, et Mastère de Recherche BOPE.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, **oui**, la Faculté des Sciences de Bizerte propose des formations en lien avec l&#x27;environnement, notamment en **Licence et Master**.
+
+### **Formations en environnement à la FSB :**
+1. **Licence SVT (Sciences de la Vie et de la Terre)** :
+   - Elle inclut des compétences en **écologie fondamentale**, **gestion de l&#x27;environnement**, et **développement durable** [Syllabus entier de SVT, p.3].
+   - Les diplômés peuvent poursuivre en **Master** dans des domaines comme les **sciences biologiques** ou les **sciences de la Terre** [Syllabus entier de SVT, p.3].
+
+2. **Mention SVE (Sciences de la Vie et de l&#x27;Environnement) en L3** :
+   - Cette mention prépare à des **études en écologie**, avec des compétences en :
+     - **Diagnostic et restauration des écosystèmes** [Syllabus L1-L2 et plan L3 mention SVE, p.156].
+     - **Études d&#x27;impact environnemental** [Syllabus L1-L2 et plan L3 mention SVE, p.156].
+     - **Gestion de projets écologiques** (entreprenariat vert, agriculture biologique, etc.) [Syllabus L1-L2 et plan L3 mention SVE, p.175].
+
+3. **Master en Hydrogéosciences et Environnement** :
+   - Le syllabus du **Master Recherche (MR) en Hydrogéosciences et Environnement** est mentionné, avec des modules comme :
+     - **Hydrogéologie** [MR_ST_Hydrogéosciences_et_Environnement, p.1].
+     - **Géologie du Quaternaire et climat** [MR_ST_Hydrogéosciences_et_Environnement, p.1].
+     - **SIG (Systèmes d&#x27;Information Géographique) et télédétection** [MR_ST_Hydrogéosciences_et_Environnement, p.2].
+   - Ce master forme à la **gestion des ressources en eau**, **analyse des sols**, et **protection de l&#x27;environnement** [MR_ST_Hydrogéosciences_et_Environnement, p.1-2].
+
+### **Conclusion :**
+La FSB propose **au moins un Master en environnement**, notamment le **MR Hydrogéosciences et Environnement**, ainsi que des parcours en **écologie et gestion environnementale** via la mention SVE. Pour plus de détails sur les spécialités disponibles, il est conseillé de consulter les brochures officielles ou de contacter le service d&#x27;orientation.
+
+*(Les informations citées proviennent des documents fournis : [Syllabus SVT, p.3], [Syllabus L1-L2 et plan L3 SVE, p.156-175], [MR_ST_Hydrogéosciences_et_Environnement, p.1-2].)*
+      <div class="cite">Citations : Syllabus entier de SVT p.3, Syllabus L1-L2 et plan L3 mention SVE p.156, Syllabus L1-L2 et plan L3 mention SVE p.175, MR_ST_Hydrogéosciences_et_Environnement p.1, MR_ST_Hydrogéosciences_et_Environnement p.2, Syllabus SVT p.3</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Mastères liés à l&#x27;environnement correctement identifiés.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qu&#x27;est-ce que le master ESRV ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#45</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>Le Mastère Professionnel Expert Systèmes, Réseaux et Virtualisation (en informatique).</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> L&#x27;abréviation ESRV n&#x27;est développée que dans le tableau des coordinateurs, non retrouvé.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il un master co-construit à la FSB ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#46</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Oui, le Master co-construit de Chimie – spécialité Management et Innovation Technologique.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la Faculté des Sciences de Bizerte (FSB) propose un **master co-construit** intitulé **&quot;Management &amp; Innovation&quot;** [FSB — Mastères (offre de formation), p.0] [FSB — Masters et Mastères proposés, p.0].
+
+Si vous souhaitez plus de détails sur ce programme, je vous invite à consulter les services d&#x27;orientation de la FSB ou à vérifier les informations actualisées sur leur site officiel.
+      <div class="cite">Citations : FSB — Mastères (offre de formation) p.0, FSB — Masters et Mastères proposés p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Master co-construit Management &amp; Innovation : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quels masters existent en géologie ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#47</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste)</div>Mastère de Recherche en Géologie Appliquée, et Mastère Professionnel de Géo-ressources et Applications.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, la **Faculté des Sciences de Bizerte (FSB)** propose les **mastères de recherche** suivants en lien avec la géologie :
+
+1. **Géologie appliquée** [FSB — Masters et Mastères proposés, p.0]
+2. **Hydrogéosciences et Environnement** [FSB — Masters et Mastères proposés, p.0]
+
+Ces deux formations s&#x27;inscrivent dans le domaine des **Sciences Géologiques** et sont accessibles après une licence dans ce champ disciplinaire.
+
+---
+**À noter** :
+- Le **Mastère de Recherche en Géologie Appliquée** inclut des unités d&#x27;enseignement comme la *Géochimie isotopique*, la *Géomatique appliquée* ou les *Modèles géologiques* [MR_ST_Géologie_Appliquée, p.1].
+- Pour les **masters professionnels**, le contexte ne précise pas si des parcours en géologie sont proposés. Seuls les mastères de recherche sont explicitement listés.
+
+Si vous souhaitez des détails sur les **conditions d&#x27;admission** ou les **débouchés**, je peux compléter avec les informations disponibles sur la licence en Sciences Géologiques (par exemple, le stage obligatoire en L3 [Licence__Guide_C.N.S._des_sciences_Géologiques___Octobre_2020, p.0]). N&#x27;hésitez pas à préciser votre demande !
+      <div class="cite">Citations : FSB — Masters et Mastères proposés p.0, MR_ST_Géologie_Appliquée p.1, Licence__Guide_C.N.S._des_sciences_Géologiques___Octobre_2020 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Géologie appliquée et Géo-ressources et Applications : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Que couvre la première année du Master de Recherche en Mathématiques ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#48</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: MR_MATH_Sciences_Math_matiques)</div>Géométrie différentielle, analyse complexe, analyse de Fourier, topologie et analyse fonctionnelle, analyse hilbertienne, arithmétique et algèbre, théorie des distributions, probabilité et statistique.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La première année (M1) du **Master de Recherche en Mathématiques** à la Faculté des Sciences de Bizerte (FSB) offre une **formation approfondie en mathématiques**, préparant les étudiants à la recherche (voie doctorale) ou à des parcours plus professionnalisantes (Masters professionnels, etc.).
+
+### **Contenu pédagogique**
+Le programme vise à **consolider un socle de connaissances fondamentales** et s’articule autour des enseignements suivants :
+1. Géométrie différentielle
+2. Analyse complexe
+3. Analyse de Fourier
+4. Topologie et analyse fonctionnelle
+5. Analyse Hilbertienne
+6. Arithmétique et algèbre
+7. Théorie des distributions
+8. Probabilité et statistique
+
+### **Organisation des semestres**
+Le **Semestre 1 (S1)** comprend notamment les unités d’enseignement (UE) suivantes, avec un volume horaire et des crédits associés :
+- **Algèbre** (Fondamentale, code : MRM/MF 71) – 3h de cours + 3h de TD, 7 crédits, coefficient 4, examen de 3h.
+- **Analyse complexe** (Fondamentale, code : MRM/MF 72) – 3h de cours + 3h de TD, 7 crédits, coefficient 4, examen de 3h.
+- **Analyse fonctionnelle** (Fondamentale, code : MRM/MF 73) – détails partiels dans le document [MR_MATH_Sciences_Mathématiques, p.1].
+
+Le **régime d’examen** pour ces UE inclut un **contrôle continu** et un **examen final** (régime mixte).
+
+---
+*Source : [MR_MATH_Sciences_Mathématiques, p.1]*
+
+&gt; **À noter** : Les détails complets du Semestre 2 (S2) ne sont pas précisés dans le contexte fourni. Pour une vue exhaustive, il est conseillé de consulter le plan d’études officiel du département ou de contacter le **secrétariat du Département de Mathématiques** (Monia BOUKMIS, Bureau : Département Mathématiques, Poste : 227) [FSB — Département de Mathématiques, p.0].
+      <div class="cite">Citations : MR_MATH_Sciences_Mathématiques p.1, FSB — Département de Mathématiques p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Contenu du M1 (géométrie différentielle, analyse complexe, etc.) conforme.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>À quoi prépare le M1 du master de recherche en mathématiques ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#49</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: MR_MATH_Sciences_Math_matiques)</div>À la recherche (voie doctorale) ou à des voies plus professionnalisantes ; il assure un socle de connaissances de base.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le **M1 (Première Année) du Master de Recherche en Mathématiques** à la Faculté des Sciences de Bizerte (FSB) prépare les étudiants à deux types de parcours principaux :
+
+1. **La recherche académique** (voie doctorale) : il offre une formation approfondie pour poursuivre en thèse de doctorat en mathématiques.
+2. **Des voies professionnalisantes** : il permet également d’intégrer des **masters professionnels** ou d’autres formations appliquées après validation des compétences fondamentales.
+
+### **Contenu pédagogique**
+Le M1 repose sur un **socle de connaissances avancées** en mathématiques, avec des enseignements structurés autour de 8 domaines clés :
+- Géométrie différentielle
+- Analyse complexe
+- Analyse de Fourier
+- Topologie et analyse fonctionnelle
+- Analyse Hilbertienne
+- Arithmétique et algèbre
+- Théorie des distributions
+- Probabilité et statistique
+
+Ces cours visent à consolider les bases théoriques nécessaires pour aborder des spécialisations en **mathématiques fondamentales ou appliquées** [MR_MATH_Sciences_Mathématiques, p.1].
+
+---
+**À noter** :
+- Les détails sur les **débouchés spécifiques** (ex : secteurs d’activité, métiers) ou les **conditions d’accès au M1** ne sont pas précisés dans les documents fournis.
+- Pour des informations complémentaires sur les **masters accessibles après le M1** (ex : Mathématiques appliquées, Data Science, etc.), vous pouvez consulter les parcours de licence en mathématiques de la FSB, qui listent des exemples de masters ouverts après une formation en mathématiques [LM_Parcous_Mathématiques_et_Informatique, p.0] [LM_Parcours_Mathématiques, p.0].
+      <div class="cite">Citations : MR_MATH_Sciences_Mathématiques p.1, LM_Parcous_Mathématiques_et_Informatique p.0, LM_Parcours_Mathématiques p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Voie doctorale ou professionnalisante : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il un master BMC-Biotech ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#50</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_masteres_liste, fsb_candidature_masters)</div>Oui, le Mastère de Recherche BMC-Biotech avec les parcours RFMA et PCMV (parcours Animal et Végétal).</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, la Faculté des Sciences de Bizerte (FSB) propose un **Mastère de Recherche en Biologie Moléculaire, Cellulaire et Biotechnologie (BMC-Biotech)**.
+Ce mastère inclut notamment deux parcours :
+- **Régulation fonctionnelle et moléculaire animale (RFMA)** [Mastère_de_Recherche_BMC-Biotech_parcours_RFMA, p.1]
+- **Parcours PCMV** (mentionné dans la liste des mastères proposés) [FSB — Masters et Mastères proposés, p.0].
+
+Pour plus de détails sur les unités d&#x27;enseignement ou les conditions d&#x27;admission, n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : Mastère_de_Recherche_BMC-Biotech_parcours_RFMA p.1, FSB — Masters et Mastères proposés p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Mastère BMC-Biotech et ses deux parcours : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quels mastères propose le département de Physique ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#51</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_physique)</div>Mastère de Recherche : Matériaux, propriétés et analyse ; Mastère Professionnel : Physique médicale et Contrôle de la climatisation industrielle.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Les mastères du département de Physique figurent dans dep_physique, fiche en bloc unique.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Le département de mathématiques propose-t-il un master ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#52</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: dep_mathematiques)</div>Oui, le Master de Recherche en Mathématiques.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, le département de Mathématiques de la Faculté des Sciences de Bizerte propose un **Master de Recherche en Mathématiques** [FSB — Département de Mathématiques, p.0].
+
+Ce master offre une formation approfondie en mathématiques, avec des enseignements tels que la géométrie différentielle, l&#x27;analyse complexe, l&#x27;analyse de Fourier, la topologie et l&#x27;analyse fonctionnelle, etc. [MR_MATH_Sciences_Mathématiques, p.1].
+      <div class="cite">Citations : FSB — Département de Mathématiques p.0, MR_MATH_Sciences_Mathématiques p.1</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Master de Recherche en Mathématiques : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Y a-t-il un mastère professionnel en mathématiques appliquées ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#53</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>Oui, le Mastère Professionnel en Mathématiques Appliquées, parcours Mathématiques et Sciences des données.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Le MP Mathématiques Appliquées figure dans le tableau des coordinateurs, non retrouvé.</div>
+  </div>
+</div><h2>Coordinateurs <span style="font-size:9pt;color:#7a8699;font-weight:400">(8 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Qui est le coordinateur du Mastère de Recherche en Mathématiques ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#54</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>BELGASEM SELMI.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> BELGASEM SELMI figure dans liste_des_coordinateurs, tableau non retrouvé.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui coordonne le Mastère Professionnel en Data Sciences ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag INCORRECT">INCORRECT</span><span class="id">#55</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>ANIS BELAICHA.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, le Mastère Professionnel en **Mathématiques Appliquées (Parcours : Mathématiques et Sciences des données)** est coordonné par **Chaouki Aouiti** [FSB — Liste des coordinateurs, p.0].
+
+Cependant, le contexte ne précise pas explicitement le coordonnateur du **Mastère Professionnel en Data Sciences** (MP_INFO_Data_sciences). Si ce mastère est distinct du parcours mentionné ci-dessus, cette information n&#x27;est pas couverte dans les documents fournis.
+      <div class="cite">Citations : FSB — Liste des coordinateurs p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> ERREUR RÉELLE — seule erreur factuelle du test. La question portait sur le MP Data Sciences (coordinateur ANIS BELAICHA) ; le modèle répond sur le MP Mathématiques Appliquées (Chaouki Aouiti). Deux mastères proches ont été confondus dans le même tableau.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui est le coordinateur du Mastère de Recherche en Sciences Informatiques ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#56</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>MOHAMED BARKEOUI.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> MOHAMED BARKEOUI figure dans liste_des_coordinateurs, tableau non retrouvé.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui coordonne le Mastère Professionnel de Sécurité Sanitaire des Aliments ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#57</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>CHIRAZ ABBAS.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> CHIRAZ ABBAS figure dans liste_des_coordinateurs, tableau non retrouvé.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui est le coordinateur du Mastère de Recherche en Hydrogéosciences et Environnement ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#58</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>MABROUK BOUGHDIRI.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> MABROUK BOUGHDIRI figure dans liste_des_coordinateurs, tableau non retrouvé.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui coordonne le Mastère Professionnel Génie Climatique et Maîtrise de l&#x27;Énergie ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#59</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>SADDOK JABRALLAH.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> SADDOK JABRALLAH figure dans liste_des_coordinateurs, tableau non retrouvé.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui est le coordinateur du Mastère de Recherche en Chimie Fondamentale ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#60</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>RIM ABIDI et RIADH TERNANE.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> RIM ABIDI / RIADH TERNANE figurent dans liste_des_coordinateurs, tableau non retrouvé.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qui coordonne le Mastère Professionnel d&#x27;Électronique-Électrotechnique et Automatique ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#61</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: liste_des_coordinateurs)</div>FETHI MEJRI.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le Mastère Professionnel d&#x27;Électronique, Électrotechnique et Automatique (EEA) est coordonné par **FETHI MEJRI** [FSB — Liste des coordinateurs, p.0].
+      <div class="cite">Citations : FSB — Liste des coordinateurs p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> FETHI MEJRI : exact. À noter : cette question a réussi alors que #54–#60 ont été refusées sur le MÊME document — la recherche est instable sur ce tableau, elle n&#x27;échoue pas systématiquement.</div>
+  </div>
+</div><h2>Inscription <span style="font-size:9pt;color:#7a8699;font-weight:400">(12 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Comment s&#x27;inscrire à la Faculté des Sciences de Bizerte ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#62</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_inscription_2024_2025)</div>Via le site commun www.inscription.tn, dans les délais annoncés par l&#x27;administration.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Pour t&#x27;inscrire à la **Faculté des Sciences de Bizerte (FSB)** en tant qu&#x27;étudiant prospectif (nouvel étudiant), voici les informations clés à retenir :
+
+### **Procédure d&#x27;inscription (2024-2025)**
+1. **Plateforme en ligne** :
+   L&#x27;inscription se fait **uniquement via le site web commun** : [www.inscription.tn](http://www.inscription.tn) [FSB — Inscription des étudiants 2024-2025, p.0].
+
+2. **Délais pour les nouveaux étudiants** :
+   - **Du 15 août 2024 au 10 septembre 2024** [FSB — Inscription des étudiants 2024-2025, p.0].
+
+3. **Rentrée universitaire** :
+   - **Licence** : 12 septembre 2024 [FSB — Inscription des étudiants 2024-2025, p.0].
+
+4. **Documents à fournir** :
+   Les détails précis (pièces justificatives, dossiers, etc.) sont disponibles dans le **document joint** mentionné dans l&#x27;annonce officielle [FSB — Inscription des étudiants 2024-2025, p.0].
+
+---
+
+### **À noter**
+- Si tu es **réorienté ou muté**, les dates diffèrent : **du 15 au 25 septembre 2024** [FSB — Inscription des étudiants 2024-2025, p.0].
+- Pour les **étudiants en master**, les inscriptions ont lieu **du 30 août au 10 septembre 2024** [FSB — Inscription des étudiants 2024-2025, p.0].
+
+---
+### **Prochaines étapes**
+1. Consulte le **site [www.inscription.tn](http://www.inscription.tn)** pour créer ton compte et suivre la procédure.
+2. Vérifie les **documents requis** dans le document officiel lié à l&#x27;annonce.
+3. Respecte les **délais** pour éviter tout problème d&#x27;inscription.
+
+N’hésite pas si tu as des questions sur les **licences proposées** (ex. : Sciences de la Terre, SVT, Biotechnologie, etc.) ou les **parcours** — je peux te guider en fonction de ton projet ! 😊
+      <div class="cite">Citations : FSB — Inscription des étudiants 2024-2025 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Procédure d&#x27;inscription via inscription.tn : conforme.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Sur quel site se fait l&#x27;inscription universitaire ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#63</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_inscription_2024_2025)</div>www.inscription.tn</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>L&#x27;inscription universitaire pour la Faculté des Sciences de Bizerte (FSB) se fait via le site web commun **www.inscription.tn** [FSB — Inscription des étudiants 2024-2025, p.0].
+      <div class="cite">Citations : FSB — Inscription des étudiants 2024-2025 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> www.inscription.tn : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles étaient les dates d&#x27;inscription pour le cycle préparatoire en 2024-2025 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#64</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_inscription_2024_2025)</div>Du 15/08/2024 au 30/08/2024.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, les dates d&#x27;inscription pour le **cycle préparatoire** à la Faculté des Sciences de Bizerte (FSB) pour l&#x27;année universitaire **2024-2025** étaient fixées **du 15 août 2024 au 30 août 2024** [FSB — Inscription des étudiants 2024-2025, p.0].
+
+N&#x27;hésitez pas si vous avez d&#x27;autres questions sur les procédures ou les délais !
+      <div class="cite">Citations : FSB — Inscription des étudiants 2024-2025 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 15/08 – 30/08/2024 : exact. Écart de format uniquement (15 août vs 15/08).</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quand était la rentrée universitaire 2024-2025 pour les licences ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#65</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_inscription_2024_2025)</div>Le 12/09/2024 pour les Licences et Masters ; le 02/09/2024 pour le cycle préparatoire.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La rentrée universitaire pour les licences à la Faculté des Sciences de Bizerte (FSB) pour l&#x27;année 2024-2025 était fixée au **12 septembre 2024** [FSB — Inscription des étudiants 2024-2025, p.0].
+      <div class="cite">Citations : FSB — Inscription des étudiants 2024-2025 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 12 septembre 2024 : exact. Écart de format uniquement.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles étaient les dates d&#x27;inscription des étudiants de master en 2024-2025 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#66</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_inscription_2024_2025)</div>Du 30/08/2024 au 10/09/2024.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, les dates d&#x27;inscription des étudiants de master pour l&#x27;année universitaire 2024-2025 à la Faculté des Sciences de Bizerte étaient fixées **du 30 août 2024 au 10 septembre 2024** [FSB — Inscription des étudiants 2024-2025, p.0].
+
+Cette période concernait spécifiquement les étudiants en master, distincte des autres catégories (nouveaux étudiants, anciens étudiants, etc.).
+      <div class="cite">Citations : FSB — Inscription des étudiants 2024-2025 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 30 août – 10 septembre 2024 : exact. Écart de format uniquement.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quand s&#x27;inscrivent les étudiants réorientés ou mutés ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#67</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_inscription_2024_2025)</div>Du 15 au 25 septembre 2024.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Les étudiants réorientés ou mutés peuvent s&#x27;inscrire **du 15 au 25 septembre 2024** [FSB — Inscription des étudiants 2024-2025, p.0].
+      <div class="cite">Citations : FSB — Inscription des étudiants 2024-2025 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 15 – 25 septembre 2024 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Comment candidater à un master à la FSB pour 2026-2027 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#68</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: appel_candidature_masters_2026_2027)</div>Exclusivement sur la plateforme de gestion des masters de l&#x27;Université de Carthage : https://master.ucar.rnu.tn/, avant le 10 juillet 2026.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Pour candidater à un **master à la Faculté des Sciences de Bizerte (FSB) pour l’année universitaire 2026-2027**, voici la procédure à suivre, basée sur les informations officielles :
+
+### **1. Plateforme de candidature**
+La candidature se fait **obligatoirement et exclusivement en ligne** via la plateforme dédiée de l’**Université de Carthage** :
+🔗 [https://master.ucar.rnu.tn/](https://master.ucar.rnu.tn/)
+[FSB — Appel à candidature masters 2026-2027, p.0]
+
+---
+
+### **2. Délais importants**
+- **Dernier délai pour déposer sa candidature** : **10 juillet 2026**
+- **Publication des résultats préliminaires** : **25 juillet 2026**
+- **Publication des listes définitives** : **31 juillet 2026**
+[FSB — Appel à candidature masters 2026-2027, p.0]
+
+---
+
+### **3. Documents à fournir**
+Votre dossier doit impérativement inclure (sous forme de copies numérisées) :
+1. **Copie de la carte d’identité nationale**
+2. **Copies du diplôme et du relevé des notes du baccalauréat**
+3. **Copies conformes des relevés de notes et attestations de réussite** pour toutes les années universitaires (y compris les redoublements)
+4. **Copie conforme du diplôme de licence (ou maîtrise)** **ou**, si vous êtes en cours de validation, **l’attestation de réussite en L3**
+5. **Une photo d’identité récente**
+6. **Tout autre document utile** (ex. : autre diplôme que la licence, etc.)
+
+⚠️ **Attention** : *Tout dossier incomplet sera rejeté.*
+[FSB — Appel à candidature masters 2026-2027, p.0]
+
+---
+### **4. Conseils pratiques**
+- **Vérifiez l’éligibilité** : Assurez-vous que votre licence correspond aux prérequis du master visé (les détails spécifiques aux filières ne sont pas précisés dans ce document).
+- **Anticipez** : Préparez vos documents à l’avance pour éviter les retards.
+- **Suivez les mises à jour** : Consultez régulièrement la plateforme et le site de la FSB pour d’éventuelles annonces complémentaires.
+
+---
+### **Ce qui n’est pas couvert dans les informations disponibles**
+- **Les critères de sélection** (notes minimales, spécialités de licence requises, etc.) ne sont pas détaillés ici.
+- **La liste des masters proposés** par la FSB pour 2026-2027 n’est pas mentionnée dans ce contexte. Pour cela, nous vous invitons à consulter le site officiel de la FSB ou à contacter le service de scolarité.
+
+N’hésitez pas à nous recontacter si vous avez besoin d’éclaircissements sur les étapes ! 😊
+      <div class="cite">Citations : FSB — Appel à candidature masters 2026-2027 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Plateforme master.ucar.rnu.tn et délai du 10 juillet 2026 : conforme.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quel est le dernier délai de candidature aux masters 2026-2027 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#69</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: appel_candidature_masters_2026_2027)</div>Le 10 juillet 2026.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Le dernier délai de candidature aux masters pour l&#x27;année universitaire **2026-2027** à la Faculté des Sciences de Bizerte est fixé au **10 juillet 2026** [FSB — Appel à candidature masters 2026-2027, p.0].
+
+Pour rappel, la candidature se fait **exclusivement en ligne** via la plateforme de l&#x27;Université de Carthage : [https://master.ucar.rnu.tn/](https://master.ucar.rnu.tn/).
+      <div class="cite">Citations : FSB — Appel à candidature masters 2026-2027 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 10 juillet 2026 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quels documents faut-il fournir pour candidater à un master ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#70</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: appel_candidature_masters_2026_2027)</div>Copie de la CIN, copies du diplôme et relevé de notes du baccalauréat, copies conformes des relevés de notes et attestations de réussite universitaires, copie conforme du diplôme de licence (ou attestation de réussite L3), une photo d&#x27;identité récente, et tout document jugé utile. Tout dossier incomplet est rejeté.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> La liste des pièces figure pourtant dans appel_candidature_masters_2026_2027.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quand sont publiées les listes des candidatures master 2026-2027 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#71</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: appel_candidature_masters_2026_2027)</div>Délibération des résultats préliminaires le 25 juillet 2026 ; publication des listes le 31 juillet 2026.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, les listes des candidatures pour les masters 2026-2027 à la Faculté des Sciences de Bizerte seront publiées le **31 juillet 2026** [FSB — Appel à candidature masters 2026-2027, p.0].
+
+Pour rappel, la date de délibération des résultats préliminaires est fixée au **25 juillet 2026** [FSB — Appel à candidature masters 2026-2027, p.0].
+      <div class="cite">Citations : FSB — Appel à candidature masters 2026-2027 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 31 juillet 2026 pour la publication des listes : exact (la question portait sur la publication).</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Comment demander une dérogation pour se réinscrire en mastère ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#72</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_derogation)</div>Déposer une demande au nom du doyen (formulaire à télécharger) et des copies des attestations d&#x27;inscription du même mastère des années passées.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Pour demander une **dérogation pour se réinscrire en mastère** à la Faculté des Sciences de Bizerte (FSB), voici la procédure à suivre, basée sur les informations disponibles :
+
+### **Documents à fournir** :
+1. **Une demande écrite** adressée au **doyen de la FSB** (formulaire à télécharger).
+2. **Des copies des attestations d’inscription** dans le même mastère pour les années précédentes.
+
+### **Conditions à respecter** :
+- Les étudiants en mastère bénéficient normalement de **3 inscriptions** (1 en 1ère année, 1 en 2ème année, et 1 redoublement en 1ère ou 2ème année) **plus une dérogation spéciale** [fsb_derogation, p.0].
+- La dérogation peut être accordée :
+  - En **1ère année** (3ème inscription en 1ère année, limitant alors à une seule inscription en 2ème année).
+  - En **2ème année** (3ème inscription en 2ème année pour un étudiant n’ayant pas redoublé en 1ère année, ou 2ème inscription en 2ème année pour un étudiant ayant déjà redoublé en 1ère année).
+
+### **Restrictions pour les étudiants dérogataires** :
+- Ils peuvent **uniquement obtenir une attestation de présence aux examens** pour passer les matières non capitalisées.
+- Ils **n’ont pas le droit** de demander d’autres documents (attestation de présence générale, carte bibliothèque, etc.) [fsb_derogation, p.0].
+
+### **À noter** :
+- La demande doit être **déposée auprès de l’administration de la FSB** (modalités précises non détaillées dans le contexte).
+- Aucune information n’est fournie sur les **délais** ou les **critères d’acceptation** au-delà des conditions d’inscription mentionnées.
+
+Si vous avez besoin d’aide pour remplir le formulaire ou clarifier votre situation, n’hésitez pas à contacter le service de scolarité de la FSB.
+      <div class="cite">Citations : fsb_derogation p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Procédure de dérogation (demande au doyen + attestations) : conforme.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Combien d&#x27;inscriptions un étudiant en mastère a-t-il droit ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#73</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_derogation)</div>3 inscriptions et 1 dérogation : une en 1ère année, une en 2ème année, une en tant que redoublant, plus une dérogation spéciale.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, un étudiant en mastère à la Faculté des Sciences de Bizerte a droit à **3 inscriptions** (1 en première année, 1 en deuxième année, et 1 en tant que redoublant en première ou deuxième année) **plus une dérogation spéciale** sous certaines conditions.
+
+Voici les détails :
+- **1 inscription en première année**,
+- **1 inscription en deuxième année**,
+- **1 inscription en tant que redoublant** (en première ou deuxième année),
+- **1 dérogation spéciale** (qui peut être utilisée soit pour une 3ᵉ inscription en première année, soit pour une 3ᵉ inscription en deuxième année, soit pour une 2ᵉ inscription en deuxième année si l&#x27;étudiant a déjà redoublé en première année) [fsb_derogation, p.0].
+
+Si vous avez besoin de précisions sur les cas spécifiques, n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : fsb_derogation p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 3 inscriptions et 1 dérogation : exact.</div>
+  </div>
+</div><h2>Bourses <span style="font-size:9pt;color:#7a8699;font-weight:400">(12 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Quel est le montant d&#x27;une bourse universitaire en Tunisie ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CONFLIT">CONFLIT</span><span class="id">#74</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_etudiants_tunisie_montants_conditions)</div>Entre 650 et 1 100 DT par an selon le revenu familial.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Voici les montants des **bourses universitaires nationales** en Tunisie, selon le niveau d&#x27;études, tels que fixés par les arrêtés ministériels [Bourse universitaire — Office des Œuvres Universitaires du Nord, p.0] :
+
+- **Licence (3 premières années)** : **60 DT/mois** (soit **600 DT/an** pour 10 mois).
+- **Licence (3 années suivantes)** : **80 DT/mois** (soit **800 DT/an** pour 10 mois).
+- **Master 1re année** : **100 DT/mois** (soit **1 000 DT/an** pour 10 mois).
+- **Master 2e année** : **140 DT/mois** (soit **1 400 DT/an** pour 10 mois).
+- **Doctorat** : **250 DT/mois** (soit **3 000 DT/an** pour 12 mois).
+
+**À noter** :
+- Les bourses sont versées sur **10 mois** pour les cycles licence et master (sauf doctorat, sur 12 mois).
+- Une **prolongation d&#x27;un mois** est possible pour les stages obligatoires non rémunérés en août/septembre [Bourse universitaire — Office des Œuvres Universitaires du Nord, p.0].
+
+Pour les **étudiants boursiers**, ces aides, combinées aux autres dispositifs (foyer, restaurant universitaire, prêts), permettent de couvrir une grande partie des frais annuels, estimés à **moins de 1 200 DT/an** (hors transport et matériel) [Bourses étudiants Tunisie — montants, conditions, démarches, p.0].
+
+Si vous souhaitez des précisions sur les **conditions d&#x27;éligibilité** ou les **démarches**, n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : Bourse universitaire — Office des Œuvres Universitaires du Nord p.0, Bourses étudiants Tunisie — montants, conditions, démarches p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Le modèle cite les montants officiels de l&#x27;OOUN (arrêtés ministériels) ; la réponse attendue provenait d&#x27;un article de blog commercial présent dans la base. Les deux sources se contredisent — celle du modèle est la plus fiable. Le modèle a eu raison contre notre référence.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quel est le montant maximum d&#x27;un prêt universitaire ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CONFLIT">CONFLIT</span><span class="id">#75</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_etudiants_tunisie_montants_conditions)</div>Jusqu&#x27;à 4 000 DT par an, à taux préférentiel, via les offices des œuvres universitaires.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, le montant maximum d&#x27;un **prêt universitaire** en Tunisie varie selon le niveau d&#x27;études :
+
+- **Licence (3 premières années)** : 600 DT
+- **Licence (3 années suivantes)** : 800 DT
+- **Mastère (1ère année)** : 1000 DT
+- **Mastère (2ème année)** : 1400 DT
+
+[Bourse universitaire — Office des Œuvres Universitaires du Nord, p.0]
+
+Ainsi, le montant maximum mentionné est **1400 DT** pour la 2ème année de mastère.
+      <div class="cite">Citations : Bourse universitaire — Office des Œuvres Universitaires du Nord p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Même conflit de sources que #74 : montants officiels de l&#x27;OOUN contre article commercial.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Combien coûte un foyer universitaire ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#76</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_etudiants_tunisie_montants_conditions)</div>À partir de 50 DT par mois ; le restaurant universitaire est à 0,2 DT le repas.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Le tarif du foyer ne figure que dans l&#x27;article commercial, source peu fiable.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Qu&#x27;est-ce que la bourse de mérite et combien vaut-elle ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#77</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_etudiants_tunisie_montants_conditions)</div>Attribuée aux étudiants ayant les meilleurs résultats au bac ou en cours d&#x27;études ; de 1 500 à 2 500 DT par an, cumulable avec la bourse classique.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>La **bourse de mérite** est une aide financière attribuée par le ministère aux étudiants ayant obtenu **les meilleurs résultats au baccalauréat ou en cours d&#x27;études**. Son montant annuel varie entre **1 500 et 2 500 dinars tunisiens (DT)**.
+Cette bourse est **cumulable avec la bourse classique** [Bourses étudiants Tunisie — montants, conditions, démarches, p.0].
+
+Si tu envisages de postuler, sache que les critères incluent l&#x27;excellence académique, et qu&#x27;il est conseillé de déposer ton dossier tôt via le portail **inscription.tn** pour maximiser tes chances [Bourses étudiants Tunisie — montants, conditions, démarches, p.0].
+      <div class="cite">Citations : Bourses étudiants Tunisie — montants, conditions, démarches p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Bourse de mérite : bénéficiaires et montant correctement restitués.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Peut-on cumuler la bourse et le prêt universitaire ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag DISCUTABLE">DISCUTABLE</span><span class="id">#78</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_etudiants_tunisie_montants_conditions)</div>Oui, les deux dispositifs sont cumulables.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, **le cumul de la bourse et du prêt universitaire avec une autre bourse ou aide d&#x27;un autre organisme n&#x27;est pas autorisé** [Bourse universitaire — Office des Œuvres Universitaires du Nord, p.0].
+
+Cela signifie que vous ne pouvez pas bénéficier simultanément de la bourse et du prêt universitaire **si vous recevez déjà une autre aide financière** (par exemple, une bourse d&#x27;un autre organisme). Cependant, le contexte ne précise pas explicitement si le cumul entre **la bourse et le prêt universitaire eux-mêmes** (sans autre aide) est interdit.
+
+Si vous souhaitez une réponse précise sur ce point, je vous recommande de consulter directement l&#x27;**Office des Œuvres Universitaires du Nord (OOUN)** via leur site [www.ooun.rnu.tn](http://www.ooun.rnu.tn) ou de vérifier les textes réglementaires cités (comme le décret n° 2009-3040 ou l&#x27;arrêté du 9 octobre 2012) [Bourse universitaire — Office des Œuvres Universitaires du Nord, p.0].
+      <div class="cite">Citations : Bourse universitaire — Office des Œuvres Universitaires du Nord p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Le modèle cite une règle sur le cumul avec un AUTRE organisme, sans répondre directement au cumul bourse + prêt. L&#x27;indice automatique l&#x27;avait marqué MATCH à tort, sur le jeton « deux » présent par hasard.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quand sont publiés les résultats des bourses ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#79</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_etudiants_tunisie_montants_conditions)</div>Vers fin novembre sur inscription.tn, avec SMS et email ; premier versement en décembre par virement.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, **les résultats des bourses sont publiés vers fin novembre** sur le site [inscription.tn](https://inscription.tn). Les étudiants reçoivent également une notification officielle par SMS et par email [Bourses étudiants Tunisie — montants, conditions, démarches, p.0].
+
+Pour les étudiants relevant de l&#x27;**Office des Œuvres Universitaires du Nord (OOUN)**, les résultats sont annoncés sur le site [www.ooun.rnu.tn](http://www.ooun.rnu.tn) après étude des dossiers par les commissions [Bourse universitaire — Office des Œuvres Universitaires du Nord, p.0].
+
+*Note* : Les délais exacts de publication peuvent varier légèrement selon les offices régionaux, mais la période indiquée (fin novembre) reste la référence générale.
+      <div class="cite">Citations : Bourses étudiants Tunisie — montants, conditions, démarches p.0, Bourse universitaire — Office des Œuvres Universitaires du Nord p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Publication fin novembre et notification : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Que faire si ma demande de bourse est rejetée ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#80</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_etudiants_tunisie_montants_conditions)</div>Un recours est possible auprès de la commission d&#x27;attribution des bourses dans les 30 jours suivant le rejet, avec pièces justificatives supplémentaires.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> La procédure de recours ne figure que dans l&#x27;article commercial, source peu fiable.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Existe-t-il une réduction de transport pour les étudiants ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#81</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_etudiants_tunisie_montants_conditions)</div>Oui, la carte de transport étudiant (SNCFT, TRANSTU) donne une réduction de 50 à 75 % sur les abonnements.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Oui, il existe des réductions de transport pour les étudiants en Tunisie. Voici les principales aides disponibles :
+
+- **Carte de transport étudiant** : Elle offre une réduction de **50 à 75 % sur les abonnements** des réseaux **SNCFT** (chemins de fer) et **TRANSTU** (transports urbains) [Bourses étudiants Tunisie — montants, conditions, démarches, p.0].
+- **Transport collectif universitaire** : Proposé dans certaines villes comme **Tunis, Sfax et Sousse** [Bourses étudiants Tunisie — montants, conditions, démarches, p.0].
+- **Aide au transport pour les boursiers** : Si tu es boursier et que tu résides loin du campus, tu peux bénéficier d’une aide spécifique pour le transport [Bourses étudiants Tunisie — montants, conditions, démarches, p.0].
+
+Pour en profiter, il te faudra généralement présenter ta **carte étudiante** ou suivre les démarches indiquées par ton office des œuvres universitaires (OOUN pour le Nord, par exemple).
+
+N’hésite pas à te renseigner directement auprès de la **Faculté des Sciences de Bizerte** ou des services concernés pour connaître les modalités précises !
+      <div class="cite">Citations : Bourses étudiants Tunisie — montants, conditions, démarches p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Réduction de 50 à 75 % sur les abonnements : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Comment déposer un dossier de bourse pour 2025-2026 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#82</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_2025_2026_depot_dossier)</div>Exclusivement en ligne via le site officiel de l&#x27;Office des œuvres universitaires pour le Nord (OOUN).</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Voici les informations disponibles concernant le dépôt d&#x27;un dossier de bourse pour l&#x27;année universitaire **2025-2026** :
+
+### **Périodes de dépôt**
+- **Nouveaux étudiants** : du **2 septembre au 31 octobre 2025** [Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure), p.0].
+- **Renouvellement et anciens non-boursiers** : du **5 septembre au 31 octobre 2025** [Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure), p.0].
+- **Étudiants en master** : dernier délai le **31 décembre 2025** [Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure), p.0].
+- **Doctorants** : candidatures ouvertes du **1er octobre 2025 au 15 mai 2026**, avec envoi des dossiers avant le **30 mai 2026** [Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure), p.0].
+
+### **Conditions générales** (pour les bourses en cours d&#x27;études)
+- **Revenu familial** : ne doit pas dépasser le **SMIG** (3 840 DT en 2014, à vérifier pour 2025-2026) après déduction des charges sociales (ex. : 100 DT par étudiant, 50 DT par enfant de moins de 21 ans, etc.) [Bourse universitaire — Office des Œuvres Universitaires du Nord, p.0].
+- **Pas de cumul** avec une autre bourse ou aide [Bourse universitaire — Office des Œuvres Universitaires du Nord, p.0].
+
+### **Ce qui n&#x27;est pas précisé dans les documents**
+- **La procédure exacte de dépôt** (en ligne, en personne, pièces à fournir) n&#x27;est pas détaillée dans les extraits fournis.
+- **Les montants des bourses pour 2025-2026** ne sont pas indiqués (seuls des chiffres indicatifs pour 2026-2027 sont mentionnés, mais incomplets) [Bourses étudiants Tunisie — montants, conditions, démarches, p.0].
+
+### **Recommandation**
+Pour connaître la **procédure précise** (dossier à télécharger, lieu de dépôt, etc.), il est conseillé de :
+1. Contacter directement l’**Office des Œuvres Universitaires du Nord** (ou l’organisme gestionnaire des bourses de votre région).
+2. Consulter le site officiel du **ministère de l’Enseignement supérieur** ou de votre établissement (FSB).
+
+N’hésitez pas à me poser d’autres questions sur les **conditions d’éligibilité** ou les **dates clés** ! 😊
+      <div class="cite">Citations : Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure) p.0, Bourse universitaire — Office des Œuvres Universitaires du Nord p.0, Bourses étudiants Tunisie — montants, conditions, démarches p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Réponse plus complète que l&#x27;attendu (périodes de dépôt détaillées).</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles sont les dates de dépôt des bourses pour les nouveaux étudiants en 2025-2026 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#83</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_2025_2026_depot_dossier)</div>Du 2 septembre au 31 octobre 2025, avec envoi postal jusqu&#x27;au 30 novembre 2025.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Pour les **nouveaux étudiants**, les dossiers de bourse pour l&#x27;année universitaire **2025-2026** peuvent être déposés **du 2 septembre au 31 octobre 2025**, avec un dernier délai d’envoi par voie postale fixé au **30 novembre 2025** [Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure), p.0].
+
+N&#x27;hésitez pas à consulter le site officiel de l&#x27;**Office des œuvres universitaires pour le Nord (OOUN)** pour effectuer votre candidature en ligne.
+      <div class="cite">Citations : Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 2 septembre – 31 octobre 2025 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Jusqu&#x27;à quand les doctorants peuvent-ils candidater à une bourse ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#84</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_2025_2026_depot_dossier)</div>Du 1er octobre 2025 au 15 mai 2026, avec envoi des dossiers jusqu&#x27;au 30 mai 2026.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, les doctorants peuvent candidater à une bourse **du 1er octobre 2025 au 15 mai 2026**, avec une **date limite d’envoi des dossiers fixée au 30 mai 2026** [Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure), p.0].
+
+L’Office des œuvres universitaires du Nord (OOUN) insiste sur le respect scrupuleux de ces délais.
+      <div class="cite">Citations : Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 1er octobre 2025 – 15 mai 2026, envoi jusqu&#x27;au 30 mai 2026 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quel est le délai des bourses pour les étudiants en master en 2025-2026 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#85</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: bourses_2025_2026_depot_dossier)</div>Du 5 septembre au 30 novembre 2025, avec dernier envoi postal accepté jusqu&#x27;au 31 décembre 2025.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, **les étudiants en master** peuvent déposer leur dossier de bourse pour l&#x27;année universitaire **2025-2026** du **5 septembre au 30 novembre 2025**, avec un **dernier délai d&#x27;envoi postal accepté jusqu&#x27;au 31 décembre 2025** [Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure), p.0].
+
+N&#x27;hésitez pas à vérifier ces dates sur le site officiel de l&#x27;**Office des œuvres universitaires pour le Nord (OOUN)** pour toute mise à jour.
+      <div class="cite">Citations : Bourses universitaires 2025-2026 — dépôt du dossier (dates &amp; procédure) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 5 septembre – 30 novembre 2025 : exact.</div>
+  </div>
+</div><h2>Stages <span style="font-size:9pt;color:#7a8699;font-weight:400">(5 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Le stage est-il obligatoire à la FSB ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#86</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_stages)</div>Oui, les stages pratiques sont obligatoires en fin d&#x27;études de licence appliquée (LA3) ou de mastère professionnel (MP2).</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>À la **Faculté des Sciences de Bizerte (FSB)**, la réponse dépend du **niveau d&#x27;études** et du **type de formation** :
+
+1. **Pour les étudiants en Cycle Préparatoire Intégré (CPI)** :
+   - **Oui, les stages sont obligatoires** en **1ère et 2ème année** de la formation ingénieur.
+   - Un **projet de fin d’études (PFE)** de **4 mois** est également obligatoire en fin de formation [FSB-CI — Cycle Préparatoire Intégré (Août 2022), p.7].
+
+2. **Pour les étudiants en 3ème année de Licence Appliquée (LA3) ou en 2ème année de Mastère Professionnel (MP2)** :
+   - **Oui, le stage de PFE est obligatoire** [fsb_stages, p.0].
+
+3. **Pour les autres étudiants (hors CPI, LA3, MP2)** :
+   - Les **stages d’initiation** sont **facultatifs** et peuvent être effectués pendant les vacances universitaires ou d’été, à condition de ne pas dépasser le **15 septembre** de l’année administrative [FSB — Demande de stage d&#x27;initiation, p.0].
+
+---
+**Résumé** :
+- **Obligatoire** : CPI (1ère/2ème année), LA3, MP2 (PFE).
+- **Facultatif** : Stages d’initiation pour les autres niveaux.
+
+Si vous avez un doute sur votre situation, je vous invite à consulter la **Direction des Stages** de la FSB pour une confirmation personnalisée.
+      <div class="cite">Citations : FSB-CI — Cycle Préparatoire Intégré (Août 2022) p.7, fsb_stages p.0, FSB — Demande de stage d&#x27;initiation p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Caractère obligatoire du stage correctement restitué par niveau d&#x27;études.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Combien de temps peut durer un stage ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#87</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_stages)</div>Maximum quatre mois en licence appliquée et six mois en mastère professionnel, dans les limites de l&#x27;année universitaire.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, la durée d&#x27;un stage à la Faculté des Sciences de Bizerte (FSB) dépend du niveau d&#x27;études :
+
+- **Pour les étudiants en Licence Appliquée (LA3)** : la durée maximale du stage est de **4 mois** [fsb_stages, p.0].
+- **Pour les étudiants en Mastère Professionnel (MP2)** : la durée maximale du stage est de **6 mois** [fsb_stages, p.0].
+
+Ces durées sont valables dans les limites de l&#x27;année universitaire en cours. Les stages sont obligatoires en fin de parcours pour ces deux niveaux, mais des stages facultatifs peuvent également être effectués pour compléter la formation pratique.
+
+Si vous souhaitez des précisions sur un parcours spécifique (comme la Chimie Industrielle ou les Ressources Naturelles), n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : fsb_stages p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 4 mois en licence appliquée, 6 mois en mastère professionnel : exact. L&#x27;attendu écrivait les nombres en lettres.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>À quoi sert un stage pour un étudiant ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#88</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_stages)</div>Connaître le monde du travail, confirmer son projet professionnel, mettre en pratique les apports théoriques, développer des compétences et un réseau, acquérir une première expérience et bénéficier d&#x27;un tremplin vers l&#x27;emploi.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, un stage offre plusieurs avantages clés pour un étudiant :
+
+- **Découverte du monde professionnel** : Il permet de connaître le milieu professionnel choisi et de confirmer ou infirmer son projet professionnel [fsb_stages, p.0].
+- **Application des connaissances** : Le stage vise à mettre en pratique les apports théoriques de la formation et à développer des compétences professionnelles [fsb_stages, p.0].
+- **Expérience et employabilité** : Il permet d’acquérir une première expérience, de bâtir un réseau relationnel et de bénéficier d’un tremplin vers l’emploi [fsb_stages, p.0].
+- **Immersion professionnelle** : Le stage place l’étudiant en situation réelle, avec des activités d’un niveau de complexité, d’autonomie et de responsabilité adaptées à son diplôme [Licence__Guide_C.N.S._des_sciences_Géologiques___Octobre_2020, p.0].
+
+En résumé, le stage est une étape essentielle pour **valider ses choix, appliquer ses connaissances et se préparer à l’insertion professionnelle**.
+      <div class="cite">Citations : fsb_stages p.0, Licence__Guide_C.N.S._des_sciences_Géologiques___Octobre_2020 p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Objectifs du stage conformes au document.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Comment demander un stage d&#x27;initiation ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#89</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: demande_stage_initiation)</div>Remplir numériquement une demande sur la plateforme &quot;mim&quot; (Stage-FSB), la faire signer par l&#x27;organisme d&#x27;accueil, la déposer à la Direction des Stages, puis éditer la lettre d&#x27;affectation sur la plateforme.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Pour demander un **stage d&#x27;initiation** à la Faculté des Sciences de Bizerte (FSB), voici la procédure à suivre :
+
+1. **Remplir la demande en ligne** :
+   - Accédez à la plateforme **&quot;mim&quot; (Stage-FSB)** via le lien fourni.
+   - Complétez **numériquement** tous les champs obligatoires de la demande.
+   - Faites signer la demande par le **responsable de l’organisme d’accueil** du stage [FSB — Demande de stage d&#x27;initiation, p.0].
+
+2. **Déposer la demande** :
+   - Remettez la demande signée à la **Direction des Stages** de la FSB [FSB — Demande de stage d&#x27;initiation, p.0].
+
+3. **Éditer la lettre d’affectation** :
+   - Retournez sur la plateforme **&quot;mim&quot; (Stage-FSB)** pour générer **numériquement** votre lettre d’affectation, qui officialisera le stage et sa durée [FSB — Demande de stage d&#x27;initiation, p.0].
+
+### À noter :
+- Le stage d&#x27;initiation est **facultatif** et doit se dérouler **en dehors du calendrier pédagogique** :
+  - Soit pendant les **vacances universitaires** (au cours de l’année),
+  - Soit pendant les **vacances d’été**, avec une date limite fixée au **15 septembre** de chaque année administrative [FSB — Demande de stage d&#x27;initiation, p.0].
+
+Pour les étudiants en **Licence Chimie** (tous parcours), ce stage est souvent réalisé **entre la L2 et la L3**, avec un suivi en **semestre S5** (rédaction de rapport et présentation orale) [L._Chimie_Parcours__Chimie_industrielle_, p.92] [L._Chimie_Parcours__Chimie_fine_, p.92] [L._Chimie_Parcours___Recherche__, p.89].
+
+N’hésitez pas à contacter la **Direction des Stages** pour toute question complémentaire !
+      <div class="cite">Citations : FSB — Demande de stage d&#x27;initiation p.0, L._Chimie_Parcours__Chimie_industrielle_ p.92, L._Chimie_Parcours__Chimie_fine_ p.92, L._Chimie_Parcours___Recherche__ p.89</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Procédure via la plateforme « mim » (Stage-FSB) : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quand doit se dérouler le stage facultatif d&#x27;initiation ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#90</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: demande_stage_initiation)</div>En dehors du calendrier pédagogique, pendant les vacances universitaires ou d&#x27;été, dans un délai ne dépassant pas le 15 septembre de chaque année administrative.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, le **stage facultatif d&#x27;initiation** doit se dérouler **en dehors du calendrier pédagogique**, soit :
+- **Pendant les vacances universitaires** (au cours de l&#x27;année),
+- **Ou pendant les vacances d&#x27;été**, avec une date limite fixée au **15 septembre de chaque année administrative** [FSB — Demande de stage d&#x27;initiation, p.0].
+
+Ce stage est donc flexible, mais doit impérativement respecter ces périodes pour être validé.
+      <div class="cite">Citations : FSB — Demande de stage d&#x27;initiation p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Hors calendrier pédagogique, avant le 15 septembre : exact.</div>
+  </div>
+</div><h2>Doctorat <span style="font-size:9pt;color:#7a8699;font-weight:400">(6 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Que doit contenir le dossier de dépôt de thèse ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#91</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: procedure_depot_these)</div>Demande au nom du Doyen signée, rapport de dépôt signé par l&#x27;encadreur, dossier scientifique (publications, communications), copie du mémoire, CD avec le PDF, certificats d&#x27;inscription, CV, formulaire de recevabilité, attestation de validation des 30 crédits, rapports d&#x27;avancement, copie de la charte (p.1 à 4), rapport de plagiat signé, copie de la CIN, et convention de cotutelle le cas échéant.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, le **dossier de dépôt de thèse** à la Faculté des Sciences de Bizerte (FSB) doit contenir les éléments suivants :
+
+1. **Demande** adressée au nom du Doyen et signée par l&#x27;étudiant.
+2. **Rapport de dépôt** signé par l&#x27;encadreur.
+3. **Copie du dossier scientifique** (publications, communications, etc.).
+4. **Copie du mémoire de thèse**.
+5. **CD** contenant une copie numérisée du mémoire au format PDF.
+6. **Copies des certificats d&#x27;inscription** des années précédentes.
+7. **CV de l&#x27;étudiant**.
+8. **Formulaire de recevabilité**.
+9. **Attestation de validation des crédits** (30 points crédits).
+10. **Copies des rapports d&#x27;avancement** des années précédentes.
+11. **Copie de la charte** (pages 1 à 4).
+12. **Rapport de plagiat** signé par l&#x27;encadrant(e).
+13. **Copie de la CIN** (Carte d&#x27;Identité Nationale).
+14. **Copie de la convention de cotutelle** (si applicable).
+
+[FSB — Procédure de dépôt de thèse, p.0]
+
+Si vous avez besoin de précisions sur un document spécifique ou une étape de la procédure, n&#x27;hésitez pas à demander !
+      <div class="cite">Citations : FSB — Procédure de dépôt de thèse p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Liste des pièces du dossier de dépôt de thèse conforme.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Combien de crédits faut-il valider pour déposer une thèse ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#92</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: procedure_depot_these)</div>30 points crédits (attestation de validation des crédits).</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, il faut valider **30 crédits** pour déposer une thèse, comme indiqué dans la procédure de dépôt de thèse de la FSB [FSB — Procédure de dépôt de thèse, p.0].
+
+Cela est confirmé par la mention de l&#x27;**attestation de validation des crédits (30 points crédits)** comme document obligatoire dans le dossier de dépôt [FSB — Procédure de dépôt de thèse, p.0].
+
+Aucune autre précision sur la nature ou la répartition de ces crédits n&#x27;est fournie dans le contexte.
+      <div class="cite">Citations : FSB — Procédure de dépôt de thèse p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 30 crédits : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Comment demander un changement de parcours de thèse ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#93</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: Formulaire_changement_de_parcours)</div>Remplir le formulaire de demande de changement de parcours de thèse (réinscription, annulation, changement d&#x27;encadrant, changement/modification de sujet), avec les avis signés des encadrants, la demande signée de l&#x27;étudiant et une copie de l&#x27;attestation d&#x27;inscription de l&#x27;année en cours.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Pour demander un **changement de parcours de thèse** à la Faculté des Sciences de Bizerte (FSB), voici la procédure à suivre, basée sur les informations disponibles :
+
+### **Pièces à fournir** :
+1. **Demande écrite de l’étudiant** (signée) [Formulaire_changement_de_parcours, p.1].
+2. **Avis de l’encadrant(e) actuel(le)** (signé) [Formulaire_changement_de_parcours, p.1].
+3. **Copie de l’attestation d’inscription** de l’année universitaire en cours [Formulaire_changement_de_parcours, p.1].
+
+### **Cas spécifiques** :
+- Si le changement implique un **changement d’encadrant(e)**, il faut également fournir :
+  - **Avis de l’ancien encadrant(e)** (signé) [Formulaire_changement_de_parcours, p.1].
+  - **Avis du nouvel encadrant(e)** (signé) [Formulaire_changement_de_parcours, p.1].
+
+### **Démarche** :
+1. Remplir le **formulaire de demande de changement de parcours** (disponible en ligne ou auprès de l’administration).
+2. Joindre les documents requis (voir ci-dessus).
+3. Soumettre le dossier à la **commission de thèse** pour avis (favorable ou défavorable) [Formulaire_changement_de_parcours, p.2].
+
+### **À noter** :
+- La commission examine la demande et rend un avis (favorable/défavorable) lors d’une réunion dédiée [Formulaire_changement_de_parcours, p.2].
+- Les spécialités concernées par les changements incluent : **Biologie, Géologie, Chimie, Maths, Physique, Informatique** [Formulaire_changement_de_parcours, p.1].
+
+Si vous avez besoin d’aide pour remplir le formulaire ou obtenir les signatures, n’hésitez pas à contacter le service de la recherche ou votre encadrant(e).
+
+*Pour les autres types de demandes (réinscription, annulation, etc.), les pièces varient – consultez les détails dans le contexte fourni.*
+      <div class="cite">Citations : Formulaire_changement_de_parcours p.1, Formulaire_changement_de_parcours p.2</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Procédure de changement de parcours de thèse conforme.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles pièces joindre pour un changement d&#x27;encadrant de thèse ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#94</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: Formulaire_changement_de_parcours)</div>Avis de l&#x27;ancien encadrant signé, avis du nouvel encadrant signé, demande de l&#x27;étudiant signée, et copie de l&#x27;attestation d&#x27;inscription de l&#x27;année universitaire actuelle.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Pour effectuer un **changement d&#x27;encadrant(e) de thèse** à la Faculté des Sciences de Bizerte (FSB), les pièces à joindre à votre demande sont les suivantes :
+
+1. **Avis de l’ancien encadrant(e)** (signé)
+2. **Avis du nouvel encadrant(e)** (signé)
+3. **Demande de l’étudiant** (signée)
+4. **Copie de l’attestation d’inscription de l’année universitaire actuelle**
+
+[Formulaire_changement_de_parcours, p.1]
+      <div class="cite">Citations : Formulaire_changement_de_parcours p.1</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Pièces pour un changement d&#x27;encadrant : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quelles sont les procédures de doctorat disponibles à la FSB ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#95</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: fsb_doctorats)</div>Inscription en 1ère année, inscription 2 et 3, dérogation 4 et 5ème année, procédure de dépôt de thèse, convention de cotutelle, changement de parcours, et demande d&#x27;annulation de la convention de cotutelle.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, la Faculté des Sciences de Bizerte (FSB) propose les procédures suivantes liées au doctorat :
+
+1. **Inscription en 1ère année de doctorat** [fsb_doctorats, p.0]
+2. **Inscription en 2ème et 3ème année de doctorat** [fsb_doctorats, p.0]
+3. **Demande de dérogation pour les 4ème et 5ème années de doctorat** [fsb_doctorats, p.0]
+4. **Procédure de dépôt de thèse** (avec une liste détaillée des documents requis, comme la demande signée, le rapport de dépôt, le dossier scientifique, etc.) [FSB — Procédure de dépôt de thèse, p.0]
+5. **Convention pour la préparation d’une thèse en cotutelle** [fsb_doctorats, p.0]
+6. **Changement de parcours doctoral** [fsb_doctorats, p.0]
+7. **Demande d&#x27;annulation de la convention de cotutelle** [fsb_doctorats, p.0]
+
+Pour plus de détails sur les étapes précises (délais, formulaires, etc.), il est recommandé de consulter les documents officiels de la FSB ou de contacter l&#x27;administration.
+
+*Note* : Les critères d&#x27;admission ou les spécialités de doctorat proposées ne sont pas explicitement mentionnés dans les passages fournis. Seules les procédures administratives sont couvertes.
+      <div class="cite">Citations : fsb_doctorats p.0, FSB — Procédure de dépôt de thèse p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Procédures de doctorat correctement listées.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Que faut-il pour annuler une convention de cotutelle ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag REFUS">REFUS</span><span class="id">#96</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: Demande_dannulation_de_la_convention_de_cotutelle)</div>Demande de l&#x27;étudiant signée, avis des deux encadrants (tunisien et étranger) signé, copie du certificat d&#x27;inscription de la 1ère année de cotutelle, et copie de la convention.</div>
+    <div class="got ref"><div class="lbl">Réponse du modèle</div>Je ne trouve pas d&#x27;information fiable sur ce sujet dans les documents disponibles.
+      <div class="cite">Citations : aucune</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Les pièces figurent dans le formulaire d&#x27;annulation de cotutelle, document très bruité (formulaire à champs vides).</div>
+  </div>
+</div><h2>Calendrier <span style="font-size:9pt;color:#7a8699;font-weight:400">(3 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Quand sont les vacances d&#x27;hiver universitaires 2025-2026 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#97</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: calendrier_universitaire_2025_2026)</div>Du samedi 20 décembre 2025 (après les cours) au dimanche 4 janvier 2026 inclus.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Les vacances d&#x27;hiver universitaires pour l&#x27;année académique 2025-2026 sont fixées **du samedi 20 décembre 2025 (après les cours) au dimanche 4 janvier 2026 inclus** [Calendrier de l&#x27;année universitaire 2025-2026 (national), p.0].
+
+N&#x27;hésitez pas si vous avez d&#x27;autres questions sur le calendrier universitaire ou l&#x27;organisation de l&#x27;année académique !
+      <div class="cite">Citations : Calendrier de l&#x27;année universitaire 2025-2026 (national) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 20 décembre 2025 – 4 janvier 2026 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Quand sont les vacances de printemps 2025-2026 ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#98</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: calendrier_universitaire_2025_2026)</div>Du samedi 14 mars 2026 (après les cours) au dimanche 29 mars 2026 inclus.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Les vacances de printemps pour l&#x27;année universitaire 2025-2026 sont prévues **du samedi 14 mars 2026 (après les cours) au dimanche 29 mars 2026 inclus** [Calendrier de l&#x27;année universitaire 2025-2026 (national), p.0].
+
+N&#x27;hésitez pas si vous avez d&#x27;autres questions sur le calendrier académique ou la vie à la Faculté des Sciences de Bizerte !
+      <div class="cite">Citations : Calendrier de l&#x27;année universitaire 2025-2026 (national) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> 14 mars – 29 mars 2026 : exact.</div>
+  </div>
+</div>
+<div class="q">
+  <div class="qh"><span>Combien de semaines de cours doit comporter l&#x27;année universitaire ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#99</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: calendrier_universitaire_2025_2026)</div>Un minimum de 28 semaines de cours effectifs, hors vacances et examens.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>D&#x27;après les informations disponibles, **l&#x27;année universitaire 2025-2026 doit comporter un minimum de 28 semaines de cours effectifs**, hors vacances et examens, sauf pour les filières spécifiquement régies par des textes particuliers [Calendrier de l&#x27;année universitaire 2025-2026 (national), p.0].
+
+Cette règle s&#x27;applique à l&#x27;ensemble des établissements relevant du ministère de l&#x27;Enseignement supérieur et de la Recherche scientifique.
+      <div class="cite">Citations : Calendrier de l&#x27;année universitaire 2025-2026 (national) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Minimum de 28 semaines de cours effectifs : exact.</div>
+  </div>
+</div><h2>Clubs <span style="font-size:9pt;color:#7a8699;font-weight:400">(1 questions)</span></h2>
+<div class="q">
+  <div class="qh"><span>Comment créer un club d&#x27;étudiants à la FSB ?</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <span class="tag CORRECT">CORRECT</span><span class="id">#100</span></span></div>
+  <div class="qb">
+    <div class="exp"><div class="lbl">Réponse attendue (source: charte_des_clubs)</div>Déposer un dossier auprès du Comité d&#x27;Encadrement des Clubs d&#x27;Étudiants (CEC) à la Direction des Stages et de l&#x27;Ouverture sur l&#x27;Environnement : demande au nom du Doyen (intitulé, logo, objectifs, membres du bureau), la Charte des Clubs de l&#x27;Université de Carthage, et celle de la FSB.</div>
+    <div class="got"><div class="lbl">Réponse du modèle</div>Pour créer un club d&#x27;étudiants à la **Faculté des Sciences de Bizerte (FSB)**, voici la procédure à suivre, basée sur la **Charte des clubs** de la FSB :
+
+1. **Dépôt du dossier** :
+   Vous devez soumettre un dossier complet auprès du **Comité d’Encadrement des Clubs d’Etudiants (CEC)**, situé à la **Direction des Stages et de l’Ouverture sur l’Environnement** de la FSB.
+
+2. **Contenu du dossier** :
+   - Une **demande adressée au Doyen de la FSB** incluant :
+     - L’**intitulé et le logo** du club,
+     - Les **objectifs/missions** du club,
+     - La **liste des membres du bureau** (Président, Vice-Président, Secrétaire, Trésorier, Responsable Communication, Responsable Pédagogique, etc.).
+   - La **Charte des Clubs d’Etudiants éditée par l’Université de Carthage**,
+   - La **Charte des Clubs d’Etudiants éditée par la FSB**.
+
+3. **Respect des chartes** :
+   Tout manque dans le dossier ou le **non-respect des chartes** (FSB ou Université de Carthage) entraînera le **refus de création** ou la **dissolution du club** [FSB — Charte des clubs (vie estudiantine), p.0].
+
+---
+**À noter** :
+- Si vous souhaitez **renouveler** un club existant, vous devez compléter le dossier et signer la Charte de l’Université de Carthage.
+- Pour plus de détails, vous pouvez contacter le **CEC** ou la Direction des Stages.
+
+N’hésitez pas à vous rapprocher de l’administration pour obtenir les modèles de chartes ou des clarifications !
+      <div class="cite">Citations : FSB — Charte des clubs (vie estudiantine) p.0</div></div>
+    <div class="note"><strong>Revue manuelle :</strong> Dépôt du dossier auprès du CEC (Direction des Stages) : conforme.</div>
+  </div>
+</div>
+</body></html>

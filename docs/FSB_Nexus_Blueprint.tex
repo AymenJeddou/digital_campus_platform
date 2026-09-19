@@ -1,0 +1,356 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------------------------------------------------------------------------
+% FSB Nexus - Project Blueprint
+% Compile with: pdflatex FSB_Nexus_Blueprint.tex
+% ---------------------------------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+
+\definecolor{fsbblue}{RGB}{20,60,110}
+
+\titleformat{\section}{\large\bfseries\color{fsbblue}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection}{0.6em}{}
+
+\setlist[itemize]{leftmargin=1.4em,itemsep=2pt,topsep=3pt}
+
+\title{\vspace{-1.2cm}\textbf{\color{fsbblue}FSB Nexus}\\[0.3em]
+\large An AI-Powered Digital Campus Assistant for the\\Faculty of Sciences of Bizerte\\[0.6em]
+\normalsize Project Blueprint and Roadmap}
+
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+\vspace{-1.5cm}
+
+\begin{center}
+\small
+\begin{tabular}{ll}
+\textbf{Prepared for:} & Mr. Habib Fathallah \\
+\textbf{Prepared by:} & The FSB Nexus Team \\
+\textbf{Document type:} & Reference blueprint (supersedes prior planning documents) \\
+\end{tabular}
+\end{center}
+
+\vspace{0.4cm}
+\hrule
+\vspace{0.4cm}
+
+% ===========================================================================
+\section{Executive Summary}
+
+FSB Nexus is an intelligent assistant that helps students and prospective students
+of the Faculty of Sciences of Bizerte (FSB) obtain reliable, sourced answers about
+the faculty: its programs and licences, admission and administrative procedures,
+course content, and general campus life. The system is built on a
+Retrieval-Augmented Generation (RAG) architecture, ensuring that answers are grounded
+in official documents and accompanied by citations rather than generated freely.
+
+The foundation of the project is complete: authentication, the conversational
+pipeline, the knowledge base, and the user interface are all implemented and
+integrated end to end. This document summarizes what has been accomplished, presents
+an assessment of the current state, and defines precisely what remains to be done and
+how responsibilities are distributed across the team.
+
+% ===========================================================================
+\section{System Architecture}
+
+The platform is composed of four cooperating layers:
+
+\begin{itemize}
+  \item \textbf{Frontend} --- a web application (Next.js) providing authentication,
+        onboarding, the chat assistant, the profile, and the dashboard.
+  \item \textbf{Backend} --- a REST API (FastAPI) handling authentication, user
+        profiles, conversations, documents, and the bridge to the AI pipeline.
+  \item \textbf{AI / RAG pipeline} --- a set of specialized agents that retrieve
+        relevant document passages, generate a grounded answer, verify that the
+        answer is supported by the sources, and attach citations.
+  \item \textbf{Knowledge base} --- official FSB documents that are cleaned, split
+        into passages, embedded, and stored in a vector database for semantic search.
+\end{itemize}
+
+Information flows as follows: the frontend calls the backend, the backend forwards a
+question to the AI pipeline, the pipeline retrieves passages from the vector database,
+produces a grounded answer with a language model, and returns the answer with its
+sources to the user.
+
+% ===========================================================================
+\section{Work Accomplished}
+
+The first phase of development is complete and merged into the main branch. The
+following capabilities are implemented and functional.
+
+\subsection{Backend}
+\begin{itemize}
+  \item Authentication with JSON Web Tokens: registration, login, and email
+        verification, with hashed passwords and route protection.
+  \item Profile management, including onboarding status and academic-year fields.
+  \item Conversation endpoints that create sessions, store messages, and route
+        questions to the AI pipeline, with per-user access control.
+  \item Document endpoints for listing and administrative upload.
+  \item A relational schema covering students, programs, departments, courses,
+        documents, document passages, conversations, and messages.
+\end{itemize}
+
+\subsection{AI and Retrieval Pipeline}
+\begin{itemize}
+  \item Four specialized agents (Orientation, Academic, Administrative, and
+        Learning), each with strict rules to answer only from provided sources and
+        to cite the document and page.
+  \item A complete pipeline: retrieval, relevance filtering, answer generation,
+        citation formatting, and a groundedness check that blocks unsupported
+        answers.
+  \item A provider-agnostic language-model client, allowing the underlying model to
+        be changed through configuration alone.
+  \item A suite of automated tests covering prompts, citations, and the grading
+        stages.
+\end{itemize}
+
+\subsection{Knowledge Base}
+\begin{itemize}
+  \item A corpus of official FSB documents, cleaned and organized by category.
+  \item A structure-aware pipeline that splits documents into coherent passages
+        while preserving titles, pages, and sources.
+  \item A large set of passages embedded with a multilingual model and stored in the
+        vector database, queryable by semantic similarity.
+\end{itemize}
+
+\subsection{Frontend}
+\begin{itemize}
+  \item Authentication pages, a dashboard, a chat interface, and a profile page.
+  \item A responsive design with light and dark themes and a citation display.
+\end{itemize}
+
+\subsection{Integration}
+\begin{itemize}
+  \item The full stack has been assembled and verified locally: a user can register,
+        log in, and receive sourced answers from the assistant.
+\end{itemize}
+
+% ===========================================================================
+\section{Assessment of the Current State}
+
+A careful review of the running system identified the areas that must be addressed to
+move from a working foundation to a complete, dependable product.
+
+\begin{itemize}
+  \item \textbf{Conversational coverage.} The assistant is currently strict: it
+        answers only when a directly matching passage is found and otherwise declines.
+        It therefore does not yet handle greetings, general conversation, or
+        broadly phrased questions, and it does not retain the context of a
+        conversation across turns.
+  \item \textbf{Retrieval quality.} Some answers are present in the knowledge base but
+        are embedded within noisy source text, which prevents them from being
+        retrieved reliably. Retrieval and source cleanliness both need to be
+        strengthened.
+  \item \textbf{Courses.} The assistant does not yet cover a student's own courses.
+        Adding course content, and answering questions about it, is a core objective
+        of the next phase.
+  \item \textbf{Security and robustness.} Several hardening measures remain, including
+        completing route protection on the client, rate limiting, password policy,
+        stricter cross-origin configuration, and consistent error handling.
+  \item \textbf{Experience and delivery.} Real-time (streaming) responses,
+        conversation history, a fully data-driven dashboard, automated testing in
+        continuous integration, and a reproducible deployment remain to be completed.
+\end{itemize}
+
+% ===========================================================================
+\section{What Is Next: Objectives}
+
+The next phase delivers a complete and professional product with the following
+capabilities:
+
+\begin{itemize}
+  \item A chat assistant that answers any reasonable question about the faculty and
+        its documents, understands general conversation, and stops declining valid
+        questions, while never fabricating information.
+  \item Course support, including the ability to bring in a student's own courses
+        (with Google Classroom as the target integration) and to answer questions
+        about their content.
+  \item A polished, professional, and cohesive interface, with every screen connected
+        to real data.
+  \item A secure and robust platform suitable for a real deployment.
+\end{itemize}
+
+% ===========================================================================
+\section{Roles and Responsibilities}
+
+Work is organized into four roles, each owning a complete, demonstrable outcome. Roles
+are described by responsibility and by the result they must deliver, not by a fixed
+daily schedule. Assignment of team members to roles is decided by the team; pairing is
+expected where a role naturally spans two areas.
+
+\subsection{Role 1 --- Conversational Intelligence and Retrieval}
+\textbf{Objective:} the assistant answers reliably and naturally, covering faculty
+facts, document questions, and ordinary conversation, without fabricating information.
+
+\textbf{Responsibilities:}
+\begin{itemize}
+  \item Introduce an intent-handling layer that distinguishes greetings, general
+        conversation, and meta-questions (such as ``what can you do'') from factual
+        questions, so that only factual questions follow the strict sourced path
+        while the rest receive a helpful, bounded reply.
+  \item Add short-term conversation memory so that follow-up questions are understood
+        in context.
+  \item Strengthen retrieval by combining keyword and semantic search and adding a
+        re-ranking stage, so that answers present in the knowledge base are found.
+  \item Refine the answering rules so the assistant provides what the sources support
+        and clearly states what they do not, rather than declining outright.
+  \item Improve the cleanliness of the most consulted source documents so that key
+        information (programs, licences, procedures, location, contacts) is retrievable.
+  \item Build an evaluation harness of representative questions that measures answer
+        coverage and groundedness, serving as the shared quality benchmark for the
+        whole team.
+\end{itemize}
+
+\textbf{Deliverable:} a measurable, significant increase in answered questions with
+citations, while unsupported answers remain blocked.
+
+\subsection{Role 2 --- Courses and Integrations}
+\textbf{Objective:} a student can bring in their courses and ask questions about their
+own course content.
+
+\textbf{Responsibilities:}
+\begin{itemize}
+  \item Provide a reliable path for adding courses and uploading course materials, and
+        store them in the appropriate tables.
+  \item Ingest each student's course materials into the retrieval layer, scoped to
+        that student, so that questions about a specific course are answered from the
+        correct material.
+  \item Expose endpoints to list courses, view a course and its materials, and refresh
+        course content.
+  \item Provide, together with Role 3, a courses screen that lists courses, shows their
+        materials, and links directly into the assistant to ask about a course.
+  \item Implement the Google Classroom integration (authorization, retrieval of the
+        student's courses, coursework, and materials) as the target automated source.
+        Because this integration depends on external authorization from Google and
+        from the institution, a manual course-entry path is provided first so the
+        capability is available regardless of that approval.
+\end{itemize}
+
+\textbf{Deliverable:} courses visible in the application and answerable in the
+assistant, with Google Classroom as the automated source once authorized.
+
+\subsection{Role 3 --- Frontend and Experience}
+\textbf{Objective:} a professional, impressive, and cohesive interface in which every
+feature is connected to real data.
+
+\textbf{Responsibilities:}
+\begin{itemize}
+  \item Complete client-side route protection and session handling, with a proper
+        redirect for unauthenticated or expired sessions and a working profile and
+        logout.
+  \item Deliver a real-time chat experience that displays answers as they are produced,
+        with clear loading, error, and retry states, and safe rendering of formatted
+        text.
+  \item Present citations as an accessible source view that shows the document and page
+        behind each answer.
+  \item Provide a conversation-history panel to browse and resume previous
+        conversations.
+  \item Build the onboarding flow (student status, academic year, background, and
+        interests) that personalizes the assistant.
+  \item Replace all placeholder content on the dashboard with real data, including a
+        summary of the student's courses and recent activity.
+  \item Establish a consistent design system: unified spacing, typography, motion,
+        responsiveness, light and dark themes, and accessibility.
+\end{itemize}
+
+\textbf{Deliverable:} a coherent, polished interface, free of placeholder content,
+that presents the assistant and its features professionally.
+
+\subsection{Role 4 --- Backend, Security, and Platform}
+\textbf{Objective:} a secure, robust API that provides everything the other roles
+require, and a dependable path to deployment.
+
+\textbf{Responsibilities:}
+\begin{itemize}
+  \item Address the identified security items: request rate limiting, a password
+        policy, stricter cross-origin configuration, consistent and transparent error
+        handling, and safe handling of authentication tokens.
+  \item Provide a streaming response endpoint so that the interface can display answers
+        as they are generated.
+  \item Provide conversation-history and feedback endpoints, persisting messages with
+        their citations and capturing user feedback that feeds the evaluation benchmark.
+  \item Make administrative document upload trigger ingestion into the retrieval layer.
+  \item Support Role 2 with the server-side parts of the Google Classroom
+        authorization and secure token storage.
+  \item Establish reproducible operations: pinned dependencies, automated tests running
+        in continuous integration, database migrations, and a straightforward
+        deployment.
+\end{itemize}
+
+\textbf{Deliverable:} a hardened API exposing streaming, history, feedback, and
+ingestion, with the platform prepared for deployment.
+
+% ===========================================================================
+\section{Shared Interfaces}
+
+To allow the four roles to progress in parallel, the following interfaces are agreed
+at the outset and each role builds against them:
+
+\begin{itemize}
+  \item \textbf{Streaming chat:} a conversation endpoint that accepts a message and an
+        optional session identifier and emits the answer progressively, concluding with
+        the session identifier and the list of citations.
+  \item \textbf{Feedback:} an endpoint that records a rating and an optional note for a
+        given answer.
+  \item \textbf{Courses:} endpoints to list courses, retrieve a course with its
+        materials, and refresh course content.
+  \item \textbf{Pipeline call:} an entry point that accepts the message, the session,
+        the student profile, the recent conversation history, and an optional course
+        scope, and returns the answer, its citations, and the detected intent.
+\end{itemize}
+
+A feedback loop connects these interfaces: user feedback in the interface is recorded
+by the backend, feeds the evaluation benchmark, highlights which sources to improve,
+and thereby drives continuous improvement of answer quality.
+
+% ===========================================================================
+\section{Definition of Done}
+
+The next phase is considered complete when:
+
+\begin{itemize}
+  \item Authentication is fully protected on both client and server, with rate limiting
+        and a password policy in place.
+  \item The assistant streams its answers, remembers the conversation, answers faculty
+        and document questions with correct citations, and handles general
+        conversation gracefully, with a measurable increase in answered questions and
+        no unsupported claims.
+  \item A student can add courses and receive answers about their own course content
+        within the assistant.
+  \item The interface is professional, cohesive, responsive, and free of placeholder
+        content, with every screen connected to real data.
+\end{itemize}
+
+Additional production-grade objectives --- the fully authorized Google Classroom
+integration, continuous integration and automated deployment, database migrations,
+token refresh, password reset, and full internationalization and accessibility --- are
+tracked as the subsequent set of improvements and are pursued as the core objectives
+above are secured.
+
+% ===========================================================================
+\section{Conclusion}
+
+The foundation of FSB Nexus is built and integrated. The next phase turns this
+foundation into a complete, dependable, and professional assistant: one that answers
+the questions students actually ask, incorporates their own courses, and presents a
+polished experience on a secure platform. The roles and interfaces defined in this
+document allow the team to advance in parallel toward that outcome, with a shared
+evaluation benchmark keeping quality measurable at every step.
+
+\end{document}

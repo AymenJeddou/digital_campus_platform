@@ -5,6 +5,8 @@ export interface ProfileResponse {
   full_name: string | null;
   student_status: string | null;
   academic_year: string | null;
+  bac_type: string | null;
+  bac_score: number | null;
   interests: string[] | null;
   goals: string[] | null;
   enrollment_date: string | null;
@@ -16,6 +18,21 @@ export interface ProfileUpdate {
   student_status?: string;
   interests?: string[];
   goals?: string[];
+}
+
+export interface OnboardingRequest {
+  student_status: 'prospective' | 'enrolled';
+  academic_year?: string;
+  bac_type?: string;
+  bac_score?: number;
+  interests?: string[];
+  goals?: string[];
+}
+
+export interface OnboardingStatus {
+  onboarding_completed: boolean;
+  student_status: string | null;
+  academic_year: string | null;
 }
 
 export const profileService = {
@@ -30,7 +47,12 @@ export const profileService = {
   },
 
   getOnboardingStatus: async () => {
-    const response = await api.get('/profile/onboarding/status');
+    const response = await api.get<OnboardingStatus>('/profile/onboarding/status');
+    return response.data;
+  },
+
+  completeOnboarding: async (data: OnboardingRequest) => {
+    const response = await api.post<ProfileResponse>('/profile/onboarding', data);
     return response.data;
   },
 
