@@ -56,6 +56,21 @@ def mock_ingestion_modules():
     )
 
 
+class InlineThread:
+    """Remplace threading.Thread : exécute la synchro Classroom en ligne afin
+    que le test puisse vérifier le résultat final sans attendre un thread."""
+
+    def __init__(self, target, args=(), kwargs=None, daemon=None):
+        self._target, self._args, self._kwargs = target, args, kwargs or {}
+
+    def start(self):
+        self._target(*self._args, **self._kwargs)
+
+
+def inline_sync_thread():
+    return patch("app.services.classroom_sync.threading.Thread", InlineThread)
+
+
 def fake_classroom_course(course_id="ext-course-1", name="Algèbre 1"):
     return {"id": course_id, "name": name, "section": "MATH101"}
 
@@ -165,13 +180,19 @@ def test_classroom_sync_creates_courses_and_ingests_materials():
          patch("app.services.classroom_sync.classroom_client.list_courses", return_value=[fake_classroom_course()]), \
          patch("app.services.classroom_sync.classroom_client.list_coursework", return_value=[fake_coursework()]), \
          patch("app.services.classroom_sync.classroom_client.list_coursework_materials", return_value=[]), \
-         patch("app.services.classroom_sync.classroom_client.list_announcements", return_value=[]):
+         patch("app.services.classroom_sync.classroom_client.list_announcements", return_value=[]),          inline_sync_thread():
         response = client.post("/courses/classroom/sync", headers=auth_headers(token))
 
-    assert response.status_code == 200
+    assert response.status_code == 202
     body = response.json()
+    assert body["status"] == "success"
     assert body["courses_synced"] == 1
     assert body["materials_synced"] == 1
+
+    status_body = client.get("/courses/classroom/status", headers=auth_headers(token)).json()
+    assert status_body["sync_status"] == "success"
+    assert status_body["sync_materials_synced"] == 1
+    assert status_body["sync_materials_failed"] == 0
 
     mine = client.get("/courses/mine", headers=auth_headers(token))
     assert mine.status_code == 200
@@ -208,15 +229,56 @@ def test_classroom_sync_is_idempotent_on_repeat_runs():
          patch("app.services.classroom_sync.classroom_client.list_courses", return_value=[fake_classroom_course()]), \
          patch("app.services.classroom_sync.classroom_client.list_coursework", return_value=[fake_coursework()]), \
          patch("app.services.classroom_sync.classroom_client.list_coursework_materials", return_value=[]), \
-         patch("app.services.classroom_sync.classroom_client.list_announcements", return_value=[]):
+         patch("app.services.classroom_sync.classroom_client.list_announcements", return_value=[]),          inline_sync_thread():
         client.post("/courses/classroom/sync", headers=auth_headers(token))
         second = client.post("/courses/classroom/sync", headers=auth_headers(token))
 
-    assert second.status_code == 200
+    assert second.status_code == 202
     mine = client.get("/courses/mine", headers=auth_headers(token))
     synced = [c for c in mine.json() if c["source"] == "google_classroom"]
     assert len(synced) == 1
     assert synced[0]["material_count"] == 1  # not 2 — same external_id was updated in place
+
+
+def test_classroom_sync_skips_unreadable_item_without_aborting():
+    """Un élément illisible est ignoré (compté en échec) sans interrompre la synchro."""
+    from app.db.database import SessionLocal
+    from app.models.models import GoogleClassroomAccount, Student
+    from app.services.token_crypto import encrypt_token
+
+    _, token = make_verified_user("classroomskip")
+
+    db = SessionLocal()
+    try:
+        student = db.query(Student).filter(Student.email.like("classroomskip-%")).order_by(Student.enrollment_date.desc()).first()
+        account = GoogleClassroomAccount(
+            student_id=student.id,
+            access_token=encrypt_token("fake-access"),
+            refresh_token=encrypt_token("fake-refresh"),
+            token_expires_at=9999999999.0,
+        )
+        db.add(account)
+        db.commit()
+    finally:
+        db.close()
+
+    from app.services import classroom_client
+    real_item_to_text = classroom_client.item_to_material_text
+
+    def flaky_item_to_text(access_token, item):
+        if item["id"] == "ext-work-bad":
+            raise ValueError("PDF chiffré")
+        return real_item_to_text(access_token, item)
+
+    chunk_patch, embed_patch = mock_ingestion_modules()
+    with chunk_patch, embed_patch,          patch("app.services.classroom_sync.classroom_client.list_courses", return_value=[fake_classroom_course()]),          patch("app.services.classroom_sync.classroom_client.list_coursework",
+               return_value=[fake_coursework("ext-work-bad", "Illisible"), fake_coursework()]),          patch("app.services.classroom_sync.classroom_client.list_coursework_materials", return_value=[]),          patch("app.services.classroom_sync.classroom_client.list_announcements", return_value=[]),          patch("app.services.classroom_sync.classroom_client.item_to_material_text", side_effect=flaky_item_to_text),          inline_sync_thread():
+        response = client.post("/courses/classroom/sync", headers=auth_headers(token))
+
+    body = response.json()
+    assert body["status"] == "success"
+    assert body["materials_synced"] == 1
+    assert body["materials_failed"] == 1
 
 
 def test_classroom_disconnect_removes_account():

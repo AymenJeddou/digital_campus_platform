@@ -431,30 +431,39 @@ def classroom_status(db: Session = Depends(get_db), current_user: Student = Depe
     account = _get_account(db, current_user.id)
     if not account:
         return ClassroomStatusResponse(connected=False)
+    job = classroom_sync.get_job_state(current_user.id)
     return ClassroomStatusResponse(
         connected=True,
         connected_at=account.connected_at,
         last_synced_at=(
             datetime.fromtimestamp(account.last_synced_at, tz=timezone.utc) if account.last_synced_at else None
         ),
+        sync_status=(job["status"] if job else "idle"),
+        sync_courses_synced=(job["courses_synced"] if job else 0),
+        sync_materials_synced=(job["materials_synced"] if job else 0),
+        sync_materials_failed=(job["materials_failed"] if job else 0),
+        sync_error=(job["error"] if job else None),
     )
 
 
-@router.post("/classroom/sync", response_model=ClassroomSyncResponse)
+@router.post("/classroom/sync", response_model=ClassroomSyncResponse, status_code=202)
 def classroom_sync_now(db: Session = Depends(get_db), current_user: Student = Depends(get_current_user)):
-    """Pull the student's active Classroom courses, coursework,
-    courseWorkMaterials, and announcements, and ingest them the same way a
-    manual upload is ingested (see `course_ingestion.ingest_material`)."""
+    """Start a background sync of the student's Classroom courses, coursework,
+    courseWorkMaterials, and announcements. Ingestion (download + chunk + embed)
+    is slow, so it runs on a daemon thread; this returns immediately with
+    ``status="running"`` and the frontend polls GET /classroom/status for
+    progress and completion."""
     account = _get_account(db, current_user.id)
     if not account:
         raise HTTPException(status_code=400, detail="Google Classroom is not connected for this student")
 
-    try:
-        result = classroom_sync.sync_student_classroom(db, current_user, account)
-    except classroom_client.ClassroomAPIError as exc:
-        raise HTTPException(status_code=502, detail=f"Google Classroom sync failed: {exc}")
-
-    return ClassroomSyncResponse(**result)
+    state = classroom_sync.start_sync(current_user.id, account.id)
+    return ClassroomSyncResponse(
+        status=state["status"],
+        courses_synced=state["courses_synced"],
+        materials_synced=state["materials_synced"],
+        materials_failed=state["materials_failed"],
+    )
 
 
 @router.delete("/classroom", status_code=204)

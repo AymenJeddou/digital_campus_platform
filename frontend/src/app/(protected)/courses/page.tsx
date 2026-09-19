@@ -47,9 +47,44 @@ export default function CoursesPage() {
     }
   };
 
+  // Poll the sync job until it leaves the "running" state, surfacing progress
+  // and the final result. Used both after clicking "Sync now" and on mount when
+  // a sync is already running (e.g. after a page reload).
+  const pollSync = async () => {
+    setSyncing(true);
+    try {
+      const st = await coursesService.classroomStatus();
+      setClassroom(st);
+      if (st.sync_status === 'running') {
+        setTimeout(pollSync, 3000);
+        return;
+      }
+      setSyncing(false);
+      if (st.sync_status === 'error') {
+        toast.error(`Classroom sync failed: ${st.sync_error ?? 'unknown error'}`);
+      } else if (st.sync_status === 'success') {
+        const skipped = st.sync_materials_failed ?? 0;
+        toast.success(
+          `Synced ${st.sync_courses_synced ?? 0} courses, ${st.sync_materials_synced ?? 0} materials` +
+            (skipped > 0 ? ` (${skipped} skipped — unreadable files)` : ''),
+        );
+      }
+      load();
+    } catch {
+      setSyncing(false);
+    }
+  };
+
   useEffect(() => {
     load();
-    coursesService.classroomStatus().then(setClassroom).catch(() => {});
+    coursesService
+      .classroomStatus()
+      .then((st) => {
+        setClassroom(st);
+        if (st.sync_status === 'running') pollSync(); // resume a sync in progress
+      })
+      .catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addCourse = async (e: React.FormEvent) => {
@@ -100,13 +135,11 @@ export default function CoursesPage() {
   const syncClassroom = async () => {
     setSyncing(true);
     try {
-      const res = await coursesService.classroomSync();
-      toast.success(`Synced ${res.courses_synced} courses, ${res.materials_synced} materials`);
-      load();
-      coursesService.classroomStatus().then(setClassroom).catch(() => {});
+      await coursesService.classroomSync(); // returns immediately (status: running)
+      toast.message('Sync started — importing your Classroom content in the background…');
+      setTimeout(pollSync, 1500); // then poll for progress + completion
     } catch {
       toast.error('Sync failed — connect Google Classroom first');
-    } finally {
       setSyncing(false);
     }
   };
@@ -133,9 +166,11 @@ export default function CoursesPage() {
             <div>
               <p className="text-sm font-semibold text-foreground">Google Classroom</p>
               <p className="text-xs text-muted-foreground">
-                {classroom?.connected
-                  ? `Connected${classroom.last_synced_at ? ` · last synced ${new Date(classroom.last_synced_at).toLocaleDateString()}` : ''}`
-                  : 'Connect to import your courses automatically.'}
+                {syncing || classroom?.sync_status === 'running'
+                  ? `Syncing… ${classroom?.sync_materials_synced ?? 0} materials imported`
+                  : classroom?.connected
+                    ? `Connected${classroom.last_synced_at ? ` · last synced ${new Date(classroom.last_synced_at).toLocaleDateString()}` : ''}`
+                    : 'Connect to import your courses automatically.'}
               </p>
             </div>
           </div>
@@ -147,7 +182,7 @@ export default function CoursesPage() {
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
               >
                 {syncing ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-                Sync now
+                {syncing ? 'Syncing…' : 'Sync now'}
               </button>
             ) : (
               <button

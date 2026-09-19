@@ -64,6 +64,13 @@ class ClassroomStatusResponse(BaseModel):
     connected: bool
     connected_at: Optional[datetime] = None
     last_synced_at: Optional[datetime] = None
+    # Background-sync job state (see classroom_sync). "idle" when no sync has run
+    # this process; "running" while a sync is in progress; "success"/"error" once done.
+    sync_status: str = "idle"
+    sync_courses_synced: int = 0
+    sync_materials_synced: int = 0
+    sync_materials_failed: int = 0
+    sync_error: Optional[str] = None
 
 
 class ClassroomSyncedCourse(BaseModel):
@@ -73,6 +80,10 @@ class ClassroomSyncedCourse(BaseModel):
 
 
 class ClassroomSyncResponse(BaseModel):
-    courses_synced: int
-    materials_synced: int
+    # "running" is returned immediately when a background sync is started; the
+    # frontend then polls GET /classroom/status for progress and completion.
+    status: str = "running"
+    courses_synced: int = 0
+    materials_synced: int = 0
+    materials_failed: int = 0
     courses: list[ClassroomSyncedCourse] = Field(default_factory=list)

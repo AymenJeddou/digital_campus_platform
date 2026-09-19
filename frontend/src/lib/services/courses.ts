@@ -35,11 +35,20 @@ export interface ClassroomStatus {
   connected: boolean;
   connected_at?: string | null;
   last_synced_at?: string | null;
+  /** Background-sync job state: 'idle' | 'running' | 'success' | 'error'. */
+  sync_status?: string;
+  sync_courses_synced?: number;
+  sync_materials_synced?: number;
+  sync_materials_failed?: number;
+  sync_error?: string | null;
 }
 
 export interface ClassroomSyncResult {
+  /** 'running' — the sync was started; poll classroomStatus() for completion. */
+  status: string;
   courses_synced: number;
   materials_synced: number;
+  materials_failed?: number;
 }
 
 export const coursesService = {
