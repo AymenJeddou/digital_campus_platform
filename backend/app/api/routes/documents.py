@@ -42,8 +42,19 @@ def upload_document(
 
     stored_name = f"{uuid.uuid4().hex}{ext}"
     file_location = os.path.join(UPLOAD_DIR, stored_name)
-    with open(file_location, "wb+") as file_object:
-        shutil.copyfileobj(file.file, file_object)
+    max_upload_bytes = 20 * 1024 * 1024
+    total = 0
+    try:
+        with open(file_location, "wb") as file_object:
+            while chunk := file.file.read(1024 * 1024):
+                total += len(chunk)
+                if total > max_upload_bytes:
+                    raise HTTPException(status_code=413, detail="File too large.")
+                file_object.write(chunk)
+    except HTTPException:
+        if os.path.exists(file_location):
+            os.remove(file_location)
+        raise
 
     doc = Document(
         title=original_name,
