@@ -1,13 +1,19 @@
 """Provider-agnostic LLM client.
 
-A single ``generate(prompt) -> str`` interface backed by either Google Gemini or
-Mistral. The active provider is chosen by the ``LLM_PROVIDER`` env var, so
-switching providers is configuration-only — no code change.
+``generate(prompt, system=...) -> str`` / ``generate_stream(...)`` backed by
+either Google Gemini (``google-genai``) or Mistral. The active provider is
+chosen by ``LLM_PROVIDER``, so switching is configuration-only.
+
+``system`` carries the trusted instructions (rules, student profile, retrieved
+context); ``prompt`` carries only the student's text. Keeping them in separate
+roles is what stops a question like "ignore the rules above..." from being read
+as part of the instructions.
 
 Env:
     LLM_PROVIDER   "gemini" (default) | "mistral"
     GEMINI_API_KEY / GEMINI_MODEL
     MISTRAL_API_KEY / MISTRAL_MODEL
+    LLM_TIMEOUT_SECONDS (default 60)
 """
 
 import logging
@@ -20,114 +26,112 @@ from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
 
-# Transient network hiccups (connection reset/disconnect) are common against a
-# remote LLM API; retry a couple of times before surfacing an error rather than
-# failing a user's chat on one blip.
-_RETRIES = 2
-_BACKOFF_SECONDS = 1.5
-
-
-def _with_retries(call, what: str):
-    last = None
-    for attempt in range(_RETRIES + 1):
-        try:
-            return call()
-        except Exception as e:  # noqa: BLE001
-            name = type(e).__name__
-            transient = any(
-                t in name for t in ("ConnectError", "RemoteProtocolError", "ReadError",
-                                     "ConnectTimeout", "ReadTimeout", "WriteError")
-            )
-            if not transient or attempt == _RETRIES:
-                raise
-            last = e
-            logger.warning("Transient LLM error on %s (%s); retry %d/%d", what, name, attempt + 1, _RETRIES)
-            time.sleep(_BACKOFF_SECONDS * (attempt + 1))
-    raise last  # unreachable
-
 # Load ai/.env regardless of the current working directory.
 _ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
 
 DEFAULT_GEMINI_MODEL = "gemini-2.5-flash"
 DEFAULT_MISTRAL_MODEL = "mistral-medium-latest"
 
-# Default generation temperature (sourced answers favour consistency over
-# variety); override per-call or via GENERATION_TEMPERATURE.
+# Sourced answers favour consistency over variety; override per call or via
+# GENERATION_TEMPERATURE (see base_agent).
 DEFAULT_TEMPERATURE = 0.2
 
 _PLACEHOLDERS = {"your_gemini_api_key_here", "your_mistral_api_key_here", ""}
 
-
-class BaseLLM:
-    """Common interface: turn a prompt string into an answer string."""
-
-    def generate(self, prompt: str, temperature: float | None = None) -> str:  # pragma: no cover - interface
-        raise NotImplementedError
-
-    def generate_stream(self, prompt: str, temperature: float | None = None):
-        raise NotImplementedError
+# Transient network hiccups are common against a remote LLM API; retry a
+# couple of times before surfacing an error.
+_RETRIES = 2
+_BACKOFF_SECONDS = 1.5
+_TRANSIENT = ("ConnectError", "RemoteProtocolError", "ReadError", "ConnectTimeout",
+              "ReadTimeout", "WriteError", "ServiceUnavailable", "ServerError")
 
 
-class GeminiClient(BaseLLM):
+def _timeout_seconds() -> int:
+    return int(os.getenv("LLM_TIMEOUT_SECONDS", "60"))
+
+
+def _with_retries(call, what: str):
+    for attempt in range(_RETRIES + 1):
+        try:
+            return call()
+        except Exception as e:  # noqa: BLE001
+            name = type(e).__name__
+            if not any(t in name for t in _TRANSIENT) or attempt == _RETRIES:
+                raise
+            logger.warning("Transient LLM error on %s (%s); retry %d/%d", what, name, attempt + 1, _RETRIES)
+            time.sleep(_BACKOFF_SECONDS * (attempt + 1))
+
+
+def _api_key(name: str) -> str:
+    key = os.getenv(name)
+    if not key or key in _PLACEHOLDERS:
+        raise ValueError(f"{name} is not configured. Copy .env.example to .env and add your real key.")
+    return key
+
+
+class GeminiClient:
     def __init__(self, model: str = None):
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key or api_key in _PLACEHOLDERS:
-            raise ValueError(
-                "GEMINI_API_KEY is not configured. Copy .env.example to .env "
-                "and add your real key."
-            )
-        import google.generativeai as genai
+        api_key = _api_key("GEMINI_API_KEY")
+        from google import genai
+        from google.genai import types
 
-        genai.configure(api_key=api_key)
-        self._model = genai.GenerativeModel(
-            model or os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL)
+        self._types = types
+        self._client = genai.Client(
+            api_key=api_key,
+            http_options=types.HttpOptions(timeout=_timeout_seconds() * 1000),
+        )
+        self._model = model or os.getenv("GEMINI_MODEL", DEFAULT_GEMINI_MODEL)
+
+    def _config(self, temperature, system):
+        return self._types.GenerateContentConfig(
+            temperature=DEFAULT_TEMPERATURE if temperature is None else temperature,
+            system_instruction=system,
         )
 
-    def generate(self, prompt: str, temperature: float | None = None) -> str:
-        cfg = None
-        if temperature is not None:
-            import google.generativeai as genai
-            cfg = genai.types.GenerationConfig(temperature=temperature)
-        return self._model.generate_content(prompt, generation_config=cfg).text
+    def generate(self, prompt: str, temperature: float | None = None, system: str | None = None) -> str:
+        resp = _with_retries(
+            lambda: self._client.models.generate_content(
+                model=self._model, contents=prompt, config=self._config(temperature, system)),
+            "generate",
+        )
+        return resp.text or ""
 
-    def generate_stream(self, prompt: str, temperature: float | None = None):
-        cfg = None
-        if temperature is not None:
-            import google.generativeai as genai
-            cfg = genai.types.GenerationConfig(temperature=temperature)
-        response = self._model.generate_content(prompt, generation_config=cfg, stream=True)
-        for chunk in response:
+    def generate_stream(self, prompt: str, temperature: float | None = None, system: str | None = None):
+        for chunk in self._client.models.generate_content_stream(
+            model=self._model, contents=prompt, config=self._config(temperature, system)
+        ):
             if chunk.text:
                 yield chunk.text
 
 
-class MistralClient(BaseLLM):
+class MistralClient:
     def __init__(self, model: str = None):
-        api_key = os.getenv("MISTRAL_API_KEY")
-        if not api_key or api_key in _PLACEHOLDERS:
-            raise ValueError(
-                "MISTRAL_API_KEY is not configured. Copy .env.example to .env "
-                "and add your real key."
-            )
-        from mistralai import Mistral
+        api_key = _api_key("MISTRAL_API_KEY")
+        from mistralai.client import Mistral
 
-        self._client = Mistral(api_key=api_key)
+        self._client = Mistral(api_key=api_key, timeout_ms=_timeout_seconds() * 1000)
         self._model = model or os.getenv("MISTRAL_MODEL", DEFAULT_MISTRAL_MODEL)
 
-    def generate(self, prompt: str, temperature: float | None = None) -> str:
-        def _call():
-            return self._client.chat.complete(
+    @staticmethod
+    def _messages(prompt: str, system: str | None):
+        messages = [{"role": "system", "content": system}] if system else []
+        return messages + [{"role": "user", "content": prompt}]
+
+    def generate(self, prompt: str, temperature: float | None = None, system: str | None = None) -> str:
+        resp = _with_retries(
+            lambda: self._client.chat.complete(
                 model=self._model,
-                messages=[{"role": "user", "content": prompt}],
+                messages=self._messages(prompt, system),
                 temperature=DEFAULT_TEMPERATURE if temperature is None else temperature,
-            )
-        resp = _with_retries(_call, "generate")
+            ),
+            "generate",
+        )
         return resp.choices[0].message.content
 
-    def generate_stream(self, prompt: str, temperature: float | None = None):
+    def generate_stream(self, prompt: str, temperature: float | None = None, system: str | None = None):
         resp = self._client.chat.stream(
             model=self._model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=self._messages(prompt, system),
             temperature=DEFAULT_TEMPERATURE if temperature is None else temperature,
         )
         for chunk in resp:
@@ -140,16 +144,8 @@ _PROVIDERS = {"gemini": GeminiClient, "mistral": MistralClient}
 
 
 @lru_cache(maxsize=8)
-def get_llm(model: str = None) -> BaseLLM:
-    """Return an LLM client for the configured ``LLM_PROVIDER``.
-
-    Cached per ``model`` so the client (and its ``.env`` read) is built once and
-    reused — the generation model and the (separate) grader model each get their
-    own cached client. This removes a per-call client construction + dotenv read.
-
-    Args:
-        model: Optional explicit model name (overrides the per-provider default
-            and env var) — e.g. a cheaper model for a grader.
+def get_llm(model: str = None):
+    """Return a (cached) client for the configured ``LLM_PROVIDER``.
 
     Raises:
         ValueError: If the provider is unknown or its API key is not configured.
@@ -157,7 +153,5 @@ def get_llm(model: str = None) -> BaseLLM:
     load_dotenv(_ENV_PATH)
     provider = os.getenv("LLM_PROVIDER", "gemini").lower()
     if provider not in _PROVIDERS:
-        raise ValueError(
-            f"Unknown LLM_PROVIDER '{provider}'. Use one of {list(_PROVIDERS)}."
-        )
+        raise ValueError(f"Unknown LLM_PROVIDER '{provider}'. Use one of {list(_PROVIDERS)}.")
     return _PROVIDERS[provider](model)

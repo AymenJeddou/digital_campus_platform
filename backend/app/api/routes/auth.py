@@ -1,35 +1,56 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+import uuid
+
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+
+from app.core import rate_limit
+from app.core.config import settings
+from app.core.dependencies import get_current_user, oauth2_scheme
+from app.core.security import (
+    create_access_token,
+    decode_token,
+    hash_password,
+    password_fingerprint,
+    validate_password,
+    verify_password,
+)
 from app.db.database import get_db
-from app.models.models import Student
+from app.models.models import RevokedToken, Student
 from app.schemas.auth import (
+    EmailRequest,
+    MessageResponse,
     RegisterRequest,
     RegisterResponse,
+    ResetPasswordRequest,
     TokenResponse,
     VerifyEmailRequest,
-    VerificationResponse,
 )
-from app.core.security import hash_password, verify_password, create_access_token, decode_token, validate_password
-from app.core.config import settings
-from app.services.email import send_verification_email
-from app.models.models import RevokedToken
-from app.core.dependencies import get_current_user
-import uuid
-import logging
-from datetime import timedelta
-
-logger = logging.getLogger(__name__)
+from app.services.email import send_password_reset_email, send_verification_email
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
+
+# Same answer whether or not the address exists, so these endpoints can't be
+# used to discover who has an account.
+_RESEND_MESSAGE = "If this address has an unverified account, a new link has been sent."
+_FORGOT_MESSAGE = "If an account exists for this address, a reset link has been sent."
 
 
 def _create_verification_token(email: str) -> str:
     return create_access_token(data={"sub": email, "purpose": "email_verification"})
 
 
-def _create_login_token(email: str, jti: str = None) -> str:
-    return create_access_token(data={"sub": email, "purpose": "login"}, jti=jti)
+def _create_reset_token(student: Student) -> str:
+    return create_access_token(data={
+        "sub": student.email,
+        "purpose": "password_reset",
+        "pwh": password_fingerprint(student.hashed_password),
+    })
+
+
+def _client_ip(request: Request) -> str:
+    return request.client.host if request.client else "unknown"
+
 
 @router.post("/register", response_model=RegisterResponse, status_code=status.HTTP_201_CREATED)
 def register(request: RegisterRequest, db: Session = Depends(get_db)):
@@ -38,72 +59,88 @@ def register(request: RegisterRequest, db: Session = Depends(get_db)):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
 
-    existing = db.query(Student).filter(Student.email == request.email).first()
-    if existing:
+    if db.query(Student).filter(Student.email == request.email).first():
         raise HTTPException(status_code=400, detail="Email already registered")
-    
+
     student = Student(
         email=request.email,
         hashed_password=hash_password(request.password),
-        full_name=request.full_name,
+        full_name=request.full_name.strip(),
         is_verified=settings.AUTO_VERIFY_EMAIL,
     )
     db.add(student)
     db.commit()
-    db.refresh(student)
     if not settings.AUTO_VERIFY_EMAIL:
         send_verification_email(student.email, _create_verification_token(student.email))
-    return {
-        "message": "Account created successfully",
-        "email": student.email,
-    }
+    return {"message": "Account created successfully", "email": student.email}
 
 
-@router.post("/verify", response_model=VerificationResponse)
+@router.post("/verify", response_model=MessageResponse)
 def verify_email(request: VerifyEmailRequest, db: Session = Depends(get_db)):
     payload = decode_token(request.token)
     if not payload or payload.get("purpose") != "email_verification":
-        raise HTTPException(status_code=400, detail="Invalid verification token")
+        raise HTTPException(status_code=400, detail="Invalid or expired verification link")
 
-    email = payload.get("sub")
-    student = db.query(Student).filter(Student.email == email).first()
+    student = db.query(Student).filter(Student.email == payload.get("sub")).first()
     if not student:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(status_code=400, detail="Invalid or expired verification link")
 
     student.is_verified = True
     db.commit()
     return {"message": "Email verified successfully"}
 
-from fastapi import Request
-from redis.asyncio import Redis
 
-# One shared client, built from config. Lazily connects on first use.
-redis_client = Redis.from_url(settings.REDIS_URL, encoding="utf-8", decode_responses=True)
+@router.post("/resend-verification", response_model=MessageResponse)
+async def resend_verification(body: EmailRequest, request: Request, db: Session = Depends(get_db)):
+    await rate_limit.hit(f"resend:{body.email.lower()}", 3, 3600, "Too many requests. Try again later.")
+    await rate_limit.hit(f"resend-ip:{_client_ip(request)}", 10, 3600, "Too many requests. Try again later.")
+    student = db.query(Student).filter(Student.email == body.email).first()
+    if student and not student.is_verified:
+        send_verification_email(student.email, _create_verification_token(student.email))
+    return {"message": _RESEND_MESSAGE}
 
-LOGIN_MAX_ATTEMPTS = 5
-LOGIN_WINDOW_SECONDS = 60
+
+@router.post("/forgot-password", response_model=MessageResponse)
+async def forgot_password(body: EmailRequest, request: Request, db: Session = Depends(get_db)):
+    await rate_limit.hit(f"forgot:{body.email.lower()}", 3, 3600, "Too many requests. Try again later.")
+    await rate_limit.hit(f"forgot-ip:{_client_ip(request)}", 10, 3600, "Too many requests. Try again later.")
+    student = db.query(Student).filter(Student.email == body.email).first()
+    if student:
+        send_password_reset_email(student.email, _create_reset_token(student))
+    return {"message": _FORGOT_MESSAGE}
+
+
+@router.post("/reset-password", response_model=MessageResponse)
+def reset_password(body: ResetPasswordRequest, db: Session = Depends(get_db)):
+    payload = decode_token(body.token)
+    invalid = HTTPException(status_code=400, detail="Invalid or expired reset link")
+    if not payload or payload.get("purpose") != "password_reset":
+        raise invalid
+    student = db.query(Student).filter(Student.email == payload.get("sub")).first()
+    # The fingerprint ties the token to the password it was issued for, so a
+    # used (or superseded) link no longer works.
+    if not student or payload.get("pwh") != password_fingerprint(student.hashed_password):
+        raise invalid
+    try:
+        validate_password(body.password)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+    student.hashed_password = hash_password(body.password)
+    student.is_verified = True  # the link was delivered to this inbox
+    db.commit()
+    return {"message": "Password updated"}
 
 
 async def login_rate_limiter(request: Request):
-    """Limit /auth/login to LOGIN_MAX_ATTEMPTS per IP per window.
+    """Throttle per client IP and per targeted account, so neither one IP
+    spraying many accounts nor many IPs hammering one account gets far."""
+    form = await request.form()
+    await rate_limit.hit(f"login:{_client_ip(request)}", 10, 60, "Too many login attempts. Try again later.")
+    username = str(form.get("username", "")).lower()
+    if username:
+        await rate_limit.hit(f"login-account:{username}", 5, 60, "Too many login attempts. Try again later.")
 
-    Atomic (INCR first, then read the returned count) so concurrent requests
-    cannot all slip past the threshold. Fail-open: if Redis is unreachable the
-    login proceeds rather than returning 500 -- availability over a best-effort
-    brute-force guard when the limiter backend is down.
-    """
-    client_ip = request.client.host if request.client else "unknown"
-    key = f"rate_limit:login:{client_ip}"
-    try:
-        count = await redis_client.incr(key)
-        if count == 1:
-            await redis_client.expire(key, LOGIN_WINDOW_SECONDS)
-        if count > LOGIN_MAX_ATTEMPTS:
-            raise HTTPException(status_code=429, detail="Too many login attempts. Try again later.")
-    except HTTPException:
-        raise
-    except Exception:
-        logger.warning("Login rate limiter unavailable (Redis down?); allowing request.")
 
 @router.post("/login", response_model=TokenResponse, dependencies=[Depends(login_rate_limiter)])
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -112,24 +149,18 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
         raise HTTPException(status_code=401, detail="Invalid email or password")
     if not student.is_verified:
         raise HTTPException(status_code=403, detail="Email not verified")
-    
-    jti = str(uuid.uuid4())
-    token = _create_login_token(student.email, jti=jti)
+
+    token = create_access_token(data={"sub": student.email, "purpose": "login"}, jti=str(uuid.uuid4()))
     return {"access_token": token, "token_type": "bearer"}
 
-from app.core.dependencies import oauth2_scheme
 
 @router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
 def logout(
-    current_user: Student = Depends(get_current_user), 
-    token: str = Depends(oauth2_scheme), 
-    db: Session = Depends(get_db)
+    current_user: Student = Depends(get_current_user),
+    token: str = Depends(oauth2_scheme),
+    db: Session = Depends(get_db),
 ):
-    payload = decode_token(token)
-    if payload:
-        jti = payload.get("jti")
-        if jti:
-            revoked = RevokedToken(jti=jti)
-            db.add(revoked)
-            db.commit()
-    return None
+    jti = (decode_token(token) or {}).get("jti")
+    if jti:
+        db.add(RevokedToken(jti=jti))
+        db.commit()

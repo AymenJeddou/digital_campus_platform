@@ -11,7 +11,7 @@ which measurably dropped hit@5 from 0.80 (exact) to 0.50. We therefore raise
 cost that is negligible at this corpus size. (If the index is later removed,
 this SET is a harmless no-op as long as the ``vector`` extension is installed.)
 
-The returned chunk format matches ``FAKE_CHUNKS`` in ``generator.py``:
+The returned chunk format:
     {chunk_id, text, source, page, category, score}
 """
 
@@ -76,7 +76,7 @@ def semantic_search(
             included ALONGSIDE the global KB.
 
     Returns:
-        List of chunk dicts compatible with ``RAGGenerator.generate()``:
+        List of chunk dicts compatible with ``RAGPipeline.run(chunks=...)``:
         ``{chunk_id, text, source, page, category, score}``
     """
     _ensure_full_recall(db)

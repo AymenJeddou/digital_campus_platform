@@ -1,179 +1,117 @@
-"""Service for chunking and embedding course materials and storing them in the database.
-"""
+"""Chunk, embed and store course materials."""
 from __future__ import annotations
 
 import logging
 import uuid
+
 from sqlalchemy.orm import Session
 
 from app.models.models import CourseMaterial, DocumentChunk
 
 logger = logging.getLogger(__name__)
 
+TARGET_CHUNK_CHARS = 800
 
-def delete_material_chunks(db: Session, material_id: uuid.UUID) -> None:
-    """Delete all document chunks associated with a course material."""
+
+def delete_material_chunks(db: Session, material_id: uuid.UUID, commit: bool = True) -> None:
+    """Delete all document chunks of a course material."""
     db.query(DocumentChunk).filter(DocumentChunk.material_id == material_id).delete()
-    db.commit()
+    if commit:
+        db.commit()
+
+
+def _split(text: str, size: int = TARGET_CHUNK_CHARS) -> list[str]:
+    """Pack paragraphs into ~``size``-char pieces. An oversized paragraph is
+    split by line, and an oversized line by words."""
+    pieces: list[str] = []
+    current: list[str] = []
+    length = 0
+
+    def flush():
+        nonlocal current, length
+        if current:
+            pieces.append("\n\n".join(current))
+        current, length = [], 0
+
+    for paragraph in (p.strip() for p in text.split("\n\n")):
+        if not paragraph:
+            continue
+        if len(paragraph) <= size:
+            if length + len(paragraph) + 2 > size:
+                flush()
+            current.append(paragraph)
+            length += len(paragraph) + 2
+            continue
+        flush()
+        for line in (l.strip() for l in paragraph.split("\n")):
+            if len(line) <= size:
+                if line:
+                    pieces.append(line)
+                continue
+            words: list[str] = []
+            for word in line.split(" "):
+                if words and len(" ".join(words)) + len(word) + 1 > size:
+                    pieces.append(" ".join(words))
+                    words = []
+                words.append(word)
+            if words:
+                pieces.append(" ".join(words))
+    flush()
+    return pieces or ([text.strip()] if text.strip() else [])
 
 
 def _chunk_text(text: str, source: str, title: str) -> list[dict]:
-    """Chunk text into semantic paragraphs/segments."""
-    paragraphs = text.split("\n\n")
-    chunks = []
-    current_chunk = []
-    current_length = 0
-    page = 0
-    target_size = 800
-
-    for p in paragraphs:
-        p = p.strip()
-        if not p:
-            continue
-        if len(p) > target_size:
-            if current_chunk:
-                chunks.append({
-                    "chunk_id": str(uuid.uuid4()),
-                    "text": "\n\n".join(current_chunk),
-                    "title": title,
-                    "source": source,
-                    "page": page,
-                    "category": "course_material",
-                })
-                current_chunk = []
-                current_length = 0
-
-            lines = p.split("\n")
-            for line in lines:
-                line = line.strip()
-                if not line:
-                    continue
-                if len(line) > target_size:
-                    words = line.split(" ")
-                    line_chunk = []
-                    line_len = 0
-                    for word in words:
-                        if line_len + len(word) + 1 > target_size:
-                            chunks.append({
-                                "chunk_id": str(uuid.uuid4()),
-                                "text": " ".join(line_chunk),
-                                "title": title,
-                                "source": source,
-                                "page": page,
-                                "category": "course_material",
-                            })
-                            line_chunk = [word]
-                            line_len = len(word)
-                        else:
-                            line_chunk.append(word)
-                            line_len += len(word) + 1
-                    if line_chunk:
-                        chunks.append({
-                            "chunk_id": str(uuid.uuid4()),
-                            "text": " ".join(line_chunk),
-                            "title": title,
-                            "source": source,
-                            "page": page,
-                            "category": "course_material",
-                        })
-                else:
-                    chunks.append({
-                        "chunk_id": str(uuid.uuid4()),
-                        "text": line,
-                        "title": title,
-                        "source": source,
-                        "page": page,
-                        "category": "course_material",
-                    })
-        else:
-            if current_length + len(p) + 2 > target_size:
-                chunks.append({
-                    "chunk_id": str(uuid.uuid4()),
-                    "text": "\n\n".join(current_chunk),
-                    "title": title,
-                    "source": source,
-                    "page": page,
-                    "category": "course_material",
-                })
-                current_chunk = [p]
-                current_length = len(p)
-            else:
-                current_chunk.append(p)
-                current_length += len(p) + 2
-
-    if current_chunk:
-        chunks.append({
-            "chunk_id": str(uuid.uuid4()),
-            "text": "\n\n".join(current_chunk),
-            "title": title,
-            "source": source,
-            "page": page,
-            "category": "course_material",
-        })
-
-    if not chunks and text.strip():
-        chunks.append({
-            "chunk_id": str(uuid.uuid4()),
-            "text": text.strip(),
-            "title": title,
-            "source": source,
-            "page": page,
-            "category": "course_material",
-        })
-
-    return chunks
+    return [
+        {"chunk_id": str(uuid.uuid4()), "text": piece, "title": title, "source": source,
+         "page": 0, "category": "course_material"}
+        for piece in _split(text)
+    ]
 
 
 def ingest_material(db: Session, material: CourseMaterial) -> None:
-    """Chunk, embed, and store a CourseMaterial in the database."""
+    """Chunk, embed and store a CourseMaterial. The new chunks are embedded
+    BEFORE the old ones are removed, and the swap is one commit, so a failed
+    re-ingest keeps the previous (still searchable) version."""
     try:
-        # Delete old chunks to ensure idempotency
-        delete_material_chunks(db, material.id)
-
-        if not material.content or not material.content.strip():
-            material.status = "ingested"
-            material.chunk_count = 0
-            db.commit()
-            return
-
-        # Chunk the text
         source_name = material.original_filename or material.source
-        chunks = _chunk_text(material.content, source_name, material.title)
-
+        chunks = _chunk_text(material.content or "", source_name, material.title)
+        embeddings = []
         if chunks:
-            # Embed chunks
             from ai.rag.embeddings import embed_texts
-            texts = [c["text"] for c in chunks]
-            embeddings = embed_texts(texts, batch_size=32)
+            embeddings = embed_texts([c["text"] for c in chunks], batch_size=32)
 
-            # Store in DB
-            db_chunks = []
-            for chunk, embedding in zip(chunks, embeddings):
-                try:
-                    chunk_id_val = uuid.UUID(chunk["chunk_id"]) if isinstance(chunk["chunk_id"], str) else chunk["chunk_id"]
-                except ValueError:
-                    chunk_id_val = uuid.uuid4()
-                db_chunks.append(DocumentChunk(
-                    chunk_id=chunk_id_val,
-                    document_id=None,
-                    text=chunk["text"],
-                    title=chunk.get("title", material.title),
-                    source=chunk.get("source", source_name),
-                    page=chunk.get("page", 0),
-                    category=chunk.get("category", "course_material"),
-                    embedding=embedding,
-                    student_id=material.student_id,
-                    course_id=material.course_id,
-                    material_id=material.id,
-                ))
-            db.bulk_save_objects(db_chunks)
-
+        delete_material_chunks(db, material.id, commit=False)
+        db.add_all(
+            DocumentChunk(
+                chunk_id=uuid.UUID(chunk["chunk_id"]) if _is_uuid(chunk["chunk_id"]) else uuid.uuid4(),
+                document_id=None,
+                text=chunk["text"],
+                title=chunk.get("title", material.title),
+                source=chunk.get("source", source_name),
+                page=chunk.get("page", 0),
+                category=chunk.get("category", "course_material"),
+                embedding=embedding,
+                student_id=material.student_id,
+                course_id=material.course_id,
+                material_id=material.id,
+            )
+            for chunk, embedding in zip(chunks, embeddings)
+        )
         material.status = "ingested"
         material.chunk_count = len(chunks)
         material.error_message = None
+        db.commit()
     except Exception as e:
+        db.rollback()
         logger.exception("Ingestion failed for course material %s", material.id)
         material.status = "error"
-        material.error_message = str(e)
-    finally:
+        material.error_message = str(e)[:500]
         db.commit()
+
+
+def _is_uuid(value) -> bool:
+    try:
+        uuid.UUID(str(value))
+        return True
+    except ValueError:
+        return False

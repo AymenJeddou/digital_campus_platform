@@ -21,6 +21,7 @@ from __future__ import annotations
 import os
 import time
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Any, Iterator
 
 import requests
@@ -42,6 +43,7 @@ SCOPES = [
 ]
 
 REQUEST_TIMEOUT = 15
+MAX_DRIVE_BYTES = 20 * 1024 * 1024
 
 
 class ClassroomAPIError(RuntimeError):
@@ -137,6 +139,23 @@ def refresh_access_token(refresh_token: str) -> TokenSet:
     )
 
 
+def revoke_token(token: str) -> None:
+    """Revoke a grant at Google (best-effort; errors are ignored by callers)."""
+    requests.post("https://oauth2.googleapis.com/revoke", data={"token": token}, timeout=REQUEST_TIMEOUT)
+
+
+def due_datetime(item: dict) -> datetime | None:
+    """A courseWork item's due date/time (UTC), or None if it has none."""
+    date = item.get("dueDate")
+    if not date or not date.get("year"):
+        return None
+    time_of_day = item.get("dueTime") or {}
+    return datetime(
+        date["year"], date.get("month", 1), date.get("day", 1),
+        time_of_day.get("hours", 23), time_of_day.get("minutes", 59),
+    )
+
+
 def _get(url: str, access_token: str, params: dict[str, Any] | None = None) -> dict[str, Any]:
     response = requests.get(
         url,
@@ -217,17 +236,20 @@ def fetch_drive_doc_text(access_token: str, file_id: str) -> str | None:
 
 def fetch_drive_file_bytes(access_token: str, file_id: str) -> bytes | None:
     """Download the raw bytes of a non-Google-native file (e.g. an uploaded
-    PDF or DOCX attached to a Classroom post)."""
+    PDF or DOCX attached to a Classroom post). Files over MAX_DRIVE_BYTES are
+    skipped rather than loaded into memory."""
     url = f"{DRIVE_API_BASE}/files/{file_id}"
-    response = requests.get(
+    with requests.get(
         url,
         headers={"Authorization": f"Bearer {access_token}"},
         params={"alt": "media"},
         timeout=REQUEST_TIMEOUT,
-    )
-    if response.status_code != 200:
-        return None
-    return response.content
+        stream=True,
+    ) as response:
+        if response.status_code != 200:
+            return None
+        content = response.raw.read(MAX_DRIVE_BYTES + 1, decode_content=True)
+    return content if len(content) <= MAX_DRIVE_BYTES else None
 
 
 def fetch_drive_file_text(access_token: str, file_id: str, filename: str) -> str | None:

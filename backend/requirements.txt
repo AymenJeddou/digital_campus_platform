@@ -1,23 +1,27 @@
-fastapi
-uvicorn
-sqlalchemy
-alembic
-psycopg2-binary
-python-jose[cryptography]
-passlib[bcrypt]
+# Pinned to a verified-working set. Upgrade deliberately (and re-run the tests):
+# unpinned installs have broken this app before (SQLAlchemy 2.1 switched the
+# default Postgres driver; mistralai 3 moved its client class).
+fastapi==0.142.2
+starlette==1.7.0
+uvicorn==0.54.0
+sqlalchemy==2.1.4
+alembic==1.20.0
+psycopg[binary]==3.3.6
+pydantic==2.13.5
+pydantic-settings==2.15.0
+python-multipart==0.0.32
+email-validator==2.3.0
+pgvector==0.5.0
+pypdf==6.19.0
+python-docx==1.2.0
+python-pptx==1.0.2
+cryptography==50.0.2
+PyJWT==2.15.1
 bcrypt==4.0.1
-pydantic-settings
-python-multipart
-email-validator
-pgvector
-pypdf
-python-docx
-python-pptx
-cryptography
-PyJWT
-requests
-redis
-# Pinned: newer sse-starlette pulls starlette>=0.41 which conflicts with fastapi 0.115 (needs <0.39).
+requests==2.34.2
+redis==8.1.0
 sse-starlette==1.8.2
-httpx
-reportlab  # tests : génération de PDF de test (test_material_upload.py)
+# tests
+httpx==0.28.1
+pytest==9.1.1
+reportlab==5.0.1  # builds the PDF fixtures in test_material_upload.py

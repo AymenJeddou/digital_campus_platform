@@ -11,7 +11,7 @@ Run from the repository root:
 import pytest
 
 from ai.prompts.system_prompts import AGENT_TYPES, get_prompt
-from ai.rag.generator import RAGGenerator
+from ai.rag.intent import is_administrative
 
 
 @pytest.mark.parametrize("agent_type", AGENT_TYPES)
@@ -23,8 +23,7 @@ def test_get_prompt_returns_non_empty_string(agent_type):
         context="Contexte de test.",
         question="Question de test ?",
     )
-    assert isinstance(prompt, str)
-    assert prompt.strip() != ""
+    assert prompt["system"].strip() and prompt["user"].strip()
 
 
 @pytest.mark.parametrize("agent_type", AGENT_TYPES)
@@ -42,10 +41,12 @@ def test_prompt_contains_injected_values(agent_type):
         question=question,
     )
 
-    assert status in prompt
-    assert year in prompt
-    assert context in prompt
-    assert question in prompt
+    # Trusted values go in the system role, the student's text only in the user role.
+    assert status in prompt["system"]
+    assert year in prompt["system"]
+    assert context in prompt["system"]
+    assert question in prompt["user"]
+    assert question not in prompt["system"]
 
 
 def test_get_prompt_invalid_agent_raises():
@@ -59,6 +60,18 @@ def test_get_prompt_invalid_agent_raises():
         )
 
 
-def test_rag_generator_invalid_agent_raises():
-    with pytest.raises(ValueError):
-        RAGGenerator("not_a_real_agent")
+def test_history_goes_in_user_role():
+    prompt = get_prompt("orientation", "prospective", None, "ctx", "Q?", history="Étudiant: avant")
+    assert "Étudiant: avant" in prompt["user"]
+    assert "Étudiant: avant" not in prompt["system"]
+
+
+@pytest.mark.parametrize("message,expected", [
+    ("Comment faire une demande de bourse ?", True),
+    ("Quels documents pour la réinscription en L2 ?", True),
+    ("Je veux une attestation de présence", True),
+    ("Quelles licences en informatique ?", False),
+    ("Explique-moi les intégrales", False),
+])
+def test_is_administrative(message, expected):
+    assert is_administrative(message) is expected

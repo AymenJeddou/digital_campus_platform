@@ -8,6 +8,7 @@ stored as an empty material — the same scope boundary already flagged in
 CHANGES_classroom.md for Google Classroom's non-Doc attachments.
 """
 import io
+import zipfile
 
 import docx  # python-docx
 import pptx  # python-pptx
@@ -21,6 +22,7 @@ SUPPORTED_EXTENSIONS = {".pdf", ".docx", ".pptx", ".txt", ".md"}
 # not a 300-page textbook — those belong in the knowledge base pipeline, not
 # here.
 MAX_PDF_PAGES = 300
+MAX_UNCOMPRESSED_BYTES = 200 * 1024 * 1024
 
 
 class TextExtractionError(Exception):
@@ -29,6 +31,18 @@ class TextExtractionError(Exception):
 
 class UnsupportedFileType(TextExtractionError):
     """Raised when the file extension isn't one we know how to read."""
+
+
+def _check_zip_size(content: bytes) -> None:
+    """DOCX/PPTX are zip archives: refuse ones that would inflate past
+    MAX_UNCOMPRESSED_BYTES (a "zip bomb") before a parser unpacks them."""
+    try:
+        with zipfile.ZipFile(io.BytesIO(content)) as archive:
+            total = sum(info.file_size for info in archive.infolist())
+    except zipfile.BadZipFile as exc:
+        raise TextExtractionError("This file is corrupt or not a valid Office document.") from exc
+    if total > MAX_UNCOMPRESSED_BYTES:
+        raise TextExtractionError("This document is too large once decompressed.")
 
 
 def _extension(filename: str) -> str:
@@ -50,6 +64,8 @@ def extract_text(filename: str, content: bytes) -> str:
         )
     if ext == ".pdf":
         return _extract_pdf(content)
+    if ext in (".docx", ".pptx"):
+        _check_zip_size(content)
     if ext == ".docx":
         return _extract_docx(content)
     if ext == ".pptx":

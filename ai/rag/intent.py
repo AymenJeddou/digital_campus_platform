@@ -93,6 +93,21 @@ def classify_intent(message: str) -> str:
     return FACTUAL
 
 
+# Procedure vocabulary (accent-stripped, matched as word prefixes) that sends a
+# factual question to the Administrative agent rather than Orientation/Academic.
+_ADMIN_RE = re.compile(
+    r"\b(inscri|reinscri|bourse|attestation|certificat|duplicata|formulaire|"
+    r"dossier|frais|paiement|stage|retrait|derogation|carte d.?etudiant|"
+    r"demande|depot|delai|date limite|echeance|cotutelle|transfert|"
+    r"تسجيل|منحة|شهادة|ملف|تربص)"
+)
+
+
+def is_administrative(message: str) -> bool:
+    """True when a question is about an administrative procedure."""
+    return bool(message) and bool(_ADMIN_RE.search(_normalize(message)))
+
+
 # --- Bounded, non-fabricating conversational replies (no retrieval) -----------
 
 _CAPABILITIES = (

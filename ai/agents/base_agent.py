@@ -1,11 +1,8 @@
-"""Base class shared by the 4 FSB Nexus agents.
+"""The FSB Nexus agent.
 
-The LLM call is delegated to a provider-agnostic client (``ai.llm.client``), so
-the agents work with either Gemini or Mistral depending on ``LLM_PROVIDER`` — no
-code change to switch.
-
-Citation parsing / formatting is layered on by the pipeline (Day 4); ``run``
-returns the raw answer plus light metadata.
+The four agents (orientation, academic, administrative, learning) differ only
+by the scope rule in their prompt, so one class covers them all. The LLM call
+goes through the provider-agnostic client (``ai.llm.client``).
 """
 
 import os
@@ -21,78 +18,41 @@ def _generation_temperature() -> float | None:
 
 
 class BaseAgent:
-    """Common LLM-backed agent. Subclasses set ``agent_type``."""
-
-    #: Overridden by each concrete agent (one of ``AGENT_TYPES``).
-    agent_type: str = ""
-
-    def __init__(self):
-        # Builds the client for the configured provider; raises ValueError if the
-        # provider's API key is missing/placeholder.
+    def __init__(self, agent_type: str):
+        self.agent_type = agent_type
+        # Raises ValueError if the provider's API key is missing/placeholder.
         self._llm = get_llm()
 
     @staticmethod
     def _format_chunks(chunks: list) -> str:
-        """Render retrieved chunks into a readable context block for the prompt.
-
-        Each chunk follows the FSBridge V2 schema (Iheb's handoff):
-        ``{chunk_id, text, title, source, page, category, score}``.
-        """
+        """Render retrieved chunks ``{chunk_id, text, title, source, page, ...}``
+        into the context block, labelled the way the answer must cite them."""
         if not chunks:
             return "Aucun contexte disponible."
-        formatted = []
-        for chunk in chunks:
-            # Cite by the human-readable title when available (FSBridge V2 schema),
-            # falling back to the source filename.
-            label = chunk.get("title") or chunk.get("source", "Source inconnue")
-            formatted.append(
-                f"[{label}, p.{chunk.get('page', '?')}]\n{chunk.get('text', '')}"
-            )
-        return "\n\n---\n\n".join(formatted)
-
-    def run(
-        self,
-        question: str,
-        chunks: list,
-        student_status: str,
-        student_academic_year: str,
-    ) -> dict:
-        """Generate an answer from the retrieved chunks.
-
-        Returns:
-            ``{"answer", "agent", "chunks_used", "raw_response"}``.
-        """
-        context = self._format_chunks(chunks)
-        prompt = get_prompt(
-            agent_type=self.agent_type,
-            student_status=student_status,
-            student_academic_year=student_academic_year,
-            context=context,
-            question=question,
+        return "\n\n---\n\n".join(
+            f"[{chunk.get('title') or chunk.get('source', 'Source inconnue')}, p.{chunk.get('page', '?')}]\n"
+            f"{chunk.get('text', '')}"
+            for chunk in chunks
         )
 
-        answer = self._llm.generate(prompt, temperature=_generation_temperature())
-
-        return {
-            "answer": answer,
-            "agent": self.agent_type,
-            "chunks_used": len(chunks),
-            "raw_response": answer,
-        }
-
-    def run_stream(
-        self,
-        question: str,
-        chunks: list,
-        student_status: str,
-        student_academic_year: str,
-    ):
-        context = self._format_chunks(chunks)
-        prompt = get_prompt(
+    def _prompt(self, question, chunks, student_profile, history):
+        profile = student_profile or {}
+        return get_prompt(
             agent_type=self.agent_type,
-            student_status=student_status,
-            student_academic_year=student_academic_year,
-            context=context,
+            student_status=profile.get("student_status", "prospective"),
+            student_academic_year=profile.get("academic_year"),
+            student_program=profile.get("program"),
+            context=self._format_chunks(chunks),
             question=question,
+            history=history,
         )
-        return self._llm.generate_stream(prompt, temperature=_generation_temperature())
+
+    def run(self, question: str, chunks: list, student_profile: dict = None, history: str = None) -> dict:
+        """Returns ``{"answer", "agent", "chunks_used", "raw_response"}``."""
+        prompt = self._prompt(question, chunks, student_profile, history)
+        answer = self._llm.generate(prompt["user"], temperature=_generation_temperature(), system=prompt["system"])
+        return {"answer": answer, "agent": self.agent_type, "chunks_used": len(chunks), "raw_response": answer}
+
+    def run_stream(self, question: str, chunks: list, student_profile: dict = None, history: str = None):
+        prompt = self._prompt(question, chunks, student_profile, history)
+        return self._llm.generate_stream(prompt["user"], temperature=_generation_temperature(), system=prompt["system"])

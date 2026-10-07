@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     DATABASE_URL: str
@@ -28,7 +28,6 @@ class Settings(BaseSettings):
     GOOGLE_CLASSROOM_REDIRECT_URI: str = "http://localhost:8000/courses/classroom/callback"
     GOOGLE_TOKEN_ENCRYPTION_KEY: str | None = None
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 settings = Settings()
