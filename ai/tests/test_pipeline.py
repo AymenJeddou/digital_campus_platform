@@ -13,8 +13,16 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from ai.agents.base_agent import BaseAgent
-from ai.rag.generator import FAKE_CHUNKS
 from ai.rag.pipeline import RAGPipeline
+
+FAKE_CHUNKS = [
+    {"chunk_id": "test_001", "text": "Les étudiants de L2 doivent s'inscrire avant le 15 octobre.",
+     "title": "Guide Académique FSB", "source": "guide_academique_fsb.md", "page": 12,
+     "category": "course", "score": 0.95},
+    {"chunk_id": "test_002", "text": "La faculté propose trois licences: Informatique, Mathématiques et Physique.",
+     "title": "Guide d'Orientation FSB", "source": "guide_orientation_fsb.md", "page": 3,
+     "category": "orientation", "score": 0.88},
+]
 
 
 def _mock_llm(text="Réponse simulée."):
@@ -58,7 +66,7 @@ def test_pipeline_run_mocked(mock_get_llm, _mock_grounded):
         chunks=FAKE_CHUNKS,
     )
 
-    for key in ("answer", "agent", "chunks_used", "raw_response"):
+    for key in ("answer", "agent", "chunks_used", "citations"):
         assert key in result
     assert result["answer"] == "Réponse simulée."
     assert result["chunks_used"] == len(FAKE_CHUNKS)

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Boolean, DateTime, Text, ForeignKey, Float, JSON
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, Text, ForeignKey, Float, JSON, UniqueConstraint
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from app.db.database import Base
@@ -10,33 +10,49 @@ try:
 except ImportError:  # pragma: no cover - optional dependency for PostgreSQL deployments
     Vector = None
 
+
+def _now():
+    return datetime.now(timezone.utc)
+
+
 class Student(Base):
     __tablename__ = "students"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     email = Column(String, unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)
     full_name = Column(String)
-    role = Column(String, default="student")
-    student_status = Column(String, default="prospective")
+    role = Column(String, default="student")  # "student" | "admin" (set in the DB only)
+    student_status = Column(String, default="prospective")  # prospective | enrolled | alumni
     academic_year = Column(String)
+    program_id = Column(UUID(as_uuid=True), ForeignKey("programs.id"), nullable=True)
     bac_type = Column(String)
     bac_score = Column(Float)
     interests = Column(JSON, default=list)
     goals = Column(JSON, default=list)
-    enrollment_date = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    enrollment_date = Column(DateTime, default=_now)
     onboarding_completed = Column(Boolean, default=False)
     is_verified = Column(Boolean, default=False)
 
-class Program(Base):
-    __tablename__ = "programs"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    name = Column(String, nullable=False)
-    department_id = Column(UUID(as_uuid=True), ForeignKey("departments.id"))
+    program = relationship("Program")
+
 
 class Department(Base):
     __tablename__ = "departments"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name = Column(String, nullable=False)
+
+
+class Program(Base):
+    """An FSB degree programme (licence or master), seeded by migration from the
+    official offer published on fsb.rnu.tn."""
+    __tablename__ = "programs"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String, nullable=False)
+    level = Column(String, nullable=True)  # "licence" | "master_recherche" | "master_pro"
+    department_id = Column(UUID(as_uuid=True), ForeignKey("departments.id"))
+
+    department = relationship("Department")
+
 
 class Course(Base):
     __tablename__ = "courses"
@@ -45,23 +61,25 @@ class Course(Base):
     program_id = Column(UUID(as_uuid=True), ForeignKey("programs.id"))
     code = Column(String, nullable=True)
     description = Column(Text, nullable=True)
-    # Set when this course was created from a Google Classroom sync, so a
-    # given Classroom course maps to exactly one Course row shared by every
-    # student enrolled in it via Classroom (see StudentCourse.source below).
-    source = Column(String, default="manual")  # "manual" | "google_classroom"
+    # "manual" courses form the shared catalog. "google_classroom" courses are
+    # private to the student whose Classroom they were synced from and are
+    # never listed in the catalog.
+    source = Column(String, default="manual")
     external_id = Column(String, nullable=True)  # Classroom course id
+
 
 class Document(Base):
     __tablename__ = "documents"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String)
     content = Column(Text, nullable=True)
-    file_path = Column(String, nullable=True) # Allowed null for old documents
+    file_path = Column(String, nullable=True)  # NULL for documents from before uploads existed
     uploaded_by_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=True)
     is_ingested = Column(Boolean, default=False)
-    uploaded_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    
+    uploaded_at = Column(DateTime, default=_now)
+
     uploaded_by = relationship("Student")
+
 
 class DocumentChunk(Base):
     __tablename__ = "document_chunks"
@@ -82,45 +100,40 @@ class DocumentChunk(Base):
 
 
 class StudentCourse(Base):
-    """A student's enrollment in a course (manual path, or synced later from
-    an external source such as Google Classroom)."""
+    """A student's enrollment in a course (manual, or synced from Google Classroom)."""
     __tablename__ = "student_courses"
+    __table_args__ = (UniqueConstraint("student_id", "course_id", name="uq_student_course"),)
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=False)
     course_id = Column(UUID(as_uuid=True), ForeignKey("courses.id"), nullable=False)
     source = Column(String, default="manual")  # "manual" | "google_classroom"
     external_id = Column(String, nullable=True)  # Classroom course id, once synced
-    enrolled_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    enrolled_at = Column(DateTime, default=_now)
 
 
 class CourseMaterial(Base):
-    """A piece of course content (uploaded manually, or later pulled in from
-    Google Classroom) belonging to one student's view of one course."""
+    """A piece of course content belonging to one student's view of one course."""
     __tablename__ = "course_materials"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     course_id = Column(UUID(as_uuid=True), ForeignKey("courses.id"), nullable=False)
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=False)
     title = Column(String, nullable=False)
-    content = Column(Text)  # raw text content (typed manually, or extracted from an upload)
+    content = Column(Text)  # raw text (typed manually, or extracted from an upload)
     source = Column(String, default="manual")  # "manual" | "upload" | "google_classroom"
     external_id = Column(String, nullable=True)
-    # Original filename for the "upload" source (PDF/DOCX/TXT/MD) — kept for
-    # display and re-download context. NULL for "manual" and "google_classroom".
-    original_filename = Column(String, nullable=True)
+    original_filename = Column(String, nullable=True)  # "upload" source only
+    due_at = Column(DateTime, nullable=True)  # Classroom coursework due date, if any
     status = Column(String, default="pending")  # pending | ingested | error
     chunk_count = Column(Integer, default=0)
     error_message = Column(String, nullable=True)
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime, default=_now)
+    updated_at = Column(DateTime, default=_now, onupdate=_now)
+
 
 class GoogleClassroomAccount(Base):
-    """One row per student who has connected Google Classroom.
-
-    Tokens are stored encrypted (see `app/services/token_crypto.py`) with a
-    key derived from the app's existing SECRET_KEY by default. The blueprint
-    assigns hardening this ("secure token storage") to Role 4 (6.4); swapping
-    in a dedicated, rotated encryption key is a one-line change there.
-    """
+    """One row per student who has connected Google Classroom. Tokens are
+    stored encrypted (see app/services/token_crypto.py). Sync progress lives
+    here too, so it survives restarts and is shared across workers."""
     __tablename__ = "google_classroom_accounts"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=False, unique=True)
@@ -128,28 +141,25 @@ class GoogleClassroomAccount(Base):
     refresh_token = Column(String, nullable=False)  # encrypted
     token_expires_at = Column(Float, nullable=False)  # unix timestamp
     scope = Column(String, nullable=True)
-    connected_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    connected_at = Column(DateTime, default=_now)
     last_synced_at = Column(Float, nullable=True)  # unix timestamp
+    sync_status = Column(String, default="idle")  # idle | running | success | error
+    sync_started_at = Column(Float, nullable=True)
+    sync_courses_synced = Column(Integer, default=0)
+    sync_materials_synced = Column(Integer, default=0)
+    sync_materials_failed = Column(Integer, default=0)
+    sync_error = Column(String, nullable=True)
 
-
-class AdmissionScore(Base):
-    __tablename__ = "admission_scores"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
-    score = Column(Float)
-
-class Recommendation(Base):
-    __tablename__ = "recommendations"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
-    content = Column(Text)
 
 class ChatSession(Base):
     __tablename__ = "chat_sessions"
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    title = Column(String, nullable=True)  # first question, renamable
+    created_at = Column(DateTime, default=_now)
+    updated_at = Column(DateTime, default=_now)
     messages = relationship("ChatMessage", back_populates="session")
+
 
 class ChatMessage(Base):
     __tablename__ = "chat_messages"
@@ -158,34 +168,29 @@ class ChatMessage(Base):
     role = Column(String)
     content = Column(Text)
     citations = Column(JSON, nullable=True)
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    # Groundedness verdict for assistant answers: False = the judge found the
+    # sources don't fully support it (shown as a warning). NULL = not graded.
+    grounded = Column(Boolean, nullable=True)
+    created_at = Column(DateTime, default=_now)
     session = relationship("ChatSession", back_populates="messages")
 
-class AuditLog(Base):
-    __tablename__ = "audit_logs"
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    student_id = Column(UUID(as_uuid=True), ForeignKey("students.id"))
-    action = Column(String)
-    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
 class RevokedToken(Base):
     __tablename__ = "revoked_tokens"
     id = Column(Integer, primary_key=True, autoincrement=True)
     jti = Column(String, unique=True, nullable=False)
-    revoked_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    revoked_at = Column(DateTime, default=_now)
+
 
 class Feedback(Base):
     __tablename__ = "feedback"
+    __table_args__ = (UniqueConstraint("chat_message_id", "user_id", name="uq_feedback_message_user"),)
     id = Column(Integer, primary_key=True, autoincrement=True)
     chat_message_id = Column(UUID(as_uuid=True), ForeignKey("chat_messages.id"), nullable=False)
     user_id = Column(UUID(as_uuid=True), ForeignKey("students.id"), nullable=False)
-    rating = Column(Integer, nullable=False)
+    rating = Column(Integer, nullable=False)  # 1 = helpful, 0 = not helpful
     comment = Column(String, nullable=True)
-    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    timestamp = Column(DateTime, default=_now)
 
     chat_message = relationship("ChatMessage")
     user = relationship("Student")
-
-# NOTE: Google Classroom token storage lives in GoogleClassroomAccount (see above,
-# from the courses feature) which encrypts tokens and uses a signed OAuth state.
-# The earlier plaintext GoogleClassroomToken model was dropped during integration.

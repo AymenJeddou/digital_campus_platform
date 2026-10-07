@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-07T22:00:00Z",
+  "title": "Design System: Platform",
+  "extensions": {
+    "colorMeta": {
+      "louage-red": { "role": "primary", "displayName": "Louage Red", "canonical": "#d2272d", "dark": "#e5484d" },
+      "louage-red-ink": { "role": "primary", "displayName": "Deep Louage Red", "canonical": "#a3191e", "dark": "#ff9a9d" },
+      "sodium-amber": { "role": "secondary", "displayName": "Sodium Amber", "canonical": "#b97700", "dark": "#ffc14d" },
+      "van-white": { "role": "neutral", "displayName": "Van White", "canonical": "#f4f4f1", "dark": "#111215" },
+      "surface": { "role": "neutral", "displayName": "Surface", "canonical": "#ffffff", "dark": "#1a1c21" },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#16171b", "dark": "#f1f0ec" }
+    },
+    "shadows": {
+      "placard-lift": "0 6px 14px -8px rgb(0 0 0 / 0.35)",
+      "floating": "0 18px 40px -16px rgb(0 0 0 / 0.4)"
+    },
+    "motion": {
+      "ticket-print": { "property": "clip-path", "duration": "420ms", "easing": "cubic-bezier(0.16, 1, 0.3, 1)", "stagger": "70ms", "reducedMotion": "none" }
+    },
+    "breakpoints": { "sm": "640px", "lg": "1024px", "xl": "1280px" },
+    "narrative": {
+      "northStar": "The Louage Station",
+      "overview": "The faculty as the shared-taxi station every Tunisian student knows: pick your line, say where you're going, keep your ticket. Placards, the red band and ticket-stub sources carry the world; everything else is a plain, fast chat app.",
+      "keyCharacteristics": [
+        "Bilingual placards, interface language first",
+        "One structural colour: louage red",
+        "Sources as openable ticket stubs",
+        "Designed day and night stations"
+      ],
+      "rules": [
+        "The One Red Rule: red marks structure and the single key action",
+        "The Lamp Rule: amber only means look again",
+        "The Sign Rule: Lalezar only for what a station would paint"
+      ]
+    }
+  }
+}

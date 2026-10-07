@@ -1,0 +1,444 @@
+/* Effects (21st.dev picks, rebuilt without an animation library).
+   Every animation stops for prefers-reduced-motion at the end of the file. */
+
+:root {
+  --ill-page-0: #ffffff;
+  --ill-page-1: #f1f1ec;
+  --ill-page-2: #e6e6df;
+  --ill-lens: rgb(255 255 255 / 0.82);
+}
+.dark,
+.on-dark {
+  --ill-page-0: #24262c;
+  --ill-page-1: #1d1f24;
+  --ill-page-2: #17181c;
+  --ill-lens: rgb(36 38 44 / 0.85);
+}
+
+/* Split-flap board ---------------------------------------------------- */
+.flipboard {
+  display: inline-flex;
+  gap: 3px;
+  padding: 6px;
+  border-radius: 8px;
+  background: #0b0c0e;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06), 0 10px 30px -14px rgb(0 0 0 / 0.6);
+  perspective: 400px;
+}
+.flap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.45em;
+  height: 1.9em;
+  border-radius: 4px;
+  background: linear-gradient(#1f2126 0 49%, #0b0c0e 49% 51%, #191b20 51%);
+  color: #f6c453;
+  font-family: var(--font-sign);
+  font-size: clamp(0.85rem, 2.2vw, 1.45rem);
+  line-height: 1;
+  overflow: hidden;
+}
+.flap-wide {
+  width: auto;
+  min-width: 6em;
+  padding: 0 0.6em;
+}
+.flap-anim .flap-char {
+  display: inline-block;
+  animation: flap-drop 160ms cubic-bezier(0.3, 0.7, 0.4, 1) both;
+  transform-origin: 50% 0;
+}
+@keyframes flap-drop {
+  from {
+    transform: rotateX(-90deg);
+    opacity: 0.4;
+  }
+  to {
+    transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+/* Documents illustration ------------------------------------------------ */
+.docs-illustration {
+  color: var(--ink);
+  overflow: visible;
+}
+.on-dark .docs-illustration {
+  color: #f1f0ec;
+}
+.ill-lens {
+  animation: lens-drift 7s ease-in-out infinite;
+}
+@keyframes lens-drift {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: -14px 6px;
+  }
+}
+.ill-highlight {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: highlight-sweep 7s ease-in-out infinite;
+}
+@keyframes highlight-sweep {
+  0%,
+  12% {
+    transform: scaleX(0);
+  }
+  30%,
+  100% {
+    transform: scaleX(1);
+  }
+}
+.ill-ticket {
+  animation: ticket-bob 6s ease-in-out infinite;
+}
+@keyframes ticket-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -6px;
+  }
+}
+
+/* Magnetic ---------------------------------------------------------------- */
+.magnetic {
+  transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theme toggle: icons morph; the page reveal is a View Transition. ----- */
+.theme-icon {
+  position: absolute;
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), opacity 240ms;
+}
+.theme-sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.4);
+}
+.dark .theme-sun {
+  opacity: 1;
+  transform: none;
+}
+.dark .theme-moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.4);
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Typing dots ---------------------------------------------------------- */
+.typing-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.typing-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--red);
+  animation: dot-bounce 1.1s ease-in-out infinite;
+}
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+@keyframes dot-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  30% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+/* Messages arrive one after another. */
+.msg-in {
+  animation: msg-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Halo dropzone --------------------------------------------------------- */
+.halo {
+  position: relative;
+  display: block;
+  border-radius: 12px;
+  padding: 2px;
+  cursor: pointer;
+  background: var(--line-strong);
+  isolation: isolate;
+  overflow: hidden;
+}
+.halo::before {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  z-index: -1;
+  background: conic-gradient(from 0deg, transparent 0 60%, var(--red) 75%, var(--amber) 85%, transparent 100%);
+  animation: halo-spin 3.2s linear infinite;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+.halo:hover::before,
+.halo:focus-within::before,
+.halo-over::before,
+.halo-busy::before {
+  opacity: 1;
+}
+.halo-over .halo-inner {
+  background: var(--red-wash);
+}
+.halo-busy {
+  pointer-events: none;
+}
+.halo-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  border-radius: 10px;
+  padding: 26px 16px;
+  text-align: center;
+  background: var(--surface);
+  transition: background 200ms;
+}
+@keyframes halo-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* Admit-one source ticket ------------------------------------------------ */
+.ticket {
+  --gx: 50%;
+  --gy: 50%;
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  max-width: 19rem;
+  min-height: 3.4rem;
+  text-align: start;
+  border-radius: 7px;
+  color: #3b230f;
+  background:
+    radial-gradient(circle at 1px 1px, rgb(90 53 32 / 0.18) 1px, transparent 1.4px) 0 0 / 5px 5px,
+    radial-gradient(120% 140% at 70% 20%, #ffd7a8 0%, #fea35a 55%, #f07a2c 100%);
+  /* half-moon notches where the stub tears off */
+  mask:
+    radial-gradient(circle 6px at 3.1rem 0, #0000 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle 6px at 3.1rem 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[dir="rtl"] .ticket {
+  mask:
+    radial-gradient(circle 6px at calc(100% - 3.1rem) 0, #0000 98%, #000) top / 100% 51% no-repeat,
+    radial-gradient(circle 6px at calc(100% - 3.1rem) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+}
+.ticket:hover {
+  transition: none;
+}
+.ticket-stub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.1rem;
+  flex-shrink: 0;
+  font-family: var(--font-sign);
+  font-size: 1.5rem;
+  color: #fff4e6;
+  background: rgb(90 53 32 / 0.85);
+  border-inline-end: 2px dashed rgb(255 220 190 / 0.55);
+}
+.ticket-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.4rem 0.8rem;
+}
+.ticket-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.ticket-page {
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+.ticket-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(40% 60% at var(--gx) var(--gy), rgb(255 255 255 / 0.4), transparent 70%);
+  opacity: 0;
+  transition: opacity 250ms;
+}
+.ticket:hover .ticket-glare {
+  opacity: 1;
+}
+
+/* Limelight nav ---------------------------------------------------------- */
+.limelight {
+  position: absolute;
+  pointer-events: none;
+  transition:
+    transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    height 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    width 420ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 200ms;
+}
+.limelight-v {
+  inset-inline: 0;
+  top: 0;
+}
+.limelight-v::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 999px;
+  background: var(--red);
+  box-shadow: 0 0 14px 1px var(--red);
+}
+.limelight-v::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  background: linear-gradient(to right, color-mix(in srgb, var(--red) 16%, transparent), transparent 75%);
+}
+[dir="rtl"] .limelight-v::after {
+  background: linear-gradient(to left, color-mix(in srgb, var(--red) 16%, transparent), transparent 75%);
+}
+.limelight-h {
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+.limelight-h::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22%;
+  right: 22%;
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background: var(--red);
+  box-shadow: 0 0 14px 1px var(--red);
+}
+.limelight-h::after {
+  content: "";
+  position: absolute;
+  inset: 3px 10% 0;
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--red) 20%, transparent), transparent 85%);
+  clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+}
+
+/* Magnified bento -------------------------------------------------------- */
+.bento > * {
+  transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms;
+}
+@media (hover: hover) {
+  .bento:has(> :hover) > :not(:hover) {
+    transform: scale(0.985);
+    opacity: 0.82;
+  }
+  .bento > :hover {
+    transform: scale(1.012);
+  }
+}
+
+/* Empty state stacked cards ----------------------------------------------- */
+.empty-stack {
+  position: relative;
+  display: block;
+  width: 4.5rem;
+  height: 4rem;
+}
+.empty-stack > span {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+}
+.empty-stack > span:nth-child(1) {
+  transform: rotate(-10deg) translateX(-10px);
+}
+.empty-stack > span:nth-child(2) {
+  transform: rotate(8deg) translateX(10px);
+}
+.empty-stack > .empty-front {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red);
+  box-shadow: 0 8px 18px -10px rgb(0 0 0 / 0.35);
+}
+
+/* Animated route paths (sign-in panel) ------------------------------------ */
+.animated-paths {
+  color: var(--ink);
+}
+.animated-paths path {
+  stroke-dasharray: 40 260;
+  animation: path-run 16s linear infinite;
+}
+@keyframes path-run {
+  to {
+    stroke-dashoffset: -600;
+  }
+}
+
+/* Composer focus glow ------------------------------------------------------- */
+.composer {
+  transition: box-shadow 250ms, border-color 250ms;
+}
+.composer:focus-within {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--red) 18%, transparent), 0 12px 30px -18px rgb(0 0 0 / 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flap-anim .flap-char,
+  .ill-lens,
+  .ill-highlight,
+  .ill-ticket,
+  .typing-dots span,
+  .msg-in,
+  .halo::before,
+  .animated-paths path {
+    animation: none !important;
+  }
+  .limelight,
+  .magnetic,
+  .bento > *,
+  .ticket,
+  .theme-icon {
+    transition: none !important;
+  }
+}

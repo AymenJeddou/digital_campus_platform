@@ -1,437 +1,380 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
-import {
-  BookOpenText, Plus, Trash2, Upload, FileText, MessageSquare, Loader2,
-  Link2, RefreshCw, CheckCircle2, AlertCircle, X,
-} from 'lucide-react';
-import {
-  coursesService, EnrolledCourse, CourseDetail, CourseMaterial, ClassroomStatus,
-} from '@/lib/services/courses';
+import { BookOpenText, FileText, Link2, MessageSquareText, Plus, RefreshCw, Trash2, X } from 'lucide-react';
+import { EmptyState } from '@/components/fx/blocks';
+import { HaloDropzone } from '@/components/fx/interactive';
+import { buttonClass, inputClass } from '@/components/ui';
+import { ApiError, api, errorMessage } from '@/lib/api';
+import { fill } from '@/lib/dictionary';
+import { formatDate, useLocale, useT } from '@/lib/i18n';
+import type { ClassroomStatus, CourseDetail, CourseMaterial, EnrolledCourse } from '@/lib/types';
 
-function StatusBadge({ status }: { status: CourseMaterial['status'] }) {
-  const map = {
-    ingested: { icon: CheckCircle2, cls: 'text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10', label: 'Ready' },
-    pending: { icon: Loader2, cls: 'text-amber-600 bg-amber-50 dark:bg-amber-500/10', label: 'Processing' },
-    error: { icon: AlertCircle, cls: 'text-destructive bg-destructive/10', label: 'Error' },
-  }[status];
-  const Icon = map.icon;
-  return (
-    <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-semibold ${map.cls}`}>
-      <Icon className={`h-3 w-3 ${status === 'pending' ? 'animate-spin' : ''}`} />
-      {map.label}
-    </span>
-  );
-}
-
-export default function CoursesPage() {
+function Courses() {
+  const t = useT();
+  const locale = useLocale();
   const router = useRouter();
-  const [courses, setCourses] = useState<EnrolledCourse[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [newName, setNewName] = useState('');
+  const params = useSearchParams();
+  const [courses, setCourses] = useState<EnrolledCourse[] | null>(null);
+  const [name, setName] = useState('');
   const [adding, setAdding] = useState(false);
-  const [selected, setSelected] = useState<CourseDetail | null>(null);
   const [classroom, setClassroom] = useState<ClassroomStatus | null>(null);
-  const [syncing, setSyncing] = useState(false);
+  const [selected, setSelected] = useState<CourseDetail | null>(null);
+  const pollRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const load = async () => {
-    try {
-      setCourses(await coursesService.listMine());
-    } catch {
-      toast.error('Failed to load courses');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const load = useCallback(() => {
+    api<EnrolledCourse[]>('courses/mine').then(setCourses).catch(() => setCourses([]));
+  }, []);
 
-  // Poll the sync job until it leaves the "running" state, surfacing progress
-  // and the final result. Used both after clicking "Sync now" and on mount when
-  // a sync is already running (e.g. after a page reload).
-  const pollSync = async () => {
-    setSyncing(true);
-    try {
-      const st = await coursesService.classroomStatus();
+  const poll = useCallback(
+    async function tick() {
+      const st = await api<ClassroomStatus>('courses/classroom/status').catch(() => null);
+      if (!st) return;
       setClassroom(st);
       if (st.sync_status === 'running') {
-        setTimeout(pollSync, 3000);
+        pollRef.current = setTimeout(tick, 2500);
         return;
       }
-      setSyncing(false);
-      if (st.sync_status === 'error') {
-        toast.error(`Classroom sync failed: ${st.sync_error ?? 'unknown error'}`);
-      } else if (st.sync_status === 'success') {
-        const skipped = st.sync_materials_failed ?? 0;
-        toast.success(
-          `Synced ${st.sync_courses_synced ?? 0} courses, ${st.sync_materials_synced ?? 0} materials` +
-            (skipped > 0 ? ` (${skipped} skipped — unreadable files)` : ''),
-        );
-      }
       load();
-    } catch {
-      setSyncing(false);
-    }
-  };
+    },
+    [load],
+  );
 
   useEffect(() => {
     load();
-    coursesService
-      .classroomStatus()
+    poll();
+    return () => {
+      if (pollRef.current) clearTimeout(pollRef.current);
+    };
+  }, [load, poll]);
+
+  // Back from Google's consent screen: finish the connection with this
+  // session (the backend checks the authorization was started by us).
+  const handled = useRef(false);
+  useEffect(() => {
+    const code = params.get('classroom_code');
+    const state = params.get('classroom_state');
+    const failed = params.get('classroom') === 'error';
+    if (handled.current || (!code && !failed)) return;
+    handled.current = true;
+    router.replace('/courses', { scroll: false });
+    if (failed || !code || !state) {
+      toast.error(t.courses.connectFailed);
+      return;
+    }
+    api<ClassroomStatus>('courses/classroom/connect', { json: { code, state } })
       .then((st) => {
         setClassroom(st);
-        if (st.sync_status === 'running') pollSync(); // resume a sync in progress
+        toast.success(t.courses.connected);
       })
-      .catch(() => {});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      .catch(() => toast.error(t.courses.connectFailed));
+  }, [params, router, t]);
 
   const addCourse = async (e: React.FormEvent) => {
     e.preventDefault();
-    const name = newName.trim();
-    if (!name) return;
+    if (!name.trim()) return;
     setAdding(true);
     try {
-      await coursesService.create({ name });
-      setNewName('');
-      toast.success('Course added');
+      await api('courses', { json: { name: name.trim() } });
+      setName('');
+      toast.success(t.courses.added);
       load();
-    } catch {
-      toast.error('Could not add course');
+    } catch (err) {
+      toast.error(err instanceof ApiError && err.status === 409 ? err.detail : errorMessage(err, t));
     } finally {
       setAdding(false);
     }
   };
 
-  const openCourse = async (id: string) => {
+  const removeCourse = async (c: EnrolledCourse) => {
+    if (!window.confirm(fill(t.courses.removeConfirm, { name: c.name }))) return;
     try {
-      setSelected(await coursesService.getDetail(id));
-    } catch {
-      toast.error('Could not open course');
-    }
-  };
-
-  const removeCourse = async (id: string) => {
-    try {
-      await coursesService.unenroll(id);
-      toast.success('Course removed');
-      if (selected?.id === id) setSelected(null);
+      await api(`courses/enroll/${c.id}`, { method: 'DELETE' });
       load();
-    } catch {
-      toast.error('Could not remove course');
+    } catch (err) {
+      toast.error(errorMessage(err, t));
     }
   };
 
-  const connectClassroom = async () => {
+  const connect = async () => {
     try {
-      const { authorization_url } = await coursesService.classroomAuthorize();
+      const { authorization_url } = await api<{ authorization_url: string }>('courses/classroom/authorize', { method: 'POST' });
       window.location.href = authorization_url;
-    } catch {
-      toast.error('Google Classroom is not configured');
+    } catch (err) {
+      toast.error(err instanceof ApiError && err.status === 503 ? t.courses.notConfigured : errorMessage(err, t));
     }
   };
 
-  const syncClassroom = async () => {
-    setSyncing(true);
+  const sync = async () => {
     try {
-      await coursesService.classroomSync(); // returns immediately (status: running)
-      toast.message('Sync started — importing your Classroom content in the background…');
-      setTimeout(pollSync, 1500); // then poll for progress + completion
-    } catch {
-      toast.error('Sync failed — connect Google Classroom first');
-      setSyncing(false);
+      const res = await api<{ status: string }>('courses/classroom/sync', { method: 'POST' });
+      setClassroom((c) => (c ? { ...c, sync_status: res.status as ClassroomStatus['sync_status'] } : c));
+      poll();
+    } catch (err) {
+      toast.error(errorMessage(err, t));
     }
   };
+
+  const disconnect = async () => {
+    if (!window.confirm(t.courses.disconnectConfirm)) return;
+    await api('courses/classroom', { method: 'DELETE' }).catch(() => {});
+    poll();
+    setClassroom({ connected: false } as ClassroomStatus);
+  };
+
+  const open = async (id: string) => {
+    try {
+      setSelected(await api<CourseDetail>(`courses/${id}`));
+    } catch (err) {
+      toast.error(errorMessage(err, t));
+    }
+  };
+
+  const syncing = classroom?.sync_status === 'running';
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold tracking-tight text-foreground">My Courses</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Bring in your courses and ask the assistant about their content.
-          </p>
-        </div>
-      </div>
+    <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:py-12">
+      <h1 className="placard text-[clamp(2.2rem,5vw,3.2rem)]">{t.courses.title}</h1>
+      <p className="mt-2 max-w-[60ch] text-ink-2">{t.courses.lead}</p>
 
-      {/* Google Classroom card */}
-      <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <Link2 className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-foreground">Google Classroom</p>
-              <p className="text-xs text-muted-foreground">
-                {syncing || classroom?.sync_status === 'running'
-                  ? `Syncing… ${classroom?.sync_materials_synced ?? 0} materials imported`
-                  : classroom?.connected
-                    ? `Connected${classroom.last_synced_at ? ` · last synced ${new Date(classroom.last_synced_at).toLocaleDateString()}` : ''}`
-                    : 'Connect to import your courses automatically.'}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            {classroom?.connected ? (
-              <button
-                onClick={syncClassroom}
-                disabled={syncing}
-                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
-              >
-                {syncing ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
-                {syncing ? 'Syncing…' : 'Sync now'}
-              </button>
-            ) : (
-              <button
-                onClick={connectClassroom}
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-secondary/60"
-              >
-                <Link2 className="h-4 w-4" /> Connect
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Add course */}
-      <form onSubmit={addCourse} className="flex items-center gap-3">
+      <form onSubmit={addCourse} className="mt-8 flex max-w-2xl gap-2">
+        <label htmlFor="course-name" className="sr-only">
+          {t.courses.addPlaceholder}
+        </label>
         <input
-          value={newName}
-          onChange={(e) => setNewName(e.target.value)}
-          placeholder="Add a course by name (e.g. Analyse 1)"
-          className="flex-1 rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary"
+          id="course-name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder={t.courses.addPlaceholder}
+          maxLength={160}
+          className={inputClass}
         />
-        <button
-          type="submit"
-          disabled={adding || !newName.trim()}
-          className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
-        >
-          {adding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
-          Add
+        <button type="submit" disabled={adding || !name.trim()} className={buttonClass.primary}>
+          <Plus className="h-4 w-4" />
+          {t.courses.add}
         </button>
       </form>
 
-      {/* Courses grid */}
-      {loading ? (
-        <div className="flex justify-center py-16">
-          <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+      <section className="mt-6 flex max-w-2xl flex-wrap items-center justify-between gap-3 rounded-lg border border-line bg-surface px-4 py-3">
+        <div className="flex min-w-0 items-center gap-3">
+          <Link2 className="h-5 w-5 shrink-0 text-ink-3" aria-hidden />
+          <div className="min-w-0 text-sm">
+            <p className="font-medium">{t.courses.classroom}</p>
+            <p className="text-ink-3" role="status">
+              {syncing
+                ? fill(t.courses.syncing, { n: classroom?.sync_materials_synced ?? 0 })
+                : classroom?.sync_status === 'error' && classroom.sync_error
+                  ? fill(t.courses.syncFailed, { error: classroom.sync_error })
+                  : classroom?.connected
+                    ? `${t.courses.classroomOn}${classroom.last_synced_at ? ` · ${fill(t.courses.lastSync, { date: formatDate(classroom.last_synced_at, locale) })}` : ''}${
+                        classroom.sync_status === 'success' && classroom.sync_materials_failed
+                          ? ` · ${fill(t.courses.syncSkipped, { n: classroom.sync_materials_failed })}`
+                          : ''
+                      }`
+                    : t.courses.classroomOff}
+            </p>
+          </div>
         </div>
-      ) : courses.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border py-16 text-center">
-          <BookOpenText className="mx-auto h-8 w-8 text-muted-foreground" />
-          <p className="mt-3 text-sm font-medium text-foreground">No courses yet</p>
-          <p className="text-xs text-muted-foreground">Add one above or connect Google Classroom.</p>
+        <div className="flex items-center gap-1">
+          {classroom?.connected ? (
+            <>
+              <button type="button" onClick={sync} disabled={syncing} className={buttonClass.secondary}>
+                <RefreshCw className={`h-4 w-4 ${syncing ? 'animate-spin' : ''}`} />
+                {t.courses.sync}
+              </button>
+              <button type="button" onClick={disconnect} className={buttonClass.ghost}>
+                {t.courses.disconnect}
+              </button>
+            </>
+          ) : (
+            <button type="button" onClick={connect} className={buttonClass.secondary}>
+              {t.courses.connect}
+            </button>
+          )}
         </div>
-      ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      </section>
+
+      <section className="mt-10">
+        {courses === null && <p className="text-sm text-ink-3">{t.common.loading}</p>}
+        {courses?.length === 0 && <EmptyState kind="courses" title={t.courses.emptyTitle} body={t.courses.empty} />}
+        {!!courses?.length && (
+        <ul className="divide-y divide-line border-y border-line">
           {courses.map((c) => (
-            <motion.div
-              key={c.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col rounded-2xl border border-border bg-card p-5 shadow-sm"
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <BookOpenText className="h-5 w-5" />
-                </div>
-                <span className="rounded-md bg-secondary px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
-                  {c.source === 'google_classroom' ? 'Classroom' : 'Manual'}
+            <li key={c.id} className="flex flex-wrap items-center gap-x-4 gap-y-2 py-3">
+              <button type="button" onClick={() => open(c.id)} className="flex min-w-0 flex-1 items-center gap-3 text-start">
+                <BookOpenText className="h-5 w-5 shrink-0 text-ink-3" aria-hidden />
+                <span className="min-w-0">
+                  <span className="block truncate font-medium hover:text-red-ink">{c.name}</span>
+                  <span className="block text-xs text-ink-3">
+                    {fill(t.dashboard.materials, { n: c.material_count })} ·{' '}
+                    {c.source === 'google_classroom' ? t.courses.sourceClassroom : t.courses.sourceManual}
+                  </span>
                 </span>
-              </div>
-              <p className="mt-4 text-sm font-semibold text-foreground">{c.name}</p>
-              <p className="text-xs text-muted-foreground">
-                {c.material_count} material{c.material_count === 1 ? '' : 's'}
-              </p>
-              <div className="mt-4 flex items-center gap-2">
-                <button
-                  onClick={() => openCourse(c.id)}
-                  className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-secondary/60"
-                >
-                  Open
-                </button>
-                <button
-                  onClick={() => router.push(`/chat?course=${c.id}&name=${encodeURIComponent(c.name)}`)}
-                  title="Ask about this course"
-                  className="flex items-center justify-center rounded-lg bg-primary px-3 py-2 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-                >
-                  <MessageSquare className="h-3.5 w-3.5" />
-                </button>
-                <button
-                  onClick={() => removeCourse(c.id)}
-                  title="Remove course"
-                  className="flex items-center justify-center rounded-lg border border-border px-3 py-2 text-muted-foreground transition-colors hover:text-destructive"
-                >
-                  <Trash2 className="h-3.5 w-3.5" />
+              </button>
+              <div className="flex items-center gap-1">
+                <Link href={`/chat?course=${c.id}&name=${encodeURIComponent(c.name)}`} className={buttonClass.ghost}>
+                  <MessageSquareText className="h-4 w-4" />
+                  {t.courses.ask}
+                </Link>
+                <button type="button" onClick={() => removeCourse(c)} aria-label={t.courses.remove} title={t.courses.remove} className={`${buttonClass.ghost} w-10 px-0 hover:text-red-ink`}>
+                  <Trash2 className="h-4 w-4" />
                 </button>
               </div>
-            </motion.div>
+            </li>
           ))}
-        </div>
-      )}
+        </ul>
+        )}
+      </section>
 
       {selected && (
-        <CourseDetailPanel
+        <CourseSheet
           detail={selected}
           onClose={() => setSelected(null)}
           onChanged={async () => {
-            setSelected(await coursesService.getDetail(selected.id));
+            setSelected(await api<CourseDetail>(`courses/${selected.id}`));
             load();
           }}
-          onAsk={() => router.push(`/chat?course=${selected.id}&name=${encodeURIComponent(selected.name)}`)}
         />
       )}
     </div>
   );
 }
 
-function CourseDetailPanel({
-  detail, onClose, onChanged, onAsk,
-}: {
-  detail: CourseDetail;
-  onClose: () => void;
-  onChanged: () => void;
-  onAsk: () => void;
-}) {
+function CourseSheet({ detail, onClose, onChanged }: { detail: CourseDetail; onClose: () => void; onChanged: () => void }) {
+  const t = useT();
+  const locale = useLocale();
+  const ref = useRef<HTMLDialogElement>(null);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [busy, setBusy] = useState(false);
 
-  const addText = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!title.trim() || !content.trim()) return;
-    setBusy(true);
-    try {
-      await coursesService.addMaterial(detail.id, { title: title.trim(), content: content.trim() });
-      setTitle(''); setContent('');
-      toast.success('Material added');
-      onChanged();
-    } catch {
-      toast.error('Could not add material');
-    } finally {
-      setBusy(false);
-    }
-  };
+  useEffect(() => {
+    ref.current?.showModal();
+  }, []);
 
   const upload = async (file: File) => {
     setBusy(true);
+    const form = new FormData();
+    form.set('file', file);
     try {
-      await coursesService.uploadMaterial(detail.id, file);
-      toast.success('File uploaded');
+      await api(`courses/${detail.id}/materials/upload`, { form });
+      toast.success(t.courses.uploaded);
       onChanged();
-    } catch {
-      toast.error('Upload failed');
+    } catch (err) {
+      toast.error(errorMessage(err, t));
     } finally {
       setBusy(false);
     }
   };
 
-  const removeMaterial = async (id: string) => {
+  const addText = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBusy(true);
     try {
-      await coursesService.deleteMaterial(detail.id, id);
-      toast.success('Material removed');
+      await api(`courses/${detail.id}/materials`, { json: { title: title.trim(), content: content.trim() } });
+      setTitle('');
+      setContent('');
       onChanged();
-    } catch {
-      toast.error('Could not remove material');
+    } catch (err) {
+      toast.error(errorMessage(err, t));
+    } finally {
+      setBusy(false);
     }
   };
 
+  const remove = async (m: CourseMaterial) => {
+    if (!window.confirm(fill(t.courses.removeMaterialConfirm, { name: m.title }))) return;
+    await api(`courses/${detail.id}/materials/${m.id}`, { method: 'DELETE' }).catch((err) => toast.error(errorMessage(err, t)));
+    onChanged();
+  };
+
   return (
-    <div className="fixed inset-0 z-40 flex justify-end bg-black/40" onClick={onClose}>
-      <motion.div
-        initial={{ x: 40, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        onClick={(e) => e.stopPropagation()}
-        className="flex h-full w-full max-w-md flex-col overflow-y-auto border-l border-border bg-background p-6"
-      >
-        <div className="flex items-start justify-between">
-          <div>
-            <h2 className="text-lg font-bold text-foreground">{detail.name}</h2>
-            <p className="text-xs text-muted-foreground">{detail.materials.length} materials</p>
-          </div>
-          <button onClick={onClose} className="rounded-lg p-1.5 text-muted-foreground hover:bg-secondary/60">
-            <X className="h-5 w-5" />
-          </button>
+    <dialog
+      ref={ref}
+      onClose={onClose}
+      onClick={(e) => e.target === ref.current && ref.current?.close()}
+      className="m-0 ms-auto h-dvh max-h-dvh w-[min(30rem,100vw)] border-s border-line bg-ground p-0 text-ink backdrop:bg-black/40"
+    >
+      <div className="sticky top-0 z-10 flex items-start justify-between gap-3 border-b border-line bg-ground px-5 py-4">
+        <div className="min-w-0">
+          <h2 className="placard truncate text-2xl">{detail.name}</h2>
+          <Link href={`/chat?course=${detail.id}&name=${encodeURIComponent(detail.name)}`} className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium text-red-ink underline-offset-2 hover:underline">
+            <MessageSquareText className="h-4 w-4" />
+            {t.courses.ask}
+          </Link>
         </div>
-
-        <button
-          onClick={onAsk}
-          className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-        >
-          <MessageSquare className="h-4 w-4" /> Ask about this course
+        <button type="button" onClick={() => ref.current?.close()} aria-label={t.common.close} className="rounded p-1.5 hover:bg-sunken">
+          <X className="h-5 w-5" />
         </button>
+      </div>
 
-        {/* Materials */}
-        <div className="mt-6 space-y-2">
-          <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Materials</p>
+      <div className="space-y-8 px-5 py-5">
+        <section>
+          <h3 className="text-sm font-semibold">{t.courses.materials}</h3>
           {detail.materials.length === 0 && (
-            <p className="text-sm text-muted-foreground">No materials yet. Add text or upload a file below.</p>
-          )}
-          {detail.materials.map((m) => (
-            <div key={m.id} className="flex items-center justify-between rounded-xl border border-border bg-card p-3">
-              <div className="flex min-w-0 items-center gap-3">
-                <FileText className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium text-foreground">{m.title}</p>
-                  <div className="mt-0.5 flex items-center gap-2">
-                    <StatusBadge status={m.status} />
-                    {m.status === 'ingested' && (
-                      <span className="text-[11px] text-muted-foreground">{m.chunk_count} chunks</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <button
-                onClick={() => removeMaterial(m.id)}
-                className="flex-shrink-0 rounded-lg p-1.5 text-muted-foreground hover:text-destructive"
-              >
-                <Trash2 className="h-3.5 w-3.5" />
-              </button>
+            <div className="mt-3">
+              <EmptyState kind="materials" title={t.courses.noMaterialsTitle} body={t.courses.noMaterials} />
             </div>
-          ))}
-        </div>
+          )}
+          <ul className="mt-2 divide-y divide-line">
+            {detail.materials.map((m) => (
+              <li key={m.id} className="flex items-start gap-3 py-2.5">
+                <FileText className="mt-0.5 h-4 w-4 shrink-0 text-ink-3" aria-hidden />
+                <div className="min-w-0 flex-1 text-sm">
+                  <p className="truncate font-medium">{m.title}</p>
+                  <p className={m.status === 'error' ? 'text-red-ink' : 'text-ink-3'}>
+                    {t.courses.status[m.status]}
+                    {m.status === 'ingested' && ` · ${fill(t.courses.chunks, { n: m.chunk_count })}`}
+                    {m.due_at && ` · ${fill(t.courses.due, { date: formatDate(m.due_at, locale, true) })}`}
+                    {m.status === 'error' && m.error_message && ` · ${m.error_message}`}
+                  </p>
+                </div>
+                <button type="button" onClick={() => remove(m)} aria-label={t.courses.removeMaterial} className="rounded p-1.5 text-ink-3 hover:bg-sunken hover:text-red-ink">
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-        {/* Add material */}
-        <div className="mt-6 space-y-4 border-t border-border pt-6">
-          <label className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-border py-3 text-sm font-medium text-muted-foreground transition-colors hover:border-primary hover:text-primary">
-            <Upload className="h-4 w-4" />
-            {busy ? 'Uploading…' : 'Upload a file (PDF, DOCX, PPTX, TXT)'}
-            <input
-              type="file"
-              accept=".pdf,.docx,.pptx,.txt,.md"
-              className="hidden"
-              disabled={busy}
-              onChange={(e) => { const f = e.target.files?.[0]; if (f) upload(f); e.target.value = ''; }}
-            />
-          </label>
+        <section>
+          <HaloDropzone
+            onFile={upload}
+            busy={busy}
+            accept=".pdf,.docx,.pptx,.txt,.md"
+            title={busy ? t.courses.uploading : t.courses.upload}
+            hint={t.courses.uploadHint}
+          />
+        </section>
 
-          <form onSubmit={addText} className="space-y-2">
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Material title"
-              className="w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-            <textarea
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Paste notes or course text here…"
-              rows={4}
-              className="w-full resize-none rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground outline-none focus:border-primary focus:ring-1 focus:ring-primary"
-            />
-            <button
-              type="submit"
-              disabled={busy || !title.trim() || !content.trim()}
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
-            >
-              <Plus className="h-4 w-4" /> Add text material
-            </button>
-          </form>
-        </div>
-      </motion.div>
-    </div>
+        <form onSubmit={addText} className="space-y-2">
+          <h3 className="text-sm font-semibold">{t.courses.pasteTitle}</h3>
+          <input aria-label={t.courses.materialTitle} placeholder={t.courses.materialTitle} value={title} onChange={(e) => setTitle(e.target.value)} maxLength={200} className={inputClass} />
+          <textarea
+            aria-label={t.courses.materialContent}
+            placeholder={t.courses.materialContent}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            rows={5}
+            className={`${inputClass} resize-y`}
+          />
+          <button type="submit" disabled={busy || !title.trim() || !content.trim()} className={buttonClass.secondary}>
+            <Plus className="h-4 w-4" />
+            {t.courses.addText}
+          </button>
+        </form>
+      </div>
+    </dialog>
+  );
+}
+
+export default function CoursesPage() {
+  return (
+    <Suspense>
+      <Courses />
+    </Suspense>
   );
 }

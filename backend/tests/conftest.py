@@ -12,3 +12,8 @@ Environment variables take precedence over .env values in pydantic-settings.
 import os
 
 os.environ["AUTO_VERIFY_EMAIL"] = "False"
+
+# The whole suite shares one TestClient IP, so a live Redis would trip the
+# rate limits mid-run. Point the limiter at a closed port: it fails open, as
+# in CI. The limiter itself is unit-tested with a fake (test_review_fixes.py).
+os.environ["REDIS_URL"] = "redis://127.0.0.1:1"

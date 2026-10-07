@@ -3,7 +3,7 @@
 Connects to the existing ``document_chunks`` table in PostgreSQL + pgvector.
 Compatible with the SQLAlchemy models in ``backend/app/models/models.py``.
 
-Chunk dict format (matches ``FAKE_CHUNKS`` in generator.py and the KB handoff):
+Chunk dict format (the KB handoff schema):
     {chunk_id, text, source, page, category, score}
 """
 

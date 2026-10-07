@@ -1,249 +1,199 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { profileService, ProfileResponse } from '@/lib/services/profile';
+import { useState } from 'react';
+import { useTheme } from 'next-themes';
 import { toast } from 'sonner';
-import { User, BookOpen, Lightbulb, Target, Mail, Save, Lock, Loader2 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ProgramSelect, splitTags } from '@/components/ProgramSelect';
+import { Field, buttonClass, inputClass } from '@/components/ui';
+import { ApiError, api, errorMessage } from '@/lib/api';
+import { useLocale, useSwitchLocale, useT } from '@/lib/i18n';
+import { useProfile } from '@/lib/profile';
+import type { Profile } from '@/lib/types';
 
-function SectionHeader({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="px-8 py-6 border-b border-border flex items-center gap-5 bg-secondary/20">
-      <div className="p-3 bg-primary/10 rounded-xl flex-shrink-0 border border-primary/20">
-        <Icon className="h-5 w-5 text-primary" />
-      </div>
-      <div>
-        <h3 className="text-sm font-bold tracking-tight text-foreground">{title}</h3>
-        <p className="text-[11px] text-muted-foreground font-medium mt-0.5">{description}</p>
-      </div>
-    </div>
-  );
-}
-
-function FormField({
-  id,
-  label,
-  hint,
-  children,
-}: {
-  id: string;
-  label: string;
-  hint?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="space-y-2">
-      <label htmlFor={id} className="block text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
-        {label}
-      </label>
-      {children}
-      {hint && <p className="text-[10px] text-muted-foreground font-medium italic">{hint}</p>}
-    </div>
-  );
-}
-
-const inputClass =
-  'w-full px-4 py-3 rounded-xl text-sm font-medium bg-secondary/50 border border-border placeholder:text-muted-foreground/50 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all duration-150';
-
-const disabledInputClass =
-  'w-full px-4 py-3 rounded-xl text-sm font-medium bg-secondary/30 border border-border text-muted-foreground/60 cursor-not-allowed opacity-70';
+type Status = 'prospective' | 'enrolled' | 'alumni';
 
 export default function ProfilePage() {
-  const [profile, setProfile] = useState<ProfileResponse | null>(null);
-  const [fullName, setFullName] = useState('');
-  const [academicYear, setAcademicYear] = useState('');
-  const [interests, setInterests] = useState('');
-  const [goals, setGoals] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [isSaving, setIsSaving] = useState(false);
+  const { profile } = useProfile();
+  const t = useT();
+  if (!profile) return <p className="mx-auto max-w-3xl px-4 py-12 text-ink-3">{t.common.loading}</p>;
+  // Keyed so the form re-initialises if a different account loads.
+  return <ProfileForm key={profile.email} profile={profile} />;
+}
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data = await profileService.getProfile();
-        setProfile(data);
-        setFullName(data.full_name || '');
-        setAcademicYear(data.academic_year || '');
-        setInterests(data.interests?.join(', ') || '');
-        setGoals(data.goals?.join(', ') || '');
-      } catch {
-        toast.error('Failed to load profile');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchProfile();
-  }, []);
+function ProfileForm({ profile }: { profile: Profile }) {
+  const t = useT();
+  const locale = useLocale();
+  const switchLocale = useSwitchLocale();
+  const { theme, setTheme } = useTheme();
+  const { refresh } = useProfile();
+  const [form, setForm] = useState({
+    full_name: profile.full_name ?? '',
+    student_status: (profile.student_status ?? 'prospective') as Status,
+    program_id: profile.program?.id ?? '',
+    academic_year: profile.academic_year ?? '',
+    bac_type: profile.bac_type ?? '',
+    bac_score: profile.bac_score?.toString() ?? '',
+    interests: (profile.interests ?? []).join(', '),
+    goals: (profile.goals ?? []).join(', '),
+  });
+  const [busy, setBusy] = useState(false);
 
-  const handleSave = async () => {
-    setIsSaving(true);
+  const set = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+    setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const save = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setBusy(true);
     try {
-      await profileService.updateProfile({
-        full_name: fullName,
-        interests: interests.split(',').map((i) => i.trim()).filter(Boolean),
-        goals: goals.split(',').map((i) => i.trim()).filter(Boolean),
+      await api('profile', {
+        method: 'PATCH',
+        json: {
+          full_name: form.full_name.trim() || undefined,
+          student_status: form.student_status,
+          program_id: form.program_id || null,
+          academic_year: form.academic_year.trim() || undefined,
+          bac_type: form.bac_type.trim() || undefined,
+          bac_score: form.bac_score ? Number(form.bac_score) : undefined,
+          interests: splitTags(form.interests),
+          goals: splitTags(form.goals),
+        },
       });
-      if (academicYear !== profile?.academic_year) {
-        await profileService.updateAcademicYear(academicYear);
-      }
-      toast.success('Profile updated successfully');
-    } catch {
-      toast.error('Failed to update profile');
+      await refresh();
+      toast.success(t.profile.saved);
+    } catch (err) {
+      toast.error(err instanceof ApiError && err.status === 422 ? t.profile.invalid : errorMessage(err, t));
     } finally {
-      setIsSaving(false);
+      setBusy(false);
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
-          <p className="text-sm text-muted-foreground font-medium">Loading profile...</p>
-        </div>
-      </div>
-    );
-  }
+  const section = 'grid gap-5 border-t border-line pt-6 md:grid-cols-[12rem_1fr]';
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6 lg:py-12">
+      <h1 className="placard text-[clamp(2.2rem,5vw,3.2rem)]">{t.profile.title}</h1>
+      <p className="mt-1 text-ink-3">{profile.email}</p>
 
-      <div className="grid gap-8 lg:grid-cols-1">
-        {/* Account Information */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm"
-        >
-          <SectionHeader
-            icon={User}
-            title="Account Information"
-            description="Basic details associated with your Digital Campus account."
-          />
-          <div className="px-8 py-8 grid gap-6 sm:grid-cols-2">
-            <FormField id="email" label="Email Address" hint="Your login email cannot be changed.">
-              <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
-                <input
-                  id="email"
-                  type="email"
-                  value={profile?.email || ''}
-                  disabled
-                  className={`${disabledInputClass} pl-11`}
-                />
-                <Lock className="absolute right-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground/30" />
-              </div>
-            </FormField>
-
-            <FormField id="fullName" label="Full Name">
-              <input
-                id="fullName"
-                type="text"
-                placeholder="e.g. Jane Doe"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                className={inputClass}
-              />
-            </FormField>
+      <form onSubmit={save} className="mt-8 space-y-8">
+        <div className={section}>
+          <h2 className="font-semibold">{t.profile.account}</h2>
+          <div className="space-y-4">
+            <Field label={t.auth.fullName}>
+              {(id) => <input id={id} value={form.full_name} onChange={set('full_name')} maxLength={120} className={inputClass} />}
+            </Field>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Academic Profile */}
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm"
-        >
-          <SectionHeader
-            icon={BookOpen}
-            title="Academic Profile"
-            description="Your academic details help us tailor the assistant's recommendations."
-          />
-          <div className="px-8 py-8 space-y-8">
-            <FormField id="academicYear" label="Academic Year">
-              <input
-                id="academicYear"
-                type="text"
-                placeholder="e.g. Sophomore, Year 2, Master's 1st Year"
-                value={academicYear}
-                onChange={(e) => setAcademicYear(e.target.value)}
-                className={inputClass}
-              />
-            </FormField>
-
-            <div className="grid gap-8 sm:grid-cols-2">
-              <FormField
-                id="interests"
-                label="Interests"
-                hint="Separate multiple interests with a comma."
-              >
-                <div className="relative">
-                  <Lightbulb className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
-                  <input
-                    id="interests"
-                    type="text"
-                    placeholder="e.g. AI, Web Dev, Design"
-                    value={interests}
-                    onChange={(e) => setInterests(e.target.value)}
-                    className={`${inputClass} pl-11`}
-                  />
-                </div>
-              </FormField>
-
-              <FormField
-                id="goals"
-                label="Learning Goals"
-                hint="Separate multiple goals with a comma."
-              >
-                <div className="relative">
-                  <Target className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground/50" />
-                  <input
-                    id="goals"
-                    type="text"
-                    placeholder="e.g. Learn React, Graduate"
-                    value={goals}
-                    onChange={(e) => setGoals(e.target.value)}
-                    className={`${inputClass} pl-11`}
-                  />
-                </div>
-              </FormField>
+        <div className={section}>
+          <h2 className="font-semibold">{t.profile.studies}</h2>
+          <div className="space-y-4">
+            <Field label={t.profile.status}>
+              {(id) => (
+                <select id={id} value={form.student_status} onChange={set('student_status')} className={inputClass}>
+                  {(Object.keys(t.profile.statuses) as Status[]).map((s) => (
+                    <option key={s} value={s}>
+                      {t.profile.statuses[s]}
+                    </option>
+                  ))}
+                </select>
+              )}
+            </Field>
+            <Field label={t.onboarding.program}>
+              {(id) => <ProgramSelect id={id} value={form.program_id} onChange={(v) => setForm((f) => ({ ...f, program_id: v }))} />}
+            </Field>
+            <Field label={t.onboarding.year}>
+              {(id) => (
+                <select id={id} value={form.academic_year} onChange={set('academic_year')} className={inputClass}>
+                  <option value="">—</option>
+                  {[...new Set([...t.onboarding.years, form.academic_year].filter(Boolean))].map((y) => (
+                    <option key={y}>{y}</option>
+                  ))}
+                </select>
+              )}
+            </Field>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field label={t.onboarding.bacType}>
+                {(id) => (
+                  <select id={id} value={form.bac_type} onChange={set('bac_type')} className={inputClass}>
+                    <option value="">—</option>
+                    {[...new Set([...t.onboarding.bacTypes, form.bac_type].filter(Boolean))].map((b) => (
+                      <option key={b}>{b}</option>
+                    ))}
+                  </select>
+                )}
+              </Field>
+              <Field label={t.onboarding.bacScore}>
+                {(id) => (
+                  <input id={id} type="number" inputMode="decimal" min={0} max={300} step="0.01" value={form.bac_score} onChange={set('bac_score')} className={inputClass} />
+                )}
+              </Field>
             </div>
           </div>
-        </motion.div>
-      </div>
+        </div>
 
-      {/* Save row */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, delay: 0.2 }}
-        className="flex items-center justify-between bg-card border border-border rounded-2xl px-8 py-5 shadow-sm"
-      >
-        <p className="text-xs font-medium text-muted-foreground">Changes are saved to your account immediately.</p>
-        <button
-          id="save-profile-btn"
-          onClick={handleSave}
-          disabled={isSaving}
-          className="inline-flex items-center gap-2.5 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-bold px-6 py-3 rounded-xl transition-all shadow-sm shadow-primary/20 disabled:opacity-60 disabled:cursor-not-allowed group"
-        >
-          {isSaving ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Save className="h-4 w-4 transition-transform group-hover:scale-110" />
-          )}
-          {isSaving ? 'Saving…' : 'Save Changes'}
-        </button>
-      </motion.div>
+        <div className={section}>
+          <h2 className="font-semibold">{t.profile.about}</h2>
+          <div className="space-y-4">
+            <Field label={t.onboarding.interests} hint={t.onboarding.interestsHint}>
+              {(id) => <input id={id} value={form.interests} onChange={set('interests')} className={inputClass} />}
+            </Field>
+            <Field label={t.onboarding.goals} hint={t.onboarding.goalsHint}>
+              {(id) => <input id={id} value={form.goals} onChange={set('goals')} className={inputClass} />}
+            </Field>
+          </div>
+        </div>
+
+        <div className="flex justify-end">
+          <button type="submit" disabled={busy} className={buttonClass.primary}>
+            {busy ? t.common.saving : t.common.save}
+          </button>
+        </div>
+      </form>
+
+      <div className={`${section} mt-10`}>
+        <h2 className="font-semibold">{t.profile.preferences}</h2>
+        <div className="space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <span className="text-sm">{t.profile.languageTitle}</span>
+            <div className="inline-flex rounded-md border border-line-strong p-0.5" role="group" aria-label={t.profile.languageTitle}>
+              {(['fr', 'ar'] as const).map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  aria-pressed={locale === l}
+                  onClick={() => locale !== l && switchLocale()}
+                  className={`placard rounded px-3 py-1.5 text-base ${locale === l ? 'bg-ink text-surface' : 'text-ink-2'}`}
+                >
+                  {l === 'fr' ? 'Français' : 'العربية'}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <span className="text-sm">{t.profile.themeTitle}</span>
+            <div className="inline-flex rounded-md border border-line-strong p-0.5" role="group" aria-label={t.profile.themeTitle}>
+              {(
+                [
+                  ['system', t.profile.themeSystem],
+                  ['light', t.common.themeLight],
+                  ['dark', t.common.themeDark],
+                ] as const
+              ).map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  aria-pressed={theme === value}
+                  onClick={() => setTheme(value)}
+                  className={`rounded px-3 py-1.5 text-sm ${theme === value ? 'bg-ink text-surface' : 'text-ink-2'}`}
+                  suppressHydrationWarning
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

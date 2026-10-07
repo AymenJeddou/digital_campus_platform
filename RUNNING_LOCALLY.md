@@ -40,7 +40,8 @@ The AI deps include `torch` + `sentence-transformers` (the embedding model,
   above), a strong `SECRET_KEY`, `RAG_PIPELINE_HANDLER=ai.integration:answer_chat`,
   and `AUTO_VERIFY_EMAIL=true` (local only — lets you log in without SMTP).
 - `frontend/.env.local` (copy from `frontend/.env.example`):
-  `NEXT_PUBLIC_API_URL=http://localhost:8000`
+  `API_URL=http://localhost:8000`. Only the Next.js server calls the backend
+  (the `/api/*` proxy keeps the login token in an httpOnly cookie).
 
 ## 4. Apply database migrations
 Create the schema (and the `vector` extension) via Alembic. Run from `backend/`:
@@ -48,9 +49,10 @@ Create the schema (and the `vector` extension) via Alembic. Run from `backend/`:
 cd backend
 alembic upgrade head
 ```
-> The app also calls `create_all` + `ensure_schema()` at startup as a dev safety
-> net, but new schema changes should go through a migration:
-> `alembic revision --autogenerate -m "..."` then `alembic upgrade head`.
+> Alembic is the only thing that creates or changes tables (the app never does).
+> After changing a model: `alembic revision --autogenerate -m "..."`, review
+> the file, then `alembic upgrade head`. The migrations also seed the FSB
+> programme list used by onboarding.
 
 ## 5. Ingest the knowledge base (once)
 Embeds the chunked KB into `document_chunks`.
@@ -72,12 +74,20 @@ cd frontend && npm install && npm run dev
 ```
 
 ## 8. Try it
-Open http://localhost:3000 → Register → (auto-verified in dev) → Login → Chat.
+Open http://localhost:3000 → Register → (auto-verified in dev) → Login → onboarding → Chat.
+Switch to Arabic with the « العربية » button (the whole layout flips to RTL).
+
+To see the admin dashboard, give your account the role in the database:
+```bash
+docker exec fsb-db psql -U postgres -d digital_campus -c "UPDATE students SET role='admin' WHERE email='you@example.com'"
+```
 Ask e.g. *"Quelles licences sont disponibles à la FSB ?"* and you should get a
 grounded, cited French answer.
 
 ## How the pieces connect
-- The frontend calls `NEXT_PUBLIC_API_URL` for `/auth`, `/profile`, `/chat`.
+- The browser only talks to the Next.js app. `/api/*` is a proxy
+  (`frontend/src/app/api/[...path]/route.ts`) that forwards to `API_URL`,
+  attaching the session token from an httpOnly cookie; SSE streams pass through.
 - `/chat` (backend) imports the handler named by `RAG_PIPELINE_HANDLER`
   → `ai.integration.answer_chat` → `RAGPipeline(agent).run(...)`.
 - The pipeline filters chunks (Day 5), generates with Mistral, formats citations
@@ -85,8 +95,23 @@ grounded, cited French answer.
 - Chunks come from `src.search.retriever.retrieve` → `ai.rag.search.semantic_search`
   → pgvector similarity over `document_chunks`.
 
+## Tests
+```bash
+python -m pytest ai/tests -q
+# backend: needs Postgres; use a separate database
+docker exec fsb-db psql -U postgres -c "CREATE DATABASE digital_campus_test"
+cd backend && DATABASE_URL=postgresql://postgres:postgres@localhost:5433/digital_campus_test   sh -c "python -m alembic upgrade head && PYTHONPATH=.. python -m pytest tests -q"
+cd frontend && npm run lint && npm run typecheck && npm run build
+```
+
+## Production notes
+- Run uvicorn behind your reverse proxy with `--proxy-headers
+  --forwarded-allow-ips=<proxy ip>` so rate limits see real client IPs.
+- Set a unique `SECRET_KEY`, real SMTP settings, and `AUTO_VERIFY_EMAIL=false`.
+- `scripts/reset_db.py` refuses non-local databases and asks for confirmation.
+
 ## Stopping
 ```bash
-docker rm -f fsb-db          # database
+docker compose down          # database + redis
 # Ctrl-C the backend and frontend terminals
 ```

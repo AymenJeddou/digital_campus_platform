@@ -104,40 +104,52 @@ def test_classroom_callback_rejects_invalid_state():
     assert "classroom=error" in response.headers["location"]
 
 
-def test_classroom_callback_connects_account_with_valid_state():
-    from app.api.routes.courses import _sign_state
-
-    _, token = make_verified_user("classroomcallback")
-    # Recover the student id via /profile-equivalent: decode isn't exposed,
-    # so just sign a state directly using the same helper the route uses,
-    # scoped to a freshly created user fetched via the DB.
+def _student_id(email: str):
     from app.db.database import SessionLocal
     from app.models.models import Student
 
     db = SessionLocal()
     try:
-        student = db.query(Student).filter(Student.email.like("classroomcallback-%")).order_by(Student.enrollment_date.desc()).first()
-        state = _sign_state(student.id)
-        student_id = student.id
+        return db.query(Student).filter(Student.email == email).first().id
     finally:
         db.close()
 
-    fake_token_set = types.SimpleNamespace(
-        access_token="fake-access", refresh_token="fake-refresh", expires_at=9999999999.0, scope="classroom"
-    )
-    with patch("app.api.routes.courses.classroom_client.exchange_code_for_tokens", return_value=fake_token_set):
+
+def test_classroom_callback_forwards_code_to_frontend_without_storing():
+    from app.api.routes.courses import _sign_state
+
+    email, _ = make_verified_user("classroomcallback")
+    state = _sign_state(_student_id(email))
+    with patch("app.api.routes.courses.classroom_client.exchange_code_for_tokens") as exchange:
         response = client.get(
             "/courses/classroom/callback",
             params={"code": "fake-code", "state": state},
             follow_redirects=False,
         )
     assert response.status_code in (302, 307)
-    assert "classroom=connected" in response.headers["location"]
+    assert "classroom_code=fake-code" in response.headers["location"]
+    exchange.assert_not_called()  # nothing is stored until /connect
 
-    status_response = client.get("/courses/classroom/status", headers=auth_headers(token))
-    assert status_response.json()["connected"] is True
 
+def test_classroom_connect_stores_encrypted_tokens_for_the_state_owner():
+    from app.api.routes.courses import _sign_state
+    from app.db.database import SessionLocal
     from app.models.models import GoogleClassroomAccount
+
+    email, token = make_verified_user("classroomconnect")
+    student_id = _student_id(email)
+    fake_token_set = types.SimpleNamespace(
+        access_token="fake-access", refresh_token="fake-refresh", expires_at=9999999999.0, scope="classroom"
+    )
+    with patch("app.api.routes.courses.classroom_client.exchange_code_for_tokens", return_value=fake_token_set):
+        response = client.post(
+            "/courses/classroom/connect",
+            json={"code": "fake-code", "state": _sign_state(student_id)},
+            headers=auth_headers(token),
+        )
+    assert response.status_code == 200
+    assert response.json()["connected"] is True
+
     db = SessionLocal()
     try:
         account = db.query(GoogleClassroomAccount).filter(GoogleClassroomAccount.student_id == student_id).first()
@@ -145,6 +157,52 @@ def test_classroom_callback_connects_account_with_valid_state():
         assert account.access_token != "fake-access"  # stored encrypted, not in plaintext
     finally:
         db.close()
+
+
+def test_classroom_connect_rejects_a_state_issued_to_another_account():
+    """An attacker's consent link, completed in the victim's browser, must not
+    attach anything to either account."""
+    from app.api.routes.courses import _sign_state
+
+    attacker_email, _ = make_verified_user("classroomattacker")
+    _, victim_token = make_verified_user("classroomvictim")
+    with patch("app.api.routes.courses.classroom_client.exchange_code_for_tokens") as exchange:
+        response = client.post(
+            "/courses/classroom/connect",
+            json={"code": "victim-code", "state": _sign_state(_student_id(attacker_email))},
+            headers=auth_headers(victim_token),
+        )
+    assert response.status_code == 403
+    exchange.assert_not_called()
+
+
+def test_synced_classroom_courses_stay_out_of_the_catalog():
+    from app.db.database import SessionLocal
+    from app.models.models import GoogleClassroomAccount
+    from app.services.token_crypto import encrypt_token
+
+    email, token = make_verified_user("classroomprivate")
+    db = SessionLocal()
+    try:
+        db.add(GoogleClassroomAccount(
+            student_id=_student_id(email),
+            access_token=encrypt_token("fake-access"),
+            refresh_token=encrypt_token("fake-refresh"),
+            token_expires_at=9999999999.0,
+        ))
+        db.commit()
+    finally:
+        db.close()
+
+    secret_name = f"Cours privé {uuid.uuid4().hex[:6]}"
+    chunk_patch, embed_patch = mock_ingestion_modules()
+    with chunk_patch, embed_patch,          patch("app.services.classroom_sync.classroom_client.list_courses",
+               return_value=[fake_classroom_course("ext-private", secret_name)]),          patch("app.services.classroom_sync.classroom_client.list_coursework", return_value=[]),          patch("app.services.classroom_sync.classroom_client.list_coursework_materials", return_value=[]),          patch("app.services.classroom_sync.classroom_client.list_announcements", return_value=[]),          inline_sync_thread():
+        client.post("/courses/classroom/sync", headers=auth_headers(token))
+
+    _, other_token = make_verified_user("classroomother")
+    catalog = client.get("/courses", headers=auth_headers(other_token)).json()
+    assert all(course["name"] != secret_name for course in catalog)
 
 
 def test_classroom_sync_requires_connection():
@@ -302,7 +360,9 @@ def test_classroom_disconnect_removes_account():
     finally:
         db.close()
 
-    disconnect = client.delete("/courses/classroom", headers=auth_headers(token))
+    with patch("app.services.classroom_client.revoke_token") as revoke:
+        disconnect = client.delete("/courses/classroom", headers=auth_headers(token))
+    revoke.assert_called_once_with("fake-refresh")  # the grant is revoked at Google too
     assert disconnect.status_code == 204
 
     status_response = client.get("/courses/classroom/status", headers=auth_headers(token))

@@ -198,4 +198,4 @@ def test_profile_rejects_privileged_student_status():
         json={"student_status": "admin"},
         headers=auth_headers(token),
     )
-    assert response.status_code == 400
+    assert response.status_code == 422
