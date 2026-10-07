@@ -16,24 +16,21 @@ switchable with a single environment variable, no code change.
 ```
 ai/
 ├── llm/
-│   └── client.py             # Provider-agnostic get_llm() -> generate(prompt)->str (Mistral | Gemini)
+│   └── client.py             # get_llm() -> generate(prompt, system=...) (Mistral | Gemini)
 ├── agents/
-│   ├── base_agent.py         # Shared agent: formats chunks, builds prompt, calls the LLM
-│   ├── orientation_agent.py  # Programs, admission, campus life, post-Bac
-│   ├── academic_agent.py     # Courses, prerequisites, study plans, calendar
-│   ├── administrative_agent.py # Registration, scholarships, deadlines
-│   └── learning_agent.py     # Course material explanations, learning plans
+│   └── base_agent.py         # The agent: formats chunks, builds the system/user prompt, calls the LLM
+│                             # (orientation / academic / administrative / learning differ only by scope)
 ├── rag/
-│   ├── pipeline.py           # RAGPipeline: main entry point (retrieve -> generate -> cite)
-│   ├── generator.py          # RAGGenerator: validates agent_type + routes to the agent
+│   ├── pipeline.py           # RAGPipeline: main entry point (retrieve -> generate -> cite -> verify)
+│   ├── intent.py             # Greetings/thanks/meta short-circuit + administrative-question detection
 │   ├── citation_formatter.py # Day 4: parse [doc, p.X] -> structured citations
 │   ├── retrieval_grader.py   # Day 5: filter weak chunks by score threshold
 │   └── groundedness_grader.py# Day 6: LLM judge — verify the answer is supported
 ├── prompts/
-│   └── system_prompts.py     # The 4 French agent prompts + get_prompt() + AGENT_TYPES
+│   └── system_prompts.py     # One French template + per-agent scope; get_prompt() -> {system, user}
 ├── tests/                    # pytest suite (no API key needed — LLM is mocked)
 ├── .env.example              # Provider + key placeholders (copy to .env)
-└── requirements.txt          # mistralai, google-generativeai, python-dotenv, pytest
+└── requirements.txt          # pinned: mistralai, google-genai, sentence-transformers, ...
 ```
 
 Retrieval itself lives outside this module, in Iheb's semantic search layer at
@@ -76,11 +73,12 @@ is `RAGPipeline.run()` in `rag/pipeline.py`.
 ```python
 pipeline = RAGPipeline(agent_type="orientation")
 ```
-`RAGPipeline.__init__` creates a `RAGGenerator`, which **validates** the
-`agent_type` against `AGENT_TYPES` (raises `ValueError` if unknown) and
-instantiates the matching agent class. The agent's `__init__` builds the LLM
-client via `get_llm()` — failing fast with a clear error if the provider's API
-key is missing.
+`RAGPipeline.__init__` **validates** the `agent_type` against `AGENT_TYPES`
+(raises `ValueError` if unknown) and builds a `BaseAgent` for it. The agent's
+`__init__` builds the LLM client via `get_llm()` — failing fast with a clear
+error if the provider's API key is missing. The backend picks the agent per
+message (`ai/integration.py::_route_agent`): course-scoped → learning,
+procedure questions → administrative, enrolled → academic, else orientation.
 
 ### Step 1 — Retrieve relevant chunks
 ```python
@@ -208,8 +206,7 @@ caller (or backend) supplies `category_filter` explicitly.
 - `page` — **0-based section index** within the document (not a printed page).
 - `score` — cosine similarity in `[0, 1]` (used by the Day 5 grader).
 
-`FAKE_CHUNKS` in `rag/generator.py` mirrors this schema for local testing before
-the real retriever is connected.
+`ai/tests/test_pipeline.py` has sample chunks in this schema for local testing.
 
 ---
 

@@ -17,10 +17,13 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Install AI dependencies
-        run: pip install -r ai/requirements.txt
+        # CPU-only torch: the tests never touch a GPU and the CUDA wheels are huge.
+        run: |
+          pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install -r ai/requirements.txt
       - name: Run ai/tests
         # The AI suite mocks get_llm and the retriever (no DB, no embedding
-        # model, no Mistral calls) — see ai/tests/*.
+        # model, no LLM calls) — see ai/tests/*.
         run: python -m pytest ai/tests -q
 
   backend-tests:
@@ -40,13 +43,12 @@ jobs:
           --health-interval 5s
           --health-timeout 5s
           --health-retries 10
-      # NOTE: no Redis service on purpose. The /auth/login rate limiter fails
-      # open when Redis is unreachable; with a live Redis the whole suite shares
-      # one TestClient IP and trips the 5-per-minute limit mid-run. CI exercises
-      # the fail-open path (rate-limit enforcement is validated separately).
+      # No Redis on purpose: tests/conftest.py points the rate limiter at a
+      # closed port so it fails open (the whole suite shares one client IP).
+      # The limiter itself is unit-tested with a fake Redis.
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/digital_campus
-      SECRET_KEY: ci-test-secret
+      SECRET_KEY: ci-test-secret-not-for-production-use
       AUTO_VERIFY_EMAIL: "False"
     steps:
       - uses: actions/checkout@v4
@@ -55,15 +57,43 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Install dependencies
-        # Backend imports the AI package (ai.integration) so install both.
+        # The backend imports the AI package (ai.integration), so install both.
         run: |
-          pip install -r backend/requirements.txt
-          pip install -r ai/requirements.txt
-      - name: Apply migrations
-        # Also validates the Alembic migration end-to-end; it creates the
-        # pgvector extension and the full schema the tests run against.
+          pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install -r backend/requirements.txt -r ai/requirements.txt
+      - name: Apply migrations (up, down, up)
+        # Alembic owns the schema; also proves the latest migration reverses.
         working-directory: backend
-        run: python -m alembic upgrade head
+        run: |
+          python -m alembic upgrade head
+          python -m alembic downgrade -1
+          python -m alembic upgrade head
       - name: Run backend/tests
         working-directory: backend
-        run: python -m pytest tests -q
+        run: PYTHONPATH=.. python -m pytest tests -q
+      - name: Audit Python dependencies
+        continue-on-error: true  # report, don't block: fix advisories in a dedicated PR
+        run: |
+          pip install pip-audit
+          pip-audit -r backend/requirements.txt -r ai/requirements.txt
+
+  frontend:
+    name: Frontend lint, types, build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run build
+      - name: Audit npm dependencies
+        continue-on-error: true
+        run: npm audit --omit=dev --audit-level=high
