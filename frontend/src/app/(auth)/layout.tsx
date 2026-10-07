@@ -14,6 +14,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         {/* Split login: route lines drifting behind the brand and its promise. */}
         <aside className="on-dark relative hidden overflow-hidden bg-[#0e0f12] text-ink lg:flex lg:flex-col lg:justify-between lg:p-10">
           <AnimatedPaths className="absolute inset-0 h-full w-full" />
+          <div aria-hidden className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#0e0f12] from-40% to-transparent" />
           <div className="relative">
             <Mark />
           </div>
