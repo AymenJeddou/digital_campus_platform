@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-10-07T22:00:00Z",
-  "title": "Design System: FSB Nexus",
+  "title": "Design System: Platform",
   "extensions": {
     "colorMeta": {
       "louage-red": { "role": "primary", "displayName": "Louage Red", "canonical": "#d2272d", "dark": "#e5484d" },

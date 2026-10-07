@@ -5,7 +5,7 @@ primary_target: "frontend/src/app/page.tsx"
 related_targets: ["frontend/src/app/(protected)/chat/page.tsx"]
 ---
 
-# Surface brief: FSB Nexus web app (landing + app shell)
+# Surface brief: Platform web app (landing + app shell)
 
 Scope: landing (Persuade) and the signed-in app (Operate: chat, courses, dashboard, onboarding, profile, admin). Audience: FSB students, mostly on phones; staff for admin. Action: ask a question and get a sourced answer.
 

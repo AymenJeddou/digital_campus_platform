@@ -7,6 +7,7 @@ import { X } from 'lucide-react';
 import { api } from '@/lib/api';
 import { useT } from '@/lib/i18n';
 import type { Citation } from '@/lib/types';
+import { SourceTicket } from './fx/interactive';
 
 const CITE_RE = /\[([^\]\n]+?),\s*p\.\s*(\d+)\]/g;
 
@@ -78,7 +79,7 @@ export function Answer({ text, citations, streaming }: { text: string; citations
           <ul className="flex flex-wrap gap-2">
             {order.map((source, i) => (
               <li key={`${source.document}-${source.page}`} className="print-in" style={{ animationDelay: `${i * 70}ms` }}>
-                <TicketStub n={i + 1} source={source} onOpen={() => setOpen(source)} />
+                <SourceTicket n={i + 1} source={source} onOpen={() => setOpen(source)} />
               </li>
             ))}
           </ul>
@@ -86,25 +87,6 @@ export function Answer({ text, citations, streaming }: { text: string; citations
       )}
       {open && <SourceDialog source={open} onClose={() => setOpen(null)} />}
     </div>
-  );
-}
-
-export function TicketStub({ n, source, onOpen }: { n: number; source: Citation; onOpen?: () => void }) {
-  const t = useT();
-  return (
-    <button
-      type="button"
-      onClick={onOpen}
-      className="stub group inline-flex max-w-[18rem] items-stretch overflow-hidden rounded-[4px] border border-line-strong bg-surface text-start text-xs hover:border-ink"
-    >
-      <span className="flex items-center bg-ink ps-3 pe-2 font-semibold text-surface tabular-nums group-hover:bg-red">{n}</span>
-      <span className="flex min-w-0 flex-col justify-center border-s border-dashed border-line-strong px-2.5 py-1.5">
-        <span className="truncate font-medium text-ink">{source.document}</span>
-        <span className="text-ink-3 tabular-nums">
-          {t.common.page} {source.page}
-        </span>
-      </span>
-    </button>
   );
 }
 

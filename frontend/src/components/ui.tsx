@@ -1,9 +1,10 @@
 'use client';
 
 import { useId, useState } from 'react';
-import { Check, Eye, EyeOff, Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { Check, Eye, EyeOff } from 'lucide-react';
 import { useSwitchLocale, useT } from '@/lib/i18n';
+
+export { ThemeToggle } from './fx/interactive';
 
 export const inputClass =
   'w-full rounded-md border border-line-strong bg-surface px-3.5 py-2.5 text-[15px] text-ink placeholder:text-ink-3 outline-none transition-colors focus:border-ink focus-visible:outline-2 focus-visible:outline-offset-1 disabled:opacity-60';
@@ -112,24 +113,6 @@ export function LocaleToggle({ className = '' }: { className?: string }) {
   return (
     <button type="button" onClick={switchLocale} aria-label={t.common.languageLabel} className={`${buttonClass.ghost} ${className}`}>
       <span className="placard text-base leading-none">{t.common.language}</span>
-    </button>
-  );
-}
-
-export function ThemeToggle({ className = '' }: { className?: string }) {
-  const t = useT();
-  const { resolvedTheme, setTheme } = useTheme();
-  const dark = resolvedTheme === 'dark';
-  return (
-    <button
-      type="button"
-      onClick={() => setTheme(dark ? 'light' : 'dark')}
-      aria-label={dark ? t.common.themeLight : t.common.themeDark}
-      className={`${buttonClass.ghost} w-10 px-0 ${className}`}
-      suppressHydrationWarning
-    >
-      <Sun className="hidden h-[18px] w-[18px] dark:block" />
-      <Moon className="h-[18px] w-[18px] dark:hidden" />
     </button>
   );
 }

@@ -1,9 +1,9 @@
 'use client';
 
-import { Mark, Placard } from '@/components/Placard';
+import { AnimatedPaths } from '@/components/fx/blocks';
+import { Mark } from '@/components/Placard';
 import { LocaleToggle, ThemeToggle } from '@/components/ui';
 import { useT } from '@/lib/i18n';
-import { LINES } from '@/lib/types';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   const t = useT();
@@ -11,18 +11,19 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     <div className="flex min-h-dvh flex-col">
       <div className="band" />
       <div className="grid flex-1 lg:grid-cols-[1fr_1.05fr]">
-        {/* The station board: the four lines this account opens. */}
-        <aside className="hidden flex-col justify-between border-e border-line bg-sunken p-10 lg:flex">
-          <Mark />
-          <div>
-            <p className="placard text-[clamp(2rem,3.4vw,3rem)] leading-[1.05] text-balance">{t.landing.headline}</p>
-            <div className="mt-8 grid grid-cols-2 gap-3">
-              {LINES.map((l) => (
-                <Placard key={l} fr={t.lines[l].fr} ar={t.lines[l].ar} hint={t.lines[l].hint} size="sm" />
-              ))}
-            </div>
+        {/* Split login: route lines drifting behind the brand and its promise. */}
+        <aside className="on-dark relative hidden overflow-hidden bg-[#0e0f12] text-ink lg:flex lg:flex-col lg:justify-between lg:p-10">
+          <AnimatedPaths className="absolute inset-0 h-full w-full" />
+          <div className="relative">
+            <Mark />
           </div>
-          <p className="max-w-[48ch] text-xs text-ink-3">{t.landing.footer}</p>
+          <div className="relative">
+            <p className="placard max-w-[14ch] text-[clamp(2.2rem,3.6vw,3.4rem)] leading-[1.05] text-balance">{t.landing.headline}</p>
+            <blockquote className="mt-6 max-w-[40ch] border-s border-line-strong ps-4 text-lg leading-relaxed text-ink-2">
+              {t.auth.asideQuote}
+            </blockquote>
+          </div>
+          <p className="relative max-w-[48ch] text-xs text-ink-3">{t.landing.footer}</p>
         </aside>
 
         <div className="flex flex-col">

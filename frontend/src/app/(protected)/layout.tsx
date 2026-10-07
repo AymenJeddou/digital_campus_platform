@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Bell, BookOpenText, CalendarDays, Home, LogOut, MessageSquareText, ShieldCheck, UserRound } from 'lucide-react';
@@ -46,6 +46,10 @@ function Shell({ children }: { children: React.ReactNode }) {
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
   const notifications = useNotifications();
+  const railRef = useRef<HTMLElement>(null);
+  const railBeam = useLimelight(railRef, 'v', pathname + nav.length);
+  const barRef = useRef<HTMLUListElement>(null);
+  const barBeam = useLimelight(barRef, 'h', pathname + nav.length);
 
   return (
     <div className="flex min-h-dvh flex-col lg:h-dvh lg:flex-row">
@@ -56,17 +60,17 @@ function Shell({ children }: { children: React.ReactNode }) {
           <Mark href="/dashboard" />
           <Notifications id="notifications-rail" {...notifications} />
         </div>
-        <nav aria-label={t.nav.menu} className="flex-1 space-y-1 px-3">
+        <nav ref={railRef} aria-label={t.nav.menu} className="relative mx-3 flex-1 space-y-1">
+          <span ref={railBeam} aria-hidden className="limelight limelight-v" />
           {nav.map(({ href, label, icon: Icon }) => (
             <Link
               key={href}
               href={href}
               aria-current={isActive(href) ? 'page' : undefined}
               className={`relative flex min-h-11 items-center gap-3 rounded-md px-3 text-[15px] transition-colors ${
-                isActive(href) ? 'bg-sunken font-semibold text-ink' : 'text-ink-2 hover:bg-sunken hover:text-ink'
+                isActive(href) ? 'font-semibold text-ink' : 'text-ink-2 hover:bg-sunken hover:text-ink'
               }`}
             >
-              {isActive(href) && <span aria-hidden className="absolute inset-y-2 start-0 w-[3px] rounded-full bg-red" />}
               <Icon className="h-[18px] w-[18px]" aria-hidden />
               {label}
             </Link>
@@ -110,14 +114,17 @@ function Shell({ children }: { children: React.ReactNode }) {
 
       {/* Mobile tab bar */}
       <nav aria-label={t.nav.menu} className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] lg:hidden">
-        <ul className="flex">
+        <ul ref={barRef} className="relative flex">
+          <li aria-hidden className="contents">
+            <span ref={barBeam} className="limelight limelight-h" />
+          </li>
           {nav.map(({ href, label, icon: Icon }) => (
             <li key={href} className="flex-1">
               <Link
                 href={href}
                 aria-current={isActive(href) ? 'page' : undefined}
                 className={`flex min-h-14 flex-col items-center justify-center gap-0.5 text-[11px] ${
-                  isActive(href) ? 'font-semibold text-red-ink' : 'text-ink-3'
+                  isActive(href) ? 'font-semibold text-ink' : 'text-ink-3'
                 }`}
               >
                 <Icon className="h-5 w-5" aria-hidden />
@@ -129,6 +136,37 @@ function Shell({ children }: { children: React.ReactNode }) {
       </nav>
     </div>
   );
+}
+
+/** Positions the "limelight" beam over the current nav item (vertical rail
+ * or horizontal tab bar) and keeps it there on resize. Writes the transform
+ * straight to the element, so the glide is a CSS transition. */
+function useLimelight(containerRef: React.RefObject<HTMLElement | null>, axis: 'v' | 'h', key: string) {
+  const beamRef = useRef<HTMLSpanElement>(null);
+  useLayoutEffect(() => {
+    const place = () => {
+      const beam = beamRef.current;
+      const active = containerRef.current?.querySelector<HTMLElement>('[aria-current="page"]');
+      if (!beam) return;
+      if (!active) {
+        beam.style.opacity = '0';
+        return;
+      }
+      beam.style.opacity = '1';
+      if (axis === 'v') {
+        beam.style.transform = `translateY(${active.offsetTop}px)`;
+        beam.style.height = `${active.offsetHeight}px`;
+      } else {
+        const li = active.parentElement as HTMLElement;
+        beam.style.transform = `translateX(${li.offsetLeft}px)`;
+        beam.style.width = `${li.offsetWidth}px`;
+      }
+    };
+    place();
+    window.addEventListener('resize', place);
+    return () => window.removeEventListener('resize', place);
+  }, [containerRef, axis, key]);
+  return beamRef;
 }
 
 const SEEN_KEY = 'fsb:seen-notifications';

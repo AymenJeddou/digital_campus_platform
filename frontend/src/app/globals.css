@@ -24,7 +24,8 @@
   color-scheme: light;
 }
 
-.dark {
+.dark,
+.on-dark {
   --ground: #111215;
   --surface: #1a1c21;
   --sunken: #0b0c0e;

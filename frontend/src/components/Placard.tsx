@@ -6,12 +6,12 @@ import { useLocale } from '@/lib/i18n';
 /** The brand: a roof placard reading "FSB" over the louage band. */
 export function Mark({ href = '/', compact = false }: { href?: string; compact?: boolean }) {
   return (
-    <Link href={href} className="inline-flex items-center gap-2.5 rounded-md" aria-label="FSB Nexus">
+    <Link href={href} className="inline-flex items-center gap-2.5 rounded-md" aria-label="Platform · FSB">
       <span className="inline-flex flex-col overflow-hidden rounded-[5px] border-2 border-ink bg-surface">
         <span className="placard px-2 pt-1.5 pb-1 text-[17px] text-ink">FSB</span>
         <span className="band" />
       </span>
-      {!compact && <span className="text-[15px] font-semibold tracking-tight max-[420px]:hidden">Nexus</span>}
+      {!compact && <span className="text-[15px] font-semibold tracking-tight max-[420px]:hidden">Platform</span>}
     </Link>
   );
 }

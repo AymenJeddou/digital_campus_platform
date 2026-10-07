@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { FileText, Trash2, Upload } from 'lucide-react';
+import { EmptyState } from '@/components/fx/blocks';
 import { buttonClass } from '@/components/ui';
 import { api, errorMessage } from '@/lib/api';
 import { fill } from '@/lib/dictionary';
@@ -173,6 +174,6 @@ export default function AdminPage() {
 function List({ empty, loading, children }: { empty: boolean; loading: boolean; children: React.ReactNode }) {
   const t = useT();
   if (loading) return <p className="mt-4 text-sm text-ink-3">{t.common.loading}</p>;
-  if (empty) return <p className="mt-4 text-sm text-ink-3">{t.admin.none}</p>;
+  if (empty) return <div className="mt-4"><EmptyState kind="inbox" title={t.admin.none} /></div>;
   return <ul className="mt-3 divide-y divide-line border-y border-line">{children}</ul>;
 }

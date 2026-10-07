@@ -2,7 +2,7 @@
 // missing in either language is a type error.
 
 const fr = {
-  brand: { name: 'FSB Nexus', tagline: 'L’assistant de la Faculté des Sciences de Bizerte' },
+  brand: { name: 'Platform', tagline: 'L’assistant de la Faculté des Sciences de Bizerte' },
   common: {
     loading: 'Chargement…',
     retry: 'Réessayer',
@@ -82,6 +82,9 @@ const fr = {
     honestRefusal: 'Je ne trouve pas d’information fiable sur ce sujet dans les documents disponibles.',
     closeTitle: 'Prochain départ : ta première question.',
     footer: 'Projet étudiant. Les réponses s’appuient sur des documents publics de la FSB ; vérifie toujours auprès de la scolarité pour les décisions importantes.',
+    boardWords: ['ORIENTATION', 'MASTERS', 'BOURSES', 'INSCRIPTION', 'CALENDRIER', 'STAGES', 'TES COURS'],
+    boardLabel2: 'Prochains départs',
+    exampleTyping: 'L’assistant cherche dans les documents…',
   },
   auth: {
     email: 'Adresse e-mail',
@@ -92,6 +95,7 @@ const fr = {
     hide: 'Masquer le mot de passe',
     loginTitle: 'Bon retour',
     loginSub: 'Connecte-toi pour reprendre tes conversations.',
+    asideQuote: 'Chaque réponse arrive avec son ticket : le document et la page d’où elle vient.',
     login: 'Se connecter',
     forgot: 'Mot de passe oublié ?',
     noAccount: 'Pas encore de compte ?',
@@ -164,6 +168,8 @@ const fr = {
     newChat: 'Nouvelle conversation',
     history: 'Conversations',
     noHistory: 'Tes conversations apparaîtront ici.',
+    noHistoryBody: 'Pose ta première question : elle apparaîtra ici avec son titre.',
+    groups: { today: 'Aujourd’hui', yesterday: 'Hier', week: 'Cette semaine', older: 'Plus ancien' },
     rename: 'Renommer',
     renamePrompt: 'Nouveau nom de la conversation',
     deleteConfirm: 'Supprimer cette conversation ? Cette action est définitive.',
@@ -188,10 +194,13 @@ const fr = {
     emptyTitle: 'Où vas-tu aujourd’hui ?',
     emptySub: 'Choisis une ligne pour voir des exemples, ou écris directement ta question.',
     disclaimer: 'L’assistant peut se tromper. Vérifie les informations importantes dans la source.',
-    keyboardHint: 'Entrée pour envoyer, Maj+Entrée pour aller à la ligne',
+    keyboardHint: 'Entrée pour envoyer, Maj+Entrée pour aller à la ligne, / pour écrire',
     stopped: 'Réponse interrompue.',
     tooLong: 'Ta question est trop longue (4000 caractères maximum).',
     rateLimited: 'Doucement ! Attends un peu avant d’envoyer un autre message.',
+    phaseSearching: 'Recherche dans les documents',
+    phaseReading: 'Lecture des passages',
+    phaseWriting: 'Rédaction de la réponse',
   },
   courses: {
     title: 'Mes cours',
@@ -200,6 +209,7 @@ const fr = {
     add: 'Ajouter',
     added: 'Cours ajouté',
     empty: 'Aucun cours pour l’instant. Ajoute-en un ou connecte Google Classroom.',
+    emptyTitle: 'Aucun cours pour l’instant',
     open: 'Ouvrir',
     ask: 'Poser une question',
     remove: 'Retirer le cours',
@@ -223,6 +233,7 @@ const fr = {
     sourceClassroom: 'Classroom',
     materials: 'Supports',
     noMaterials: 'Aucun support. Dépose un fichier ou colle du texte ci-dessous.',
+    noMaterialsTitle: 'Aucun support',
     upload: 'Déposer un fichier',
     uploadHint: 'PDF, Word, PowerPoint, TXT ou Markdown, 20 Mo maximum',
     uploading: 'Envoi et analyse…',
@@ -260,6 +271,8 @@ const fr = {
     interestsHint: 'Séparés par des virgules (ex. data, robotique, biologie marine)',
     goals: 'Objectifs',
     goalsHint: 'Ex. trouver un master, réussir ma L2',
+    steps: ['Statut', 'Études', 'Intérêts'],
+    choose: 'Choisis une réponse',
     finish: 'Terminer',
     done: 'C’est noté !',
     failed: 'Impossible d’enregistrer. Réessaie.',
@@ -304,6 +317,7 @@ const fr = {
     forbidden: 'Cette page est réservée à l’équipe de la faculté.',
   },
   notFound: 'Page introuvable.',
+  calendar: { previous: 'Mois précédent', next: 'Mois suivant', empty: 'Rien de prévu ce mois-ci.', title: 'Calendrier' },
 }
 
 type Dict = typeof fr
@@ -315,7 +329,7 @@ type Widen<T> = T extends string
     : { [K in keyof T]: Widen<T[K]> }
 
 const ar: Widen<Dict> = {
-  brand: { name: 'FSB Nexus', tagline: 'مساعد كلية العلوم ببنزرت' },
+  brand: { name: 'Platform', tagline: 'مساعد كلية العلوم ببنزرت' },
   common: {
     loading: 'جارٍ التحميل…',
     retry: 'إعادة المحاولة',
@@ -395,6 +409,9 @@ const ar: Widen<Dict> = {
     honestRefusal: 'لا أجد معلومات موثوقة حول هذا الموضوع في الوثائق المتاحة.',
     closeTitle: 'الرحلة القادمة: سؤالك الأول.',
     footer: 'مشروع طلابي. تعتمد الإجابات على وثائق عمومية لكلية العلوم ببنزرت؛ تحقّق دائما لدى مصلحة الدراسة قبل أي قرار مهم.',
+    boardWords: ['توجيه', 'ماجستير', 'منح', 'تسجيل', 'رزنامة', 'تربص', 'دروسك'],
+    boardLabel2: 'الرحلات القادمة',
+    exampleTyping: 'المساعد يبحث في الوثائق…',
   },
   auth: {
     email: 'البريد الإلكتروني',
@@ -405,6 +422,7 @@ const ar: Widen<Dict> = {
     hide: 'إخفاء كلمة المرور',
     loginTitle: 'مرحبا بعودتك',
     loginSub: 'سجّل الدخول لمواصلة محادثاتك.',
+    asideQuote: 'كل إجابة تصلك مع تذكرتها: الوثيقة والصفحة التي جاءت منها.',
     login: 'تسجيل الدخول',
     forgot: 'نسيت كلمة المرور؟',
     noAccount: 'ليس لديك حساب؟',
@@ -477,6 +495,8 @@ const ar: Widen<Dict> = {
     newChat: 'محادثة جديدة',
     history: 'المحادثات',
     noHistory: 'ستظهر محادثاتك هنا.',
+    noHistoryBody: 'اطرح سؤالك الأول: سيظهر هنا مع عنوانه.',
+    groups: { today: 'اليوم', yesterday: 'أمس', week: 'هذا الأسبوع', older: 'أقدم' },
     rename: 'إعادة التسمية',
     renamePrompt: 'الاسم الجديد للمحادثة',
     deleteConfirm: 'حذف هذه المحادثة؟ لا يمكن التراجع.',
@@ -501,10 +521,13 @@ const ar: Widen<Dict> = {
     emptyTitle: 'إلى أين اليوم؟',
     emptySub: 'اختر خطا لترى أمثلة، أو اكتب سؤالك مباشرة.',
     disclaimer: 'قد يخطئ المساعد. تحقّق من المعلومات المهمة في المصدر.',
-    keyboardHint: 'Enter للإرسال، Shift+Enter لسطر جديد',
+    keyboardHint: 'Enter للإرسال، Shift+Enter لسطر جديد، / للكتابة',
     stopped: 'تم إيقاف الإجابة.',
     tooLong: 'سؤالك طويل جدا (4000 حرف كحد أقصى).',
     rateLimited: 'على مهلك! انتظر قليلا قبل إرسال رسالة أخرى.',
+    phaseSearching: 'البحث في الوثائق',
+    phaseReading: 'قراءة المقاطع',
+    phaseWriting: 'كتابة الإجابة',
   },
   courses: {
     title: 'دروسي',
@@ -513,6 +536,7 @@ const ar: Widen<Dict> = {
     add: 'إضافة',
     added: 'تمت إضافة المادة',
     empty: 'لا توجد مواد بعد. أضف مادة أو اربط Google Classroom.',
+    emptyTitle: 'لا توجد مواد بعد',
     open: 'فتح',
     ask: 'اطرح سؤالا',
     remove: 'إزالة المادة',
@@ -536,6 +560,7 @@ const ar: Widen<Dict> = {
     sourceClassroom: 'Classroom',
     materials: 'المحاضرات',
     noMaterials: 'لا توجد محاضرات. ارفع ملفا أو الصق نصا أدناه.',
+    noMaterialsTitle: 'لا توجد محاضرات',
     upload: 'رفع ملف',
     uploadHint: 'PDF أو Word أو PowerPoint أو TXT أو Markdown، 20 ميغابايت كحد أقصى',
     uploading: 'جارٍ الرفع والتحليل…',
@@ -573,6 +598,8 @@ const ar: Widen<Dict> = {
     interestsHint: 'مفصولة بفواصل (مثلا: بيانات، روبوتيك، بيولوجيا بحرية)',
     goals: 'الأهداف',
     goalsHint: 'مثلا: إيجاد ماجستير، النجاح في السنة الثانية',
+    steps: ['الوضعية', 'الدراسة', 'الاهتمامات'],
+    choose: 'اختر إجابة',
     finish: 'إنهاء',
     done: 'تم التسجيل!',
     failed: 'تعذّر الحفظ. أعد المحاولة.',
@@ -617,6 +644,7 @@ const ar: Widen<Dict> = {
     forbidden: 'هذه الصفحة مخصصة لفريق الكلية.',
   },
   notFound: 'الصفحة غير موجودة.',
+  calendar: { previous: 'الشهر السابق', next: 'الشهر التالي', empty: 'لا شيء مبرمج هذا الشهر.', title: 'الرزنامة' },
 }
 
 export type Locale = 'fr' | 'ar'

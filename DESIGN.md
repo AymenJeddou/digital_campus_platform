@@ -1,5 +1,5 @@
 ---
-name: FSB Nexus
+name: Platform
 description: Sourced answers about the Faculté des Sciences de Bizerte, in French and Arabic.
 colors:
   van-white: "#f4f4f1"
@@ -98,7 +98,7 @@ components:
     padding: "6px 6px 6px 12px"
 ---
 
-# Design System: FSB Nexus
+# Design System: Platform
 
 ## Overview
 

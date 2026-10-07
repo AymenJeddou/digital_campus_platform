@@ -4,7 +4,9 @@ import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
-import { BookOpenText, FileText, Link2, MessageSquareText, Plus, RefreshCw, Trash2, Upload, X } from 'lucide-react';
+import { BookOpenText, FileText, Link2, MessageSquareText, Plus, RefreshCw, Trash2, X } from 'lucide-react';
+import { EmptyState } from '@/components/fx/blocks';
+import { HaloDropzone } from '@/components/fx/interactive';
 import { buttonClass, inputClass } from '@/components/ui';
 import { ApiError, api, errorMessage } from '@/lib/api';
 import { fill } from '@/lib/dictionary';
@@ -197,7 +199,7 @@ function Courses() {
 
       <section className="mt-10">
         {courses === null && <p className="text-sm text-ink-3">{t.common.loading}</p>}
-        {courses?.length === 0 && <p className="max-w-[50ch] text-ink-3">{t.courses.empty}</p>}
+        {courses?.length === 0 && <EmptyState kind="courses" title={t.courses.emptyTitle} body={t.courses.empty} />}
         {!!courses?.length && (
         <ul className="divide-y divide-line border-y border-line">
           {courses.map((c) => (
@@ -312,7 +314,11 @@ function CourseSheet({ detail, onClose, onChanged }: { detail: CourseDetail; onC
       <div className="space-y-8 px-5 py-5">
         <section>
           <h3 className="text-sm font-semibold">{t.courses.materials}</h3>
-          {detail.materials.length === 0 && <p className="mt-2 text-sm text-ink-3">{t.courses.noMaterials}</p>}
+          {detail.materials.length === 0 && (
+            <div className="mt-3">
+              <EmptyState kind="materials" title={t.courses.noMaterialsTitle} body={t.courses.noMaterials} />
+            </div>
+          )}
           <ul className="mt-2 divide-y divide-line">
             {detail.materials.map((m) => (
               <li key={m.id} className="flex items-start gap-3 py-2.5">
@@ -335,22 +341,13 @@ function CourseSheet({ detail, onClose, onChanged }: { detail: CourseDetail; onC
         </section>
 
         <section>
-          <label className={`flex cursor-pointer flex-col items-center gap-1 rounded-lg border-2 border-dashed border-line-strong bg-surface px-4 py-6 text-center hover:border-ink ${busy ? 'pointer-events-none opacity-60' : ''}`}>
-            <Upload className="h-5 w-5 text-ink-2" aria-hidden />
-            <span className="font-medium">{busy ? t.courses.uploading : t.courses.upload}</span>
-            <span className="text-xs text-ink-3">{t.courses.uploadHint}</span>
-            <input
-              type="file"
-              accept=".pdf,.docx,.pptx,.txt,.md"
-              className="sr-only"
-              disabled={busy}
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                if (f) upload(f);
-                e.target.value = '';
-              }}
-            />
-          </label>
+          <HaloDropzone
+            onFile={upload}
+            busy={busy}
+            accept=".pdf,.docx,.pptx,.txt,.md"
+            title={busy ? t.courses.uploading : t.courses.upload}
+            hint={t.courses.uploadHint}
+          />
         </section>
 
         <form onSubmit={addText} className="space-y-2">

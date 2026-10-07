@@ -1,6 +1,6 @@
 # Product
 
-FSB Nexus / Digital Campus: an AI assistant for the Faculté des Sciences de Bizerte (FSB, Université de Carthage, Tunisia) that answers students' questions from the faculty's official documents, with sources.
+Platform / Digital Campus: an AI assistant for the Faculté des Sciences de Bizerte (FSB, Université de Carthage, Tunisia) that answers students' questions from the faculty's official documents, with sources.
 
 ## Platform
 

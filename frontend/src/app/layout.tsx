@@ -7,6 +7,7 @@ import { LocaleProvider } from '@/lib/i18n';
 import { LOCALE_COOKIE } from '@/lib/session';
 import type { Locale } from '@/lib/dictionary';
 import './globals.css';
+import './effects.css';
 
 // Rubik (UI) and Lalezar (hand-painted signage) both cover Arabic and Latin,
 // so French and Arabic share one voice.
@@ -14,7 +15,7 @@ const rubik = Rubik({ variable: '--font-rubik', subsets: ['latin', 'arabic'], di
 const lalezar = Lalezar({ variable: '--font-lalezar', subsets: ['latin', 'arabic'], weight: '400', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: { default: 'FSB Nexus', template: '%s · FSB Nexus' },
+  title: { default: 'Platform', template: '%s · Platform' },
   description:
     'Pose tes questions sur la Faculté des Sciences de Bizerte : admissions, cours, démarches. Réponses sourcées depuis les documents officiels.',
 };

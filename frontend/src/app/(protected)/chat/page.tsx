@@ -7,6 +7,9 @@ import {
   ArrowUp, BookOpenText, Check, Copy, History, Pencil, Plus, RotateCcw, ShieldAlert, Square, ThumbsDown, ThumbsUp, Trash2, X,
 } from 'lucide-react';
 import { Answer } from '@/components/Answer';
+import { EmptyState as EmptyBlock } from '@/components/fx/blocks';
+import { ThinkingIndicator } from '@/components/fx/interactive';
+import { useTypewriter } from '@/components/fx/text';
 import { Placard } from '@/components/Placard';
 import { buttonClass } from '@/components/ui';
 import { ApiError, api } from '@/lib/api';
@@ -203,10 +206,39 @@ function Chat() {
 
   const lastAssistantId = [...messages].reverse().find((m) => m.role === 'assistant')?.id;
 
-  const historyList = (
-    <ul className="space-y-0.5">
-      {sessions.length === 0 && <li className="px-2 py-3 text-sm text-ink-3">{t.chat.noHistory}</li>}
-      {sessions.map((s) => (
+  const typed = useTypewriter(t.starters[line], messages.length === 0 && !course && !input);
+  const placeholder = course
+    ? fill(t.chat.placeholderCourse, { course: course.name })
+    : messages.length === 0 && typed
+      ? typed
+      : t.chat.placeholder;
+
+  // "/" jumps to the composer from anywhere on the page.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey && !['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName) && !target.isContentEditable) {
+        e.preventDefault();
+        inputRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const groups = groupSessions(sessions);
+  const historyList =
+    sessions.length === 0 ? (
+      <div className="px-2 py-4">
+        <EmptyBlock kind="chats" title={t.chat.noHistory} body={t.chat.noHistoryBody} />
+      </div>
+    ) : (
+    <div className="space-y-4">
+      {(['today', 'yesterday', 'week', 'older'] as const).filter((g) => groups[g].length).map((g) => (
+      <section key={g}>
+        <p className="px-3 pb-1 text-xs font-medium text-ink-3">{t.chat.groups[g]}</p>
+        <ul className="space-y-0.5">
+      {groups[g].map((s) => (
         <li key={s.id} className="group relative">
           <button
             type="button"
@@ -229,8 +261,11 @@ function Chat() {
           </span>
         </li>
       ))}
-    </ul>
-  );
+        </ul>
+      </section>
+      ))}
+    </div>
+    );
 
   return (
     <div className="flex h-[calc(100dvh-61px-3.5rem-env(safe-area-inset-bottom))] min-h-0 lg:h-dvh">
@@ -242,7 +277,6 @@ function Chat() {
             {t.chat.newChat}
           </button>
         </div>
-        <p className="px-4 pb-1 text-xs font-medium text-ink-3">{t.chat.history}</p>
         <div className="flex-1 overflow-y-auto px-2 pb-4">{historyList}</div>
       </aside>
 
@@ -300,18 +334,15 @@ function Chat() {
               <ol className="space-y-7">
                 {messages.map((m) =>
                   m.role === 'user' ? (
-                    <li key={m.id} className="flex justify-end">
+                    <li key={m.id} className="msg-in flex justify-end">
                       <p className="max-w-[85%] rounded-lg rounded-ee-sm bg-ink px-4 py-2.5 text-[15px] whitespace-pre-wrap text-surface">
                         {m.content}
                       </p>
                     </li>
                   ) : (
-                    <li key={m.id}>
+                    <li key={m.id} className="msg-in">
                       {m.streaming && !m.content ? (
-                        <span role="status" className="inline-flex items-center gap-2 text-sm text-ink-3">
-                          <span aria-hidden className="h-2 w-2 animate-pulse rounded-full bg-red" />
-                          {t.common.loading}
-                        </span>
+                        <ThinkingIndicator />
                       ) : (
                         <>
                           <Answer text={m.content} citations={m.citations ?? []} streaming={m.streaming} />
@@ -346,7 +377,7 @@ function Chat() {
           busy={busy}
           onSend={() => send(input)}
           onStop={() => abortRef.current?.abort()}
-          placeholder={course ? fill(t.chat.placeholderCourse, { course: course.name }) : t.chat.placeholder}
+          placeholder={placeholder}
         />
       </section>
 
@@ -476,7 +507,7 @@ function Composer({
           e.preventDefault();
           onSend();
         }}
-        className="mx-auto flex max-w-3xl items-end gap-2 rounded-lg border-2 border-ink bg-surface p-1.5 ps-3"
+        className="composer mx-auto flex max-w-3xl items-end gap-2 rounded-lg border-2 border-ink bg-surface p-1.5 ps-3"
       >
         <label htmlFor="composer" className="sr-only">
           {placeholder}
@@ -515,11 +546,26 @@ function Composer({
         )}
       </form>
       <p id="composer-hint" className="mx-auto mt-1.5 max-w-3xl text-center text-[11px] text-ink-3">
+        {value.length > 3500 && <span className="me-2 font-medium text-red-ink tabular-nums">{value.length}/4000</span>}
         <span className="hidden sm:inline">{t.chat.keyboardHint} · </span>
         {t.chat.disclaimer}
       </p>
     </div>
   );
+}
+
+/** Bucket conversations by how recently they were active. */
+function groupSessions(sessions: ChatSession[]) {
+  const startOfDay = new Date();
+  startOfDay.setHours(0, 0, 0, 0);
+  const day = 86_400_000;
+  const groups: Record<'today' | 'yesterday' | 'week' | 'older', ChatSession[]> = { today: [], yesterday: [], week: [], older: [] };
+  for (const s of sessions) {
+    const at = new Date(s.updated_at ?? s.created_at).getTime();
+    const key = at >= +startOfDay ? 'today' : at >= +startOfDay - day ? 'yesterday' : at >= +startOfDay - 6 * day ? 'week' : 'older';
+    groups[key].push(s);
+  }
+  return groups;
 }
 
 export default function ChatPage() {
