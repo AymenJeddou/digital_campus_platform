@@ -1,492 +1,531 @@
 'use client';
 
-import { useEffect, useState, useRef, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { chatService, ChatSession, ChatMessage, Citation } from '@/lib/services/chat';
-import { Send, Sparkles, Plus, FileText, Loader2, Paperclip, ThumbsUp, ThumbsDown, ShieldAlert, BookOpenText, X, History, MessageSquare } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
+import {
+  ArrowUp, BookOpenText, Check, Copy, History, Pencil, Plus, RotateCcw, ShieldAlert, Square, ThumbsDown, ThumbsUp, Trash2, X,
+} from 'lucide-react';
+import { Answer } from '@/components/Answer';
+import { Placard } from '@/components/Placard';
+import { buttonClass } from '@/components/ui';
+import { ApiError, api } from '@/lib/api';
+import { streamChat } from '@/lib/chat';
+import { fill } from '@/lib/dictionary';
+import { formatDate, useLocale, useT } from '@/lib/i18n';
+import { LINES, PENDING_QUESTION_KEY, type ChatMessage, type ChatSession, type Line } from '@/lib/types';
 
-// ─────────────────────────────────────────────────────────────
-// Helpers
-// ─────────────────────────────────────────────────────────────
+const STREAMING_ID = 'streaming';
 
-function deduplicateCitations(citations: Citation[]): {
-  unique: Citation[];
-  indexMap: number[];
-} {
-  const seen = new Map<string, number>();
-  const unique: Citation[] = [];
-  const indexMap: number[] = [];
-
-  for (const c of citations) {
-    const key = `${c.document}::${c.page}`;
-    if (!seen.has(key)) {
-      unique.push(c);
-      seen.set(key, unique.length);
-    }
-    indexMap.push(seen.get(key)!);
-  }
-
-  return { unique, indexMap };
-}
-
-function parseInlineRefs(text: string, citations: Citation[]): React.ReactNode[] {
-  const { indexMap } = deduplicateCitations(citations);
-  const lookup = new Map<string, number>();
-  citations.forEach((c, i) => {
-    const key = `${c.document}::${c.page}`;
-    if (!lookup.has(key)) lookup.set(key, indexMap[i]);
-  });
-
-  const regex = /\[([^\]]+?),\s*p\.(\d+)\]/g;
-  const nodes: React.ReactNode[] = [];
-  let cursor = 0;
-  let match: RegExpExecArray | null;
-
-  while ((match = regex.exec(text)) !== null) {
-    if (match.index > cursor) {
-      nodes.push(text.slice(cursor, match.index));
-    }
-
-    const doc = match[1].trim();
-    const page = parseInt(match[2], 10);
-    const num = lookup.get(`${doc}::${page}`);
-
-    nodes.push(
-      <sup
-        key={`ref-${match.index}`}
-        title={`${doc} — p.${page}`}
-        className="inline-flex items-center justify-center h-[16px] min-w-[16px] px-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-[10px] font-bold mx-0.5 cursor-default select-none align-super leading-none"
-      >
-        {num ?? '?'}
-      </sup>
-    );
-
-    cursor = match.index + match[0].length;
-  }
-
-  if (cursor < text.length) nodes.push(text.slice(cursor));
-  return nodes.length ? nodes : [text];
-}
-
-// ─────────────────────────────────────────────────────────────
-// Sub-components
-// ─────────────────────────────────────────────────────────────
-
-function CitationCards({ citations }: { citations: Citation[] }) {
-  if (!citations.length) return null;
-  const { unique } = deduplicateCitations(citations);
-
-  return (
-    <div className="mt-6">
-      <span className="text-[13px] font-bold text-slate-900 dark:text-white mb-3 block">Sources</span>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {unique.map((c, i) => (
-          <div
-            key={`${c.document}::${c.page}::${i}`}
-            title={`${c.document} — Page ${c.page}`}
-            className="flex items-center justify-between p-3 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors cursor-pointer group"
-          >
-            <div className="flex items-center gap-3 overflow-hidden">
-              <div className="h-8 w-8 rounded-lg bg-background flex items-center justify-center flex-shrink-0">
-                <FileText className="h-4 w-4 text-muted-foreground" />
-              </div>
-              <div className="min-w-0">
-                <p className="text-[13px] font-semibold text-foreground truncate group-hover:text-primary transition-colors">
-                  {c.document}
-                </p>
-                <p className="text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
-                  PDF
-                </p>
-              </div>
-            </div>
-            <div className="flex-shrink-0 ml-3 h-6 min-w-[24px] px-2 rounded bg-background text-foreground text-[11px] font-bold flex items-center justify-center">
-              {i + 1}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function FeedbackButtons({ messageId }: { messageId: string }) {
-  const [sent, setSent] = useState<number | null>(null);
-
-  const submit = async (rating: number) => {
-    if (sent !== null) return;
-    setSent(rating);
-    try {
-      await chatService.sendFeedback({ chat_message_id: messageId, rating });
-      toast.success('Thanks for the feedback');
-    } catch {
-      setSent(null);
-      toast.error('Could not send feedback');
-    }
-  };
-
-  return (
-    <div className="mt-4 flex items-center gap-1.5">
-      <button
-        onClick={() => submit(1)}
-        disabled={sent !== null}
-        aria-label="Helpful"
-        className={`flex h-7 w-7 items-center justify-center rounded-lg border border-border transition-colors disabled:cursor-default ${
-          sent === 1 ? 'bg-primary/10 text-primary border-primary/40' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
-        }`}
-      >
-        <ThumbsUp className="h-3.5 w-3.5" />
-      </button>
-      <button
-        onClick={() => submit(0)}
-        disabled={sent !== null}
-        aria-label="Not helpful"
-        className={`flex h-7 w-7 items-center justify-center rounded-lg border border-border transition-colors disabled:cursor-default ${
-          sent === 0 ? 'bg-destructive/10 text-destructive border-destructive/40' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/60'
-        }`}
-      >
-        <ThumbsDown className="h-3.5 w-3.5" />
-      </button>
-    </div>
-  );
-}
-
-function AssistantBubble({
-  content,
-  citations = [],
-  messageId,
-  grounded,
-  streaming,
-}: {
-  content: string;
-  citations?: Citation[];
-  messageId?: string;
-  grounded?: boolean;
-  streaming?: boolean;
-}) {
-  const inlineNodes = citations.length > 0 ? parseInlineRefs(content, citations) : [content];
-
-  return (
-    <div className="w-full">
-      <div className="whitespace-pre-wrap leading-relaxed text-sm text-slate-700 dark:text-slate-300 mb-4">
-        {inlineNodes}
-        {streaming && <span className="ml-0.5 inline-block h-4 w-[2px] translate-y-0.5 animate-pulse bg-primary" />}
-      </div>
-      {grounded === false && (
-        <div className="mb-3 inline-flex items-center gap-1.5 rounded-lg border border-amber-300/60 bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-700 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-400">
-          <ShieldAlert className="h-3.5 w-3.5" />
-          Unverified — the sources may not fully support this answer.
-        </div>
-      )}
-      <CitationCards citations={citations} />
-      {messageId && !streaming && <FeedbackButtons messageId={messageId} />}
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────────────────────
-// Page
-// ─────────────────────────────────────────────────────────────
-
-function ChatPageInner() {
-  const searchParams = useSearchParams();
-  const courseId = searchParams.get('course');
-  const courseName = searchParams.get('name');
+function Chat() {
+  const t = useT();
+  const locale = useLocale();
+  const router = useRouter();
+  const params = useSearchParams();
 
   const [sessions, setSessions] = useState<ChatSession[]>([]);
-  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
+  const [sessionId, setSessionId] = useState<string | null>(params.get('session'));
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [scoped, setScoped] = useState(true); // course scope active when arriving from a course
-  const [showHistory, setShowHistory] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [line, setLine] = useState<Line>(params.get('course') ? 'learning' : 'orientation');
+  const [course, setCourse] = useState(
+    params.get('course') ? { id: params.get('course')!, name: params.get('name') ?? '' } : null,
+  );
+  const abortRef = useRef<AbortController | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const historyRef = useRef<HTMLDialogElement>(null);
+  const pinnedToBottom = useRef(true);
 
-  useEffect(() => { loadSessions(); }, []);
+  const loadSessions = useCallback(() => {
+    api<ChatSession[]>('chat/sessions').then(setSessions).catch(() => {});
+  }, []);
 
-  useEffect(() => {
-    if (currentSessionId) loadMessages(currentSessionId);
-    else setMessages([]);
-  }, [currentSessionId]);
+  const setUrl = useCallback(
+    (id: string | null) => {
+      const q = new URLSearchParams();
+      if (id) q.set('session', id);
+      if (course) {
+        q.set('course', course.id);
+        q.set('name', course.name);
+      }
+      router.replace(q.size ? `/chat?${q}` : '/chat', { scroll: false });
+    },
+    [router, course],
+  );
 
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages, isLoading]);
+  const openSession = useCallback(
+    async (id: string) => {
+      abortRef.current?.abort();
+      historyRef.current?.close();
+      setSessionId(id);
+      setUrl(id);
+      try {
+        setMessages(await api<ChatMessage[]>(`chat/sessions/${id}/messages`));
+        pinnedToBottom.current = true;
+      } catch {
+        toast.error(t.common.error);
+      }
+    },
+    [setUrl, t],
+  );
 
-  const loadSessions = async () => {
-    try {
-      const data = await chatService.getSessions();
-      setSessions(data);
-    } catch {
-      toast.error('Failed to load sessions');
-    }
-  };
-
-  const loadMessages = async (sessionId: string) => {
-    try {
-      const data = await chatService.getMessages(sessionId);
-      setMessages(data);
-    } catch {
-      toast.error('Failed to load messages');
-    }
-  };
-
-  const handleSend = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const text = input.trim();
-    if (!text || isLoading) return;
-    setInput('');
-    setIsLoading(true);
-
-    const tempUser: ChatMessage = {
-      id: Date.now().toString(),
-      session_id: currentSessionId || '',
-      role: 'user',
-      content: text,
-      created_at: new Date().toISOString(),
-    };
-    // Placeholder assistant message we fill in as tokens stream in.
-    const streamingId = `streaming-${Date.now()}`;
-    const streamingMsg: ChatMessage = {
-      id: streamingId,
-      session_id: currentSessionId || '',
-      role: 'assistant',
-      content: '',
-      citations: [],
-      created_at: new Date().toISOString(),
-    };
-    setMessages((p) => [...p, tempUser, streamingMsg]);
-
-    let sessionForReload = currentSessionId;
-    const patch = (fields: Partial<ChatMessage>) =>
-      setMessages((p) => p.map((m) => (m.id === streamingId ? { ...m, ...fields } : m)));
-
-    chatService.streamMessage(
-      {
-        message: text,
-        session_id: currentSessionId || undefined,
-        course_id: scoped && courseId ? courseId : undefined,
-      },
-      {
-        onSession: (sid) => {
-          sessionForReload = sid;
-          if (!currentSessionId) setCurrentSessionId(sid);
-        },
-        onChunk: (chunk) =>
-          setMessages((p) =>
-            p.map((m) => (m.id === streamingId ? { ...m, content: m.content + chunk } : m)),
-          ),
-        onCitations: (citations) => patch({ citations }),
-        onGrounded: (grounded) => patch({ grounded }),
-        onDone: () => {
-          setIsLoading(false);
-          inputRef.current?.focus();
-          // Refresh from the server so the message gets its real id (feedback)
-          // and the sessions list picks up a brand-new conversation.
-          if (sessionForReload) {
-            loadMessages(sessionForReload);
-            loadSessions();
-          }
-        },
-        onError: () => {
-          toast.error('Failed to send message');
-          setMessages((p) => p.filter((m) => m.id !== tempUser.id && m.id !== streamingId));
-          setIsLoading(false);
-        },
-      },
-    );
-  };
-
-  const handleNewSession = () => {
-    setCurrentSessionId(null);
+  const newChat = () => {
+    abortRef.current?.abort();
+    historyRef.current?.close();
+    setSessionId(null);
     setMessages([]);
+    setUrl(null);
     inputRef.current?.focus();
   };
 
-  return (
-    <div className="flex flex-col h-full bg-background max-w-5xl mx-auto rounded-xl">
-      {/* Header */}
-      <div className="flex items-center justify-between pb-6 border-b border-border">
-        <div>
-          <h1 className="text-xl font-bold tracking-tight text-foreground">AI Assistant</h1>
-          <p className="text-sm text-muted-foreground mt-1">Your academic companion</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setShowHistory(true)}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-border rounded-lg hover:bg-secondary/50 transition-colors bg-background"
-          >
-            <History className="h-4 w-4" /> History
-          </button>
-          <button
-            onClick={handleNewSession}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-border rounded-lg hover:bg-secondary/50 transition-colors bg-background"
-          >
-            New Chat <Plus className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
+  const patchStreaming = (fields: Partial<ChatMessage> | ((m: ChatMessage) => Partial<ChatMessage>)) =>
+    setMessages((list) =>
+      list.map((m) => (m.id === STREAMING_ID ? { ...m, ...(typeof fields === 'function' ? fields(m) : fields) } : m)),
+    );
 
-      {/* Conversation history slide-over */}
-      {showHistory && (
-        <div className="fixed inset-0 z-40 flex justify-end bg-black/40" onClick={() => setShowHistory(false)}>
-          <motion.div
-            initial={{ x: 40, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            onClick={(e) => e.stopPropagation()}
-            className="flex h-full w-full max-w-sm flex-col overflow-y-auto border-l border-border bg-background p-6"
-          >
-            <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-foreground">Conversations</h2>
-              <button onClick={() => setShowHistory(false)} className="rounded-lg p-1.5 text-muted-foreground hover:bg-secondary/60">
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-            <div className="mt-4 space-y-2">
-              {sessions.length === 0 && <p className="text-sm text-muted-foreground">No past conversations yet.</p>}
-              {sessions.map((s) => (
-                <button
-                  key={s.id}
-                  onClick={() => { setCurrentSessionId(s.id); setShowHistory(false); }}
-                  className={`flex w-full items-center gap-3 rounded-xl border p-3 text-left transition-colors ${
-                    currentSessionId === s.id ? 'border-primary/40 bg-primary/5' : 'border-border bg-card hover:bg-secondary/50'
-                  }`}
-                >
-                  <MessageSquare className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-foreground">Conversation</p>
-                    <p className="text-xs text-muted-foreground">{new Date(s.created_at).toLocaleString()}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      )}
+  const send = useCallback(
+    async (text: string, regenerate = false) => {
+      const question = text.trim();
+      if (busy || (!question && !regenerate)) return;
+      const now = new Date().toISOString();
+      const draft: ChatMessage = {
+        id: STREAMING_ID, session_id: sessionId ?? '', role: 'assistant', content: '', citations: [], grounded: null,
+        created_at: now, rating: null, streaming: true,
+      };
+      setMessages((list) => {
+        if (regenerate) {
+          const lastAssistant = list.map((m) => m.role).lastIndexOf('assistant');
+          return [...list.slice(0, lastAssistant), draft];
+        }
+        return [...list, { ...draft, id: `user-${now}`, role: 'user', content: question, streaming: false }, draft];
+      });
+      if (!regenerate) setInput('');
+      setBusy(true);
+      pinnedToBottom.current = true;
+      const controller = new AbortController();
+      abortRef.current = controller;
 
-      {/* Course scope banner */}
-      {courseId && courseName && scoped && (
-        <div className="mt-3 flex items-center justify-between rounded-xl border border-primary/30 bg-primary/5 px-4 py-2.5">
-          <div className="flex items-center gap-2 text-sm text-foreground">
-            <BookOpenText className="h-4 w-4 text-primary" />
-            Asking about <span className="font-semibold">{courseName}</span>
-            <span className="text-xs text-muted-foreground">— your course materials are included</span>
-          </div>
-          <button
-            onClick={() => setScoped(false)}
-            title="Switch to general questions"
-            className="rounded-lg p-1 text-muted-foreground hover:text-foreground"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        </div>
-      )}
+      try {
+        await streamChat(
+          {
+            ...(regenerate ? { regenerate: true } : { message: question }),
+            session_id: sessionId ?? undefined,
+            course_id: course?.id,
+          },
+          {
+            onSession: (id) => {
+              if (!sessionId) {
+                setSessionId(id); // no reload: the stream is filling this conversation
+                setUrl(id);
+              }
+            },
+            onChunk: (chunk) => patchStreaming((m) => ({ content: m.content + chunk })),
+            onGrounded: (grounded) => patchStreaming({ grounded }),
+            onCitations: (citations) => patchStreaming({ citations }),
+            onMessageId: (id) => patchStreaming({ id, streaming: false }),
+          },
+          controller.signal,
+        );
+        patchStreaming({ streaming: false });
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') {
+          patchStreaming((m) => ({ streaming: false, content: m.content || t.chat.stopped }));
+        } else {
+          setMessages((list) => list.filter((m) => m.id !== STREAMING_ID && m.content !== question));
+          if (!regenerate) setInput(question);
+          const status = err instanceof ApiError ? err.status : 0;
+          toast.error(status === 429 ? t.chat.rateLimited : status === 422 ? t.chat.tooLong : status === 0 ? t.common.offline : t.common.error);
+        }
+      } finally {
+        setBusy(false);
+        abortRef.current = null;
+        loadSessions();
+      }
+    },
+    [busy, sessionId, course, setUrl, loadSessions, t],
+  );
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto py-8 space-y-6 scrollbar-hide" ref={scrollRef}>
-        {messages.length === 0 ? (
-          <div className="flex h-full items-center justify-center">
-            <p className="text-muted-foreground text-sm font-medium">Send a message to start the conversation.</p>
-          </div>
-        ) : (
-          messages.map((msg) => (
-            <motion.div
-              key={msg.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className={`flex gap-4 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              {msg.role === 'assistant' && (
-                <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0 mt-1">
-                  <Sparkles className="h-4 w-4 text-white" />
-                </div>
-              )}
-              
-              <div className={`max-w-[85%] ${msg.role === 'user' ? 'order-1' : 'order-2'}`}>
-                {msg.role === 'user' ? (
-                  <div className="bg-primary text-primary-foreground rounded-2xl rounded-tr-sm px-5 py-4 text-sm shadow-sm">
-                    {msg.content}
-                  </div>
-                ) : msg.id.startsWith('streaming-') && !msg.content ? (
-                  <div className="bg-card border border-border rounded-2xl px-5 py-4 flex gap-1.5 items-center">
-                    <span className="h-2 w-2 bg-slate-300 dark:bg-slate-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="h-2 w-2 bg-slate-300 dark:bg-slate-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="h-2 w-2 bg-slate-300 dark:bg-slate-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                  </div>
-                ) : (
-                  <div className="bg-card border border-border rounded-2xl p-5 shadow-sm">
-                    <AssistantBubble
-                      content={msg.content}
-                      citations={msg.citations}
-                      grounded={msg.grounded}
-                      streaming={msg.id.startsWith('streaming-')}
-                      messageId={msg.id.startsWith('streaming-') ? undefined : msg.id}
-                    />
-                  </div>
-                )}
-                <p className={`text-[10px] font-medium text-muted-foreground mt-2 ${msg.role === 'user' ? 'text-right pr-2' : 'pl-2'}`}>
-                  {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </p>
-              </div>
+  // First load: history, the conversation in the URL, and a question carried
+  // over from the landing page.
+  const started = useRef(false);
+  useEffect(() => {
+    if (started.current) return;
+    started.current = true;
+    loadSessions();
+    if (sessionId) {
+      api<ChatMessage[]>(`chat/sessions/${sessionId}/messages`).then(setMessages).catch(() => toast.error(t.common.error));
+    }
+    let pending: string | null = null;
+    try {
+      pending = sessionStorage.getItem(PENDING_QUESTION_KEY);
+      sessionStorage.removeItem(PENDING_QUESTION_KEY);
+    } catch {}
+    if (pending && !sessionId) queueMicrotask(() => send(pending));
+    // Mount-only: later changes are driven by the user's actions.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-              {msg.role === 'user' && (
-                <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center flex-shrink-0 mt-1 order-2">
-                  <span className="text-white text-[11px] font-bold tracking-wider">SR</span>
-                </div>
-              )}
-            </motion.div>
-          ))
-        )}
-      </div>
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el && pinnedToBottom.current) el.scrollTop = el.scrollHeight;
+  }, [messages]);
 
-      {/* Input Area */}
-      <div className="pt-4 pb-2">
-        <p className="text-center text-[11px] text-muted-foreground mb-3">
-          AI-generated content may be inaccurate. Please verify important information.
-        </p>
-        <form onSubmit={handleSend} className="relative flex items-center bg-card border border-border rounded-xl shadow-sm focus-within:ring-1 focus-within:ring-primary focus-within:border-primary transition-all p-1.5">
+  const rate = async (message: ChatMessage, rating: 0 | 1) => {
+    setMessages((list) => list.map((m) => (m.id === message.id ? { ...m, rating } : m)));
+    try {
+      await api('chat/feedback', { json: { chat_message_id: message.id, rating } });
+      toast.success(t.chat.thanks);
+    } catch {
+      setMessages((list) => list.map((m) => (m.id === message.id ? { ...m, rating: message.rating } : m)));
+      toast.error(t.common.error);
+    }
+  };
+
+  const rename = async (s: ChatSession) => {
+    const title = window.prompt(t.chat.renamePrompt, s.title ?? '')?.trim();
+    if (!title) return;
+    await api(`chat/sessions/${s.id}`, { method: 'PATCH', json: { title: title.slice(0, 120) } }).catch(() => toast.error(t.common.error));
+    loadSessions();
+  };
+
+  const remove = async (s: ChatSession) => {
+    if (!window.confirm(t.chat.deleteConfirm)) return;
+    try {
+      await api(`chat/sessions/${s.id}`, { method: 'DELETE' });
+      if (s.id === sessionId) newChat();
+      loadSessions();
+    } catch {
+      toast.error(t.common.error);
+    }
+  };
+
+  const lastAssistantId = [...messages].reverse().find((m) => m.role === 'assistant')?.id;
+
+  const historyList = (
+    <ul className="space-y-0.5">
+      {sessions.length === 0 && <li className="px-2 py-3 text-sm text-ink-3">{t.chat.noHistory}</li>}
+      {sessions.map((s) => (
+        <li key={s.id} className="group relative">
           <button
             type="button"
-            className="p-3 text-muted-foreground hover:text-foreground transition-colors"
+            onClick={() => openSession(s.id)}
+            aria-current={s.id === sessionId ? 'true' : undefined}
+            className={`block w-full rounded-md py-2 ps-3 pe-16 text-start text-sm ${
+              s.id === sessionId ? 'bg-sunken font-medium text-ink' : 'text-ink-2 hover:bg-sunken'
+            }`}
           >
-            <Paperclip className="h-5 w-5" />
+            <span className="block truncate">{s.title || t.chat.untitled}</span>
+            <span className="block text-xs text-ink-3">{formatDate(s.updated_at ?? s.created_at, locale)}</span>
           </button>
-          
-          <input
-            ref={inputRef}
-            type="text"
-            placeholder="Ask a question or type a command..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            disabled={isLoading}
-            className="flex-1 bg-transparent border-none focus:ring-0 text-sm placeholder:text-muted-foreground px-2 py-3 outline-none text-foreground"
-          />
-          
+          <span className="absolute inset-y-0 end-1 flex items-center gap-0.5 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 lg:group-focus-within:opacity-100">
+            <button type="button" onClick={() => rename(s)} aria-label={t.chat.rename} className="rounded p-1.5 text-ink-3 hover:bg-surface hover:text-ink">
+              <Pencil className="h-3.5 w-3.5" />
+            </button>
+            <button type="button" onClick={() => remove(s)} aria-label={t.common.delete} className="rounded p-1.5 text-ink-3 hover:bg-surface hover:text-red-ink">
+              <Trash2 className="h-3.5 w-3.5" />
+            </button>
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
+
+  return (
+    <div className="flex h-[calc(100dvh-61px-3.5rem-env(safe-area-inset-bottom))] min-h-0 lg:h-dvh">
+      {/* History (desktop) */}
+      <aside className="hidden w-64 shrink-0 flex-col border-e border-line xl:flex">
+        <div className="p-3">
+          <button type="button" onClick={newChat} className={`${buttonClass.secondary} w-full`}>
+            <Plus className="h-4 w-4" />
+            {t.chat.newChat}
+          </button>
+        </div>
+        <p className="px-4 pb-1 text-xs font-medium text-ink-3">{t.chat.history}</p>
+        <div className="flex-1 overflow-y-auto px-2 pb-4">{historyList}</div>
+      </aside>
+
+      <section className="flex min-w-0 flex-1 flex-col">
+        <div className="flex items-center justify-between gap-2 border-b border-line px-4 py-2.5">
+          <h1 className="truncate font-semibold">
+            {sessions.find((s) => s.id === sessionId)?.title || t.chat.title}
+          </h1>
+          <div className="flex shrink-0 items-center gap-1 xl:hidden">
+            <button type="button" onClick={() => historyRef.current?.showModal()} className={buttonClass.ghost}>
+              <History className="h-4 w-4" />
+              <span className="hidden sm:inline">{t.chat.history}</span>
+            </button>
+            <button type="button" onClick={newChat} aria-label={t.chat.newChat} className={buttonClass.ghost}>
+              <Plus className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+
+        {course && (
+          <div className="flex items-center justify-between gap-3 border-b border-line bg-amber-wash px-4 py-2 text-sm">
+            <p className="min-w-0 truncate">
+              <BookOpenText className="me-1.5 inline h-4 w-4 align-[-3px]" aria-hidden />
+              {t.chat.scope} <strong>{course.name}</strong> <span className="text-ink-2">· {t.chat.scopeHint}</span>
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setCourse(null);
+                router.replace(sessionId ? `/chat?session=${sessionId}` : '/chat', { scroll: false });
+              }}
+              aria-label={t.chat.scopeClear}
+              title={t.chat.scopeClear}
+              className="rounded p-1 text-ink-2 hover:bg-surface"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+
+        <div
+          ref={scrollRef}
+          onScroll={(e) => {
+            const el = e.currentTarget;
+            pinnedToBottom.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+          }}
+          className="flex-1 overflow-y-auto"
+          aria-live="polite"
+          aria-busy={busy}
+        >
+          <div className="mx-auto max-w-3xl px-4 py-6">
+            {messages.length === 0 ? (
+              <EmptyState line={line} setLine={setLine} onPick={(q) => send(q)} hasCourse={!!course} />
+            ) : (
+              <ol className="space-y-7">
+                {messages.map((m) =>
+                  m.role === 'user' ? (
+                    <li key={m.id} className="flex justify-end">
+                      <p className="max-w-[85%] rounded-lg rounded-ee-sm bg-ink px-4 py-2.5 text-[15px] whitespace-pre-wrap text-surface">
+                        {m.content}
+                      </p>
+                    </li>
+                  ) : (
+                    <li key={m.id}>
+                      {m.streaming && !m.content ? (
+                        <span role="status" className="inline-flex items-center gap-2 text-sm text-ink-3">
+                          <span aria-hidden className="h-2 w-2 animate-pulse rounded-full bg-red" />
+                          {t.common.loading}
+                        </span>
+                      ) : (
+                        <>
+                          <Answer text={m.content} citations={m.citations ?? []} streaming={m.streaming} />
+                          {m.grounded === false && !m.streaming && (
+                            <p className="mt-3 flex items-start gap-2 rounded-md bg-amber-wash px-3 py-2 text-sm text-ink">
+                              <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0 text-amber" aria-hidden />
+                              {t.chat.unverified}
+                            </p>
+                          )}
+                          {!m.streaming && m.id !== STREAMING_ID && (
+                            <MessageActions
+                              message={m}
+                              canRegenerate={m.id === lastAssistantId && !busy && !!sessionId}
+                              onRegenerate={() => send('', true)}
+                              onRate={(r) => rate(m, r)}
+                            />
+                          )}
+                        </>
+                      )}
+                    </li>
+                  ),
+                )}
+              </ol>
+            )}
+          </div>
+        </div>
+
+        <Composer
+          inputRef={inputRef}
+          value={input}
+          onChange={setInput}
+          busy={busy}
+          onSend={() => send(input)}
+          onStop={() => abortRef.current?.abort()}
+          placeholder={course ? fill(t.chat.placeholderCourse, { course: course.name }) : t.chat.placeholder}
+        />
+      </section>
+
+      <dialog
+        ref={historyRef}
+        onClick={(e) => e.target === historyRef.current && historyRef.current?.close()}
+        className="m-0 ms-auto h-dvh max-h-dvh w-[min(22rem,90vw)] border-s border-line bg-surface p-0 text-ink backdrop:bg-black/40"
+      >
+        <div className="flex items-center justify-between border-b border-line px-4 py-3">
+          <p className="font-semibold">{t.chat.history}</p>
+          <button type="button" onClick={() => historyRef.current?.close()} aria-label={t.common.close} className="rounded p-1.5 hover:bg-sunken">
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+        <div className="p-2">{historyList}</div>
+      </dialog>
+    </div>
+  );
+}
+
+function EmptyState({
+  line, setLine, onPick, hasCourse,
+}: { line: Line; setLine: (l: Line) => void; onPick: (q: string) => void; hasCourse: boolean }) {
+  const t = useT();
+  const lines = hasCourse ? LINES : LINES.filter((l) => l !== 'learning');
+  return (
+    <div className="pt-4 sm:pt-10">
+      <h2 className="placard text-[clamp(2rem,5vw,3rem)]">{t.chat.emptyTitle}</h2>
+      <p className="mt-2 text-ink-2">{t.chat.emptySub}</p>
+      <div role="group" aria-label={t.landing.boardLabel} className={`mt-6 grid grid-cols-2 gap-3 ${hasCourse ? 'sm:grid-cols-4' : 'sm:grid-cols-3'}`}>
+        {lines.map((l) => (
+          <Placard key={l} fr={t.lines[l].fr} ar={t.lines[l].ar} size="sm" pressed={line === l} onClick={() => setLine(l)} />
+        ))}
+      </div>
+      <ul className="mt-5 space-y-2">
+        {t.starters[line].map((q) => (
+          <li key={q}>
+            <button
+              type="button"
+              onClick={() => onPick(q)}
+              className="w-full rounded-md border border-line bg-surface px-4 py-3 text-start text-[15px] hover:border-ink"
+            >
+              {q}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function MessageActions({
+  message, canRegenerate, onRegenerate, onRate,
+}: { message: ChatMessage; canRegenerate: boolean; onRegenerate: () => void; onRate: (r: 0 | 1) => void }) {
+  const t = useT();
+  const [copied, setCopied] = useState(false);
+  const icon = 'h-4 w-4';
+  const btn = 'inline-flex h-8 w-8 items-center justify-center rounded-md text-ink-3 hover:bg-sunken hover:text-ink';
+  return (
+    <div className="mt-2 flex items-center gap-0.5">
+      <button
+        type="button"
+        aria-label={copied ? t.chat.copied : t.chat.copy}
+        title={copied ? t.chat.copied : t.chat.copy}
+        className={btn}
+        onClick={() => {
+          navigator.clipboard?.writeText(message.content).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1500);
+          });
+        }}
+      >
+        {copied ? <Check className={icon} /> : <Copy className={icon} />}
+      </button>
+      {canRegenerate && (
+        <button type="button" aria-label={t.chat.regenerate} title={t.chat.regenerate} className={btn} onClick={onRegenerate}>
+          <RotateCcw className={icon} />
+        </button>
+      )}
+      <button
+        type="button"
+        aria-label={t.chat.helpful}
+        aria-pressed={message.rating === 1}
+        title={t.chat.helpful}
+        className={`${btn} ${message.rating === 1 ? 'text-ok' : ''}`}
+        onClick={() => onRate(1)}
+      >
+        <ThumbsUp className={icon} />
+      </button>
+      <button
+        type="button"
+        aria-label={t.chat.notHelpful}
+        aria-pressed={message.rating === 0}
+        title={t.chat.notHelpful}
+        className={`${btn} ${message.rating === 0 ? 'text-red-ink' : ''}`}
+        onClick={() => onRate(0)}
+      >
+        <ThumbsDown className={icon} />
+      </button>
+    </div>
+  );
+}
+
+function Composer({
+  inputRef, value, onChange, busy, onSend, onStop, placeholder,
+}: {
+  inputRef: React.RefObject<HTMLTextAreaElement | null>;
+  value: string;
+  onChange: (v: string) => void;
+  busy: boolean;
+  onSend: () => void;
+  onStop: () => void;
+  placeholder: string;
+}) {
+  const t = useT();
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${Math.min(el.scrollHeight, 200)}px`;
+  }, [value, inputRef]);
+
+  return (
+    <div className="border-t border-line bg-ground px-4 pt-3 pb-3">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSend();
+        }}
+        className="mx-auto flex max-w-3xl items-end gap-2 rounded-lg border-2 border-ink bg-surface p-1.5 ps-3"
+      >
+        <label htmlFor="composer" className="sr-only">
+          {placeholder}
+        </label>
+        <textarea
+          id="composer"
+          ref={inputRef}
+          rows={1}
+          value={value}
+          maxLength={4000}
+          onChange={(e) => onChange(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
+              e.preventDefault();
+              if (!busy) onSend();
+            }
+          }}
+          placeholder={placeholder}
+          aria-describedby="composer-hint"
+          className="max-h-[200px] min-h-10 flex-1 resize-none bg-transparent py-2 text-[15px] leading-6 text-ink outline-none placeholder:text-ink-3"
+        />
+        {busy ? (
+          <button type="button" onClick={onStop} aria-label={t.chat.stop} title={t.chat.stop} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-ink text-surface">
+            <Square className="h-3.5 w-3.5 fill-current" />
+          </button>
+        ) : (
           <button
             type="submit"
-            disabled={isLoading || !input.trim()}
-            className="h-10 w-12 flex items-center justify-center rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground disabled:opacity-50 disabled:cursor-not-allowed transition-colors ml-2 mr-1"
+            disabled={!value.trim()}
+            aria-label={t.chat.send}
+            title={t.chat.send}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-red text-on-red disabled:opacity-40"
           >
-            {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Send className="h-4 w-4" />
-            )}
+            <ArrowUp className="h-[18px] w-[18px]" />
           </button>
-        </form>
-      </div>
+        )}
+      </form>
+      <p id="composer-hint" className="mx-auto mt-1.5 max-w-3xl text-center text-[11px] text-ink-3">
+        <span className="hidden sm:inline">{t.chat.keyboardHint} · </span>
+        {t.chat.disclaimer}
+      </p>
     </div>
   );
 }
 
 export default function ChatPage() {
   return (
-    <Suspense fallback={<div className="flex h-full items-center justify-center"><Loader2 className="h-6 w-6 animate-spin text-muted-foreground" /></div>}>
-      <ChatPageInner />
+    <Suspense>
+      <Chat />
     </Suspense>
   );
 }

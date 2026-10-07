@@ -4,7 +4,9 @@ class Settings(BaseSettings):
     DATABASE_URL: str
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+    # Session length. The token sits in an httpOnly cookie and can be revoked
+    # on logout, so a working day is a reasonable lifetime.
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 720
     SMTP_HOST: str | None = None
     SMTP_PORT: int = 587
     SMTP_USERNAME: str | None = None

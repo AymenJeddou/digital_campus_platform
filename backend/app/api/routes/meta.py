@@ -6,7 +6,7 @@ from fastapi import APIRouter, Depends, Query
 from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
-from app.core.dependencies import get_current_user
+from app.core.dependencies import get_current_user, get_optional_user
 from app.db.database import get_db
 from app.models.models import Course, CourseMaterial, Department, DocumentChunk, Program, Student
 from app.services import academic_calendar
@@ -86,16 +86,20 @@ def source_excerpt(
     document: str = Query(..., max_length=300),
     page: int = Query(0, ge=0),
     db: Session = Depends(get_db),
-    current_user: Student = Depends(get_current_user),
+    current_user: Student | None = Depends(get_optional_user),
 ):
     """The passages behind a citation ``[document, p.X]``: global knowledge-base
-    chunks, plus the student's own course materials (never anyone else's)."""
+    chunks (public documents, so no login needed), plus the signed-in
+    student's own course materials (never anyone else's)."""
     rows = (
         db.query(DocumentChunk.text, DocumentChunk.title, DocumentChunk.source, DocumentChunk.page)
         .filter(
             or_(DocumentChunk.title == document, DocumentChunk.source == document),
             DocumentChunk.page == page,
-            or_(DocumentChunk.student_id.is_(None), DocumentChunk.student_id == current_user.id),
+            or_(
+                DocumentChunk.student_id.is_(None),
+                DocumentChunk.student_id == (current_user.id if current_user else None),
+            ),
         )
         .limit(3)
         .all()

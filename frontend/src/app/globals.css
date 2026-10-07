@@ -1,144 +1,220 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-inter);
-  --font-heading: var(--font-jakarta);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-}
-
+/* Day station: van-white ground, black ink, one louage-red band.
+   Night station: asphalt ground, sodium-amber secondary. */
 :root {
-  --background: #eff6ff;
-  --foreground: #0f172a;
-  --card: #ffffff;
-  --card-foreground: #0f172a;
-  --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --primary: #2563eb;
-  --primary-foreground: #ffffff;
-  --secondary: #dbeafe;
-  --secondary-foreground: #0f172a;
-  --muted: #e2e8f0;
-  --muted-foreground: #475569;
-  --accent: #dbeafe;
-  --accent-foreground: #0f172a;
-  --destructive: #1d4ed8;
-  --border: rgb(148 163 184 / 0.26);
-  --input: rgb(148 163 184 / 0.26);
-  --ring: #2563eb;
-  --radius: 0.75rem;
-  --sidebar: #0f172a;
-  --sidebar-foreground: #eff6ff;
-  --sidebar-primary: #2563eb;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgb(255 255 255 / 0.06);
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: rgb(255 255 255 / 0.08);
-  --sidebar-ring: #60a5fa;
+  --ground: #f4f4f1;
+  --surface: #ffffff;
+  --sunken: #ebebe6;
+  --ink: #16171b;
+  --ink-2: #474a52;
+  --ink-3: #686c75;
+  --line: #d9d9d2;
+  --line-strong: #b9bab2;
+  --red: #d2272d;
+  --red-ink: #a3191e;
+  --red-wash: #fbe9e9;
+  --on-red: #ffffff;
+  --amber: #b97700;
+  --amber-wash: #fdf3dc;
+  --ok: #1d7a46;
+  --focus: #1d4ed8;
+  color-scheme: light;
 }
 
 .dark {
-  --background: #0f172a;
-  --foreground: #eff6ff;
-  --card: #111c37;
-  --card-foreground: #eff6ff;
-  --popover: #111c37;
-  --popover-foreground: #eff6ff;
-  --primary: #60a5fa;
-  --primary-foreground: #0f172a;
-  --secondary: #1e293b;
-  --secondary-foreground: #eff6ff;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #1e293b;
-  --accent-foreground: #eff6ff;
-  --destructive: #60a5fa;
-  --border: rgb(148 163 184 / 0.14);
-  --input: rgb(148 163 184 / 0.16);
-  --ring: #60a5fa;
-  --sidebar: #0f172a;
-  --sidebar-foreground: #eff6ff;
-  --sidebar-primary: #2563eb;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: rgb(255 255 255 / 0.08);
-  --sidebar-accent-foreground: #eff6ff;
-  --sidebar-border: rgb(255 255 255 / 0.08);
-  --sidebar-ring: #60a5fa;
+  --ground: #111215;
+  --surface: #1a1c21;
+  --sunken: #0b0c0e;
+  --ink: #f1f0ec;
+  --ink-2: #bcbec5;
+  --ink-3: #9497a0;
+  --line: #2d3037;
+  --line-strong: #444852;
+  --red: #e5484d;
+  --red-ink: #ff9a9d;
+  --red-wash: #3a1719;
+  --on-red: #ffffff;
+  --amber: #ffc14d;
+  --amber-wash: #33270b;
+  --ok: #5cc98a;
+  --focus: #8ab4ff;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-sunken: var(--sunken);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-red: var(--red);
+  --color-red-ink: var(--red-ink);
+  --color-red-wash: var(--red-wash);
+  --color-on-red: var(--on-red);
+  --color-amber: var(--amber);
+  --color-amber-wash: var(--amber-wash);
+  --color-ok: var(--ok);
+  --font-sans: var(--font-rubik), system-ui, sans-serif;
+  --font-sign: var(--font-lalezar), var(--font-rubik), sans-serif;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html {
+    background: var(--ground);
+    color: var(--ink);
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "cv11", "ss01";
-    -webkit-font-smoothing: antialiased;
+    @apply font-sans antialiased;
+    font-feature-settings: "tnum" 0;
   }
 
-  html {
-    @apply font-sans;
+  ::selection {
+    background: var(--red);
+    color: var(--on-red);
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-heading;
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  input,
+  textarea,
+  select {
+    caret-color: var(--red);
+  }
+
+  /* Edge/IE add their own password-reveal and clear buttons; ours replaces them. */
+  input::-ms-reveal,
+  input::-ms-clear {
+    display: none;
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
   }
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+/* The louage band: a full-width red stripe, the only structural colour. */
+.band {
+  height: 5px;
+  background: var(--red);
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+/* Hand-painted destination placard. */
+.placard {
+  font-family: var(--font-sign);
+  line-height: 1;
+  letter-spacing: 0;
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgb(148 163 184 / 0.55);
-  border-radius: 99px;
+/* Ticket stub: perforated on its leading edge. */
+.stub {
+  --hole: 4px;
+  mask: radial-gradient(circle var(--hole) at 0 50%, #0000 98%, #000) left / 100% 100% no-repeat;
+  -webkit-mask: radial-gradient(circle var(--hole) at 0 50%, #0000 98%, #000) left / 100% 100% no-repeat;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgb(71 85 105 / 0.75);
+[dir="rtl"] .stub {
+  mask: radial-gradient(circle var(--hole) at 100% 50%, #0000 98%, #000) right / 100% 100% no-repeat;
+  -webkit-mask: radial-gradient(circle var(--hole) at 100% 50%, #0000 98%, #000) right / 100% 100% no-repeat;
+}
+
+/* The one authored motion: a ticket "printing" in. */
+@keyframes print-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+[dir="rtl"] .print-in {
+  animation-name: print-in-rtl;
+}
+
+@keyframes print-in-rtl {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.print-in {
+  animation: print-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .print-in,
+  [dir="rtl"] .print-in {
+    animation: none;
+  }
+}
+
+/* Markdown answers. */
+.prose-answer {
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.prose-answer > * + * {
+  margin-top: 0.75em;
+}
+.prose-answer ul,
+.prose-answer ol {
+  padding-inline-start: 1.25rem;
+}
+.prose-answer ul {
+  list-style: disc;
+}
+.prose-answer ol {
+  list-style: decimal;
+}
+.prose-answer li + li {
+  margin-top: 0.25em;
+}
+.prose-answer strong {
+  font-weight: 600;
+}
+.prose-answer a {
+  color: var(--red-ink);
+  text-decoration: underline;
+}
+.prose-answer h1,
+.prose-answer h2,
+.prose-answer h3 {
+  font-weight: 600;
+  margin-top: 1.1em;
+}
+.prose-answer code {
+  background: var(--sunken);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.9em;
+}
+.prose-answer table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+.prose-answer th,
+.prose-answer td {
+  border: 1px solid var(--line);
+  padding: 0.35em 0.6em;
+  text-align: start;
 }

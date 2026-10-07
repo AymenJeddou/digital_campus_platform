@@ -1,113 +1,90 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { authService } from '@/lib/services/auth';
-import { toast } from 'sonner';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { GraduationCap, Mail, ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { api, errorMessage } from '@/lib/api';
+import { fill } from '@/lib/dictionary';
+import { useT } from '@/lib/i18n';
+import { Field, Spinner, buttonClass, inputClass } from '@/components/ui';
 
-function VerifyContent() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const [token, setToken] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [isAutoVerifying, setIsAutoVerifying] = useState(false);
+type State = 'check' | 'verifying' | 'verified' | 'failed';
 
-    useEffect(() => {
-        const urlToken = searchParams.get('token');
-        if (urlToken) {
-            setToken(urlToken);
-            handleVerify(urlToken);
-        }
-    }, [searchParams]);
+function Verify() {
+  const t = useT();
+  const params = useSearchParams();
+  const token = params.get('token');
+  const [state, setState] = useState<State>(token ? 'verifying' : 'check');
+  const [email, setEmail] = useState(params.get('email') ?? '');
+  const [note, setNote] = useState('');
+  const started = useRef(false);
 
-    const handleVerify = async (verifyToken: string) => {
-        if (!verifyToken) return;
+  useEffect(() => {
+    if (!token || started.current) return;
+    started.current = true; // the link is single-purpose; don't post it twice
+    api('auth/verify', { json: { token } })
+      .then(() => setState('verified'))
+      .catch(() => setState('failed'));
+  }, [token]);
 
-        setIsLoading(true);
-        try {
-            await authService.verifyEmail(verifyToken);
-            toast.success('Email verified successfully! You can now sign in.');
-            router.push('/login');
-        } catch (error: any) {
-            toast.error(error.response?.data?.detail || 'Verification failed. The link might be expired.');
-        } finally {
-            setIsLoading(false);
-        }
-    };
+  const resend = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await api('auth/resend-verification', { json: { email: email.trim() } });
+      setNote(t.auth.resent);
+    } catch (err) {
+      setNote(errorMessage(err, t));
+    }
+  };
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        handleVerify(token);
-    };
+  if (state === 'verifying') return <Spinner label={t.auth.verifying} />;
 
+  if (state === 'verified') {
     return (
-        <div className="min-h-screen bg-background flex items-center justify-center p-4">
-            <div className="w-full max-w-md bg-card border border-border shadow-sm rounded-2xl p-8">
-                <div className="flex flex-col items-center text-center mb-8">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 mb-4">
-                        <Mail className="h-6 w-6 text-primary" />
-                    </div>
-                    <h1 className="text-2xl font-bold tracking-tight">Verify your email</h1>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                        We've sent a verification link to your email address. Please enter the code below or click the link in the email.
-                    </p>
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-2">
-                        <label htmlFor="token" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                            Verification Code
-                        </label>
-                        <input
-                            id="token"
-                            type="text"
-                            required
-                            placeholder="Enter your verification token"
-                            value={token}
-                            onChange={(e) => setToken(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg text-sm font-medium bg-secondary/50 border border-border focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        disabled={isLoading || !token}
-                        className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold py-3 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                        {isLoading ? (
-                            <Loader2 className="h-4 w-4 animate-spin" />
-                        ) : (
-                            'Verify Email'
-                        )}
-                    </button>
-                </form>
-
-                <div className="mt-8 text-center">
-                    <p className="text-sm text-muted-foreground">
-                        Didn't receive the email? Check your spam folder or{' '}
-                        <button className="text-primary font-medium hover:underline">resend</button>
-                    </p>
-                    <div className="mt-6 pt-6 border-t border-border">
-                        <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors flex items-center justify-center gap-2">
-                            Back to sign in
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <>
+        <h1 className="placard text-4xl">{t.auth.verifiedTitle}</h1>
+        <p className="mt-3 text-ink-2">{t.auth.verifiedBody}</p>
+        <Link href="/login" className={`${buttonClass.primary} mt-8 w-full`}>
+          {t.auth.toLogin}
+        </Link>
+      </>
     );
+  }
+
+  return (
+    <>
+      <h1 className="placard text-4xl">{state === 'failed' ? t.auth.verifyFailedTitle : t.auth.checkTitle}</h1>
+      <p className="mt-3 text-ink-2">
+        {state === 'failed' ? t.auth.verifyFailedBody : fill(t.auth.checkBody, { email: email || '…' })}
+      </p>
+
+      <form onSubmit={resend} className="mt-8 space-y-4">
+        <Field label={t.auth.email}>
+          {(id) => (
+            <input id={id} type="email" required autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className={inputClass} />
+          )}
+        </Field>
+        <button type="submit" className={`${buttonClass.secondary} w-full`}>
+          {t.auth.resend}
+        </button>
+        {note && (
+          <p role="status" className="text-sm text-ink-2">
+            {note}
+          </p>
+        )}
+      </form>
+
+      <Link href="/login" className={`${buttonClass.primary} mt-6 w-full`}>
+        {t.auth.toLogin}
+      </Link>
+    </>
+  );
 }
 
 export default function VerifyPage() {
-    return (
-        <Suspense fallback={
-            <div className="min-h-screen flex items-center justify-center">
-                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            </div>
-        }>
-            <VerifyContent />
-        </Suspense>
-    );
+  return (
+    <Suspense>
+      <Verify />
+    </Suspense>
+  );
 }

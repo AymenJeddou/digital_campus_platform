@@ -1,46 +1,52 @@
-import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
-import "./globals.css";
-import { Toaster } from "sonner";
-import { ThemeProvider } from "@/components/theme-provider";
+import type { Metadata, Viewport } from 'next';
+import { Lalezar, Rubik } from 'next/font/google';
+import { cookies } from 'next/headers';
+import { ThemeProvider } from 'next-themes';
+import { Toaster } from 'sonner';
+import { LocaleProvider } from '@/lib/i18n';
+import { LOCALE_COOKIE } from '@/lib/session';
+import type { Locale } from '@/lib/dictionary';
+import './globals.css';
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  display: "swap",
-});
+// Rubik (UI) and Lalezar (hand-painted signage) both cover Arabic and Latin,
+// so French and Arabic share one voice.
+const rubik = Rubik({ variable: '--font-rubik', subsets: ['latin', 'arabic'], display: 'swap' });
+const lalezar = Lalezar({ variable: '--font-lalezar', subsets: ['latin', 'arabic'], weight: '400', display: 'swap' });
 
 export const metadata: Metadata = {
-  title: "Digital Campus Admin Blueprint",
-  description: "Calm, academic dashboard for the digital campus platform.",
+  title: { default: 'FSB Nexus', template: '%s · FSB Nexus' },
+  description:
+    'Pose tes questions sur la Faculté des Sciences de Bizerte : admissions, cours, démarches. Réponses sourcées depuis les documents officiels.',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f4f4f1' },
+    { media: '(prefers-color-scheme: dark)', color: '#111215' },
+  ],
+};
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale: Locale = (await cookies()).get(LOCALE_COOKIE)?.value === 'ar' ? 'ar' : 'fr';
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={locale === 'ar' ? 'rtl' : 'ltr'}
       suppressHydrationWarning
-      className={`${inter.variable} ${jakarta.variable} h-full antialiased`}
+      className={`${rubik.variable} ${lalezar.variable}`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground transition-colors duration-300">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-          <Toaster position="top-right" richColors />
+      <body className="min-h-dvh bg-ground text-ink">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <LocaleProvider locale={locale}>
+            {children}
+            <Toaster
+              position={locale === 'ar' ? 'top-left' : 'top-right'}
+              dir={locale === 'ar' ? 'rtl' : 'ltr'}
+              toastOptions={{
+                style: { background: 'var(--surface)', color: 'var(--ink)', border: '1px solid var(--line)' },
+              }}
+            />
+          </LocaleProvider>
         </ThemeProvider>
       </body>
     </html>

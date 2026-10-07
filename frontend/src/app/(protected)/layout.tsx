@@ -1,161 +1,209 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import Sidebar from '@/components/layout/Sidebar';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Bell, LogOut, Search } from 'lucide-react';
-import { getToken, removeToken } from '@/lib/auth';
-import { profileService, ProfileResponse } from '@/lib/services/profile';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { Bell, BookOpenText, CalendarDays, Home, LogOut, MessageSquareText, ShieldCheck, UserRound } from 'lucide-react';
+import { Mark } from '@/components/Placard';
+import { LocaleToggle, ThemeToggle, buttonClass } from '@/components/ui';
+import { api } from '@/lib/api';
+import { formatDate, useLocale, useT } from '@/lib/i18n';
+import { ProfileProvider, useProfile } from '@/lib/profile';
+import type { Notification } from '@/lib/types';
 
-const STATUS_LABELS: Record<string, string> = {
-  prospective: 'Futur étudiant',
-  enrolled: 'Étudiant inscrit',
-  admin: 'Administration',
-};
-
-function initials(name?: string | null, email?: string): string {
-  if (name) {
-    return name
-      .split(' ')
-      .map((p) => p[0])
-      .join('')
-      .substring(0, 2)
-      .toUpperCase();
-  }
-  if (email) return email.substring(0, 2).toUpperCase();
-  return 'U';
+export default function ProtectedLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <ProfileProvider>
+      <Shell>{children}</Shell>
+    </ProfileProvider>
+  );
 }
 
-const pageTitles: Record<string, { title: string; subtitle: string }> = {
-  '/dashboard': { title: 'Dashboard', subtitle: 'Overview of your academic journey' },
-  '/chat': { title: 'AI Assistant', subtitle: 'Get personalized academic support' },
-  '/courses': { title: 'My Courses', subtitle: 'Bring in your courses and ask about them' },
-  '/profile': { title: 'Profile Settings', subtitle: 'Manage your account and preferences' },
-};
-
-export default function ProtectedLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const router = useRouter();
+function Shell({ children }: { children: React.ReactNode }) {
+  const t = useT();
   const pathname = usePathname();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [profile, setProfile] = useState<ProfileResponse | null>(null);
+  const router = useRouter();
+  const { profile } = useProfile();
 
+  // A new account answers the onboarding questions once before anything else.
   useEffect(() => {
-    // Guard every protected route: no token -> bounce to /login.
-    const token = getToken();
-    if (!token) {
-      router.replace('/login');
-      return;
-    }
-    setIsAuthenticated(true);
-    profileService
-      .getProfile()
-      .then((p) => {
-        setProfile(p);
-        // Gate: a new user must finish onboarding once before using the app.
-        if (!p.onboarding_completed && pathname !== '/onboarding') {
-          router.replace('/onboarding');
-        }
-      })
-      .catch(() => {});
-  }, [router, pathname]);
+    if (profile && !profile.onboarding_completed && pathname !== '/onboarding') router.replace('/onboarding');
+  }, [profile, pathname, router]);
 
-  const handleLogout = () => {
-    removeToken();
+  const nav = [
+    { href: '/dashboard', label: t.nav.dashboard, icon: Home },
+    { href: '/chat', label: t.nav.chat, icon: MessageSquareText },
+    { href: '/courses', label: t.nav.courses, icon: BookOpenText },
+    { href: '/profile', label: t.nav.profile, icon: UserRound },
+    ...(profile?.role === 'admin' ? [{ href: '/admin', label: t.nav.admin, icon: ShieldCheck }] : []),
+  ];
+
+  const signOut = async () => {
+    await api('auth/logout', { method: 'POST' }).catch(() => {});
     router.replace('/login');
+    router.refresh();
   };
 
-  if (!isAuthenticated) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-background">
-        <div className="flex flex-col items-center gap-4">
-          <div className="h-10 w-10 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
-          <p className="text-sm text-muted-foreground font-medium">Loading your campus...</p>
-        </div>
-      </div>
-    );
-  }
-
-  const page = pageTitles[pathname] ?? { title: 'Digital Campus', subtitle: '' };
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const notifications = useNotifications();
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
-      <Sidebar />
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <header className="sticky top-0 z-20 flex h-20 flex-shrink-0 items-center justify-between border-b border-[color:var(--border)]/70 bg-[color:var(--background)]/95 px-6 backdrop-blur-xl sm:px-8">
-          <div className="flex items-center gap-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2 text-sm font-medium text-[#1d4ed8] shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-[#2563eb]" />
-              <span>Faculty of Digital Systems</span>
-            </div>
-            <div className="hidden lg:block">
-              <h1 className="text-sm font-semibold tracking-tight text-[#0f172a]">{page.title}</h1>
-              {page.subtitle && <p className="text-xs text-slate-500">{page.subtitle}</p>}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 sm:gap-4">
-            <label className="hidden md:flex min-w-[340px] items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 shadow-sm">
-              <Search className="h-4 w-4 text-slate-400" />
-              <input
-                aria-label="Search dashboard"
-                placeholder="Search courses, documents, or faculty"
-                className="w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
-              />
-            </label>
-
-            <button className="relative flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-colors hover:border-blue-200 hover:text-[#1d4ed8]">
-              <Bell className="h-5 w-5" />
-              <span className="absolute right-3 top-3 h-2.5 w-2.5 rounded-full border-2 border-white bg-[#2563eb]" />
-            </button>
-
-            <div className="hidden items-center gap-3 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm lg:flex">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#eff6ff] text-sm font-semibold text-[#1d4ed8]">
-                {initials(profile?.full_name, profile?.email)}
-              </div>
-              <div className="pr-2">
-                <p className="text-sm font-semibold text-[#0f172a]">
-                  {profile?.full_name || profile?.email?.split('@')[0] || 'Étudiant'}
-                </p>
-                <p className="text-xs text-slate-500">
-                  {profile?.student_status
-                    ? STATUS_LABELS[profile.student_status] ?? profile.student_status
-                    : 'Compte'}
-                </p>
-              </div>
-            </div>
-
-            <button
-              onClick={handleLogout}
-              aria-label="Se déconnecter"
-              title="Se déconnecter"
-              className="relative flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-colors hover:border-blue-200 hover:text-[#1d4ed8]"
+    <div className="flex min-h-dvh flex-col lg:h-dvh lg:flex-row">
+      {/* Desktop rail */}
+      <aside className="hidden w-60 shrink-0 flex-col border-e border-line bg-surface lg:flex">
+        <div className="band" />
+        <div className="flex items-center justify-between px-5 pt-5 pb-6">
+          <Mark href="/dashboard" />
+          <Notifications id="notifications-rail" {...notifications} />
+        </div>
+        <nav aria-label={t.nav.menu} className="flex-1 space-y-1 px-3">
+          {nav.map(({ href, label, icon: Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              aria-current={isActive(href) ? 'page' : undefined}
+              className={`relative flex min-h-11 items-center gap-3 rounded-md px-3 text-[15px] transition-colors ${
+                isActive(href) ? 'bg-sunken font-semibold text-ink' : 'text-ink-2 hover:bg-sunken hover:text-ink'
+              }`}
             >
-              <LogOut className="h-5 w-5" />
+              {isActive(href) && <span aria-hidden className="absolute inset-y-2 start-0 w-[3px] rounded-full bg-red" />}
+              <Icon className="h-[18px] w-[18px]" aria-hidden />
+              {label}
+            </Link>
+          ))}
+        </nav>
+        <div className="border-t border-line p-3">
+          {profile && (
+            <p className="truncate px-2 pb-2 text-sm font-medium" title={profile.email}>
+              {profile.full_name || profile.email}
+            </p>
+          )}
+          <div className="flex items-center gap-1">
+            <LocaleToggle />
+            <ThemeToggle />
+            <button type="button" onClick={signOut} aria-label={t.common.signOut} title={t.common.signOut} className={`${buttonClass.ghost} ms-auto w-10 px-0`}>
+              <LogOut className="h-[18px] w-[18px] rtl:-scale-x-100" />
             </button>
           </div>
-        </header>
+        </div>
+      </aside>
 
-        {/* Page content */}
-        <main className="flex-1 overflow-y-auto bg-[var(--background)]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={pathname}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
-              className="mx-auto h-full w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8"
-            >
-              {children}
-            </motion.div>
-          </AnimatePresence>
-        </main>
-      </div>
+      {/* Mobile top bar */}
+      <header className="sticky top-0 z-30 border-b border-line bg-surface lg:hidden">
+        <div className="band" />
+        <div className="flex h-14 items-center justify-between px-3">
+          <Mark href="/dashboard" compact />
+          <div className="flex items-center gap-0.5">
+            <LocaleToggle />
+            <ThemeToggle />
+            <Notifications id="notifications-bar" {...notifications} />
+            <button type="button" onClick={signOut} aria-label={t.common.signOut} className={`${buttonClass.ghost} w-10 px-0`}>
+              <LogOut className="h-[18px] w-[18px] rtl:-scale-x-100" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main id="main" className="flex min-h-0 flex-1 flex-col pb-16 lg:overflow-y-auto lg:pb-0">
+        {children}
+      </main>
+
+      {/* Mobile tab bar */}
+      <nav aria-label={t.nav.menu} className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] lg:hidden">
+        <ul className="flex">
+          {nav.map(({ href, label, icon: Icon }) => (
+            <li key={href} className="flex-1">
+              <Link
+                href={href}
+                aria-current={isActive(href) ? 'page' : undefined}
+                className={`flex min-h-14 flex-col items-center justify-center gap-0.5 text-[11px] ${
+                  isActive(href) ? 'font-semibold text-red-ink' : 'text-ink-3'
+                }`}
+              >
+                <Icon className="h-5 w-5" aria-hidden />
+                {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
+  );
+}
+
+const SEEN_KEY = 'fsb:seen-notifications';
+
+function useNotifications() {
+  const [items, setItems] = useState<Notification[]>([]);
+  const [unseen, setUnseen] = useState(0);
+
+  useEffect(() => {
+    api<Notification[]>('notifications')
+      .then((list) => {
+        setItems(list);
+        let seen: string[] = [];
+        try {
+          seen = JSON.parse(localStorage.getItem(SEEN_KEY) ?? '[]');
+        } catch {}
+        setUnseen(list.filter((n) => !seen.includes(n.id)).length);
+      })
+      .catch(() => {});
+  }, []);
+
+  const markSeen = () => {
+    try {
+      localStorage.setItem(SEEN_KEY, JSON.stringify(items.map((n) => n.id)));
+    } catch {}
+    setUnseen(0);
+  };
+  return { items, unseen, markSeen };
+}
+
+/** Classroom due dates and calendar dates for the next two weeks, in a native
+ * popover (light-dismiss and Esc for free). */
+function Notifications({ id, items, unseen, markSeen }: { id: string } & ReturnType<typeof useNotifications>) {
+  const t = useT();
+  const locale = useLocale();
+  return (
+    <>
+      <button
+        type="button"
+        popoverTarget={id}
+        aria-label={`${t.nav.notifications}${unseen ? ` (${unseen})` : ''}`}
+        className={`${buttonClass.ghost} relative w-10 px-0`}
+      >
+        <Bell className="h-[18px] w-[18px]" />
+        {unseen > 0 && (
+          <span aria-hidden className="absolute top-1.5 end-1.5 min-w-4 rounded-full bg-red px-1 text-[10px] leading-4 font-semibold text-on-red">
+            {unseen}
+          </span>
+        )}
+      </button>
+      <div
+        id={id}
+        popover="auto"
+        onToggle={(e) => e.newState === 'open' && markSeen()}
+        className="fixed inset-x-3 top-16 m-0 ms-auto max-h-[70dvh] w-auto overflow-y-auto rounded-lg border border-line bg-surface p-0 text-ink shadow-[0_18px_40px_-16px_rgb(0_0_0/0.4)] sm:inset-x-auto sm:end-4 sm:w-[22rem] lg:start-[15.5rem] lg:end-auto lg:top-6"
+      >
+        <p className="border-b border-line px-4 py-3 text-sm font-semibold">{t.nav.notifications}</p>
+        {items.length === 0 ? (
+          <p className="px-4 py-6 text-sm text-ink-3">{t.nav.noNotifications}</p>
+        ) : (
+          <ul className="divide-y divide-line">
+            {items.map((n) => (
+              <li key={n.id} className="flex gap-3 px-4 py-3">
+                <CalendarDays className={`mt-0.5 h-4 w-4 shrink-0 ${n.kind === 'deadline' ? 'text-red' : 'text-amber'}`} aria-hidden />
+                <div className="min-w-0 text-sm">
+                  <p className="font-medium">{n.title}</p>
+                  <p className="text-ink-3">
+                    {n.kind === 'deadline' ? t.nav.deadline : t.nav.calendar} · {formatDate(n.date, locale, n.kind === 'deadline')} · {n.detail}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </>
   );
 }
