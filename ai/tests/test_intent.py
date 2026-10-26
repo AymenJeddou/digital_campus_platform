@@ -18,6 +18,10 @@ def test_real_questions_go_to_rag():
     assert classify_intent("") == FACTUAL
     assert classify_intent("bonjour, quelles licences propose la FSB ?") == FACTUAL
     assert classify_intent("merci, et pour le master ?") == FACTUAL
+    assert classify_intent("السلام عليكم، ما هي شروط التسجيل في الماجستير؟") == FACTUAL
+    assert classify_intent("Comment ça marche la réinscription en L3 ?") == FACTUAL
+    assert classify_intent("Salut, qui es-tu exactement ?") == META
+    assert classify_intent("السلام عليكم ورحمة الله") == GREETING
 
 
 def test_administrative_vocabulary():
