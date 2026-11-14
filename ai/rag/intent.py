@@ -40,7 +40,11 @@ _GREETING_RE = re.compile(
     r"[\s!.,]*(ca va|comment vas[ -]?tu|comment allez[ -]?vous|ca roule)?[\s!?.,]*$"
 )
 
-_ARABIC_GREETING_RE = re.compile(r"^(السلام|سلام|مرحبا|أهلا|اهلا|صباح|مساء)")
+# Anchored like the French one: "السلام عليكم، ما هي شروط التسجيل؟" is a real question.
+_ARABIC_GREETING_RE = re.compile(
+    r"^(السلام عليكم|السلام|سلام|مرحبا|أهلا|اهلا|صباح الخير|مساء الخير)"
+    r"( ورحمة الله( وبركاته)?)?[\s!.,،؟?]*$"
+)
 
 _THANKS_RE = re.compile(
     r"^(merci|merci beaucoup|thanks|thank you|thx|choukran|chokran|شكرا|بارك الله)"
@@ -71,6 +75,10 @@ _META_PATTERNS = (
 )
 
 
+_FILLER = {"bonjour", "bonsoir", "salut", "hello", "hi", "hey", "stp", "svp", "please", "alors",
+           "et", "donc", "dis", "moi", "exactement", "au", "juste", "مرحبا", "السلام", "عليكم"}
+
+
 def classify_intent(message: str) -> str:
     """Return the conversational intent of a message.
 
@@ -83,9 +91,14 @@ def classify_intent(message: str) -> str:
     raw = message.strip()
     norm = _normalize(raw)
 
-    # Meta first: capability questions can contain a greeting word.
-    if any(p in norm for p in _META_PATTERNS):
-        return META
+    # Meta first: capability questions can contain a greeting word. The pattern must be
+    # the whole message (give or take greetings), so "comment ça marche l'inscription ?"
+    # still reaches the RAG path.
+    for p in _META_PATTERNS:
+        if p in norm:
+            rest = re.sub(r"[^\w]+", " ", norm.replace(p, " ", 1)).split()
+            if all(w in _FILLER for w in rest):
+                return META
     if _THANKS_RE.match(norm):
         return THANKS
     if _GREETING_RE.match(norm) or _ARABIC_GREETING_RE.match(raw):
